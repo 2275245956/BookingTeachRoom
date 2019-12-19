@@ -36,7 +36,7 @@ class _CustomSettingPageState extends State<CustomSettingPage>{
         leading:new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
       ),
@@ -140,7 +140,7 @@ class _CustomSettingPageState extends State<CustomSettingPage>{
                     Container(
                         decoration: new BoxDecoration(
                           borderRadius: new BorderRadius.all(Radius.circular(4)),
-                          color: GetConfig.getColor(theme),
+                          color: Color.fromRGBO(209, 6, 24, 1),
                         ),
                         width: 144,
                         margin: EdgeInsets.only(left: 10),

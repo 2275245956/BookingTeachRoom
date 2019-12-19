@@ -58,7 +58,7 @@ class _HiddenDangerProcessedRectificationMeasuresShow extends State<HiddenDanger
             leading:new Container(
               child: GestureDetector(
                 //  onTap: () => Navigator.pop(context),
-                child:Icon(Icons.save,color:Color.fromRGBO(50, 89, 206, 1),size: 20,),//Image.asset("assets/images/search_"+theme+".png",width: 20,color: GetConfig.getColor(theme)),
+                child:Icon(Icons.save,color:Color.fromRGBO(50, 89, 206, 1),size: 20,),//Image.asset("assets/images/search_"+theme+".png",width: 20,color: Color.fromRGBO(209, 6, 24, 1)),
               ),
             ),
           )
@@ -78,7 +78,7 @@ class _HiddenDangerProcessedRectificationMeasuresShow extends State<HiddenDanger
         leading:new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child:Icon(Icons.keyboard_arrow_left, color:Color.fromRGBO(50, 89, 206, 1) /*GetConfig.getColor(theme)*/, size: 32),
+            child:Icon(Icons.keyboard_arrow_left, color:Color.fromRGBO(50, 89, 206, 1) /*Color.fromRGBO(209, 6, 24, 1)*/, size: 32),
           ),
         ),
       ),

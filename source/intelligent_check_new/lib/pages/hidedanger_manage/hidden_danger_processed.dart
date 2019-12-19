@@ -161,7 +161,7 @@ Widget build(BuildContext context) {
           onTap:() =>  Navigator.of(context).pushAndRemoveUntil(
               new MaterialPageRoute(builder: (context) => NavigationKeepAlive()),
                   (route) => route == null),
-          child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+          child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
         ),
       ),
       actions: <Widget>[
@@ -421,7 +421,7 @@ Widget buildInnerListHeaderDropdownMenu() {
                                             ),
                                             Expanded(
                                               child:  Container(
-                                                  child: Icon(Icons.keyboard_arrow_right,color:  GetConfig.getColor(theme),),
+                                                  child: Icon(Icons.keyboard_arrow_right,color:  Color.fromRGBO(209, 6, 24, 1),),
                                                   alignment: Alignment.centerRight
                                               ),
                                               flex: 1,

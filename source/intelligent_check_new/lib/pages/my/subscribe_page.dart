@@ -36,7 +36,7 @@ class _SubscribePageState extends State<SubscribePage> {
 
 //  List<NameValue> selectedRoutes = List();
   bool isAnimating = false;
-  String theme = "blue";
+  String theme = "red";
 
   @override
   void initState() {
@@ -104,7 +104,7 @@ class _SubscribePageState extends State<SubscribePage> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Icon(Icons.keyboard_arrow_left,
-                  color: GetConfig.getColor(theme), size: 32),
+                  color: Color.fromRGBO(209, 6, 24, 1), size: 32),
             ),
           ),
           //backgroundColor: KColorConstant.floorTitleColor,
@@ -127,7 +127,7 @@ class _SubscribePageState extends State<SubscribePage> {
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios,
-              color: GetConfig.getColor(theme),
+              color: Color.fromRGBO(209, 6, 24, 1),
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -148,7 +148,7 @@ class _SubscribePageState extends State<SubscribePage> {
               child: Text(
                 "保存",
                 style:
-                    TextStyle(color: GetConfig.getColor(theme), fontSize: 18),
+                    TextStyle(color: Color.fromRGBO(209, 6, 24, 1), fontSize: 18),
               ),
               onTap: () {
                 if (isSavedPressed) {
@@ -529,7 +529,7 @@ class _SubscribePageState extends State<SubscribePage> {
 //                        height: 32.0,
 //                        child: new Icon(
 //                          Icons.arrow_forward_ios,
-//                          color: GetConfig.getColor(theme),
+//                          color: Color.fromRGBO(209, 6, 24, 1),
 //                        ))
 //                  ],
 //                ),

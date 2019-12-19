@@ -1,4 +1,4 @@
-package com.weipeng.intelligentchecknew.weihua;
+package com.weipeng.intelligentchecknew.xihangyuan;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

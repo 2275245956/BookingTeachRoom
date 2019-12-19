@@ -57,7 +57,7 @@ class _MessageDetailPageState extends State<MessageDetailPage>{
           leading: new Container(
             child: GestureDetector(
               onTap: () => Navigator.pop(context,this.widget.messageDetail.id),
-              child: Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+              child: Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
             ),
           ),
         ),

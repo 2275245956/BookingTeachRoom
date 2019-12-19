@@ -25,6 +25,6 @@ class KColorConstant {
 
   static const Color searchRecomendDividerColor = Color(0xFFdedede);
 
-  static const String DEFAULT_COLOR = "blue";
+  static const String DEFAULT_COLOR = "red";
 
 }

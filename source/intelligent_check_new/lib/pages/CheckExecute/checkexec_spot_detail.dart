@@ -98,7 +98,7 @@ class _CheckExecSpotDetail extends State<CheckExecSpotDetail>{
           leading:new Container(
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
-              child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+              child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
             ),
           ),
         ),
@@ -115,7 +115,7 @@ class _CheckExecSpotDetail extends State<CheckExecSpotDetail>{
         leading:new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
       ),
@@ -301,7 +301,7 @@ class _CheckExecSpotDetail extends State<CheckExecSpotDetail>{
                   Padding (padding: EdgeInsets.only(left: 140)),
                   Switch(
                     value: _switchSelected,//当前状态
-                    activeColor: GetConfig.getColor(theme),
+                    activeColor: Color.fromRGBO(209, 6, 24, 1),
                     onChanged:(value){
                       setState(() {
                         _switchSelected=value;
@@ -327,7 +327,7 @@ class _CheckExecSpotDetail extends State<CheckExecSpotDetail>{
                       child: Text("NFC发卡",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 16),),
                     ),
                     Padding (padding: EdgeInsets.only(left: 180)),
-                    new Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),size: 16,),
+                    new Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 16,),
                   ],
                 ),
                 onTap: (){
@@ -370,8 +370,8 @@ class _CheckExecSpotDetail extends State<CheckExecSpotDetail>{
                     ),
                   ),
 //                  Padding (padding: EdgeInsets.only(left: 163)),
-//                  new Icon(Icons.receipt,color: GetConfig.getColor(theme),size: 16,),
-//                  new Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),size: 16,),
+//                  new Icon(Icons.receipt,color: Color.fromRGBO(209, 6, 24, 1),size: 16,),
+//                  new Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 16,),
                 ],
               ),
               Divider(),

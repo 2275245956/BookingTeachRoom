@@ -10,34 +10,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 //void main() => runApp(MyApp());
 Color globalTheme;
 void main() async{
-//  await getConfig().then((config){
-//    String theme = config.firstWhere((f)=>f.name=="theme").attribute;
-//    if(theme == null || theme.isEmpty){
-//      theme= KColorConstant.DEFAULT_COLOR;
-//    }
-//    SharedPreferences.getInstance().then((pref){
-//      pref.setString("theme", theme);
-//      if(theme == "blue"){
-//        pref.setString("globalTheme", "blue");
-//      }else{
-//        pref.setString("globalTheme", "red");
-//      }
-//    });
-//  }).then((f){
-//    // 启动app
-//    runApp(MyApp());
-//  }).catchError((e){
-//    SharedPreferences.getInstance().then((pref){
-//      pref.setString("theme", KColorConstant.DEFAULT_COLOR);
-//      pref.setString("globalTheme", KColorConstant.DEFAULT_COLOR);
-//    }).then((f){
-//      runApp(MyApp());
-//    });
-//  });
 
   SharedPreferences.getInstance().then((pref){
-    pref.setString("theme", "blue");
-//    pref.setString("globalTheme", "blue");
+    pref.setString("theme", "red");
   }).then((v){
     runApp(MyApp());
   });
@@ -64,7 +39,7 @@ class _MyApp extends State<MyApp>{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '智能巡检',
+      title: '实验预约',
       theme: ThemeData(
         primarySwatch: globalTheme,
       ),

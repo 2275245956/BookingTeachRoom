@@ -71,7 +71,7 @@ class _OfflineModePageState extends State<OfflineModePage> {
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back_ios,
-                color:GetConfig.getColor(theme),
+                color:Color.fromRGBO(209, 6, 24, 1),
               ),
               onPressed: () {
                 Navigator.pop(context);
@@ -87,7 +87,7 @@ class _OfflineModePageState extends State<OfflineModePage> {
           centerTitle: true,
           actions: <Widget>[
             IconButton(
-              icon: new Icon(Icons.menu, color: GetConfig.getColor(theme)),
+              icon: new Icon(Icons.menu, color: Color.fromRGBO(209, 6, 24, 1)),
               onPressed: () {
                 Navigator.push(
                   context,

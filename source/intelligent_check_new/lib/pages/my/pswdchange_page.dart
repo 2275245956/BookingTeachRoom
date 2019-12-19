@@ -57,7 +57,7 @@ class _PswdChangePageState extends State<PswdChangePage> {
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios,
-              color:GetConfig.getColor(theme),
+              color:Color.fromRGBO(209, 6, 24, 1),
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -285,7 +285,7 @@ class _PswdChangePageState extends State<PswdChangePage> {
             Container(
               width: 170,
               height: 50,
-              color: GetConfig.getColor(theme),
+              color: Color.fromRGBO(209, 6, 24, 1),
               child: isSavedPressed?
               MaterialButton(
                 onPressed: () {

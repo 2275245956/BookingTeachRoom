@@ -26,7 +26,7 @@ class _SecurityRiskJudegmentDetail extends State<SecurityRiskJudegmentDetail>
   SecurityRiskListModel initData;
   bool isAnimating = false;
   SecurityRiskListModel initDataModel = new SecurityRiskListModel.fromParams();
-  String theme = "blue";
+  String theme = "red";
   bool isOverTime = false;
   bool isSubmit=false;
 
@@ -112,7 +112,7 @@ class _SecurityRiskJudegmentDetail extends State<SecurityRiskJudegmentDetail>
               return SecurityRiskJudegmentList();
             })),
             child: Icon(Icons.keyboard_arrow_left,
-                color: GetConfig.getColor(theme), size: 32),
+                color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
         actions: <Widget>[

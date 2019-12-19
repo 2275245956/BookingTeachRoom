@@ -38,7 +38,7 @@ class _SecurityRiskJudegmentTable extends State<SecurityRiskJudegmentTable> {
 
   List<File> imageList;
   List<SecurityRiskItem> items = new List();
-  String theme = "blue";
+  String theme = "red";
 
   Map<String, TextEditingController> _controllers = new Map();
 
@@ -537,7 +537,7 @@ class _SecurityRiskJudegmentTable extends State<SecurityRiskJudegmentTable> {
 //            },
             child: Icon(Icons.keyboard_arrow_left,
                 color: Color.fromRGBO(
-                    50, 89, 206, 1) /*GetConfig.getColor(theme)*/,
+                    50, 89, 206, 1) /*Color.fromRGBO(209, 6, 24, 1)*/,
                 size: 32),
           ),
         ),

@@ -68,7 +68,7 @@ class _FilterPageState extends State<FilterPage>{
         leading:new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
       ),
@@ -177,7 +177,7 @@ class _FilterPageState extends State<FilterPage>{
                             ),
                             Container(
                               alignment: Alignment.centerRight,
-                              child:  Icon(Icons.keyboard_arrow_down,size: 14,color: GetConfig.getColor(theme),),
+                              child:  Icon(Icons.keyboard_arrow_down,size: 14,color: Color.fromRGBO(209, 6, 24, 1),),
                             )
                           ],
                         ),
@@ -229,7 +229,7 @@ class _FilterPageState extends State<FilterPage>{
                             ),
                             Container(
                               alignment: Alignment.centerRight,
-                              child:  Icon(Icons.keyboard_arrow_right,size: 14,color: GetConfig.getColor(theme),),
+                              child:  Icon(Icons.keyboard_arrow_right,size: 14,color: Color.fromRGBO(209, 6, 24, 1),),
                             )
                           ],
                         ),
@@ -268,7 +268,7 @@ class _FilterPageState extends State<FilterPage>{
                             ),
                             Container(
                               alignment: Alignment.centerRight,
-                              child:  Icon(Icons.keyboard_arrow_right,size: 14,color: GetConfig.getColor(theme),),
+                              child:  Icon(Icons.keyboard_arrow_right,size: 14,color: Color.fromRGBO(209, 6, 24, 1),),
                             )
                           ],
                         ),
@@ -317,7 +317,7 @@ class _FilterPageState extends State<FilterPage>{
             ),
             Container(
               width: 160,
-              color: GetConfig.getColor(theme),
+              color: Color.fromRGBO(209, 6, 24, 1),
               child: MaterialButton(
                 onPressed: () {
                   PlanListInput filter=new PlanListInput();

@@ -53,7 +53,7 @@ class _MessageListPageState extends State<MessageListPage>{
         leading: new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context,"return"),
-            child: Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child: Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
       ),
@@ -187,7 +187,7 @@ class _MessageListPageState extends State<MessageListPage>{
                                                         Expanded(
                                                           flex: 1,
                                                           child:   Container(
-                                                            child: Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),),
+                                                            child: Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),),
                                                             alignment: Alignment.centerRight,
                                                           ),
                                                         ),

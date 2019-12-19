@@ -33,7 +33,7 @@ class _ActivilityRunLog extends State<ActivilityRunLog> {
               onTap: () => Navigator.pop(context),
               child: Icon(Icons.keyboard_arrow_left,
                   color: Color.fromRGBO(
-                      50, 89, 206, 1) /*GetConfig.getColor(theme)*/,
+                      50, 89, 206, 1) /*Color.fromRGBO(209, 6, 24, 1)*/,
                   size: 32),
             ),
           ),
@@ -57,7 +57,7 @@ class _ActivilityRunLog extends State<ActivilityRunLog> {
             onTap: () => Navigator.pop(context),
             child: Icon(Icons.keyboard_arrow_left,
                 color: Color.fromRGBO(
-                    50, 89, 206, 1) /*GetConfig.getColor(theme)*/,
+                    50, 89, 206, 1) /*Color.fromRGBO(209, 6, 24, 1)*/,
                 size: 32),
           ),
         ),

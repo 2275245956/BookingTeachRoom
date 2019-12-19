@@ -325,7 +325,7 @@ class MyBar extends StatelessWidget {
                             ),
                             new Icon(
                               Icons.keyboard_arrow_right,
-                              color: GetConfig.getColor(theme),
+                              color: Color.fromRGBO(209, 6, 24, 1),
                               size: 25,
                             ),
                           ],

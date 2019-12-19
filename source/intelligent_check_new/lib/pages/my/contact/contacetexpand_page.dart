@@ -60,7 +60,7 @@ class _ContactExapandPageState extends State<ContactExapandPage> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Icon(Icons.keyboard_arrow_left,
-                  color: GetConfig.getColor(theme), size: 32),
+                  color: Color.fromRGBO(209, 6, 24, 1), size: 32),
             ),
           ),
           title: new  Container(
@@ -182,7 +182,7 @@ class _ContactExapandPageState extends State<ContactExapandPage> {
                   TouchCallBack(
                     child: Text(
                       companyName== null?"": companyName+"/",
-                      style: TextStyle(color: GetConfig.getColor(theme)),
+                      style: TextStyle(color: Color.fromRGBO(209, 6, 24, 1)),
                     ),
                     onPressed: () {
                       Navigator.pop(context);

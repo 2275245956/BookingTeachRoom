@@ -168,7 +168,7 @@ class _GlobalSearch extends State<GlobalSearch> with SingleTickerProviderStateMi
         leading:new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child:Icon(Icons.keyboard_arrow_left, color:GetConfig.getColor(theme), size: 32),
+            child:Icon(Icons.keyboard_arrow_left, color:Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
         title:new  Container(
@@ -380,7 +380,7 @@ class _GlobalSearch extends State<GlobalSearch> with SingleTickerProviderStateMi
                             Container(
                                 width: 50,
 //                                                          height: 140,
-                                child: Icon(Icons.keyboard_arrow_right,color:  GetConfig.getColor(theme),),
+                                child: Icon(Icons.keyboard_arrow_right,color:  Color.fromRGBO(209, 6, 24, 1),),
                                 alignment: Alignment.centerRight
                             ),
                           ],

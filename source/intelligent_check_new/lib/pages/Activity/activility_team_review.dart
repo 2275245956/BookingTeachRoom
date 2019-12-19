@@ -25,7 +25,7 @@ class _ActivilityTeamReview extends State<ActivilityTeamReview> {
   bool get wantKeepAlive => true;
   bool isAnimating = false;
   bool canOperate = true;
-  String theme = "blue";
+  String theme = "red";
   ActivilityModel initData;
   TextEditingController _suggestion = new TextEditingController();
 
@@ -129,7 +129,7 @@ class _ActivilityTeamReview extends State<ActivilityTeamReview> {
               },
               child: Icon(Icons.keyboard_arrow_left,
                   color: Color.fromRGBO(
-                      50, 89, 206, 1) /*GetConfig.getColor(theme)*/,
+                      50, 89, 206, 1) /*Color.fromRGBO(209, 6, 24, 1)*/,
                   size: 32),
             ),
           ),

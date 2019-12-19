@@ -22,7 +22,7 @@ class _ActivilityStepsFinished extends State<ActivilityStepsFinished> {
   String strRouts = "";
   String strClassify = "";
   String permissionList = "";
-  String theme = "blue";
+  String theme = "red";
   List<StepModel> steps;
 
   @override
@@ -62,7 +62,7 @@ class _ActivilityStepsFinished extends State<ActivilityStepsFinished> {
             leading:new Container(
               child: GestureDetector(
                 onTap: () => Navigator.pop(context),
-                child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+                child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
               ),
             ),
           ),
@@ -90,7 +90,7 @@ class _ActivilityStepsFinished extends State<ActivilityStepsFinished> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Icon(Icons.keyboard_arrow_left,
-                  color: GetConfig.getColor(theme), size: 32),
+                  color: Color.fromRGBO(209, 6, 24, 1), size: 32),
             ),
           ),
         ),
@@ -212,7 +212,7 @@ class _ActivilityStepsFinished extends State<ActivilityStepsFinished> {
                                     Expanded(
                                       child: new Icon(
                                         Icons.keyboard_arrow_right,
-                                        color: GetConfig.getColor(theme),
+                                        color: Color.fromRGBO(209, 6, 24, 1),
                                         size: 25,
                                       ),
                                       flex: 1,

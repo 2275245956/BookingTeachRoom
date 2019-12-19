@@ -138,7 +138,7 @@ class _PlanListScreenState extends State<PlanListScreen>
         leading:new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
         actions: <Widget>[
@@ -440,7 +440,7 @@ class _PlanListScreenState extends State<PlanListScreen>
                                                           Container(
                                                               width: 50,
 //                                                          height: 140,
-                                                              child: Icon(Icons.keyboard_arrow_right,color:  GetConfig.getColor(theme),),
+                                                              child: Icon(Icons.keyboard_arrow_right,color:  Color.fromRGBO(209, 6, 24, 1),),
                                                               alignment: Alignment.centerRight
                                                           ),
                                                         ],

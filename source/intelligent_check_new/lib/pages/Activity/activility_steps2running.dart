@@ -29,7 +29,7 @@ class _ActivilitySteps2Running extends State<ActivilitySteps2Running> {
   String strRouts = "";
   String strClassify = "";
   String permissionList = "";
-  String theme = "blue";
+  String theme = "red";
   bool isAnimating = false;
   bool canOperate = true;
   List<File> imageList;
@@ -107,7 +107,7 @@ class _ActivilitySteps2Running extends State<ActivilitySteps2Running> {
               child: GestureDetector(
                 onTap: () => Navigator.pop(context),
                 child: Icon(Icons.keyboard_arrow_left,
-                    color: GetConfig.getColor(theme), size: 32),
+                    color: Color.fromRGBO(209, 6, 24, 1), size: 32),
               ),
             ),
           ),
@@ -164,7 +164,7 @@ class _ActivilitySteps2Running extends State<ActivilitySteps2Running> {
               child: GestureDetector(
                 onTap: () => Navigator.pop(context),
                 child: Icon(Icons.keyboard_arrow_left,
-                    color: GetConfig.getColor(theme), size: 32),
+                    color: Color.fromRGBO(209, 6, 24, 1), size: 32),
               ),
             ),
           ),
@@ -279,7 +279,7 @@ class _ActivilitySteps2Running extends State<ActivilitySteps2Running> {
 //                                  Expanded(
 //                                    child: new Icon(
 //                                      Icons.keyboard_arrow_right,
-//                                      color: GetConfig.getColor(theme),
+//                                      color: Color.fromRGBO(209, 6, 24, 1),
 //                                      size: 25,
 //                                    ),
 //                                    flex: 1,

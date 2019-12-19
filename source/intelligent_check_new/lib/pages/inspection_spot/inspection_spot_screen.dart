@@ -183,7 +183,7 @@ class _InspectionSpotScreenState extends State<InspectionSpotScreen>
                           return new InspectionSpotSearchPage();
                         }));
                   },
-                  child:Image.asset("assets/images/search_"+theme+".png",width: 20,color: GetConfig.getColor(theme)),
+                  child:Image.asset("assets/images/search_"+theme+".png",width: 20,color: Color.fromRGBO(209, 6, 24, 1)),
                 ),
               )
           )
@@ -195,7 +195,7 @@ class _InspectionSpotScreenState extends State<InspectionSpotScreen>
         leading:new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
       ),
@@ -349,7 +349,7 @@ class _InspectionSpotScreenState extends State<InspectionSpotScreen>
                                             ),
                                             trailing: new Padding(
                                               child: new Icon(
-                                                Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),),
+                                                Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),),
                                               padding: EdgeInsets.only(top: 15),
                                             ),
                                             onTap: () {

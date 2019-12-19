@@ -176,7 +176,7 @@ class _MoveSpotAddState extends State<MoveSpotAdd> {
         leading: new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child: Icon(Icons.keyboard_arrow_left, color:  GetConfig.getColor(theme), size: 32),
+            child: Icon(Icons.keyboard_arrow_left, color:  Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
       ));
@@ -200,7 +200,7 @@ class _MoveSpotAddState extends State<MoveSpotAdd> {
             leading: new Container(
               child: GestureDetector(
                 onTap: () => Navigator.pop(context),
-                child: Icon(Icons.keyboard_arrow_left, color:  GetConfig.getColor(theme), size: 32),
+                child: Icon(Icons.keyboard_arrow_left, color:  Color.fromRGBO(209, 6, 24, 1), size: 32),
               ),
             ),
           ),
@@ -300,7 +300,7 @@ class _MoveSpotAddState extends State<MoveSpotAdd> {
                         children: <Widget>[
                           Radio(
                             groupValue: movePoint.offline,
-                            activeColor:  GetConfig.getColor(theme),
+                            activeColor:  Color.fromRGBO(209, 6, 24, 1),
                             value: true,
                             onChanged: (bool val) {
                               // val 与 value 的类型对应
@@ -312,7 +312,7 @@ class _MoveSpotAddState extends State<MoveSpotAdd> {
                           Text("允许"),
                           Radio(
                             groupValue: movePoint.offline,
-                            activeColor:  GetConfig.getColor(theme),
+                            activeColor:  Color.fromRGBO(209, 6, 24, 1),
                             value: false,
                             onChanged: (val) {
                               // val 与 value 的类型对应
@@ -368,7 +368,7 @@ class _MoveSpotAddState extends State<MoveSpotAdd> {
                                     ),
                                     Icon(
                                       Icons.keyboard_arrow_right,
-                                      color:  GetConfig.getColor(theme),
+                                      color:  Color.fromRGBO(209, 6, 24, 1),
                                     )
                                   ],
                                 ),
@@ -466,7 +466,7 @@ class _MoveSpotAddState extends State<MoveSpotAdd> {
                 Container(
                   width: 170,
                   height: 50,
-                  color:  GetConfig.getColor(theme),
+                  color:  Color.fromRGBO(209, 6, 24, 1),
                   child: MaterialButton(
                     onPressed: (){
                       if(isSaving){

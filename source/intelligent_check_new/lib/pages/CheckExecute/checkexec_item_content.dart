@@ -75,7 +75,7 @@ class _CheckExecItemContent extends State<CheckExecItemContent> {
         leading: new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child: Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child: Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
       ));
@@ -93,7 +93,7 @@ class _CheckExecItemContent extends State<CheckExecItemContent> {
         leading: new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child: Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child: Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
       ),
@@ -167,7 +167,7 @@ class _CheckExecItemContent extends State<CheckExecItemContent> {
 //                        ),
 //                        new Icon(
 //                          Icons.keyboard_arrow_right,
-//                          color: GetConfig.getColor(theme),
+//                          color: Color.fromRGBO(209, 6, 24, 1),
 //                          size: 20,
 //                        ),
 //                      ],
@@ -273,7 +273,7 @@ class _CheckExecItemContent extends State<CheckExecItemContent> {
                             ),
                             Icon(
                               Icons.keyboard_arrow_right,
-                              color: GetConfig.getColor(theme),
+                              color: Color.fromRGBO(209, 6, 24, 1),
                               size: 14,
                             )
                           ],
@@ -445,7 +445,7 @@ class _CheckExecItemContent extends State<CheckExecItemContent> {
                             ),
                             Icon(
                               Icons.keyboard_arrow_right,
-                              color: GetConfig.getColor(theme),
+                              color: Color.fromRGBO(209, 6, 24, 1),
                               size: 14,
                             )
                           ],

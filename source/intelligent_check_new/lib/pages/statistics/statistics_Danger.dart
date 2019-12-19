@@ -14,7 +14,7 @@ class _StatisticsDanger extends State<StatisticsDanger>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
-  String theme = "blue";
+  String theme = "red";
   bool isAnimating = false;
   DangerDetailModel iniData=DangerDetailModel.fromParams();
 

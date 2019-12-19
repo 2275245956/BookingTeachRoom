@@ -24,8 +24,8 @@ if (flutterVersionName == null) {
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 //
-def keystorePropertiesFile=rootProject.file("key.properties")
-def keystoreProperties=new Properties()
+def keystorePropertiesFile = rootProject.file("key.properties")
+def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
@@ -36,7 +36,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.weipeng.intelligentchecknew.weihua"
+        applicationId "com.weipeng.intelligentchecknew.xihangyuan"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 10
@@ -50,9 +50,10 @@ android {
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME : applicationId,
-                JPUSH_APPKEY : "c08d0eec0ae9a79f6e6c7f75", // NOTE: JPush 上注册的包名对应的 Appkey.
                 JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
-        ]
+                JPUSH_APPKEY : "3500f6a1262613c11690ea94",
+            ] // NOTE: JPush 上注册的包名对应的 Appkey.
+
     }
 
     signingConfigs {

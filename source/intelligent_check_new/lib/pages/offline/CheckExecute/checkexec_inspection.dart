@@ -387,7 +387,7 @@ class _CheckExecInspection extends State<CheckExecInspection>
                       child: Row(
                         children: <Widget>[
                           Text(classifySelected==null?"":classifySelected.name,style: TextStyle(color:Colors.black),),
-                          Icon(Icons.keyboard_arrow_down,color:GetConfig.getColor(theme))
+                          Icon(Icons.keyboard_arrow_down,color:Color.fromRGBO(209, 6, 24, 1))
                         ],
                       ),
                       onTap: (){
@@ -561,7 +561,7 @@ class _CheckExecInspection extends State<CheckExecInspection>
             commitClassifies[classifySelected.id.toString()]?
             Container(
               margin: const EdgeInsets.only(left: 15.0, right: 15.0,top: 5,bottom: 5),
-              color: GetConfig.getColor(theme),
+              color: Color.fromRGBO(209, 6, 24, 1),
               width: double.infinity,
               child: new MaterialButton(
                 onPressed: () {
@@ -577,7 +577,7 @@ class _CheckExecInspection extends State<CheckExecInspection>
             ):
             Container(
               margin: const EdgeInsets.only(left: 15.0, right: 15.0,top: 5,bottom: 5),
-              color: GetConfig.getColor(theme),
+              color: Color.fromRGBO(209, 6, 24, 1),
               width: double.infinity,
               child: new MaterialButton(
                 onPressed: () {

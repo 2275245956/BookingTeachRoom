@@ -89,12 +89,12 @@ class _TextView extends State<TextView>{
                   Navigator.pop(context,this._textEditingController.text);
                 }
               },
-            child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
         actions: <Widget>[
           (this.widget.readonly) ?  Container() : IconButton(
-            icon: Icon(Icons.save),color: GetConfig.getColor(theme),onPressed: (){
+            icon: Icon(Icons.save),color: Color.fromRGBO(209, 6, 24, 1),onPressed: (){
             Navigator.pop(context,this._textEditingController.text);
           },)
         ],

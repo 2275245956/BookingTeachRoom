@@ -73,11 +73,11 @@ class _CheckItemSetScreenState extends State<CheckItemSet>
         leading:new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.add,color: GetConfig.getColor(theme),),onPressed: (){
+          IconButton(icon: Icon(Icons.add,color: Color.fromRGBO(209, 6, 24, 1),),onPressed: (){
             Navigator.push( context,
                 new MaterialPageRoute(builder: (context) {
                   return new CheckItemList(this.selectedCheckItem);
@@ -86,7 +86,7 @@ class _CheckItemSetScreenState extends State<CheckItemSet>
               this.filterItems = this.selectedCheckItem;
             });
           },),
-          IconButton(icon: Icon(Icons.check,color: GetConfig.getColor(theme),),onPressed: (){
+          IconButton(icon: Icon(Icons.check,color: Color.fromRGBO(209, 6, 24, 1),),onPressed: (){
             Navigator.pop(context, this.selectedCheckItem);
           },)
         ],
@@ -137,7 +137,7 @@ class _CheckItemSetScreenState extends State<CheckItemSet>
                       child: ListTile(
                         title: new Text(f.name,style: new TextStyle(fontSize: 16.0,fontWeight: FontWeight.w500),),
                         trailing:GestureDetector(
-                          child: new Icon(Icons.close,color: GetConfig.getColor(theme),size: 16,),
+                          child: new Icon(Icons.close,color: Color.fromRGBO(209, 6, 24, 1),size: 16,),
                           onTap: (){
                             setState(() {
                               this.selectedCheckItem.remove(f);

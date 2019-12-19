@@ -116,7 +116,7 @@ class _InspectionSpotDetail extends State<InspectionSpotDetail>{
           leading:new Container(
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
-              child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+              child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
             ),
           ),
         ),
@@ -133,7 +133,7 @@ class _InspectionSpotDetail extends State<InspectionSpotDetail>{
         leading:new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
       ),
@@ -238,7 +238,7 @@ class _InspectionSpotDetail extends State<InspectionSpotDetail>{
                                       ),
 
                                       Expanded(
-                                        child: new Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),size: 30,),
+                                        child: new Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 30,),
                                         flex: 1,
                                       ),
                                     ],
@@ -296,7 +296,7 @@ class _InspectionSpotDetail extends State<InspectionSpotDetail>{
                                       flex: 1,
                                     ),
                                     Expanded(
-                                      child: new Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),size: 30,),
+                                      child: new Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 30,),
                                       flex: 1,
                                     ),
                                   ],
@@ -340,7 +340,7 @@ class _InspectionSpotDetail extends State<InspectionSpotDetail>{
 
                       Expanded(
                         child: GestureDetector(
-                          child: new Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),size: 32,),
+                          child: new Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 32,),
                           onTap: (){
                             Navigator.push(context,MaterialPageRoute(builder: (context){
                               return RecordListScreen(id: detail.pointId);
@@ -371,7 +371,7 @@ class _InspectionSpotDetail extends State<InspectionSpotDetail>{
 
                        child:  Switch(
                         value: _switchSelected,//当前状态
-                        activeColor: GetConfig.getColor(theme),
+                        activeColor: Color.fromRGBO(209, 6, 24, 1),
 
                         onChanged:(value){
                           setState(() {
@@ -405,7 +405,7 @@ class _InspectionSpotDetail extends State<InspectionSpotDetail>{
                       flex: 9,
                     ),
                     Expanded(
-                      child:   new Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),size: 30,),
+                      child:   new Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 30,),
                       flex: 1,
                     ),
                   ],

@@ -180,7 +180,7 @@ class _CheckExecInspection extends State<CheckExecInspection> with AutomaticKeep
             leading:new Container(
               child: GestureDetector(
                 onTap: () => Navigator.pop(context),
-                child:Icon(Icons.keyboard_arrow_left, color:GetConfig.getColor(theme), size: 32),
+                child:Icon(Icons.keyboard_arrow_left, color:Color.fromRGBO(209, 6, 24, 1), size: 32),
               ),
             ),
           )
@@ -200,7 +200,7 @@ class _CheckExecInspection extends State<CheckExecInspection> with AutomaticKeep
         leading:new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
         actions: <Widget>[
@@ -285,7 +285,7 @@ class _CheckExecInspection extends State<CheckExecInspection> with AutomaticKeep
                           child: Row(
                             children: <Widget>[
                               Text(classifySelected==null?"":classifySelected.name,style: TextStyle(color:Colors.black),),
-                              Icon(Icons.keyboard_arrow_down,color:GetConfig.getColor(theme))
+                              Icon(Icons.keyboard_arrow_down,color:Color.fromRGBO(209, 6, 24, 1))
                             ],
                           ),
                           onTap: (){
@@ -350,9 +350,9 @@ class _CheckExecInspection extends State<CheckExecInspection> with AutomaticKeep
 //                             ),
                                   Text("现场照片",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),
                                   Padding(padding: EdgeInsets.only(left: 220),),
-                                  //new Icon(Icons.photo_camera,color: GetConfig.getColor(theme),size: 20,),
+                                  //new Icon(Icons.photo_camera,color: Color.fromRGBO(209, 6, 24, 1),size: 20,),
                                   Image.asset("assets/images/icons/camera_"+theme+".png",height: 20,),//
-                                  new Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),size: 20,),
+                                  new Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 20,),
                                 ],
                               ),
                               onTap: (){
@@ -392,7 +392,7 @@ class _CheckExecInspection extends State<CheckExecInspection> with AutomaticKeep
                                   Text("备注说明",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),
                                   Padding(padding: EdgeInsets.only(left: 220),),
                                   Image.asset("assets/images/icons/message.png",height: 20,),
-                                  new Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),size: 20,),
+                                  new Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 20,),
                                 ],
                               ),
                             ]
@@ -420,7 +420,7 @@ class _CheckExecInspection extends State<CheckExecInspection> with AutomaticKeep
                 commitClassifies[classifySelected.id.toString()]?
                 Container(
                   margin: const EdgeInsets.only(left: 15.0, right: 15.0,top: 5,bottom: 5),
-                  color: GetConfig.getColor(theme),
+                  color: Color.fromRGBO(209, 6, 24, 1),
                   width: double.infinity,
                   child: new MaterialButton(
                     onPressed: () {
@@ -436,7 +436,7 @@ class _CheckExecInspection extends State<CheckExecInspection> with AutomaticKeep
                 ):
                 Container(
                   margin: const EdgeInsets.only(left: 15.0, right: 15.0,top: 5,bottom: 5),
-                  color: GetConfig.getColor(theme),
+                  color: Color.fromRGBO(209, 6, 24, 1),
                   width: double.infinity,
                   child: new MaterialButton(
                     onPressed: () {
@@ -495,7 +495,7 @@ class _CheckExecInspection extends State<CheckExecInspection> with AutomaticKeep
                       children: <Widget>[
                         //Icon(Icons.message,color: Colors.grey,size: 14,),
                         Image.asset("assets/images/icons/message.png",height: 14,),
-                        Icon(Icons.keyboard_arrow_right,color:GetConfig.getColor(theme),size: 14,)
+                        Icon(Icons.keyboard_arrow_right,color:Color.fromRGBO(209, 6, 24, 1),size: 14,)
                       ],
                     ),
                   ),
@@ -555,13 +555,13 @@ class _CheckExecInspection extends State<CheckExecInspection> with AutomaticKeep
                               Container(
                                 padding: EdgeInsets.only(bottom: 10),
                                 width: 40,
-                                child:Image.asset("assets/images/icons/camera_"+theme+".png",height: 14,),//Icon(Icons.camera_alt,color: GetConfig.getColor(theme),),
+                                child:Image.asset("assets/images/icons/camera_"+theme+".png",height: 14,),//Icon(Icons.camera_alt,color: Color.fromRGBO(209, 6, 24, 1),),
                                 alignment: Alignment.centerRight,
                               ),
                               Container(
                                 padding: EdgeInsets.only(bottom: 10),
                                 width: 10,
-                                child:Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),size: 14,),
+                                child:Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 14,),
                                 alignment: Alignment.centerRight,
                               ),
                             ],
@@ -647,7 +647,7 @@ class _CheckExecInspection extends State<CheckExecInspection> with AutomaticKeep
                   child: Row(
                     children: <Widget>[
                       Image.asset("assets/images/icons/message.png",height: 14,),
-                      Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),size: 14,)
+                      Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 14,)
                     ],
                   ),
                 ),
@@ -710,13 +710,13 @@ class _CheckExecInspection extends State<CheckExecInspection> with AutomaticKeep
                             Container(
                               padding: EdgeInsets.only(bottom: 10),
                               width: 40,
-                              child:Image.asset("assets/images/icons/camera_"+theme+".png",height: 14,),//Icon(Icons.camera_alt,color: GetConfig.getColor(theme),),
+                              child:Image.asset("assets/images/icons/camera_"+theme+".png",height: 14,),//Icon(Icons.camera_alt,color: Color.fromRGBO(209, 6, 24, 1),),
                               alignment: Alignment.centerRight,
                             ),
                             Container(
                               padding: EdgeInsets.only(bottom: 10),
                               width: 10,
-                              child:Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),size: 14,),
+                              child:Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 14,),
                               alignment: Alignment.centerRight,
                             ),
                           ],
@@ -813,7 +813,7 @@ class _CheckExecInspection extends State<CheckExecInspection> with AutomaticKeep
                   child: Row(
                     children: <Widget>[
                       Image.asset("assets/images/icons/message.png",height: 14,),
-                      Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),size: 14,)
+                      Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 14,)
                     ],
                   ),
                 ),
@@ -881,13 +881,13 @@ class _CheckExecInspection extends State<CheckExecInspection> with AutomaticKeep
                             Container(
                               padding: EdgeInsets.only(bottom: 10),
                               width: 40,
-                              child:Image.asset("assets/images/icons/camera_"+theme+".png",height: 14,),//Icon(Icons.camera_alt,color: GetConfig.getColor(theme),),
+                              child:Image.asset("assets/images/icons/camera_"+theme+".png",height: 14,),//Icon(Icons.camera_alt,color: Color.fromRGBO(209, 6, 24, 1),),
                               alignment: Alignment.centerRight,
                             ),
                             Container(
                               padding: EdgeInsets.only(bottom: 10),
                               width: 10,
-                              child:Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),size: 14,),
+                              child:Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 14,),
                               alignment: Alignment.centerRight,
                             ),
                           ],

@@ -174,7 +174,7 @@ class ImItem extends StatelessWidget {
               width: 30.0,
               height: 32.0,
               child: righticonPath != null&& righticonPath !=""
-                  ? Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),size: 20,)
+                  ? Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 20,)
                   : Container(),
             )
           ],

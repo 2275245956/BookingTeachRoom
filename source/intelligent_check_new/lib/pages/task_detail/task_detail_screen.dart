@@ -128,7 +128,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
           leading: new Container(
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
-              child: Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+              child: Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
             ),
           ),
         ),
@@ -148,7 +148,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
           leading: new Container(
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
-              child: Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+              child: Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
             ),
           ),
           actions: <Widget>[
@@ -157,7 +157,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
               icon: Text(
                 '取消',
                 style: new TextStyle(
-                  color: GetConfig.getColor(theme),
+                  color: Color.fromRGBO(209, 6, 24, 1),
                   fontWeight: FontWeight.bold,
                   fontSize: 16.0,
                 ),
@@ -600,7 +600,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                           Expanded(
                             child: new Icon(
                               Icons.chevron_right,
-                              color: GetConfig.getColor(theme),
+                              color: Color.fromRGBO(209, 6, 24, 1),
                             ),
                             flex: 1,
                           ),
@@ -637,7 +637,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                 return new FloatingActionButton(
                   child: Icon(
                     Icons.phone_android,
-                    color: GetConfig.getColor(theme),
+                    color: Color.fromRGBO(209, 6, 24, 1),
                   ),
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.white,

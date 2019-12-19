@@ -186,7 +186,7 @@ class _CheckExecInspectionList extends State<CheckExecInspectionList> with Autom
             leading:new Container(
               child: GestureDetector(
                 onTap: () => Navigator.pop(context),
-                child:Icon(Icons.keyboard_arrow_left, color:GetConfig.getColor(theme), size: 32),
+                child:Icon(Icons.keyboard_arrow_left, color:Color.fromRGBO(209, 6, 24, 1), size: 32),
               ),
             ),
           )
@@ -206,7 +206,7 @@ class _CheckExecInspectionList extends State<CheckExecInspectionList> with Autom
         leading:new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
         actions: <Widget>[
@@ -299,7 +299,7 @@ class _CheckExecInspectionList extends State<CheckExecInspectionList> with Autom
                                     alignment: Alignment.centerLeft,
                                   ),
                                   Container(
-                                    child: Icon(Icons.chevron_right,color: GetConfig.getColor(theme),),
+                                    child: Icon(Icons.chevron_right,color: Color.fromRGBO(209, 6, 24, 1),),
                                     alignment: Alignment.centerRight,
                                   ),
                                 ],
@@ -367,9 +367,9 @@ class _CheckExecInspectionList extends State<CheckExecInspectionList> with Autom
 //                             ),
                                   Text("现场照片",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),
                                   Padding(padding: EdgeInsets.only(left: 220),),
-                                  //new Icon(Icons.photo_camera,color: GetConfig.getColor(theme),size: 20,),
+                                  //new Icon(Icons.photo_camera,color: Color.fromRGBO(209, 6, 24, 1),size: 20,),
                                   Image.asset("assets/images/icons/camera_"+theme+".png",height: 20,),//
-                                  new Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),size: 20,),
+                                  new Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 20,),
                                 ],
                               ),
                               onTap: (){
@@ -409,7 +409,7 @@ class _CheckExecInspectionList extends State<CheckExecInspectionList> with Autom
                                   Text("备注说明",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),
                                   Padding(padding: EdgeInsets.only(left: 220),),
                                   Image.asset("assets/images/icons/message.png",height: 20,),
-                                  new Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),size: 20,),
+                                  new Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 20,),
                                 ],
                               ),
                             ]

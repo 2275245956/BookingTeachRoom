@@ -64,7 +64,7 @@ class _LinesPageState extends State<LinesPage> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context,selected),
               child: Icon(Icons.arrow_back_ios,
-                  color: GetConfig.getColor(theme),size: 26,),
+                  color: Color.fromRGBO(209, 6, 24, 1),size: 26,),
             ),
           ),
           title: new  Container(
@@ -156,7 +156,7 @@ class _LinesPageState extends State<LinesPage> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context,selected),
               child: Icon(Icons.arrow_back_ios,
-                  color: GetConfig.getColor(theme),size: 26,),
+                  color: Color.fromRGBO(209, 6, 24, 1),size: 26,),
             ),
           ),
           title: new  Container(

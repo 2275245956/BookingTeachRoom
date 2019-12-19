@@ -211,7 +211,7 @@ class _PlanListContent extends State<PlanListContent>
             leading:new Container(
               child: GestureDetector(
                 onTap: () => Navigator.pop(context),
-                child:Icon(Icons.keyboard_arrow_left, color:GetConfig.getColor(theme), size: 32),
+                child:Icon(Icons.keyboard_arrow_left, color:Color.fromRGBO(209, 6, 24, 1), size: 32),
               ),
             ),
 //            actions: <Widget>[
@@ -240,13 +240,13 @@ class _PlanListContent extends State<PlanListContent>
         leading:new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child:Icon(Icons.keyboard_arrow_left,  color:GetConfig.getColor(theme), size: 32),
+            child:Icon(Icons.keyboard_arrow_left,  color:Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
         actions: <Widget>[
 
           initData.finishStatus==1 && hasOperationPermission && hasFixedPoint?
-            IconButton(icon: Icon(Icons.crop_free,color:  GetConfig.getColor(theme),),onPressed: (){
+            IconButton(icon: Icon(Icons.crop_free,color:  Color.fromRGBO(209, 6, 24, 1),),onPressed: (){
               Navigator.push( context,
                   new MaterialPageRoute(builder: (context) {
                     return QrPage(planTaskId);
@@ -256,7 +256,7 @@ class _PlanListContent extends State<PlanListContent>
               });
             }
             ,):Container(),
-          IconButton(icon: Icon(Icons.autorenew,color:  GetConfig.getColor(theme),),onPressed: (){
+          IconButton(icon: Icon(Icons.autorenew,color:  Color.fromRGBO(209, 6, 24, 1),),onPressed: (){
             loadData();
           },)
         ],
@@ -372,7 +372,7 @@ class _PlanListContent extends State<PlanListContent>
                                   ),
                                 ),
 //                                Padding(padding: EdgeInsets.only(left: 100),),
-                                new Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),)
+                                new Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),)
                               ],
                             )
                         ),

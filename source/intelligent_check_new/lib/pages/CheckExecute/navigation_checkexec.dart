@@ -107,7 +107,7 @@ class _NavigationCheckExec extends State<NavigationCheckExec> with SingleTickerP
                   ),
                   text: titles[0],
                   iconPadding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                  textStyle: TextStyle(fontSize: 12, color: _selectedIndex == 0?GetConfig.getColor(theme):Colors.grey),
+                  textStyle: TextStyle(fontSize: 12, color: _selectedIndex == 0?Color.fromRGBO(209, 6, 24, 1):Colors.grey),
                   //color: _selectedIndex == 0?Colors.white:Colors.grey,
                 ),
                 EachTab(
@@ -127,7 +127,7 @@ class _NavigationCheckExec extends State<NavigationCheckExec> with SingleTickerP
                   ),
                   text: titles[1],
                   iconPadding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                  textStyle: TextStyle(fontSize: 12, color: _selectedIndex == 1?GetConfig.getColor(theme):Colors.grey),
+                  textStyle: TextStyle(fontSize: 12, color: _selectedIndex == 1?Color.fromRGBO(209, 6, 24, 1):Colors.grey),
                   //color: _selectedIndex == 1?Colors.white:Colors.grey,
                 ),
                 EachTab(
@@ -147,7 +147,7 @@ class _NavigationCheckExec extends State<NavigationCheckExec> with SingleTickerP
                   ),
                   text: titles[2],
                   iconPadding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                  textStyle: TextStyle(fontSize: 12, color: _selectedIndex == 2?GetConfig.getColor(theme):Colors.grey),
+                  textStyle: TextStyle(fontSize: 12, color: _selectedIndex == 2?Color.fromRGBO(209, 6, 24, 1):Colors.grey),
                   //color: _selectedIndex == 2?Colors.white:Colors.grey,
                 )
               ],

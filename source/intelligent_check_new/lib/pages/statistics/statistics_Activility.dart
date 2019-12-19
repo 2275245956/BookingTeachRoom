@@ -16,7 +16,7 @@ class _StatisticsActivility extends State<StatisticsActivility>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
-  String theme = "blue";
+  String theme = "red";
   bool isAnimating = false;
   TaskWorkDetailModel iniData;
 

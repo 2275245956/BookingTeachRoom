@@ -36,7 +36,7 @@ class _ForwardPageState extends State<ForwardPage> {
         leading: new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child: Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child: Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
         actions: <Widget>[
@@ -45,7 +45,7 @@ class _ForwardPageState extends State<ForwardPage> {
             icon: Text(
               '提交',
               style: new TextStyle(
-                color: GetConfig.getColor(theme),
+                color: Color.fromRGBO(209, 6, 24, 1),
                 fontWeight: FontWeight.bold,
                 fontSize: 16.0,
               ),
@@ -56,7 +56,7 @@ class _ForwardPageState extends State<ForwardPage> {
             icon: Text(
               '提交',
               style: new TextStyle(
-                color: GetConfig.getColor(theme),
+                color: Color.fromRGBO(209, 6, 24, 1),
                 fontWeight: FontWeight.bold,
                 fontSize: 16.0,
               ),
@@ -138,7 +138,7 @@ class _ForwardPageState extends State<ForwardPage> {
                         ),
                         Container(
                           alignment: Alignment.centerRight,
-                          child:  Icon(Icons.keyboard_arrow_right,size: 14,color: GetConfig.getColor(theme),),
+                          child:  Icon(Icons.keyboard_arrow_right,size: 14,color: Color.fromRGBO(209, 6, 24, 1),),
                         )
                       ],
                     ),

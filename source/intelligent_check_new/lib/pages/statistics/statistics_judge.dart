@@ -19,7 +19,7 @@ class _StatisticsJudge extends State<StatisticsJudge>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
-  String theme = "blue";
+  String theme = "red";
   bool isAnimating = false;
   JudgementDetailModel iniData;
 

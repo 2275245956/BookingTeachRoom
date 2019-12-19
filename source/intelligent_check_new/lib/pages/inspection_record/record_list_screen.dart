@@ -67,7 +67,7 @@ class _RecordListScreenState extends State<RecordListScreen>
           leading:new Container(
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
-              child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+              child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
             ),
           ),
         ),
@@ -310,7 +310,7 @@ class _RecordListScreenState extends State<RecordListScreen>
                                                                 width: 260,
                                                                 child:Text(initData[index].InspectionPlanName==null?"计划:":"计划:" + initData[index].InspectionPlanName,style: TextStyle(color: Colors.grey,fontSize: 12),),
                                                               ),
-                                                              new Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),size: 20,),
+                                                              new Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 20,),
 
                                                             ],
                                                           ),

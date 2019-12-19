@@ -177,7 +177,7 @@ class _CheckExecInspectionListDetail extends State<CheckExecInspectionListDetail
               child: GestureDetector(
                 onTap: () => Navigator.pop(context),
                 child: Icon(
-                    Icons.keyboard_arrow_left, color: GetConfig.getColor(theme),
+                    Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1),
                     size: 32),
               ),
             ),
@@ -202,7 +202,7 @@ class _CheckExecInspectionListDetail extends State<CheckExecInspectionListDetail
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
             child: Icon(
-                Icons.keyboard_arrow_left, color: GetConfig.getColor(theme),
+                Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1),
                 size: 32),
           ),
         ),
@@ -352,7 +352,7 @@ class _CheckExecInspectionListDetail extends State<CheckExecInspectionListDetail
                 Container(
                   margin: const EdgeInsets.only(
                       left: 15.0, right: 15.0, top: 5, bottom: 5),
-                  color: GetConfig.getColor(theme),
+                  color: Color.fromRGBO(209, 6, 24, 1),
                   width: double.infinity,
                   child: new MaterialButton(
                     onPressed: () {
@@ -370,7 +370,7 @@ class _CheckExecInspectionListDetail extends State<CheckExecInspectionListDetail
                 Container(
                   margin: const EdgeInsets.only(
                       left: 15.0, right: 15.0, top: 5, bottom: 5),
-                  color: GetConfig.getColor(theme),
+                  color: Color.fromRGBO(209, 6, 24, 1),
                   width: double.infinity,
                   child: new MaterialButton(
                     onPressed: () {
@@ -423,7 +423,7 @@ class _CheckExecInspectionListDetail extends State<CheckExecInspectionListDetail
                         Image.asset(
                           "assets/images/icons/message.png", height: 14,),
                         Icon(Icons.keyboard_arrow_right,
-                          color: GetConfig.getColor(theme), size: 14,)
+                          color: Color.fromRGBO(209, 6, 24, 1), size: 14,)
                       ],
                     ),
                   ),
@@ -498,14 +498,14 @@ class _CheckExecInspectionListDetail extends State<CheckExecInspectionListDetail
                                 child: Image.asset(
                                   "assets/images/icons/camera_" + theme +
                                       ".png", height: 14,),
-                                //Icon(Icons.camera_alt,color: GetConfig.getColor(theme),),
+                                //Icon(Icons.camera_alt,color: Color.fromRGBO(209, 6, 24, 1),),
                                 alignment: Alignment.centerRight,
                               ),
                               Container(
                                 padding: EdgeInsets.only(bottom: 10),
                                 width: 10,
                                 child: Icon(Icons.keyboard_arrow_right,
-                                  color: GetConfig.getColor(theme), size: 14,),
+                                  color: Color.fromRGBO(209, 6, 24, 1), size: 14,),
                                 alignment: Alignment.centerRight,
                               ),
                             ],
@@ -611,7 +611,7 @@ class _CheckExecInspectionListDetail extends State<CheckExecInspectionListDetail
                       Image.asset(
                         "assets/images/icons/message.png", height: 14,),
                       Icon(Icons.keyboard_arrow_right,
-                        color: GetConfig.getColor(theme), size: 14,)
+                        color: Color.fromRGBO(209, 6, 24, 1), size: 14,)
                     ],
                   ),
                 ),
@@ -687,14 +687,14 @@ class _CheckExecInspectionListDetail extends State<CheckExecInspectionListDetail
                               child: Image.asset(
                                 "assets/images/icons/camera_" + theme + ".png",
                                 height: 14,),
-                              //Icon(Icons.camera_alt,color: GetConfig.getColor(theme),),
+                              //Icon(Icons.camera_alt,color: Color.fromRGBO(209, 6, 24, 1),),
                               alignment: Alignment.centerRight,
                             ),
                             Container(
                               padding: EdgeInsets.only(bottom: 10),
                               width: 10,
                               child: Icon(Icons.keyboard_arrow_right,
-                                color: GetConfig.getColor(theme), size: 14,),
+                                color: Color.fromRGBO(209, 6, 24, 1), size: 14,),
                               alignment: Alignment.centerRight,
                             ),
                           ],
@@ -812,7 +812,7 @@ class _CheckExecInspectionListDetail extends State<CheckExecInspectionListDetail
                       Image.asset(
                         "assets/images/icons/message.png", height: 14,),
                       Icon(Icons.keyboard_arrow_right,
-                        color: GetConfig.getColor(theme), size: 14,)
+                        color: Color.fromRGBO(209, 6, 24, 1), size: 14,)
                     ],
                   ),
                 ),
@@ -899,14 +899,14 @@ class _CheckExecInspectionListDetail extends State<CheckExecInspectionListDetail
                               child: Image.asset(
                                 "assets/images/icons/camera_" + theme + ".png",
                                 height: 14,),
-                              //Icon(Icons.camera_alt,color: GetConfig.getColor(theme),),
+                              //Icon(Icons.camera_alt,color: Color.fromRGBO(209, 6, 24, 1),),
                               alignment: Alignment.centerRight,
                             ),
                             Container(
                               padding: EdgeInsets.only(bottom: 10),
                               width: 10,
                               child: Icon(Icons.keyboard_arrow_right,
-                                color: GetConfig.getColor(theme), size: 14,),
+                                color: Color.fromRGBO(209, 6, 24, 1), size: 14,),
                               alignment: Alignment.centerRight,
                             ),
                           ],

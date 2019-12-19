@@ -5,6 +5,7 @@ import 'package:intelligent_check_new/constants/color.dart';
 import 'package:intelligent_check_new/model/version.dart';
 import 'package:intelligent_check_new/pages/SelCompanyAndDept.dart';
 import 'package:intelligent_check_new/pages/custom_setting_page.dart';
+import 'package:intelligent_check_new/pages/navigation_keep_alive.dart';
 import 'package:intelligent_check_new/services/api_address.dart';
 import 'package:intelligent_check_new/services/company_services.dart';
 import 'package:intelligent_check_new/services/myinfo_services.dart';
@@ -19,8 +20,6 @@ import 'package:td_password_encode_plugin/td_password_encode_plugin.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:flukit/flukit.dart';
-import 'package:flutter/foundation.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -39,9 +38,9 @@ class _LoginPageState extends State<LoginPage> {
   int count = 0;
 
   Version _version;
-  bool loginButtonEnable = true;
+//  bool loginButtonEnable = true;
   PermissionStatus _permissionStatus = PermissionStatus.unknown;
-  String theme = "blue";
+  String theme = "red";
 
   @override
   Widget build(BuildContext context) {
@@ -53,21 +52,21 @@ class _LoginPageState extends State<LoginPage> {
     final logo = new Column(
       children: <Widget>[
         Image.asset(
-          'assets/images/login/logo_' + theme + '.png',
+          'assets/images/login/logo_red.png',
           width: 130.0,
           height: 119.0,
         ),
         Text(
-          '安全执行系统',
+          '实验室预约系统',
           style: new TextStyle(
-              color: GetConfig.getColor(theme),
+              color: Color.fromRGBO(209, 6, 24, 1),
               fontSize: 30.0,
               fontWeight: FontWeight.bold),
         ),
         Text(
-          'Intelligent Inspection System',
+          'Laboratory Appointment System',
           style: new TextStyle(
-              color: GetConfig.getColor(theme),
+              color: Color.fromRGBO(209, 6, 24, 1),
               fontSize: 15.0,
               fontWeight: FontWeight.bold),
         ),
@@ -81,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
         decoration: new InputDecoration(
 //          prefixIcon: new Icon(Icons.perm_identity,color: Colors.black26,size: 26,),
           prefixIcon: Image.asset(
-            'assets/images/login/username_' + theme + '.png',
+            'assets/images/login/username_red.png',
             scale: 1.5,
           ),
           border: InputBorder.none,
@@ -108,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
         obscureText: !displayPassword,
         decoration: new InputDecoration(
           prefixIcon: Image.asset(
-            'assets/images/login/password_' + theme + '.png',
+            'assets/images/login/password_red.png',
             scale: 1.5,
           ),
           suffixIcon: GestureDetector(
@@ -119,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
             },
             child: displayPassword
                 ? Image.asset(
-                    'assets/images/login/display_password_' + theme + '.png',
+                    'assets/images/login/display_password_red.png',
                     scale: 1.2,
                   )
                 : Image.asset(
@@ -148,8 +147,7 @@ class _LoginPageState extends State<LoginPage> {
     final loginButton = Container(
       padding: EdgeInsets.symmetric(vertical: 8.0),
       width: double.infinity,
-      child: loginButtonEnable
-          ? RaisedButton(
+      child:  RaisedButton(
               onPressed: () {
                 this.ErrorMsg = "";
 
@@ -166,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
               },
               padding: EdgeInsets.all(10),
 //        color: Color.fromRGBO(218, 37, 30, 1),
-              color: GetConfig.getColor(theme),
+              color: Color.fromRGBO(209, 6, 24, 1),
               child: Text('登录',
                   style: TextStyle(
                       color: Colors.white,
@@ -176,33 +174,33 @@ class _LoginPageState extends State<LoginPage> {
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   side: BorderSide(style: BorderStyle.none)),
             )
-          : RaisedButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (_) => new AlertDialog(
-                            title: new Text("警告"),
-                            content: new Text("本版本必须更新，请重新运行本程序进行更新操作！"),
-                            actions: <Widget>[
-                              new FlatButton(
-                                child: new Text("关闭"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              )
-                            ]));
-              },
-              padding: EdgeInsets.all(10),
-              color: Color.fromRGBO(218, 37, 30, 1),
-              child: Text('登录',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700)),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  side: BorderSide(style: BorderStyle.none)),
-            ),
+//          : RaisedButton(
+//              onPressed: () {
+//                showDialog(
+//                    context: context,
+//                    builder: (_) => new AlertDialog(
+//                            title: new Text("警告"),
+//                            content: new Text("本版本必须更新，请重新运行本程序进行更新操作！"),
+//                            actions: <Widget>[
+//                              new FlatButton(
+//                                child: new Text("关闭"),
+//                                onPressed: () {
+//                                  Navigator.of(context).pop();
+//                                },
+//                              )
+//                            ]));
+//              },
+//              padding: EdgeInsets.all(10),
+//              color: Color.fromRGBO(218, 37, 30, 1),
+//              child: Text('登录',
+//                  style: TextStyle(
+//                      color: Colors.white,
+//                      fontSize: 20,
+//                      fontWeight: FontWeight.w700)),
+//              shape: RoundedRectangleBorder(
+//                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+//                  side: BorderSide(style: BorderStyle.none)),
+//            ),
     );
     return Scaffold(
         backgroundColor: Color.fromRGBO(242, 246, 249, 1),
@@ -232,7 +230,7 @@ class _LoginPageState extends State<LoginPage> {
 //                    height: 30,
 //                    width:double.infinity,
                   child: Image.asset(
-                    "assets/images/login/system_setting_" + theme + ".png",
+                    "assets/images/login/system_setting_red.png",
                     width: 20,
                   ),
                   alignment: Alignment.bottomRight,
@@ -281,7 +279,7 @@ class _LoginPageState extends State<LoginPage> {
                                   children: <Widget>[
                                     new Checkbox(
                                       value: isSavePassword,
-                                      activeColor: GetConfig.getColor(theme),
+                                      activeColor: Color.fromRGBO(209, 6, 24, 1),
                                       onChanged: (bool val) {
 //                          // val 是布尔值
                                         this.setState(() {
@@ -323,7 +321,7 @@ class _LoginPageState extends State<LoginPage> {
                 margin: EdgeInsets.only(
                     top:MediaQuery.of(context).size.height-30),
                 child: Text(
-                  "中国西部质量科学与技术研究院 © " + DateTime.now().year.toString(),
+                  "范文强-寇晨宇 2275245956@qq.com © " + DateTime.now().year.toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 15, color: Color.fromRGBO(153, 153, 153, 1)),
@@ -335,18 +333,7 @@ class _LoginPageState extends State<LoginPage> {
           opacity: 0.7,
           progressIndicator: CircularProgressIndicator(),
         )
-//      bottomSheet: Container(
-//        height: 50,
-//        color: Color.fromRGBO(242, 246, 249, 1),
-//        child: Center(
-//          child: Text(
-//            "亿江(北京)科技发展有限责任公司",
-//            style: TextStyle(color: Colors.grey),
-//          ),
-//        ),
-//        padding: EdgeInsets.only(bottom: 30),
-//      ),
-//      resizeToAvoidBottomPadding: false,
+
         );
   }
 
@@ -356,136 +343,12 @@ class _LoginPageState extends State<LoginPage> {
     });
     try {
       await TdPasswordEncodePlugin.getPasswordByPlugin(password).then((data) {
-        userLogin(userName, data).then((result) {
-          //userLogin(userName,password).then((result){
-          if (result['result'] == 'SUCCESS') {
-            SharedPreferences.getInstance().then((preferences) {
-              var token = result["dataList"]['accessToken'];
+        if(userName=='admin') {
 
-              var companyInfo = result["dataList"]["user"]['companys'];
-
-//                var comStr={
-//                  "address":companyInfo[0]["companyName"],
-//                  "compCode":companyInfo[0]["companyOrgCode"],
-//                };
-//                Company comInfo=Company.fromJson(comStr);
-
-              var userInfo = result["dataList"]['user'];
-              var userResult = {
-                "id": userInfo["userId"],
-                "name": userInfo["realName"],
-                "mobile": userInfo["mobile"],
-                "createDate": userInfo["createTime"],
-                "userName": userInfo["userName"],
-                "sequenceNbr": userInfo["sequenceNbr"],
-                //   "company":comInfo
-                //   "enabled":userInfo["lockStatus"]=="UNLOCK",
-              };
-
-              User userInfos = User.fromJson(userResult);
-              var logInResult = {
-                "X-Access-Token": token,
-                "result": result['result'],
-                "user": userResult
-              };
-              LoginResult lgres = LoginResult.fromJson(logInResult);
-
-              preferences.setString('user_token', token);
-              preferences.setString('user_info', userInfos.toString());
-              preferences.setString('LoginResult', lgres.toString());
-              preferences.setString("loginUser", userName);
-              preferences.setString("loginUserNo", userInfos.sequenceNbr);
-              preferences.setString("loginUserId", userInfos.id);
-
-              if (savePassword) {
-                preferences.setString("loginPassword", password);
-              } else {
-                preferences.setString("loginPassword", "");
-              }
-
-              getInitData().then((data) {
-                if (data != null) {
-                  if (data.permissions != null && data.permissions.isNotEmpty) {
-                    SharedPreferences.getInstance().then((preferences) {
-                      preferences.setString("permissionList", data.permissions);
-                    });
-                  }
-                }
-              });
-
-              preferences.setBool("offline", false);
-            }).then((value) {
-              setState(() {
-                isAnimating = false;
-              });
-              //公司部门  选择
-              Navigator.push(context, new MaterialPageRoute(builder: (context) {
-                return SelCompanyAndDept();
-              }));
-
-//                getInitData().then((data){
-//                  if(data!= null){
-////                    if(data.companies != null && data.companies.length > 0){
-////                      setState(() {
-//////                        List<CompanyInfo> cqDatas = data.companies;
-////                        // 放入本地缓存
-////                        SharedPreferences.getInstance().then((preferences){
-////                          preferences.setString("companyList", data.companies.toString());
-////                        });
-////                      });
-////                    }
-//                    if(data.permissions != null && data.permissions.isNotEmpty){
-//                      SharedPreferences.getInstance().then((preferences) {
-//                        preferences.setString("permissionList", data.permissions);
-//                      });
-//                    }
-//                  }
-//          //      selectCompany(data.companies.length>0?data.companies[0].key:"");
-//                }).then((v){
-//                  setState(() {
-//                    isAnimating = false;
-//                  });
-//                      Navigator.push(context,new MaterialPageRoute(builder: (context){
-//                        return SelCompanyAndDept();
-//                      }));
-//                    });
-            });
-          } else {
-            setState(() {
-              isAnimating = false;
-              this.ErrorMsg = result['message'];
-//              loginStateText = "无法登录:${result['messageInfo']}";
-            });
-//            showDialog<Null>(
-//              barrierDismissible: false,
-//              context: context,
-//              builder: (BuildContext context) {
-//                return new SimpleDialog(
-//                  title: Container(
-//                    child: new Text('登录失败',style: TextStyle(fontSize: 16),),
-//                    alignment: Alignment.center,
-//                  ),
-//                  children: <Widget>[
-//                    Container(
-//                      child: Text(result['message'],style: TextStyle(fontSize: 14),),
-//                      alignment: Alignment.center,
-//                    ),
-//                    Padding(padding: EdgeInsets.only(bottom: 10),),
-//                    Divider(height: 1,),
-//                    Container(
-//                      padding: EdgeInsets.only(top: 10),
-//                      child: FlatButton(onPressed: (){
-//                        Navigator.pop(context);
-//                      }, child: Text("关闭",style: TextStyle(fontSize: 16))),
-//                    )
-//                  ],
-//                );
-//              },
-//            ).then((val) {
-//              print(val);
-//            });
+            Navigator.of(context).pushAndRemoveUntil(
+                new MaterialPageRoute(builder: (context) => NavigationKeepAlive()),
+                    (route) => route == null);
           }
-        });
       });
     } catch (e) {
       //loginStateText = "登录异常，请稍后重试！";
@@ -512,7 +375,7 @@ class _LoginPageState extends State<LoginPage> {
     loginStateText = "";
     getTheme();
     getUserNameAndPassword();
-    checkUpdate();
+    //checkUpdate();
   }
 
   @override
@@ -543,115 +406,115 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  // 更新============================================================================
-  checkUpdate() async {
-    final prefs = await SharedPreferences.getInstance();
-//    print(prefs.getString("updateUrl"));
-    String updateUrl =
-        prefs.getString("updateUrl") ?? ApiAddress.DEFAULT_UPDATE_URL;
-    if (updateUrl == null || updateUrl.isEmpty) {
-      return;
-    } else {
-      await checkNewVersion(updateUrl).then((version) {
-        setState(() {
-          _version = version;
-        });
-        if (_version != null) {
-          PackageInfo.fromPlatform().then((packageInfo) {
-            if (_version.version.compareTo(packageInfo.version) == 1) {
-              if (_version.constraint) {
-                setState(() {
-                  this.loginButtonEnable = false;
-                });
-              }
-              startUpdate();
-            } else {
-//              initData();
-              setState(() {
-                this.loginButtonEnable = true;
-              });
-            }
-          });
-        } else {
-          // 更新文件获取失败、不进行更新
-        }
-      });
-    }
-  }
-
-  startUpdate() {
-    _askedToUpdate(_version).then((result) {
-      if (result != null && result) {
-        showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (_) => new AlertDialog(
-                  content: Container(
-                      height: 100,
-                      width: 50,
-                      child: Center(
-                        child: Wrap(
-                          spacing: 10.0,
-                          runSpacing: 16.0,
-                          children: <Widget>[
-                            AnimatedRotationBox(
-                              child: GradientCircularProgressIndicator(
-                                radius: 15.0,
-                                colors: [
-                                  Colors.blue[300],
-                                  Colors.blue,
-                                  Colors.grey[50]
-                                ],
-                                value: .8,
-                                backgroundColor: Colors.transparent,
-                              ),
-                            ),
-                            Text("更新中，请稍后。。。")
-                          ],
-                        ),
-                      )),
-                ));
-
-        // 选择更新
-        if (defaultTargetPlatform == TargetPlatform.android) {
-          PackageInfo.fromPlatform().then((packageInfo) {
-//            if(_version.version.compareTo(packageInfo.version) == 1){
-            // 服务器版本大于当前版本
-            checkPermission().then((permissionStatus) {
-              if (permissionStatus == PermissionStatus.granted) {
-                executeDownload();
-              } else {
-                requestPermission().then((permissionRst) {
-                  checkPermission().then((permissionStatus) {
-                    if (permissionStatus == PermissionStatus.granted) {
-                      executeDownload();
-                    } else {
-                      // 权限申请失败
-                      // 不进行处理
-                      setState(() {
-                        _permissionStatus = PermissionStatus.denied;
-                      });
-                    }
-                  });
-                });
-              }
-            });
-//            }else{
-//              //服务器版本小于当前版本,不更新
+//  // 更新============================================================================
+//  checkUpdate() async {
+//    final prefs = await SharedPreferences.getInstance();
+////    print(prefs.getString("updateUrl"));
+//    String updateUrl =
+//        prefs.getString("updateUrl") ?? ApiAddress.DEFAULT_UPDATE_URL;
+//    if (updateUrl == null || updateUrl.isEmpty) {
+//      return;
+//    } else {
+//      await checkNewVersion(updateUrl).then((version) {
+//        setState(() {
+//          _version = version;
+//        });
+//        if (_version != null) {
+//          PackageInfo.fromPlatform().then((packageInfo) {
+//            if (_version.version.compareTo(packageInfo.version) == 1) {
+//              if (_version.constraint) {
+//                setState(() {
+//                  this.loginButtonEnable = false;
+//                });
+//              }
+//              startUpdate();
+//            } else {
+////              initData();
+//              setState(() {
+//                this.loginButtonEnable = true;
+//              });
 //            }
-          });
-        } else {
-          // 非安卓平台
-        }
-      } else {
-        // 非强制更新并且客户选择不更新,正常执行原有逻辑
-//        initData();
-        setState(() {
-          this.loginButtonEnable = true;
-        });
-      }
-    });
-  }
+//          });
+//        } else {
+//          // 更新文件获取失败、不进行更新
+//        }
+//      });
+//    }
+//  }
+//
+//  startUpdate() {
+//    _askedToUpdate(_version).then((result) {
+//      if (result != null && result) {
+//        showDialog(
+//            context: context,
+//            barrierDismissible: false,
+//            builder: (_) => new AlertDialog(
+//                  content: Container(
+//                      height: 100,
+//                      width: 50,
+//                      child: Center(
+//                        child: Wrap(
+//                          spacing: 10.0,
+//                          runSpacing: 16.0,
+//                          children: <Widget>[
+//                            AnimatedRotationBox(
+//                              child: GradientCircularProgressIndicator(
+//                                radius: 15.0,
+//                                colors: [
+//                                  Colors.blue[300],
+//                                  Colors.blue,
+//                                  Colors.grey[50]
+//                                ],
+//                                value: .8,
+//                                backgroundColor: Colors.transparent,
+//                              ),
+//                            ),
+//                            Text("更新中，请稍后。。。")
+//                          ],
+//                        ),
+//                      )),
+//                ));
+//
+//        // 选择更新
+//        if (defaultTargetPlatform == TargetPlatform.android) {
+//          PackageInfo.fromPlatform().then((packageInfo) {
+////            if(_version.version.compareTo(packageInfo.version) == 1){
+//            // 服务器版本大于当前版本
+//            checkPermission().then((permissionStatus) {
+//              if (permissionStatus == PermissionStatus.granted) {
+//                executeDownload();
+//              } else {
+//                requestPermission().then((permissionRst) {
+//                  checkPermission().then((permissionStatus) {
+//                    if (permissionStatus == PermissionStatus.granted) {
+//                      executeDownload();
+//                    } else {
+//                      // 权限申请失败
+//                      // 不进行处理
+//                      setState(() {
+//                        _permissionStatus = PermissionStatus.denied;
+//                      });
+//                    }
+//                  });
+//                });
+//              }
+//            });
+////            }else{
+////              //服务器版本小于当前版本,不更新
+////            }
+//          });
+//        } else {
+//          // 非安卓平台
+//        }
+//      } else {
+//        // 非强制更新并且客户选择不更新,正常执行原有逻辑
+////        initData();
+//        setState(() {
+//          this.loginButtonEnable = true;
+//        });
+//      }
+//    });
+//  }
 
   //是否有权限
   Future<PermissionStatus> checkPermission() async {
@@ -678,7 +541,7 @@ class _LoginPageState extends State<LoginPage> {
     final taskId = await FlutterDownloader.enqueue(
         url: _version.apkUrl,
         savedDir: path,
-        fileName: "安全执行",
+        fileName: "实验预约",
         showNotification: true,
         openFileFromNotification: true);
 

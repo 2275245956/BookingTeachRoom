@@ -209,12 +209,12 @@ class _CalendarMainPageState extends State<CalendarMainPage>{
             leading: new Container(
               child: GestureDetector(
                 onTap: () => Navigator.pop(context),
-                child: Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+                child: Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
               ),
             ),
             actions: <Widget>[
               IconButton(
-                icon: ImageIcon(AssetImage("assets/images/calendar/calendar_change_"+theme+".png"),color: GetConfig.getColor(theme),),
+                icon: ImageIcon(AssetImage("assets/images/calendar/calendar_change_"+theme+".png"),color: Color.fromRGBO(209, 6, 24, 1),),
                 onPressed: (){
                   DatePicker.showDatePicker(context,
                       showTitleActions: true,
@@ -250,12 +250,12 @@ class _CalendarMainPageState extends State<CalendarMainPage>{
           leading: new Container(
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
-              child: Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+              child: Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
             ),
           ),
           actions: <Widget>[
             IconButton(
-              icon: ImageIcon(AssetImage("assets/images/calendar/calendar_change_"+theme+".png"),color: GetConfig.getColor(theme)),
+              icon: ImageIcon(AssetImage("assets/images/calendar/calendar_change_"+theme+".png"),color: Color.fromRGBO(209, 6, 24, 1)),
               onPressed: (){
                 DatePicker.showDatePicker(context,
                     showTitleActions: true,
@@ -302,7 +302,7 @@ class _CalendarMainPageState extends State<CalendarMainPage>{
                           alignment: Alignment.center,
                         ),
                         Container(
-                          child: Icon(Icons.chevron_right,color: GetConfig.getColor(theme)),
+                          child: Icon(Icons.chevron_right,color: Color.fromRGBO(209, 6, 24, 1)),
                           alignment: Alignment.centerRight,
                         )
                       ],

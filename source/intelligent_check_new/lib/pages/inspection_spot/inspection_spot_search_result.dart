@@ -78,7 +78,7 @@ class _InspectionSpotSearchResultPageState extends State<InspectionSpotSearchRes
                   _focusNode.unfocus();
                   Navigator.pop(context);
                 },
-                child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+                child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
               ),
             ),
             title:InkWell(
@@ -121,7 +121,7 @@ class _InspectionSpotSearchResultPageState extends State<InspectionSpotSearchRes
                   _focusNode.unfocus();
                   Navigator.pop(context);
                 },
-                child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+                child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
               ),
             ),
             title:InkWell(
@@ -225,7 +225,7 @@ class _InspectionSpotSearchResultPageState extends State<InspectionSpotSearchRes
                           ),
                           trailing: new Padding(
                             child: new Icon(
-                              Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),),
+                              Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),),
                             padding: EdgeInsets.only(top: 15),
                           ),
                           onTap: () {

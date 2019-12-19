@@ -150,7 +150,7 @@ class _MyScreenState extends State<MyScreen>
                     Container(
                       padding: EdgeInsets.only(left: 20, right: 20),
                       child: CircleAvatar(
-                        backgroundColor: GetConfig.getColor(theme),
+                        backgroundColor: Color.fromRGBO(209, 6, 24, 1),
                         child: Text(
                           loginResult == null ? "" : loginResult.user.name[0],
                           style: TextStyle(color: Colors.white),
@@ -316,7 +316,7 @@ class _MyScreenState extends State<MyScreen>
             ),
             Container(
               margin: const EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
-              color: GetConfig.getColor(theme),
+              color: Color.fromRGBO(209, 6, 24, 1),
               width: 330,
               child: new MaterialButton(
                 onPressed: () {

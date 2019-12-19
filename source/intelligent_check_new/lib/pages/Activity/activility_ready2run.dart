@@ -19,7 +19,7 @@ class ActivilityReady2Run extends StatefulWidget {
 class _ActivilityReady2Run extends State<ActivilityReady2Run> {
   bool isAnimating = false;
   bool canOperate = true;
-  String theme = "blue";
+  String theme = "red";
   ActivilityModel initData;
 
   @override
@@ -98,7 +98,7 @@ class _ActivilityReady2Run extends State<ActivilityReady2Run> {
               },
               child: Icon(Icons.keyboard_arrow_left,
                   color: Color.fromRGBO(
-                      50, 89, 206, 1) /*GetConfig.getColor(theme)*/,
+                      50, 89, 206, 1) /*Color.fromRGBO(209, 6, 24, 1)*/,
                   size: 32),
             ),
           ),

@@ -5,14 +5,6 @@ import 'package:intelligent_check_new/pages/home_layout/home_function.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeBackgroundImage extends StatefulWidget {
-
-  final List<CompanyInfo> cqDatas;
-/*  final int taskCount;
-  final int unReadCount;*/
-
-  HomeBackgroundImage(this.cqDatas/*,this.taskCount,this.unReadCount*/);
-
-
   @override
   State<StatefulWidget> createState() {
     return _HomeBackgroundImageState();
@@ -21,7 +13,7 @@ class HomeBackgroundImage extends StatefulWidget {
 
 class _HomeBackgroundImageState extends State<HomeBackgroundImage>{
 
-  String theme = "";
+  String theme = "red";
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +27,7 @@ class _HomeBackgroundImageState extends State<HomeBackgroundImage>{
           SizedBox(
               height: 240.0,
               child:Container(
-                color: theme=="blue"?Color.fromRGBO(0, 77, 173, 1):Color.fromRGBO(218, 37, 30, 1),
+                color: Color.fromRGBO(218, 37, 30, 1),
                 child: Opacity(
                   child: ConstrainedBox(
                     child:Image.asset(
@@ -50,7 +42,7 @@ class _HomeBackgroundImageState extends State<HomeBackgroundImage>{
                 ),
               )
           ),
-          HomeFunction(cqDatas:this.widget.cqDatas/*,this.widget.taskCount,this.widget.unReadCount*/)
+          HomeFunction()
         ]
     );
   }

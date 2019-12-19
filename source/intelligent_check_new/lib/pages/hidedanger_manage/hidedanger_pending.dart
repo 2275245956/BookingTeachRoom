@@ -182,7 +182,7 @@ class _PendingHideDanger extends State<PendingHideDanger>
                 new MaterialPageRoute(builder: (context) => NavigationKeepAlive()),
                     (route) => route == null),
             child: Icon(Icons.keyboard_arrow_left,
-                color: GetConfig.getColor(theme), size: 32),
+                color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
         actions: <Widget>[
@@ -487,7 +487,7 @@ class _PendingHideDanger extends State<PendingHideDanger>
                                                 child: Icon(
                                                   Icons.keyboard_arrow_right,
                                                   color:
-                                                      GetConfig.getColor(theme),
+                                                      Color.fromRGBO(209, 6, 24, 1),
                                                 ),
                                                 alignment:
                                                     Alignment.centerRight),

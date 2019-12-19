@@ -58,7 +58,7 @@ class _MoveSpotListScreenState extends State<MoveSpotListScreen>
         leading: new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child: Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child: Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
         actions: <Widget>[
@@ -74,7 +74,7 @@ class _MoveSpotListScreenState extends State<MoveSpotListScreen>
           IconButton(
             icon: Icon(
               Icons.note_add,
-              color:   GetConfig.getColor(theme),
+              color:   Color.fromRGBO(209, 6, 24, 1),
             ),
             onPressed: () {
               Navigator.push(context, new MaterialPageRoute(builder: (context) {
@@ -101,7 +101,7 @@ class _MoveSpotListScreenState extends State<MoveSpotListScreen>
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child:
-                  Icon(Icons.keyboard_arrow_left, color:   GetConfig.getColor(theme), size: 32),
+                  Icon(Icons.keyboard_arrow_left, color:   Color.fromRGBO(209, 6, 24, 1), size: 32),
             ),
           ),
           actions: <Widget>[
@@ -194,7 +194,7 @@ class _MoveSpotListScreenState extends State<MoveSpotListScreen>
                                 ),
                               ],
                             ),
-                            trailing: new Icon(Icons.keyboard_arrow_right,color:   GetConfig.getColor(theme),),
+                            trailing: new Icon(Icons.keyboard_arrow_right,color:   Color.fromRGBO(209, 6, 24, 1),),
                             onTap: () {
                               Navigator.push(context,
                                   new MaterialPageRoute(builder: (context) {

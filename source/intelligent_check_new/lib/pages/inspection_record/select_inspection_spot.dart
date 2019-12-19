@@ -113,7 +113,7 @@ class _SelectInspectionSpotState extends State<SelectInspectionSpot>
         leading: new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child: Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child: Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
       ));
@@ -132,7 +132,7 @@ class _SelectInspectionSpotState extends State<SelectInspectionSpot>
         leading: new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child: Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child: Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
       ),
@@ -150,7 +150,7 @@ class _SelectInspectionSpotState extends State<SelectInspectionSpot>
                   ),
                   Container(
                       height: 50,
-                    child: Icon(Icons.chevron_right,color: GetConfig.getColor(theme),),
+                    child: Icon(Icons.chevron_right,color: Color.fromRGBO(209, 6, 24, 1),),
                     alignment: Alignment.centerRight
                   ),
                 ],

@@ -25,32 +25,17 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeFunction extends StatefulWidget {
-  List<CompanyInfo> cqDatas;
-
-//  int taskCount;
-//  int unReadCount;
-
-  HomeFunction({this.cqDatas} /*,this.taskCount,this.unReadCount*/);
-
+  HomeFunction();
   @override
   State<StatefulWidget> createState() => new _HomeFunctionState();
 }
 
 class _HomeFunctionState extends State<HomeFunction> {
-  List<HomeFunctionModel> firstMenu = List();
-  List<HomeFunctionModel> secondMenu = List();
-  CompanyInfo cqSelect; //公司选择
-  List<CompanyInfo> _cqDatas = new List();
-  int _taskCount = 0;
-  int _unReadCount = 0;
-  int _dangerCount = 0;
-  int _judgementCount = 0;
-
+  int _unReadCount = 10;
   bool isAnimating = false;
-  bool isOffline = false;
-  String theme = "blue"; //主题
 
-  String companyName = "";
+  String theme = "red"; //主题
+
 
   @override
   Widget build(BuildContext context) {
@@ -72,46 +57,44 @@ class _HomeFunctionState extends State<HomeFunction> {
                   child: SingleChildScrollView(
                       child: Row(
                     children: <Widget>[
-                      Expanded(
-                        child: GestureDetector(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  cqSelect == null
-                                      ? companyName
-                                      : cqSelect.label,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(left: 0),
-                                child: Icon(
-                                  Icons.keyboard_arrow_down,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SelCompanyAndDept(
-                                          isSelect: true,
-                                        )));
-                            //cqDialog();
-                          },
-                        ),
-                        flex: 3,
-                      ),
+//                      Expanded(
+//                        child: GestureDetector(
+//                          child: Row(
+//                            mainAxisAlignment: MainAxisAlignment.start,
+//                            crossAxisAlignment: CrossAxisAlignment.start,
+//                            children: <Widget>[
+//                              Container(
+//                                child: Text(
+//                                  cqSelect == null
+//                                      ? companyName
+//                                      : cqSelect.label,
+//                                  textAlign: TextAlign.center,
+//                                  style: TextStyle(color: Colors.white),
+//                                ),
+//                              ),
+//                              Container(
+//                                margin: EdgeInsets.only(left: 0),
+//                                child: Icon(
+//                                  Icons.keyboard_arrow_down,
+//                                  color: Colors.white,
+//                                ),
+//                              ),
+//                            ],
+//                          ),
+//                          onTap: () {
+//                            Navigator.push(
+//                                context,
+//                                MaterialPageRoute(
+//                                    builder: (context) => SelCompanyAndDept(
+//                                          isSelect: true,
+//                                        )));
+//                            //cqDialog();
+//                          },
+//                        ),
+//                        flex: 3,
+//                      ),
 
-//                      Padding(padding: EdgeInsets.only(left: 20),),
-                      theme == "blue"
-                          ? Expanded(
+                       Expanded(
                               child: Container(
                                 margin: EdgeInsets.only(left: 5),
                                 alignment: Alignment.center,
@@ -120,7 +103,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Image.asset(
-                                      'assets/images/jiaoda/渭化集团@3x.png',
+                                      'assets/images/login/logo_red.png',
                                       width: 36,
                                       height: 36,
                                     ),
@@ -132,38 +115,25 @@ class _HomeFunctionState extends State<HomeFunction> {
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
-                                          "陕西渭河煤化工集团",
+                                          "西安航空职业技术学院",
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 12),
                                         ),
                                         Text(
-                                          "Shaanxi Werhe Coal Chemical",
+                                          "Xi'an Aviation Institute \nof Technology",
                                           style: TextStyle(
                                               color: Colors.white, fontSize: 8),
                                         ),
-                                        Text(
-                                          "Corporation Group Ltd.",
-                                          style: TextStyle(
-                                              color: Colors.white, fontSize: 8),
-                                        )
+
                                       ],
                                     )
                                   ],
                                 ),
                               ),
                               flex: 6,
-                            )
-                          : Expanded(
-                              child: Container(
-                                child: Image.asset(
-                                  'assets/images/colo.png',
-                                  width: 130,
-                                ),
-                                alignment: Alignment.center,
-                              ),
-                              flex: 6,
                             ),
+
 
                       Expanded(
                         child: GestureDetector(
@@ -228,7 +198,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                         padding: EdgeInsets.only(left: 10),
                       ),
                       new Text(
-                        "隐患排查",
+                        "模块一",
                         style:
                             TextStyle(color: Color.fromRGBO(102, 102, 102, 1)),
                       )
@@ -263,7 +233,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                               padding: EdgeInsets.only(left: 10),
                             ),
                             new Text(
-                              "隐患治理",
+                              "模块二",
                               style: TextStyle(
                                   color: Color.fromRGBO(102, 102, 102, 1)),
                             )
@@ -282,7 +252,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                         width: double.infinity,
                         child: GridView.count(
                           crossAxisCount: 4,
-                          children: getSecondMenu(),
+                          children: getFirstMenus(),
                           shrinkWrap: true,
                         ),
                       )
@@ -310,7 +280,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                               padding: EdgeInsets.only(left: 10),
                             ),
                             new Text(
-                              "作业活动",
+                              "模块三",
                               style: TextStyle(
                                   color: Color.fromRGBO(102, 102, 102, 1)),
                             )
@@ -329,7 +299,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                         width: double.infinity,
                         child: GridView.count(
                           crossAxisCount: 4,
-                          children: getThirdMenu(),
+                          children: getFirstMenus(),
                           shrinkWrap: true,
                         ),
                       )
@@ -363,72 +333,10 @@ class _HomeFunctionState extends State<HomeFunction> {
       return;
     }
 
-    //getTaskCount();
-    getUnreadCountMessage();
-    getHaveToDo();
-    initFunction();
 
-    setState(() {
-      this._cqDatas = this.widget.cqDatas;
-//      this._taskCount = this.widget.taskCount;
-//      this._unReadCount = this.widget.unReadCount;
-      if (this._cqDatas != null) cqSelect = _cqDatas[0];
-      SharedPreferences.getInstance().then((sp) {
-        companyName = json.decode(sp.getString("sel_com"))["companyName"];
-      });
-    });
   }
 
-  cqDialog() {
-    if (this.isOffline) {
-      MessageBox.showMessageOnly("离线模式，该功能暂不支持。", context);
-      return;
-    }
-    showDialog<Null>(
-      context: context,
-      builder: (BuildContext context) {
-        return _cqDatas != null
-            ? SimpleDialog(
-                children: _cqDatas.map((f) {
-                  return Column(
-                    children: <Widget>[
-                      new SimpleDialogOption(
-                        child: new Text(f.label),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          setState(() {
-                            cqSelect = f;
-                            // 公司切换
-                            selectCompany(this.cqSelect.key);
-                          });
-                        },
-                      ),
-                      Divider(
-                        height: 1,
-                      )
-                    ],
-                  );
-                }).toList(),
-              )
-            : Container();
-      },
-    );
-  }
-
-  initFunction() async {
-    await SharedPreferences.getInstance().then((sp) {
-      if (sp.getBool("offline") != null) {
-        setState(() {
-          isOffline = sp.getBool("offline");
-          this.theme = sp.get("theme") ?? KColorConstant.DEFAULT_COLOR;
-          print(this.theme);
-          print("isOffline:$isOffline");
-        });
-      }
-    });
-  }
-
-  getFirstMenus() {
+ getFirstMenus() {
     List<Container> firstMenu = List();
     Container container1 = Container(
         height: 82,
@@ -441,27 +349,21 @@ class _HomeFunctionState extends State<HomeFunction> {
         child: GestureDetector(
           child: EachTab(
             width: 80,
-            badge: this._taskCount > 0
-                ? CircleAvatar(
+            badge: CircleAvatar(
               backgroundColor: Colors.red,
               radius: 3,
-            )
-                : Container(),
+            ) ,
             badgeColor: Colors.red,
             height: 40,
             padding: EdgeInsets.all(0),
-            icon: Image.asset(
-                "assets/images/home/plan_inspection_" + theme + ".png",
-                width: 28),
-            text: "计划巡检",
+            icon: Icon(Icons.functions,size: 32,color:Colors.red),
+            text: "功能1",
             textStyle: TextStyle(
                 fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
             color: Colors.white,
           ),
           onTap: () {
-            Navigator.push(context, new MaterialPageRoute(builder: (context) {
-              return isOffline ? OfflinePlanListScreen() : PlanListScreen();
-            }));
+
           },
         ));
     Container container2 = Container(
@@ -475,39 +377,21 @@ class _HomeFunctionState extends State<HomeFunction> {
         child: GestureDetector(
           child: EachTab(
             width: 80,
-//            badge: this._taskCount > 0
-//                ? CircleAvatar(
-//                    backgroundColor: Colors.red,
-//                    radius: 3,
-//                  )
-//                : Container(),
+            badge: CircleAvatar(
+              backgroundColor: Colors.red,
+              radius: 3,
+            ) ,
             badgeColor: Colors.red,
             height: 40,
             padding: EdgeInsets.all(0),
-            icon: Image.asset("assets/images/home/no_plan_" + theme + ".png",
-                width: 28),
-            text: "无计划巡检",
+            icon: Icon(Icons.functions,size: 32,color:Colors.red),
+            text: "功能2",
             textStyle: TextStyle(
                 fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
             color: Colors.white,
           ),
           onTap: () {
-            Navigator.push(context, new MaterialPageRoute(builder: (context) {
-              return isOffline ? OfflineNoPlanInspection() : NoPlanInspection();
-            }));
-//            if(isOffline){
-//              Navigator.push( context,
-//                  new MaterialPageRoute(builder: (context) {
-//                    return OfflineHiderManageMyTaskPage();
-//                  })
-//              );
-//            }else{
-//              Navigator.push( context,
-//                  new MaterialPageRoute(builder: (context) {
-//                    return HideDangerPage(1);
-//                  })
-//              );
-//            }
+
           },
         ));
     Container container3 = Container(
@@ -521,30 +405,21 @@ class _HomeFunctionState extends State<HomeFunction> {
         child: GestureDetector(
           child: EachTab(
             width: 80,
-//           badge: this._taskCount > 0
-//               ? CircleAvatar(
-//             backgroundColor: Colors.red,
-//             radius: 3,
-//           )
-//               : Container(),
+            badge: CircleAvatar(
+              backgroundColor: Colors.red,
+              radius: 3,
+            ) ,
             badgeColor: Colors.red,
             height: 40,
             padding: EdgeInsets.all(0),
-            icon: Image.asset(
-              "assets/images/home/inspection_point_" + theme + ".png",
-              width: 28,
-            ),
-            text: "固有风险点",
+            icon: Icon(Icons.functions,size: 32,color:Colors.red),
+            text: "功能3",
             textStyle: TextStyle(
                 fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
             color: Colors.white,
           ),
           onTap: () {
-            Navigator.push(context, new MaterialPageRoute(builder: (context) {
-              return isOffline
-                  ? OfflineInspectionSpotScreen()
-                  : InspectionSpotScreen();
-            }));
+
           },
         ));
     Container container4 = Container(
@@ -558,150 +433,15 @@ class _HomeFunctionState extends State<HomeFunction> {
         child: GestureDetector(
           child: EachTab(
             width: 80,
-//           badge: this._taskCount > 0
-//               ? CircleAvatar(
-//             backgroundColor: Colors.red,
-//             radius: 3,
-//           )
-//               : Container(),
-            badgeColor: Colors.red,
-            height: 40,
-            padding: EdgeInsets.all(0),
-            icon: Image.asset(
-              "assets/images/home/move_inspection_" + theme + ".png",
-              width: 28,
-            ),
-            text: "动态风险",
-            textStyle: TextStyle(
-                fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-            color: Colors.white,
-          ),
-          onTap: () { 
-          },
-        ));
-    Container container5 = Container(
-        height: 82,
-        width: 82,
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-          color: Colors.white,
-          border: new Border.all(width: 0.5, color: Colors.grey[100]),
-        ),
-        child: GestureDetector(
-          child: EachTab(
-            width: 80,
-//           badge: this._taskCount > 0
-//               ? CircleAvatar(
-//             backgroundColor: Colors.red,
-//             radius: 3,
-//           )
-//               : Container(),
-            badgeColor: Colors.red,
-            height: 40,
-            padding: EdgeInsets.all(0),
-            icon:  Image.asset("assets/images/home/inspection_record_"+theme+".png",width: 28),
-            text: "巡检记录",
-            textStyle: TextStyle(
-                fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-            color: Colors.white,
-          ),
-          onTap: () {
-           Navigator.push(context, new MaterialPageRoute(builder: (context) {
-             return RecordListScreen();
-           }));
-
-          },
-        ));
-    Container container6 = Container(
-        height: 82,
-        width: 82,
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-          color: Colors.white,
-          border: new Border.all(width: 0.5, color: Colors.grey[100]),
-        ),
-        child: GestureDetector(
-          child: EachTab(
-            width: 80,
-//           badge: this._taskCount > 0
-//               ? CircleAvatar(
-//             backgroundColor: Colors.red,
-//             radius: 3,
-//           )
-//               : Container(),
-            badgeColor: Colors.red,
-            height: 40,
-            padding: EdgeInsets.all(0),
-            icon:Image.asset("assets/images/home/inspection_calendar_"+theme+".png",width: 28),
-            text: "巡检日历",
-            textStyle: TextStyle(
-                fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-            color: Colors.white,
-          ),
-          onTap: () {
-           Navigator.push(context, new MaterialPageRoute(builder: (context) {
-             return CalendarMainPage();
-           }));
-
-          },
-        ));
-    Container container7 = Container(
-        height: 82,
-        width: 82,
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-          color: Colors.white,
-          border: new Border.all(width: 0.5, color: Colors.grey[100]),
-        ),
-        child: GestureDetector(
-          child: EachTab(
-            width: 80,
-            badge: this._judgementCount > 0
-                ? CircleAvatar(
+            badge: CircleAvatar(
               backgroundColor: Colors.red,
               radius: 3,
-            ):Container(),
+            ) ,
             badgeColor: Colors.red,
             height: 40,
             padding: EdgeInsets.all(0),
-            icon: Image.asset("assets/images/jiaoda/safe_danger_judgement_"+theme+".png",width: 28),
-            text: "安全风险研判",
-            textStyle: TextStyle(
-                fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-            color: Colors.white,
-          ),
-          onTap: () {
-           Navigator.push(context, new MaterialPageRoute(builder: (context) {
-             return SecurityRiskJudegmentList();
-           }));
-
-          },
-        ));
-    Container container8 = Container(
-        height: 82,
-        width: 82,
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-          color: Colors.white,
-          border: new Border.all(width: 0.5, color: Colors.grey[100]),
-        ),
-        child: GestureDetector(
-          child: EachTab(
-            width: 80,
-//           badge: this._judgementCount > 0
-//               ? CircleAvatar(
-//             backgroundColor: Colors.red,
-//             radius: 3,
-//           )
-               //: Container(),
-            badgeColor: Colors.red,
-            height: 40,
-            padding: EdgeInsets.all(0),
-//            icon: Image.asset(
-//              "",
-//              width: 28,
-//            ),
-            text: "",
+            icon: Icon(Icons.functions,size: 32,color:Colors.red),
+            text: "功能4",
             textStyle: TextStyle(
                 fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
             color: Colors.white,
@@ -714,281 +454,12 @@ class _HomeFunctionState extends State<HomeFunction> {
     firstMenu.add(container2);
     firstMenu.add(container3);
     firstMenu.add(container4);
-    firstMenu.add(container5);
-    firstMenu.add(container6);
-    firstMenu.add(container7);
-    firstMenu.add(container8);
-
 
     return firstMenu;
   }
 
-  // 隐患治理菜单
-  getSecondMenu() {
-    List<Container> secondMenuList = List();
-    // 我姐收
-    Container container1 = Container(
-        height: 82,
-        width: 82,
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-          color: Colors.white,
-          border: new Border.all(width: 0.5, color: Colors.grey[100]),
-        ),
-        child: GestureDetector(
-          child: EachTab(
-            width: 80,
-            badge: this._dangerCount > 0
-                ? CircleAvatar(
-                    backgroundColor: Colors.red,
-                    radius: 3,
-                  )
-                : Container(),
-            badgeColor: Colors.red,
-            height: 40,
-            padding: EdgeInsets.all(0),
-            icon: Image.asset(
-              "assets/images/jiaoda/wait_do_" + theme + ".png",
-              width: 28,
-              height: 28,
-            ),
-            text: "待处理",
-            textStyle: TextStyle(
-                fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-            color: Colors.white,
-          ),
-          onTap: () {
-            Navigator.push(context, new MaterialPageRoute(builder: (context) {
-              return new PendingHideDanger();
-            }));
-//            if(isOffline){
-//              Navigator.push( context,
-//                  new MaterialPageRoute(builder: (context) {
-//                    return OfflineHiderManageMyTaskPage();
-//                  })
-//              );
-//            }else{
-//              Navigator.push( context,
-//                  new MaterialPageRoute(builder: (context) {
-//                    return HideDangerPage(1);
-//                  })
-//              );
-//            }
-          },
-        ));
-    // 我发起
-    Container container2 = Container(
-        height: 82,
-        width: 82,
-        decoration: new BoxDecoration(
-          color: Colors.white,
-          border: new Border.all(width: 0.5, color: Colors.grey[100]),
-        ),
-        child: GestureDetector(
-          child: EachTab(
-            width: 80,
-            //badge: CircleAvatar(backgroundColor: Colors.red,radius: 3,),
-            badgeColor: Colors.red,
-            height: 40,
-            padding: EdgeInsets.all(0),
-            icon: Image.asset(
-              "assets/images/jiaoda/do_over_" + theme + ".png",
-              width: 28,
-              height: 28,
-            ),
-            text: "已处理",
-            textStyle: TextStyle(
-                fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-            color: Colors.white,
-          ),
-          onTap: () {
-            Navigator.push(context, new MaterialPageRoute(builder: (context) {
-              return new ProcessedHiddenDanger();
-            }));
+ 
 
-//            if(isOffline){
-//              MessageBox.showMessageOnly("当前是离线模式，功能暂不可用", context);
-//            }else{
-//              Navigator.push( context,
-//                  new MaterialPageRoute(builder: (context) {
-//                    return HideDangerPage(2);
-//                  })
-//              );
-//            }
-          },
-        ));
-    // 任务添加
-    Container container3 = Container(
-        height: 82,
-        width: 82,
-        decoration: new BoxDecoration(
-          color: Colors.white,
-          border: new Border.all(width: 0.5, color: Colors.grey[100]),
-        ),
-        child: GestureDetector(
-          child: EachTab(
-            width: 80,
-            badge: Text(""),
-            badgeColor: Colors.red,
-            height: 40,
-            padding: EdgeInsets.all(0),
-            icon: Image.asset("assets/images/home/add_task_" + theme + ".png",
-                width: 28),
-            text: "隐患添加",
-            textStyle: TextStyle(
-                fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-            color: Colors.white,
-          ),
-          onTap: () {
-            Navigator.push(context, new MaterialPageRoute(builder: (context) {
-              return new HiddenDangerFound();
-            }));
-//            if(isOffline){
-//              MessageBox.showMessageOnly("当前是离线模式，功能暂不可用", context);
-//            }else{
-//              Navigator.push( context,
-//                  new MaterialPageRoute(builder: (context) {
-//                    return TaskAdditionScreen();
-//                  })
-//              );
-//            }
-          },
-        ));
-    // 全部任务
-    Container container4 = Container(
-        height: 82,
-        width: 82,
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.only(bottomRight: Radius.circular(5)),
-          color: Colors.white,
-          border: new Border.all(width: 0.5, color: Colors.grey[100]),
-        ),
-        child: EachTab(
-          width: 80,
-          badge: Text(""),
-          badgeColor: Colors.red,
-          height: 40,
-          padding: EdgeInsets.all(0),
-//          icon: Image.asset("assets/images/home/all_task_"+theme+".png",width: 28),
-          text: "",
-          textStyle:
-              TextStyle(fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-          color: Colors.white,
-        ));
-    secondMenuList.add(container1);
-    secondMenuList.add(container2);
-    secondMenuList.add(container3);
-    secondMenuList.add(container4);
-    return secondMenuList;
-  }
-
-  getThirdMenu() {
-    List<Container> secondMenuList = List();
-    // 我姐收
-    Container container1 = Container(
-        height: 82,
-        width: 82,
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-          color: Colors.white,
-          border: new Border.all(width: 0.5, color: Colors.grey[100]),
-        ),
-        child: GestureDetector(
-          child: EachTab(
-            width: 80,
-            badge: Text(""),
-            badgeColor: Colors.red,
-            height: 40,
-            padding: EdgeInsets.all(0),
-            icon: Image.asset(
-                "assets/images/jiaoda/generalwork_" + theme + ".png",
-                width: 28),
-            text: "一般作业活动",
-            textStyle: TextStyle(
-                fontSize: 11, color: Color.fromRGBO(153, 153, 153, 1)),
-            color: Colors.white,
-          ),
-          onTap: () {
-//            if(isOffline){
-            Navigator.push(context, new MaterialPageRoute(builder: (context) {
-              return ActivilityList();
-            }));
-//            }else{
-//              Navigator.push( context,
-//                  new MaterialPageRoute(builder: (context) {
-//                    return HideDangerPage(1);
-//                  })
-//              );
-//            }
-          },
-        ));
-    // 我发起
-    Container container2 = Container(
-        height: 82,
-        width: 82,
-        decoration: new BoxDecoration(
-          color: Colors.white,
-          border: new Border.all(width: 0.5, color: Colors.grey[100]),
-        ),
-        child: EachTab(
-          width: 80,
-          badge: Text(""),
-          badgeColor: Colors.red,
-          height: 40,
-          padding: EdgeInsets.all(0),
-//            icon: Image.asset("assets/images/home/my_send_"+theme+".png",width: 28),
-          text: "",
-          textStyle:
-              TextStyle(fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-          color: Colors.white,
-        ));
-    // 任务添加
-    Container container3 = Container(
-        height: 82,
-        width: 82,
-        decoration: new BoxDecoration(
-          color: Colors.white,
-          border: new Border.all(width: 0.5, color: Colors.grey[100]),
-        ),
-        child: EachTab(
-          width: 80,
-          badge: Text(""),
-          badgeColor: Colors.red,
-          height: 40,
-          padding: EdgeInsets.all(0),
-          //icon: Image.asset("assets/images/home/add_task_"+theme+".png",width: 28),
-          text: "",
-          textStyle:
-              TextStyle(fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-          color: Colors.white,
-        ));
-    // 全部任务
-    Container container4 = Container(
-        height: 82,
-        width: 82,
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.only(bottomRight: Radius.circular(5)),
-          color: Colors.white,
-          border: new Border.all(width: 0.5, color: Colors.grey[100]),
-        ),
-        child: EachTab(
-          width: 80,
-          badge: Text(""),
-          badgeColor: Colors.red,
-          height: 40,
-          padding: EdgeInsets.all(0),
-//          icon: Image.asset("assets/images/home/all_task_"+theme+".png",width: 28),
-          text: "",
-          textStyle:
-              TextStyle(fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-          color: Colors.white,
-        ));
-    secondMenuList.add(container1);
-    secondMenuList.add(container2);
-    secondMenuList.add(container3);
-    secondMenuList.add(container4);
-    return secondMenuList;
-  }
 
 //  getTaskCount() async {
 //    await getQueryPlanTaskCount().then((count) {
@@ -1000,26 +471,15 @@ class _HomeFunctionState extends State<HomeFunction> {
 //      }
 //    });
 //  }
-
-  getUnreadCountMessage() async {
-    await getUnreadCount().then((count) {
-      if (mounted) {
-        setState(() {
-          _unReadCount = count;
-        });
-      }
-    });
-  }
-
-  getHaveToDo() async {
-    await getSelfTaskStatus().then((obj) {
-      if (mounted) {
-        setState(() {
-          this._dangerCount = obj.haveDanger ? 1 : 0;
-          this._judgementCount = obj.havaJudgment ? 1 : 0;
-          this._taskCount=obj.havaPlanTask?1:0;
-        });
-      }
-    });
-  }
+//
+//  getUnreadCountMessage() async {
+//    await getUnreadCount().then((count) {
+//      if (mounted) {
+//        setState(() {
+//          _unReadCount = count;
+//        });
+//      }
+//    });
+//  }
+//
 }

@@ -72,7 +72,7 @@ class _HideDangerPageState extends State<HideDangerPage>
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child:
-                  Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+                  Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
             ),
           ),
           actions: <Widget>[
@@ -87,7 +87,7 @@ class _HideDangerPageState extends State<HideDangerPage>
                     )
                 );
               },
-              color:GetConfig.getColor(theme),
+              color:Color.fromRGBO(209, 6, 24, 1),
             ),
           ],
         ),

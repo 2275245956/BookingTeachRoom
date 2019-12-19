@@ -56,7 +56,7 @@ class _TaskFeecbackDetailPage extends State<TaskFeecbackDetailPage> {
           leading: new Container(
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
-              child: Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+              child: Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
             ),
           ),
 //
@@ -76,7 +76,7 @@ class _TaskFeecbackDetailPage extends State<TaskFeecbackDetailPage> {
         leading: new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child: Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child: Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
       ),
@@ -186,12 +186,12 @@ class _TaskFeecbackDetailPage extends State<TaskFeecbackDetailPage> {
                             children: <Widget>[
                               new Icon(
                                 Icons.camera_alt,
-                                color: GetConfig.getColor(theme),
+                                color: Color.fromRGBO(209, 6, 24, 1),
                                 size: 16,
                               ),
                               new Icon(
                                 Icons.chevron_right,
-                                color: GetConfig.getColor(theme),
+                                color: Color.fromRGBO(209, 6, 24, 1),
                               ),
                             ],
                           ),

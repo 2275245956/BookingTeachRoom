@@ -142,13 +142,13 @@ class _CheckItemListState extends State<CheckItemList>
         leading: new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child: Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child: Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
         actions: <Widget>[
           FlatButton(
             child: new Text('确定',style: TextStyle(fontSize: 16),),
-            textColor: GetConfig.getColor(theme),
+            textColor: Color.fromRGBO(209, 6, 24, 1),
             color: Colors.white,
             onPressed: () {
               setState(() {

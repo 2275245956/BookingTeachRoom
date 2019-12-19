@@ -21,7 +21,7 @@ class _ActivilityRunResult extends State<ActivilityRunResult> {
   String strRouts = "";
   String strClassify = "";
   String permissionList = "";
-  String theme = "blue";
+  String theme = "red";
 
   TextEditingController _remark=new TextEditingController();
   List<File> imageList;
@@ -130,7 +130,7 @@ class _ActivilityRunResult extends State<ActivilityRunResult> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Icon(Icons.keyboard_arrow_left,
-                  color: GetConfig.getColor(theme), size: 32),
+                  color: Color.fromRGBO(209, 6, 24, 1), size: 32),
             ),
           ),
         ),
@@ -153,7 +153,7 @@ class _ActivilityRunResult extends State<ActivilityRunResult> {
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
             child: Icon(Icons.keyboard_arrow_left,
-                color: GetConfig.getColor(theme), size: 32),
+                color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
       ),

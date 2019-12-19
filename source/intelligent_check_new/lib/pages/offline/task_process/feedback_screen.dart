@@ -48,7 +48,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
 //        leading: new Container(
 //          child: GestureDetector(
 //            onTap: () => Navigator.pop(context),
-//            child: Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+//            child: Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
 //          ),
 //        ),
           leading:new Container(
@@ -89,7 +89,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                   Navigator.pop(context,this._controller.text);
                 }
               },
-              child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+              child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
             ),
           ),
           actions: <Widget>[
@@ -97,7 +97,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
               icon: Text(
                 '提交',
                 style: new TextStyle(
-                  color: GetConfig.getColor(theme),
+                  color: Color.fromRGBO(209, 6, 24, 1),
                   fontWeight: FontWeight.bold,
                   fontSize: 16.0,
                 ),

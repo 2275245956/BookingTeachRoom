@@ -51,7 +51,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
             leading: IconButton(
                 icon: Icon(
                   Icons.arrow_back_ios,
-                  color:GetConfig.getColor(theme),
+                  color:Color.fromRGBO(209, 6, 24, 1),
                 ),
                 onPressed: () {
                   Navigator.pop(context);
@@ -69,7 +69,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
 //                icon: Text(
 //                  '确定',
 //                  style: new TextStyle(
-//                    color: GetConfig.getColor(theme),
+//                    color: Color.fromRGBO(209, 6, 24, 1),
 ////                  fontWeight: FontWeight.bold,
 //                    fontSize: 16.0,
 //                  ),
@@ -91,7 +91,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back_ios,
-                color:GetConfig.getColor(theme),
+                color:Color.fromRGBO(209, 6, 24, 1),
               ),
               onPressed: () {
                 Navigator.pop(context);
@@ -109,7 +109,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
 //              icon: Text(
 //                '确定',
 //                style: new TextStyle(
-//                  color: GetConfig.getColor(theme),
+//                  color: Color.fromRGBO(209, 6, 24, 1),
 ////                  fontWeight: FontWeight.bold,
 //                  fontSize: 16.0,
 //                ),
@@ -159,7 +159,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
 //                        'assets/images/icons/head.png',
 //                      ),
                       child: CircleAvatar(
-                        backgroundColor: GetConfig.getColor(theme),
+                        backgroundColor: Color.fromRGBO(209, 6, 24, 1),
                         child: Text(loginResult == null
                             ? ""
                             : loginResult.user.name[0],style: TextStyle(color: Colors.white),),

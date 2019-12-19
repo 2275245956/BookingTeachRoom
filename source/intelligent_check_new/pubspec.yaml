@@ -170,8 +170,7 @@ flutter:
     - assets/images/scene5.png
     - assets/images/scene6.png
     ######登录############################################
-    - assets/images/logo_red.png
-    - assets/images/logo_blue.png
+    - assets/images/login/logo_red.png
     - assets/images/login/password_red.png
     - assets/images/login/password_blue.png
     - assets/images/login/display_password_red.png
@@ -304,7 +303,7 @@ flutter:
     - assets/images/icons/save_red.png
     - assets/images/icons/save_blue.png
     #20190808 交大版本
-    - assets/images/jiaoda/渭化集团@3x.png
+
     - assets/images/delete_blue.png
     - assets/images/delete_red.png
     - assets/images/jiaoda/wait_do_blue.png

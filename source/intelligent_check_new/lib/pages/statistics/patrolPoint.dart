@@ -161,7 +161,7 @@ class _ItemDetailState extends State<ItemDetail> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child:
-                  Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+                  Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
             ),
           ),
           elevation: 0.2,

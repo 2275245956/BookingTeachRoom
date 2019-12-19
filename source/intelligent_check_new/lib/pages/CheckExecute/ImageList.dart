@@ -117,7 +117,7 @@ class _ImageListState extends State<ImageList>{
                         });
                       });
                     },
-                    child: IconButton(icon: Icon(Icons.camera_alt,size: 28,color: GetConfig.getColor(theme),),
+                    child: IconButton(icon: Icon(Icons.camera_alt,size: 28,color: Color.fromRGBO(209, 6, 24, 1),),
 //                      onPressed: (){
 //                        ImagePicker.pickImage(source: ImageSource.camera).then((c){
 //                          setState(() {
@@ -154,14 +154,14 @@ class _ImageListState extends State<ImageList>{
         leading:new Container(
           child: GestureDetector(
             onTap: (){Navigator.pop(context);},
-            child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
         actions: <Widget>[
           Container(
             padding: EdgeInsets.only(right: 20),
             child: GestureDetector(
-              child: Text("提交",style: TextStyle(color: GetConfig.getColor(theme),fontSize: 18),),
+              child: Text("提交",style: TextStyle(color: Color.fromRGBO(209, 6, 24, 1),fontSize: 18),),
               onTap: (){
                 Navigator.pop(context,_imageList);
               },

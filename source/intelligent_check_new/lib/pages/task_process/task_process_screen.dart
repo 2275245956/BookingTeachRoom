@@ -184,7 +184,7 @@ class _TaskProcessPageState extends State<TaskProcessPage> {
             leading: new Container(
               child: GestureDetector(
                 onTap: () => Navigator.pop(context),
-                child: Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+                child: Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
               ),
             ),
           )
@@ -204,7 +204,7 @@ class _TaskProcessPageState extends State<TaskProcessPage> {
         leading: new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child: Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
+            child: Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
           ),
         ),
         actions: <Widget>[
@@ -219,7 +219,7 @@ class _TaskProcessPageState extends State<TaskProcessPage> {
             ),*/
             icon: Icon(
               Icons.save,
-              color: GetConfig.getColor(theme),
+              color: Color.fromRGBO(209, 6, 24, 1),
               size: 26.0,
             ),
             onPressed: () {
@@ -656,8 +656,8 @@ class _TaskProcessPageState extends State<TaskProcessPage> {
                             Expanded(
                               child: Row(
                                 children: <Widget>[
-                                  new Icon(Icons.message,color: GetConfig.getColor(theme),size: 20,),
-                                  new Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),size: 20,),
+                                  new Icon(Icons.message,color: Color.fromRGBO(209, 6, 24, 1),size: 20,),
+                                  new Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 20,),
                                 ],
                               ),
                             ),
@@ -722,8 +722,8 @@ class _TaskProcessPageState extends State<TaskProcessPage> {
                           Expanded(
                             child: Row(
                               children: <Widget>[
-                                new Icon(Icons.photo_camera,color: GetConfig.getColor(theme),size: 20,),
-                                new Icon(Icons.keyboard_arrow_right,color: GetConfig.getColor(theme),size: 20,),
+                                new Icon(Icons.photo_camera,color: Color.fromRGBO(209, 6, 24, 1),size: 20,),
+                                new Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 20,),
                               ],
                             ),
                           ),

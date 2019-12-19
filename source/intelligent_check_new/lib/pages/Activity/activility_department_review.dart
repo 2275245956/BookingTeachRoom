@@ -24,7 +24,7 @@ class ActivilityDepartmentReview extends StatefulWidget {
 class _ActivilityDepartmentReview extends State<ActivilityDepartmentReview> {
   bool isAnimating = false;
   bool canOperate = true;
-  String theme = "blue";
+  String theme = "red";
   ActivilityModel initData;
   TextEditingController _suggestion = new TextEditingController();
 
@@ -130,7 +130,7 @@ class _ActivilityDepartmentReview extends State<ActivilityDepartmentReview> {
               },
               child: Icon(Icons.keyboard_arrow_left,
                   color: Color.fromRGBO(
-                      50, 89, 206, 1) /*GetConfig.getColor(theme)*/,
+                      50, 89, 206, 1) /*Color.fromRGBO(209, 6, 24, 1)*/,
                   size: 32),
             ),
           ),

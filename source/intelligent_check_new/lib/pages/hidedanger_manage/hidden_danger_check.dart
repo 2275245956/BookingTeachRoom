@@ -45,7 +45,7 @@ class _HiddenDangerProcessedDetailsChecked
   HideDangerInfoModel initData;
   HideDanger hideDanger = new HideDanger();
 
-  String theme = "blue";
+  String theme = "red";
 
   @override
   void initState() {
@@ -183,8 +183,8 @@ class _HiddenDangerProcessedDetailsChecked
                 Icons.save,
                 color: Color.fromRGBO(50, 89, 206, 1),
                 size: 32,
-              ), //Image.asset("assets/images/search_"+theme+".png",width: 20,color: GetConfig.getColor(theme)),
-              // child:Image.asset("assets/images/search_"+theme+".png",width: 20,color: GetConfig.getColor(theme)),
+              ), //Image.asset("assets/images/search_"+theme+".png",width: 20,color: Color.fromRGBO(209, 6, 24, 1)),
+              // child:Image.asset("assets/images/search_"+theme+".png",width: 20,color: Color.fromRGBO(209, 6, 24, 1)),
             ),
           ))
         ],
@@ -202,7 +202,7 @@ class _HiddenDangerProcessedDetailsChecked
               Icons.keyboard_arrow_left,
               color: Color.fromRGBO(50, 89, 206, 1),
               size: 32,
-            ), //Image.asset("assets/images/search_"+theme+".png",width: 20,color: GetConfig.getColor(theme)),
+            ), //Image.asset("assets/images/search_"+theme+".png",width: 20,color: Color.fromRGBO(209, 6, 24, 1)),
           ),
         ),
       ));
@@ -236,7 +236,7 @@ class _HiddenDangerProcessedDetailsChecked
                 Icons.save,
                 color: Color.fromRGBO(50, 89, 206, 1),
                 size: 32,
-              ), //Image.asset("assets/images/search_"+theme+".png",width: 20,color: GetConfig.getColor(theme)),
+              ), //Image.asset("assets/images/search_"+theme+".png",width: 20,color: Color.fromRGBO(209, 6, 24, 1)),
             ),
           ))
         ],
@@ -249,7 +249,7 @@ class _HiddenDangerProcessedDetailsChecked
             onTap: () => Navigator.pop(context),
             child: Icon(Icons.keyboard_arrow_left,
                 color: Color.fromRGBO(
-                    50, 89, 206, 1) /*GetConfig.getColor(theme)*/,
+                    50, 89, 206, 1) /*Color.fromRGBO(209, 6, 24, 1)*/,
                 size: 32),
           ),
         ),

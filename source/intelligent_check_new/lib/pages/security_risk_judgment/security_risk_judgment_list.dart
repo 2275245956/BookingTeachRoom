@@ -26,7 +26,7 @@ class _SecurityRiskJudegmentList extends State<SecurityRiskJudegmentList>
 
   bool isAnimating = false;
 
-  String theme = "blue";
+  String theme = "red";
 
   int pageNumber = 0;
   int pageSize = 10;
@@ -121,7 +121,7 @@ class _SecurityRiskJudegmentList extends State<SecurityRiskJudegmentList>
                       builder: (context) => NavigationKeepAlive()),
                       (route) => route == null),
               child: Icon(Icons.keyboard_arrow_left,
-                  color: GetConfig.getColor(theme), size: 32),
+                  color: Color.fromRGBO(209, 6, 24, 1), size: 32),
             ),
           ),
           actions: <Widget>[

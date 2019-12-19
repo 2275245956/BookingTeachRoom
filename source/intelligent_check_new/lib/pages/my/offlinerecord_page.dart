@@ -107,7 +107,7 @@ class _OfflineRecordPageState extends State<OfflineRecordPage> {
             leading: IconButton(
                 icon: Icon(
                   Icons.arrow_back_ios,
-                  color:GetConfig.getColor(theme),
+                  color:Color.fromRGBO(209, 6, 24, 1),
                 ),
                 onPressed: () {
                   Navigator.pop(context);
@@ -126,7 +126,7 @@ class _OfflineRecordPageState extends State<OfflineRecordPage> {
                 icon: Text(
                   '提交',
                   style: new TextStyle(
-                    color: GetConfig.getColor(theme),
+                    color: Color.fromRGBO(209, 6, 24, 1),
                     fontWeight: FontWeight.bold,
                     fontSize: 16.0,
                   ),
@@ -144,7 +144,7 @@ class _OfflineRecordPageState extends State<OfflineRecordPage> {
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back_ios,
-                color: GetConfig.getColor(theme),
+                color: Color.fromRGBO(209, 6, 24, 1),
               ),
               onPressed: () {
                 Navigator.pop(context);
@@ -163,7 +163,7 @@ class _OfflineRecordPageState extends State<OfflineRecordPage> {
               icon: Text(
                 '提交',
                 style: new TextStyle(
-                  color:GetConfig.getColor(theme),
+                  color:Color.fromRGBO(209, 6, 24, 1),
                   fontWeight: FontWeight.bold,
                   fontSize: 16.0,
                 ),
