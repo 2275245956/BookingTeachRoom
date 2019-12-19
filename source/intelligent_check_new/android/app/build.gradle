@@ -24,8 +24,8 @@ if (flutterVersionName == null) {
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 //
-def keystorePropertiesFile = rootProject.file("key.properties")
-def keystoreProperties = new Properties()
+def keystorePropertiesFile=rootProject.file("key.properties")
+def keystoreProperties=new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
@@ -50,9 +50,10 @@ android {
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "3500f6a1262613c11690ea94", // NOTE: JPush 上注册的包名对应的 Appkey.
                 JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
-                JPUSH_APPKEY : "3500f6a1262613c11690ea94",
-            ] // NOTE: JPush 上注册的包名对应的 Appkey.
+//                AMAP_KEY : "1bd4d9172ba33d27ebb6e232001e9395", /// 高德地图key
+        ]
 
     }
 
@@ -80,4 +81,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+//    implementation 'com.amap.api:location:latest.integration'
 }

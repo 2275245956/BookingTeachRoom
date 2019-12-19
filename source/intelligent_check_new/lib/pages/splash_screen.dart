@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
 
-    new Future.delayed(Duration(seconds: 5), () {
+    new Future.delayed(Duration(seconds: 2), () {
       Navigator.of(context).pushAndRemoveUntil(
           new MaterialPageRoute(
               builder: (context) => LoginPage(

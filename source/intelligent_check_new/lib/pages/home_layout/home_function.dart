@@ -152,7 +152,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                                               bottom: 10, left: 15),
                                           child: CircleAvatar(
                                             radius: 3,
-                                            backgroundColor: Colors.red,
+                                            backgroundColor: Colors.blue,
                                           ),
                                         )
                                       : Container()
@@ -176,15 +176,12 @@ class _HomeFunctionState extends State<HomeFunction> {
                                 builder: (BuildContext context) {
                               return new MessageListPage();
                             })).then((v) {
-                              //                            if(v!=null){
-                              //                              getUnreadCount();
-                              //                            }
+
                             });
                           },
                         ),
                         flex: 2,
                       ),
-//                      Padding(padding: EdgeInsets.only(left: 20),),
                     ],
                   )),
                 ),

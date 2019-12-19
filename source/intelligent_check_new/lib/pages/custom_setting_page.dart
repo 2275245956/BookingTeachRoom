@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/constants/color.dart';
+import 'package:intelligent_check_new/pages/login_page.dart';
 import 'package:intelligent_check_new/services/api_address.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,7 +17,7 @@ class _CustomSettingPageState extends State<CustomSettingPage>{
   TextEditingController _textEditingBizController = new TextEditingController();
 
   TextEditingController _updateController = new TextEditingController();
-  String theme="blue";
+  String theme="";
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class _CustomSettingPageState extends State<CustomSettingPage>{
         leading:new Container(
           child: GestureDetector(
             onTap: () => Navigator.pop(context),
-            child:Icon(Icons.keyboard_arrow_left, color: Color.fromRGBO(209, 6, 24, 1), size: 32),
+            child:Icon(Icons.keyboard_arrow_left, color: GetConfig.getColor(theme), size: 32),
           ),
         ),
       ),
@@ -47,28 +48,8 @@ class _CustomSettingPageState extends State<CustomSettingPage>{
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text("权限服务器地址:",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),),
-                new Container(
-                  height: 36,
-                  margin: EdgeInsets.only(top: 10),
-                  decoration: new BoxDecoration(
-                    color: Color.fromRGBO(247, 249, 250, 1),
-                    border: new Border.all(
-                      color: Colors.grey[100],
-                      width: 1,
-                    ),
-                    borderRadius: new BorderRadius.all(Radius.circular(2)),
-                  ),
-                  child: new Container(child: TextField(
-                      controller: _textEditingAuthController,
-                      decoration: new InputDecoration(
-                        border: InputBorder.none,
-                        hintText: '',
-                        hintStyle:TextStyle(fontSize: 14.0, color: Color.fromRGBO(0, 0, 0, 0.2)),
-                        contentPadding: EdgeInsets.all(8.0),
-                      )
-                  ),)
-                ),
+                ///权限服务不需要  屏蔽   只使用业务来操作
+
                 Padding(padding: EdgeInsets.only(top: 10),),
                 Text("业务服务器地址:",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),),
                 new Container(
@@ -94,7 +75,7 @@ class _CustomSettingPageState extends State<CustomSettingPage>{
                 ),
 
                 Padding(padding: EdgeInsets.only(top: 10),),
-               Text("升级地址:",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),),
+                Text("升级地址:",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),),
                 new Container(
                     margin: EdgeInsets.only(top: 10),
                     height: 36,
@@ -131,16 +112,16 @@ class _CustomSettingPageState extends State<CustomSettingPage>{
                                 color: Colors.white,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700)),
-                          onPressed: (){
-                            this._textEditingAuthController.text = ApiAddress.DEFAULT_AUTH_API_URL;
-                            this._textEditingBizController.text = ApiAddress.DEFAULT_BIZ_API_URL;
-                            this._updateController.text = ApiAddress.DEFAULT_UPDATE_URL;
-                          })
+                            onPressed: (){
+                              // this._textEditingAuthController.text = ApiAddress.DEFAULT_AUTH_API_URL;
+                              this._textEditingBizController.text = ApiAddress.DEFAULT_BIZ_API_URL;
+                              this._updateController.text = ApiAddress.DEFAULT_UPDATE_URL;
+                            })
                     ),
                     Container(
                         decoration: new BoxDecoration(
                           borderRadius: new BorderRadius.all(Radius.circular(4)),
-                          color: Color.fromRGBO(209, 6, 24, 1),
+                          color: GetConfig.getColor(theme),
                         ),
                         width: 144,
                         margin: EdgeInsets.only(left: 10),
@@ -151,7 +132,10 @@ class _CustomSettingPageState extends State<CustomSettingPage>{
                                 fontWeight: FontWeight.w700)),
                           onPressed: (){
                             saveServerUrl();
-                            Navigator.pop(context);
+                            Navigator.of(context).pushAndRemoveUntil(
+                                new MaterialPageRoute(
+                                    builder: (context) => LoginPage()),
+                                    (route) => route == null);
                           },)
                     )
                   ],),
@@ -198,12 +182,12 @@ class _CustomSettingPageState extends State<CustomSettingPage>{
 
   getServerUrl() async{
     await SharedPreferences.getInstance().then((pref){
-      this._textEditingAuthController.text = pref.getString("authServerUrl")==null||pref.getString("authServerUrl").isEmpty?
-                                                ApiAddress.DEFAULT_AUTH_API_URL:pref.getString("authServerUrl");
+//      this._textEditingAuthController.text = pref.getString("authServerUrl")==null||pref.getString("authServerUrl").isEmpty?
+//                                                ApiAddress.DEFAULT_AUTH_API_URL:pref.getString("authServerUrl");
       this._textEditingBizController.text = pref.getString("bizServerUrl")==null||pref.getString("bizServerUrl").isEmpty?
-                                                ApiAddress.DEFAULT_BIZ_API_URL:pref.getString("bizServerUrl");
-     this._updateController.text =  pref.getString("updateUrl")==null|| pref.getString("updateUrl").isEmpty?
-                                                ApiAddress.DEFAULT_UPDATE_URL:pref.getString("updateUrl");
+      ApiAddress.DEFAULT_BIZ_API_URL:pref.getString("bizServerUrl");
+      this._updateController.text =  pref.getString("updateUrl")==null|| pref.getString("updateUrl").isEmpty?
+      ApiAddress.DEFAULT_UPDATE_URL:pref.getString("updateUrl");
     });
   }
 

@@ -47,8 +47,6 @@ class _LoginPageState extends State<LoginPage> {
     if (this.theme.isEmpty) {
       return Scaffold(body: Text(""));
     }
-
-
     final logo = new Column(
       children: <Widget>[
         Image.asset(
