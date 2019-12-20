@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intelligent_check_new/constants/color.dart';
+import 'package:intelligent_check_new/model/StudentModel/StudentModel.dart';
 import 'package:intelligent_check_new/model/version.dart';
 import 'package:intelligent_check_new/pages/SelCompanyAndDept.dart';
 import 'package:intelligent_check_new/pages/custom_setting_page.dart';
@@ -12,6 +14,7 @@ import 'package:intelligent_check_new/services/company_services.dart';
 import 'package:intelligent_check_new/services/myinfo_services.dart';
 import 'package:intelligent_check_new/services/update.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
+import 'package:intelligent_check_new/tools/MessageBox.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:package_info/package_info.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -53,14 +56,11 @@ class _LoginPageState extends State<LoginPage> {
       children: <Widget>[
         Container(
           width: 130.0,
-          height:  130.0,
+          height: 130.0,
           //  margin: EdgeInsets.only(right: 5),
           decoration: BoxDecoration(
               color: Colors.transparent,
-              borderRadius:
-              BorderRadius.all(
-                  Radius.circular(
-                      65.0)),
+              borderRadius: BorderRadius.all(Radius.circular(65.0)),
               image: DecorationImage(
                   image: ExactAssetImage('assets/images/login/logo_red.png'),
                   fit: BoxFit.cover)),
@@ -330,8 +330,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: <Widget>[
                     GestureDetector(
                       child: logo,
-                      onTap: () { 
-                      },
+                      onTap: () {},
                     ),
 
                     SizedBox(height: 40.0),
@@ -416,34 +415,32 @@ class _LoginPageState extends State<LoginPage> {
     });
     try {
       var jsonStr = {'sNumber': userName, 'sPass': password};
-      stuLogin(jsonStr,roleType).then((data){
+      stuLogin(jsonStr, roleType).then((data) {
+        if (data.success) {
+          SharedPreferences.getInstance().then((sp) {
+            if(savePassword){
+              sp.setString("userName",userName);
+              sp.setString("userPwd", password);
+            }
+            //保存用户信息
+            StudentsInfo user=StudentsInfo.fromJson(data.dataList);
+            sp.setString("userInfo",  user.toString());
+            sp.setInt("userRole", roleType);
+            Navigator.of(context).pushAndRemoveUntil(
+                new MaterialPageRoute(
+                    builder: (context) => NavigationKeepAlive()),
+                    (route) => route == null);
+          });
+        }else{
+           MessageBox.popUpMsg(data.message??"登陆失败",gravity:ToastGravity.BOTTOM );
+        }
+
         setState(() {
           isAnimating = false;
         });
-        print(data);
       });
-//      await TdPasswordEncodePlugin.getPasswordByPlugin(password).then((pwd) {
-//
-//
-//
-////        if (userName == 'admin') {
-////
-////          //保存用户信息
-////          SharedPreferences.getInstance().then((sp){
-////            sp.setString("userName",userName );
-////            sp.setString("userType", roleType.toString());
-////
-////          });
-//
-////
-////          Navigator.of(context).pushAndRemoveUntil(
-////              new MaterialPageRoute(
-////                  builder: (context) => NavigationKeepAlive()),
-////              (route) => route == null);
-////        }
-//      });
+
     } catch (e) {
-      print(e);
       this.ErrorMsg = "登录异常，请稍后重试！";
       setState(() {
         isAnimating = false;
@@ -482,11 +479,11 @@ class _LoginPageState extends State<LoginPage> {
 
   getUserNameAndPassword() async {
     await SharedPreferences.getInstance().then((preferences) {
-      String loginUser = preferences.getString("loginUser");
+      String loginUser = preferences.getString("userName");
       if (loginUser != null && loginUser.isNotEmpty) {
         this.usernameController.text = loginUser;
       }
-      String loginPassword = preferences.getString("loginPassword");
+      String loginPassword = preferences.getString("userPwd");
       if (loginPassword != null && loginPassword.isNotEmpty) {
         this.passwordController.text = loginPassword;
         setState(() {

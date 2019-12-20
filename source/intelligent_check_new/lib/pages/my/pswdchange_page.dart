@@ -262,7 +262,7 @@ class _PswdChangePageState extends State<PswdChangePage> {
         Row(
           children: <Widget>[
             Container(
-              width: 170,
+              width:  (MediaQuery.of(context).size.width/2)-8,
               height: 50,
               color: Color.fromRGBO(242, 246, 249, 1),
               child: MaterialButton(
@@ -283,7 +283,7 @@ class _PswdChangePageState extends State<PswdChangePage> {
               ),
             ),
             Container(
-              width: 170,
+              width:  (MediaQuery.of(context).size.width/2)-8,
               height: 50,
               color: Color.fromRGBO(209, 6, 24, 1),
               child: isSavedPressed?
@@ -322,16 +322,16 @@ class _PswdChangePageState extends State<PswdChangePage> {
       isSavedPressed = true;
       isAnimating = true;
     });
-    ChangePswd(_newpswdcontroller.text, _pswdinputcontroller.text, loginResult.user.id).then((data){
-      setState(() {
-        isSavedPressed = false;
-        isAnimating = false;
-      });
-      if(data){
-        MessageBox.showMessageAndExitCurrentPage("密码修改成功！", true, context);
-      }else{
-        MessageBox.showMessageOnly("密码修改失败！", context);
-      }
-    });
+//    ChangePswd(_newpswdcontroller.text, _pswdinputcontroller.text, loginResult.user.id).then((data){
+//      setState(() {
+//        isSavedPressed = false;
+//        isAnimating = false;
+//      });
+//      if(data){
+//        MessageBox.showMessageAndExitCurrentPage("密码修改成功！", true, context);
+//      }else{
+//        MessageBox.showMessageOnly("密码修改失败！", context);
+//      }
+//    });
   }
 }

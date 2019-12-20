@@ -31,7 +31,7 @@ class _StatisticsScreenState extends State<StatisticsScreen>
   @override
   void initState() {
     super.initState();
-    initConfig();
+   // initConfig();
   }
 
   void initConfig() async {
@@ -88,7 +88,7 @@ class _StatisticsScreenState extends State<StatisticsScreen>
       backgroundColor: Color.fromRGBO(242, 246, 249, 1),
       appBar: AppBar(
         title: Text(
-          '统计',
+          '实验',
           style: TextStyle(
             color: Colors.black,
             fontSize: 22,
@@ -125,466 +125,466 @@ class _StatisticsScreenState extends State<StatisticsScreen>
           scrollDirection: Axis.vertical,
 
           children: <Widget>[
-            Container(
-                child: risk == null
-                    ? Container()
-                    : GestureDetector(
-                     child: Container(
-                    //设置四周圆角 角度
-                    decoration: new BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.only(left: 10, top: 3),
-                              child: Image.asset(
-                                "assets/images/securityRiskJudegment/pieChart_dangerPoint.png",
-                                height: 22,
-                              ),
-                            ),
-                            Container(
-                              child: Text(
-                                this.risk.name??"风险点",
-                                style: TextStyle(
-                                    color: Color.fromRGBO(50, 89, 206, 1)),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height:(MediaQuery.of(context).size.width / 2 - 50) < 130
-                              ? 130
-                              : (MediaQuery.of(context).size.width / 2 - 50),
-                          child: Stack(
-                            alignment: const FractionalOffset(0.5, 0.7),
-                            children: <Widget>[
-                              Align(
-
-                                alignment: Alignment.center,
-                                child:Container(
-                                  color:Colors.transparent,
-                                  child: new charts.PieChart(
-                                      _createSampleData("失效",risk.persentNum,
-                                          charts.MaterialPalette.red.shadeDefault),
-                                      animate: true,
-                                      defaultRenderer: new charts.ArcRendererConfig(
-                                           arcWidth:((MediaQuery.of(context).size.width / 2 - 50) < 130
-                                              ? 130
-                                              : (MediaQuery.of(context).size.width / 2 - 50))~/10,
-                                          arcRendererDecorators: [
-                                            new charts.ArcLabelDecorator(
-                                                leaderLineStyleSpec: charts
-                                                    .ArcLabelLeaderLineStyleSpec(
-                                                    length: 10,
-                                                    color: charts
-                                                        .MaterialPalette
-                                                        .red
-                                                        .shadeDefault),
-                                                labelPosition:
-                                                charts.ArcLabelPosition.outside,
-                                                outsideLabelStyleSpec:
-                                                new charts.TextStyleSpec(
-                                                    fontSize: 12,
-                                                    color: charts
-                                                        .MaterialPalette
-                                                        .red
-                                                        .shadeDefault))
-                                          ])),
-                                ),
-                              ),
-
-                              Align(
-                                  alignment: Alignment.center,
-                                  child: Container(
-                                    color:Colors.transparent,
-                                    alignment: Alignment.center,
-
-                                    width:(MediaQuery.of(context).size.width / 2 - 20) < 130
-                                        ? 130
-                                        : (MediaQuery.of(context).size.width / 2 - 20),
-
-                                    child: Text("${risk.actualNum.toString()}\r\n",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.red,
-                                            fontWeight: FontWeight.w600)),
-                                  )),
-                              Align(
-                                  alignment: Alignment.center,
-                                  child: Container(
-                                    color:Colors.transparent,
-                                    alignment: Alignment.center,
-
-                                    width:(MediaQuery.of(context).size.width / 2 - 20) < 130
-                                        ? 130
-                                        : (MediaQuery.of(context).size.width / 2 - 20),
-
-                                    child: Text("\r\n${this.risk.totalNum.toString()}",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.grey,
-                                            fontWeight: FontWeight.w600)),
-                                  )),
-
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                     onTap : () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context){
-                          return  StatisticsDangerPoint();
-                        }));
-                  },
-                ),),
-
-
-            Container(
-              child: danger == null
-                  ? Container()
-                  : GestureDetector(
-                      child: Container(
-                        //设置四周圆角 角度
-                        decoration: new BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: Image.asset(
-                                    "assets/images/securityRiskJudegment/pieChart_danger.png",
-                                    height: 25,
-                                  ),
-                                ),
-                                Container(
-                                  child: Text(
-                                    danger.name ?? "隐患",
-                                    style: TextStyle(
-                                        color: Color.fromRGBO(50, 89, 206, 1)),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height:(MediaQuery.of(context).size.width / 2 - 50) < 130
-                                  ? 130
-                                  : (MediaQuery.of(context).size.width / 2 - 50),
-                              child: Stack(
-                                alignment: const FractionalOffset(0.5, 0.5),
-                                children: <Widget>[
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: new charts.PieChart(
-                                        _createSampleData(
-                                            "逾期",
-                                            danger.persentNum,
-                                            charts.Color(
-                                                r: 255, g: 157, b: 10)),
-                                        animate: true,
-                                        defaultRenderer:
-                                            new charts.ArcRendererConfig(
-                                                 arcWidth:((MediaQuery.of(context).size.width / 2 - 50) < 130
-                                              ? 130
-                                              : (MediaQuery.of(context).size.width / 2 - 50))~/10,
-                                                arcRendererDecorators: [
-                                              new charts.ArcLabelDecorator(
-                                                  leaderLineStyleSpec: charts
-                                                      .ArcLabelLeaderLineStyleSpec(
-                                                          length: 10,
-                                                          color: charts.Color(
-                                                              r: 255,
-                                                              g: 157,
-                                                              b: 10)),
-                                                  labelPosition: charts
-                                                      .ArcLabelPosition.outside,
-                                                  outsideLabelStyleSpec:
-                                                      new charts.TextStyleSpec(
-                                                          fontSize: 12,
-                                                          color: charts.Color(
-                                                              r: 255,
-                                                              g: 157,
-                                                              b: 10)))
-                                            ])),
-                                  ),
-                                  Align(
-                                      alignment: Alignment.center,
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        color: Colors.transparent,
-                                          width:(MediaQuery.of(context).size.width / 2 - 20) < 130
-                                              ? 130
-                                              : (MediaQuery.of(context).size.width / 2 - 20),
-                                        child: Text(
-                                            "${danger.actualNum.toString()}\r\n",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.red,
-                                                fontWeight: FontWeight.w600)),
-                                      )),
-                                  Align(
-                                      alignment: Alignment.center,
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                          color: Colors.transparent,
-                                          width:(MediaQuery.of(context).size.width / 2 - 20) < 130
-                                              ? 130
-                                              : (MediaQuery.of(context).size.width / 2 - 20),
-                                        child: Text("\r\n${danger.totalNum.toString()}",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.w600)),
-                                      )),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return StatisticsDanger();
-                        }));
-                      },
-                    ),
-            ),
-
-            Container(
-              child: taskWork == null
-                  ? Container()
-                  : GestureDetector(
-                      child: Container(
-                        //设置四周圆角 角度
-                        decoration: new BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: Image.asset(
-                                    "assets/images/securityRiskJudegment/pieChart_activility.png",
-                                    height: 25,
-                                  ),
-                                ),
-                                Container(
-                                  child: Text(
-                                    taskWork.name ?? "作业活动",
-                                    style: TextStyle(
-                                        color: Color.fromRGBO(50, 89, 206, 1)),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height:(MediaQuery.of(context).size.width / 2 - 50) < 130
-                                  ? 130
-                                  : (MediaQuery.of(context).size.width / 2 - 50),
-                              child: Stack(
-                                alignment: const FractionalOffset(0.5, 0.5),
-                                children: <Widget>[
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: new charts.PieChart(
-                                        _createSampleData(
-                                            "违章",
-                                            taskWork.persentNum,
-                                            charts.Color(
-                                                r: 255, g: 157, b: 10)),
-                                        animate: true,
-                                        defaultRenderer:
-                                            new charts.ArcRendererConfig(
-                                                 arcWidth:((MediaQuery.of(context).size.width / 2 - 50) < 130
-                                              ? 130
-                                              : (MediaQuery.of(context).size.width / 2 - 50))~/10,
-                                                arcRendererDecorators: [
-                                              new charts.ArcLabelDecorator(
-                                                  leaderLineStyleSpec: charts
-                                                      .ArcLabelLeaderLineStyleSpec(
-                                                          length: 10,
-                                                          color: charts.Color(
-                                                              r: 255,
-                                                              g: 157,
-                                                              b: 10)),
-                                                  labelPosition: charts
-                                                      .ArcLabelPosition.outside,
-                                                  outsideLabelStyleSpec:
-                                                      new charts.TextStyleSpec(
-                                                          fontSize: 12,
-                                                          color: charts.Color(
-                                                              r: 255,
-                                                              g: 157,
-                                                              b: 10)))
-                                            ])),
-                                  ),
-                                  Align(
-                                      alignment: Alignment.center,
-                                      child: Container(
-                                        color:Colors.transparent,
-                                        alignment: Alignment.center,
-                                          width:(MediaQuery.of(context).size.width / 2 - 20) < 130
-                                              ? 130
-                                              : (MediaQuery.of(context).size.width / 2 - 20),
-                                        child: Text(
-                                            "${taskWork.actualNum.toString()}\r\n",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.red,
-                                                fontWeight: FontWeight.w600)),
-                                      )),
-                                  Align(
-                                      alignment: Alignment.center,
-                                      child: Container(
-                                        color:Colors.transparent,
-                                        alignment: Alignment.center,
-                                        width:(MediaQuery.of(context).size.width / 2 - 20) < 130
-                                            ? 130
-                                            : (MediaQuery.of(context).size.width / 2 - 20),
-                                        child: Text(
-                                            "\r\n${taskWork.totalNum.toString()}",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.w600)),
-                                      )),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return StatisticsActivility();
-                        }));
-                      },
-                    ),
-            ),
-            Container(
-              child: judgment == null
-                  ? Container()
-                  : GestureDetector(
-                      child: Container(
-                        //设置四周圆角 角度
-                        decoration: new BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: Image.asset(
-                                    "assets/images/securityRiskJudegment/pieChart_judge.png",
-                                    height: 25,
-                                  ),
-                                ),
-                                Container(
-                                  child: Text(
-                                    judgment.name ?? "科学研判",
-                                    style: TextStyle(
-                                        color: Color.fromRGBO(50, 89, 206, 1)),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-
-                              height:(MediaQuery.of(context).size.width / 2 - 50) < 130
-                                  ? 130
-                                  : (MediaQuery.of(context).size.width / 2 - 50),
-                              child: Stack(
-                                alignment: const FractionalOffset(0.5, 0.5),
-                                children: <Widget>[
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: new charts.PieChart(
-                                        _createSampleData(
-                                            "",
-                                            judgment.persentNum,
-                                            charts.MaterialPalette.green
-                                                .shadeDefault),
-                                        animate: true,
-                                        defaultRenderer:
-                                            new charts.ArcRendererConfig(
-                                                 arcWidth:((MediaQuery.of(context).size.width / 2 - 50) < 130
-                                              ? 130
-                                              : (MediaQuery.of(context).size.width / 2 - 50))~/10,
-                                                arcRendererDecorators: [
-                                              new charts.ArcLabelDecorator(
-                                                 /* leaderLineStyleSpec: charts
-                                                      .ArcLabelLeaderLineStyleSpec(
-                                                          length: 10,
-                                                          color: charts
-                                                              .MaterialPalette
-                                                              .green
-                                                              .shadeDefault),
-                                                  labelPosition: charts
-                                                      .ArcLabelPosition.outside,
-                                                  outsideLabelStyleSpec:
-                                                      new charts.TextStyleSpec(
-                                                          fontSize: 12,
-                                                          color: charts
-                                                              .MaterialPalette
-                                                              .green
-                                                              .shadeDefault)*/)
-                                            ])),
-                                  ),
-                                  Align(
-                                      alignment: Alignment.center,
-                                      child: Container(
-                                        color: Colors.transparent,
-                                        alignment: Alignment.center,
-                                        width:(MediaQuery.of(context).size.width / 2 - 20) < 130
-                                            ? 130
-                                            : (MediaQuery.of(context).size.width / 2 - 20),
-                                        height:(MediaQuery.of(context).size.width / 2 - 20) < 130
-                                            ? 130
-                                            : (MediaQuery.of(context).size.width / 2 - 20),
-                                        child: Text("${judgment.persentNum}%",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.red,
-                                                fontWeight: FontWeight.w600)),
-                                      )),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return StatisticsJudge(judgment.persentNum);
-                        }));
-                      },
-                    ),
-            ),
+//            Container(
+//                child: risk == null
+//                    ? Container()
+//                    : GestureDetector(
+//                     child: Container(
+//                    //设置四周圆角 角度
+//                    decoration: new BoxDecoration(
+//                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+//                      color: Colors.white,
+//                    ),
+//                    child: Column(
+//                      children: <Widget>[
+//                        Row(
+//                          children: <Widget>[
+//                            Container(
+//                              padding: EdgeInsets.only(left: 10, top: 3),
+//                              child: Image.asset(
+//                                "assets/images/securityRiskJudegment/pieChart_dangerPoint.png",
+//                                height: 22,
+//                              ),
+//                            ),
+//                            Container(
+//                              child: Text(
+//                                this.risk.name??"风险点",
+//                                style: TextStyle(
+//                                    color: Color.fromRGBO(50, 89, 206, 1)),
+//                              ),
+//                            ),
+//                          ],
+//                        ),
+//                        SizedBox(
+//                          height:(MediaQuery.of(context).size.width / 2 - 50) < 130
+//                              ? 130
+//                              : (MediaQuery.of(context).size.width / 2 - 50),
+//                          child: Stack(
+//                            alignment: const FractionalOffset(0.5, 0.7),
+//                            children: <Widget>[
+//                              Align(
+//
+//                                alignment: Alignment.center,
+//                                child:Container(
+//                                  color:Colors.transparent,
+//                                  child: new charts.PieChart(
+//                                      _createSampleData("失效",risk.persentNum,
+//                                          charts.MaterialPalette.red.shadeDefault),
+//                                      animate: true,
+//                                      defaultRenderer: new charts.ArcRendererConfig(
+//                                           arcWidth:((MediaQuery.of(context).size.width / 2 - 50) < 130
+//                                              ? 130
+//                                              : (MediaQuery.of(context).size.width / 2 - 50))~/10,
+//                                          arcRendererDecorators: [
+//                                            new charts.ArcLabelDecorator(
+//                                                leaderLineStyleSpec: charts
+//                                                    .ArcLabelLeaderLineStyleSpec(
+//                                                    length: 10,
+//                                                    color: charts
+//                                                        .MaterialPalette
+//                                                        .red
+//                                                        .shadeDefault),
+//                                                labelPosition:
+//                                                charts.ArcLabelPosition.outside,
+//                                                outsideLabelStyleSpec:
+//                                                new charts.TextStyleSpec(
+//                                                    fontSize: 12,
+//                                                    color: charts
+//                                                        .MaterialPalette
+//                                                        .red
+//                                                        .shadeDefault))
+//                                          ])),
+//                                ),
+//                              ),
+//
+//                              Align(
+//                                  alignment: Alignment.center,
+//                                  child: Container(
+//                                    color:Colors.transparent,
+//                                    alignment: Alignment.center,
+//
+//                                    width:(MediaQuery.of(context).size.width / 2 - 20) < 130
+//                                        ? 130
+//                                        : (MediaQuery.of(context).size.width / 2 - 20),
+//
+//                                    child: Text("${risk.actualNum.toString()}\r\n",
+//                                        textAlign: TextAlign.center,
+//                                        style: TextStyle(
+//                                            fontSize: 18,
+//                                            color: Colors.red,
+//                                            fontWeight: FontWeight.w600)),
+//                                  )),
+//                              Align(
+//                                  alignment: Alignment.center,
+//                                  child: Container(
+//                                    color:Colors.transparent,
+//                                    alignment: Alignment.center,
+//
+//                                    width:(MediaQuery.of(context).size.width / 2 - 20) < 130
+//                                        ? 130
+//                                        : (MediaQuery.of(context).size.width / 2 - 20),
+//
+//                                    child: Text("\r\n${this.risk.totalNum.toString()}",
+//                                        textAlign: TextAlign.center,
+//                                        style: TextStyle(
+//                                            fontSize: 18,
+//                                            color: Colors.grey,
+//                                            fontWeight: FontWeight.w600)),
+//                                  )),
+//
+//                            ],
+//                          ),
+//                        ),
+//                      ],
+//                    ),
+//                  ),
+//                     onTap : () {
+//                        Navigator.push(context,
+//                            MaterialPageRoute(builder: (context){
+//                          return  StatisticsDangerPoint();
+//                        }));
+//                  },
+//                ),),
+//
+//
+//            Container(
+//              child: danger == null
+//                  ? Container()
+//                  : GestureDetector(
+//                      child: Container(
+//                        //设置四周圆角 角度
+//                        decoration: new BoxDecoration(
+//                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+//                          color: Colors.white,
+//                        ),
+//                        child: Column(
+//                          children: <Widget>[
+//                            Row(
+//                              children: <Widget>[
+//                                Container(
+//                                  padding: EdgeInsets.only(left: 10),
+//                                  child: Image.asset(
+//                                    "assets/images/securityRiskJudegment/pieChart_danger.png",
+//                                    height: 25,
+//                                  ),
+//                                ),
+//                                Container(
+//                                  child: Text(
+//                                    danger.name ?? "隐患",
+//                                    style: TextStyle(
+//                                        color: Color.fromRGBO(50, 89, 206, 1)),
+//                                  ),
+//                                ),
+//                              ],
+//                            ),
+//                            SizedBox(
+//                              height:(MediaQuery.of(context).size.width / 2 - 50) < 130
+//                                  ? 130
+//                                  : (MediaQuery.of(context).size.width / 2 - 50),
+//                              child: Stack(
+//                                alignment: const FractionalOffset(0.5, 0.5),
+//                                children: <Widget>[
+//                                  Align(
+//                                    alignment: Alignment.center,
+//                                    child: new charts.PieChart(
+//                                        _createSampleData(
+//                                            "逾期",
+//                                            danger.persentNum,
+//                                            charts.Color(
+//                                                r: 255, g: 157, b: 10)),
+//                                        animate: true,
+//                                        defaultRenderer:
+//                                            new charts.ArcRendererConfig(
+//                                                 arcWidth:((MediaQuery.of(context).size.width / 2 - 50) < 130
+//                                              ? 130
+//                                              : (MediaQuery.of(context).size.width / 2 - 50))~/10,
+//                                                arcRendererDecorators: [
+//                                              new charts.ArcLabelDecorator(
+//                                                  leaderLineStyleSpec: charts
+//                                                      .ArcLabelLeaderLineStyleSpec(
+//                                                          length: 10,
+//                                                          color: charts.Color(
+//                                                              r: 255,
+//                                                              g: 157,
+//                                                              b: 10)),
+//                                                  labelPosition: charts
+//                                                      .ArcLabelPosition.outside,
+//                                                  outsideLabelStyleSpec:
+//                                                      new charts.TextStyleSpec(
+//                                                          fontSize: 12,
+//                                                          color: charts.Color(
+//                                                              r: 255,
+//                                                              g: 157,
+//                                                              b: 10)))
+//                                            ])),
+//                                  ),
+//                                  Align(
+//                                      alignment: Alignment.center,
+//                                      child: Container(
+//                                        alignment: Alignment.center,
+//                                        color: Colors.transparent,
+//                                          width:(MediaQuery.of(context).size.width / 2 - 20) < 130
+//                                              ? 130
+//                                              : (MediaQuery.of(context).size.width / 2 - 20),
+//                                        child: Text(
+//                                            "${danger.actualNum.toString()}\r\n",
+//                                            textAlign: TextAlign.center,
+//                                            style: TextStyle(
+//                                                fontSize: 18,
+//                                                color: Colors.red,
+//                                                fontWeight: FontWeight.w600)),
+//                                      )),
+//                                  Align(
+//                                      alignment: Alignment.center,
+//                                      child: Container(
+//                                        alignment: Alignment.center,
+//                                          color: Colors.transparent,
+//                                          width:(MediaQuery.of(context).size.width / 2 - 20) < 130
+//                                              ? 130
+//                                              : (MediaQuery.of(context).size.width / 2 - 20),
+//                                        child: Text("\r\n${danger.totalNum.toString()}",
+//                                            textAlign: TextAlign.center,
+//                                            style: TextStyle(
+//                                                fontSize: 18,
+//                                                color: Colors.grey,
+//                                                fontWeight: FontWeight.w600)),
+//                                      )),
+//                                ],
+//                              ),
+//                            ),
+//                          ],
+//                        ),
+//                      ),
+//                      onTap: () {
+//                        Navigator.push(context,
+//                            MaterialPageRoute(builder: (context) {
+//                          return StatisticsDanger();
+//                        }));
+//                      },
+//                    ),
+//            ),
+//
+//            Container(
+//              child: taskWork == null
+//                  ? Container()
+//                  : GestureDetector(
+//                      child: Container(
+//                        //设置四周圆角 角度
+//                        decoration: new BoxDecoration(
+//                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+//                          color: Colors.white,
+//                        ),
+//                        child: Column(
+//                          children: <Widget>[
+//                            Row(
+//                              children: <Widget>[
+//                                Container(
+//                                  padding: EdgeInsets.only(left: 10),
+//                                  child: Image.asset(
+//                                    "assets/images/securityRiskJudegment/pieChart_activility.png",
+//                                    height: 25,
+//                                  ),
+//                                ),
+//                                Container(
+//                                  child: Text(
+//                                    taskWork.name ?? "作业活动",
+//                                    style: TextStyle(
+//                                        color: Color.fromRGBO(50, 89, 206, 1)),
+//                                  ),
+//                                ),
+//                              ],
+//                            ),
+//                            SizedBox(
+//                              height:(MediaQuery.of(context).size.width / 2 - 50) < 130
+//                                  ? 130
+//                                  : (MediaQuery.of(context).size.width / 2 - 50),
+//                              child: Stack(
+//                                alignment: const FractionalOffset(0.5, 0.5),
+//                                children: <Widget>[
+//                                  Align(
+//                                    alignment: Alignment.center,
+//                                    child: new charts.PieChart(
+//                                        _createSampleData(
+//                                            "违章",
+//                                            taskWork.persentNum,
+//                                            charts.Color(
+//                                                r: 255, g: 157, b: 10)),
+//                                        animate: true,
+//                                        defaultRenderer:
+//                                            new charts.ArcRendererConfig(
+//                                                 arcWidth:((MediaQuery.of(context).size.width / 2 - 50) < 130
+//                                              ? 130
+//                                              : (MediaQuery.of(context).size.width / 2 - 50))~/10,
+//                                                arcRendererDecorators: [
+//                                              new charts.ArcLabelDecorator(
+//                                                  leaderLineStyleSpec: charts
+//                                                      .ArcLabelLeaderLineStyleSpec(
+//                                                          length: 10,
+//                                                          color: charts.Color(
+//                                                              r: 255,
+//                                                              g: 157,
+//                                                              b: 10)),
+//                                                  labelPosition: charts
+//                                                      .ArcLabelPosition.outside,
+//                                                  outsideLabelStyleSpec:
+//                                                      new charts.TextStyleSpec(
+//                                                          fontSize: 12,
+//                                                          color: charts.Color(
+//                                                              r: 255,
+//                                                              g: 157,
+//                                                              b: 10)))
+//                                            ])),
+//                                  ),
+//                                  Align(
+//                                      alignment: Alignment.center,
+//                                      child: Container(
+//                                        color:Colors.transparent,
+//                                        alignment: Alignment.center,
+//                                          width:(MediaQuery.of(context).size.width / 2 - 20) < 130
+//                                              ? 130
+//                                              : (MediaQuery.of(context).size.width / 2 - 20),
+//                                        child: Text(
+//                                            "${taskWork.actualNum.toString()}\r\n",
+//                                            textAlign: TextAlign.center,
+//                                            style: TextStyle(
+//                                                fontSize: 18,
+//                                                color: Colors.red,
+//                                                fontWeight: FontWeight.w600)),
+//                                      )),
+//                                  Align(
+//                                      alignment: Alignment.center,
+//                                      child: Container(
+//                                        color:Colors.transparent,
+//                                        alignment: Alignment.center,
+//                                        width:(MediaQuery.of(context).size.width / 2 - 20) < 130
+//                                            ? 130
+//                                            : (MediaQuery.of(context).size.width / 2 - 20),
+//                                        child: Text(
+//                                            "\r\n${taskWork.totalNum.toString()}",
+//                                            textAlign: TextAlign.center,
+//                                            style: TextStyle(
+//                                                fontSize: 18,
+//                                                color: Colors.grey,
+//                                                fontWeight: FontWeight.w600)),
+//                                      )),
+//                                ],
+//                              ),
+//                            ),
+//                          ],
+//                        ),
+//                      ),
+//                      onTap: () {
+//                        Navigator.push(context,
+//                            MaterialPageRoute(builder: (context) {
+//                          return StatisticsActivility();
+//                        }));
+//                      },
+//                    ),
+//            ),
+//            Container(
+//              child: judgment == null
+//                  ? Container()
+//                  : GestureDetector(
+//                      child: Container(
+//                        //设置四周圆角 角度
+//                        decoration: new BoxDecoration(
+//                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+//                          color: Colors.white,
+//                        ),
+//                        child: Column(
+//                          children: <Widget>[
+//                            Row(
+//                              children: <Widget>[
+//                                Container(
+//                                  padding: EdgeInsets.only(left: 10),
+//                                  child: Image.asset(
+//                                    "assets/images/securityRiskJudegment/pieChart_judge.png",
+//                                    height: 25,
+//                                  ),
+//                                ),
+//                                Container(
+//                                  child: Text(
+//                                    judgment.name ?? "科学研判",
+//                                    style: TextStyle(
+//                                        color: Color.fromRGBO(50, 89, 206, 1)),
+//                                  ),
+//                                ),
+//                              ],
+//                            ),
+//                            SizedBox(
+//
+//                              height:(MediaQuery.of(context).size.width / 2 - 50) < 130
+//                                  ? 130
+//                                  : (MediaQuery.of(context).size.width / 2 - 50),
+//                              child: Stack(
+//                                alignment: const FractionalOffset(0.5, 0.5),
+//                                children: <Widget>[
+//                                  Align(
+//                                    alignment: Alignment.center,
+//                                    child: new charts.PieChart(
+//                                        _createSampleData(
+//                                            "",
+//                                            judgment.persentNum,
+//                                            charts.MaterialPalette.green
+//                                                .shadeDefault),
+//                                        animate: true,
+//                                        defaultRenderer:
+//                                            new charts.ArcRendererConfig(
+//                                                 arcWidth:((MediaQuery.of(context).size.width / 2 - 50) < 130
+//                                              ? 130
+//                                              : (MediaQuery.of(context).size.width / 2 - 50))~/10,
+//                                                arcRendererDecorators: [
+//                                              new charts.ArcLabelDecorator(
+//                                                 /* leaderLineStyleSpec: charts
+//                                                      .ArcLabelLeaderLineStyleSpec(
+//                                                          length: 10,
+//                                                          color: charts
+//                                                              .MaterialPalette
+//                                                              .green
+//                                                              .shadeDefault),
+//                                                  labelPosition: charts
+//                                                      .ArcLabelPosition.outside,
+//                                                  outsideLabelStyleSpec:
+//                                                      new charts.TextStyleSpec(
+//                                                          fontSize: 12,
+//                                                          color: charts
+//                                                              .MaterialPalette
+//                                                              .green
+//                                                              .shadeDefault)*/)
+//                                            ])),
+//                                  ),
+//                                  Align(
+//                                      alignment: Alignment.center,
+//                                      child: Container(
+//                                        color: Colors.transparent,
+//                                        alignment: Alignment.center,
+//                                        width:(MediaQuery.of(context).size.width / 2 - 20) < 130
+//                                            ? 130
+//                                            : (MediaQuery.of(context).size.width / 2 - 20),
+//                                        height:(MediaQuery.of(context).size.width / 2 - 20) < 130
+//                                            ? 130
+//                                            : (MediaQuery.of(context).size.width / 2 - 20),
+//                                        child: Text("${judgment.persentNum}%",
+//                                            textAlign: TextAlign.center,
+//                                            style: TextStyle(
+//                                                fontSize: 18,
+//                                                color: Colors.red,
+//                                                fontWeight: FontWeight.w600)),
+//                                      )),
+//                                ],
+//                              ),
+//                            ),
+//                          ],
+//                        ),
+//                      ),
+//                      onTap: () {
+//                        Navigator.push(context,
+//                            MaterialPageRoute(builder: (context) {
+//                          return StatisticsJudge(judgment.persentNum);
+//                        }));
+//                      },
+//                    ),
+//            ),
           ],
         )),
         inAsyncCall: isAnimating,

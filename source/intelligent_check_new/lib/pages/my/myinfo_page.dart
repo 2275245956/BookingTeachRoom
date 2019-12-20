@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:intelligent_check_new/model/StudentModel/StudentModel.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intelligent_check_new/widget/touch_callback.dart';
 import 'package:intelligent_check_new/model/LoginResult.dart';
@@ -13,10 +14,10 @@ class MyInfoPage extends StatefulWidget {
 }
 
 class _MyInfoPageState extends State<MyInfoPage> {
-  var userCompany="";
-  var department="";
-  LoginResult loginResult;
-  String theme="blue";
+  var userCompany = "";
+  var department = "";
+  StudentsInfo userInfo;
+  String theme = "blue";
 
   @override
   void initState() {
@@ -24,25 +25,20 @@ class _MyInfoPageState extends State<MyInfoPage> {
     super.initState();
   }
 
-  getData()  {
-
-    SharedPreferences.getInstance().then((sp){
-
+  getData() {
+    SharedPreferences.getInstance().then((sp) {
       setState(() {
-        String str= sp.get('LoginResult');
-        userCompany= json.decode(sp.getString("sel_com"))["companyName"];
-        if(sp.getString("sel_dept")!=null && sp.getString("sel_dept")!="")
-          department= json.decode(sp.getString("sel_dept"))["departmentName"];
-        loginResult = LoginResult(str);
-        this.theme = sp.getString("theme")??KColorConstant.DEFAULT_COLOR;
-
+        String str = sp.get('userInfo');
+        if (str != null) {
+          userInfo = StudentsInfo.fromJson(json.decode(str));
+        }
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if(loginResult==null){
+    if (userInfo == null) {
       return Scaffold(
           backgroundColor: Color.fromRGBO(242, 246, 249, 1),
           appBar: new AppBar(
@@ -51,7 +47,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
             leading: IconButton(
                 icon: Icon(
                   Icons.arrow_back_ios,
-                  color:Color.fromRGBO(209, 6, 24, 1),
+                  color: Color.fromRGBO(209, 6, 24, 1),
                 ),
                 onPressed: () {
                   Navigator.pop(context);
@@ -64,24 +60,9 @@ class _MyInfoPageState extends State<MyInfoPage> {
               ),
             ),
             centerTitle: true,
-            actions: <Widget>[
-//              IconButton(
-//                icon: Text(
-//                  '确定',
-//                  style: new TextStyle(
-//                    color: Color.fromRGBO(209, 6, 24, 1),
-////                  fontWeight: FontWeight.bold,
-//                    fontSize: 16.0,
-//                  ),
-//                ),
-//                onPressed: () {
-//                  //确认后的处理
-//                  Navigator.pop(context);
-//                },
-//              ),
-            ],
+            actions: <Widget>[],
           ),
-          body:Text(""));
+          body: Text(""));
     }
     return Scaffold(
         backgroundColor: Color.fromRGBO(242, 246, 249, 1),
@@ -91,7 +72,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back_ios,
-                color:Color.fromRGBO(209, 6, 24, 1),
+                color: Color.fromRGBO(209, 6, 24, 1),
               ),
               onPressed: () {
                 Navigator.pop(context);
@@ -125,58 +106,44 @@ class _MyInfoPageState extends State<MyInfoPage> {
           children: <Widget>[
             //头像部分
             TouchCallBack(
-              onPressed: () {
-//                Navigator.push(
-//                  context,
-//                  new MaterialPageRoute(
-//                      builder: (context) => new HeadChangePage()),
-//                );
-                //到换头像页面
-              },
+              onPressed: () {},
               child: Container(
                 //margin: const EdgeInsets.only(top: 0.0),
                 color: Colors.white,
                 height: 50.0,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     //图标或图片
-                    Container(
-                      width: 220.0,
-                      height: 32.0,
-                      child: Text(
-                        '头像',
-                        style: TextStyle(
-                            fontSize: 16.0,
-//                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
-                      padding: const EdgeInsets.only(left: 10.0),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(left: 80.0),
-//                      child: Image.asset(
-//                        'assets/images/icons/head.png',
-//                      ),
-                      child: CircleAvatar(
-                        backgroundColor: Color.fromRGBO(209, 6, 24, 1),
-                        child: Text(loginResult == null
-                            ? ""
-                            : loginResult.user.name[0],style: TextStyle(color: Colors.white),),
-                      ),
+                    Expanded(
+                      child: Container(
 
-//                      CircleAvatar(child:Text(loginResult.user.name==null?"":loginResult.user.name[0])),
-                      //Image.network(myInfo.avantatUrl),
-                      margin: const EdgeInsets.all(5.0),
+                        height: 32.0,
+                        child: Text(
+                          '头像',
+                          style: TextStyle(
+                              fontSize: 16.0,
+//                            fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                        padding: const EdgeInsets.only(left: 10.0),
+                      ),
+                      flex: 1,
                     ),
-                    //标题
-                    //右侧icon
-//                    Container(
-//                      child: Image.asset(
-//                        'assets/images/icons/righticon.png',
-//                        color: Colors.blueAccent,
-//                      ),
-//                    ),
+
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        child: CircleAvatar(
+                          backgroundColor: Color.fromRGBO(209, 6, 24, 1),
+                          child: Text(
+                            userInfo == null ? "" : userInfo.sName[0],
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+
+                      ),
+                      flex: 3,
+                    ),
                   ],
                 ),
               ),
@@ -207,9 +174,10 @@ class _MyInfoPageState extends State<MyInfoPage> {
                     flex: 1,
                   ),
                   Expanded(
-                   // child: new Text(myInfo.username),
-                    child: new Text(loginResult.user.name==null?"":loginResult.user.name),
-                    flex: 2,
+                    // child: new Text(myInfo.username),
+                    child:
+                        new Text(userInfo.sName == null ? "" : userInfo.sName),
+                    flex: 3,
                   ),
                 ],
               ),
@@ -221,38 +189,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
                 color: Color(0XFFd9d9d9),
               ),
             ),
-//            Container(
-//              color: Colors.white,
-//              height: 50.0,
-//              child: new Row(
-//                children: <Widget>[
-//                  Expanded(
-//                    child: Container(
-//                      child: new Text(
-//                        '性别',
-//                        style: TextStyle(
-//                            fontSize: 15.0,
-////                            fontWeight: FontWeight.bold,
-//                            color: Colors.black),
-//                      ),
-//                      padding: const EdgeInsets.only(left: 10.0),
-//                    ),
-//                    flex: 1,
-//                  ),
-//                  Expanded(
-//                    child: new Text(""),
-//                    flex: 2,
-//                  ),
-//                ],
-//              ),
-//            ),
-//            Padding(
-//              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-//              child: Divider(
-//                height: 0.5,
-//                color: Color(0XFFd9d9d9),
-//              ),
-//            ),
+
             Container(
               color: Colors.white,
               height: 50.0,
@@ -261,7 +198,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
                   Expanded(
                     child: Container(
                       child: new Text(
-                        '部门',
+                        '学院',
                         style: TextStyle(
                             fontSize: 15.0,
 //                            fontWeight: FontWeight.bold,
@@ -273,8 +210,41 @@ class _MyInfoPageState extends State<MyInfoPage> {
                   ),
                   Expanded(
                     //child: new Text(myInfo.userdepartment),
-                    child: new Text(department==""?"--":department),
-                    flex: 2,
+                    child: new Text(userInfo.attriText01 ?? "--"),
+                    flex: 3,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Divider(
+                height: 0.5,
+                color: Color(0XFFd9d9d9),
+              ),
+            ),
+            Container(
+              color: Colors.white,
+              height: 50.0,
+              child: new Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      child: new Text(
+                        '专业',
+                        style: TextStyle(
+                            fontSize: 15.0,
+//                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                      padding: const EdgeInsets.only(left: 10.0),
+                    ),
+                    flex: 1,
+                  ),
+                  Expanded(
+                    //child: new Text(myInfo.userdepartment),
+                    child: new Text(userInfo.sMajor ?? "--"),
+                    flex: 3,
                   ),
                 ],
               ),
@@ -306,13 +276,14 @@ class _MyInfoPageState extends State<MyInfoPage> {
                   ),
                   Expanded(
                     //child: new Text(myInfo.userid.toString()),
-                    child: new Text(loginResult.user.userName==null?"":loginResult.user.userName),
-                    flex: 2,
+                    child: new Text(
+                        userInfo.sNumber == null ? "" : userInfo.sNumber),
+                    flex: 3,
                   ),
                 ],
               ),
             ),
-      /*      Padding(
+                  Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 15.0),
               child: Divider(
                 height: 0.5,
@@ -338,14 +309,13 @@ class _MyInfoPageState extends State<MyInfoPage> {
                     flex: 1,
                   ),
                   Expanded(
-
                     child: new Text(
-                        loginResult.user.email == null?"":loginResult.user.email),
-                    flex: 2,
+                        userInfo.sEmail ??"--"),
+                    flex:3,
                   ),
                 ],
               ),
-            ),*/
+            ),
           ],
         ));
   }

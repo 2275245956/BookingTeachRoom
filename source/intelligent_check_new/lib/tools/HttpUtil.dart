@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intelligent_check_new/pages/hidedanger_manage/hidden_danger_found.dart';
 import 'package:intelligent_check_new/services/api_address.dart';
+import 'package:intelligent_check_new/tools/MessageBox.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HttpUtil {
@@ -46,8 +47,8 @@ class HttpUtil {
     serverUrl = pref.getString("bizServerUrl")??ApiAddress.DEFAULT_BIZ_API_URL; //ApiAddress.BIZ_API_URL;
 
     print('get请求启动! serverUrl：' + serverUrl + url + ',body: $data');
-    String token = pref.get("user_token");
-    print(token);
+//    String token = pref.get("user_token");
+//    print(token);
     Response response;
     try {
       response = await dio.get(
@@ -55,20 +56,23 @@ class HttpUtil {
           data: data,
           cancelToken: cancelToken,
           options: Options(
-              headers: {"X-From-Service": true, "X-Access-Token": token})
+              headers: {"X-From-Service": true, /*"X-Access-Token": token*/})
       );
       print('get请求成功!response.data：${response.data}');
     } on DioError catch (e) {
 
       if (e.type == DioErrorType.DEFAULT) {
-        HiddenDangerFound.popUpMsg(
+         MessageBox.popUpMsg(
             "请检查服务配置！", gravity: ToastGravity.BOTTOM,
             txtColor: Colors.red);
       } else if (e.type == DioErrorType.CONNECT_TIMEOUT) {
-        HiddenDangerFound.popUpMsg(
+         MessageBox.popUpMsg(
             "请求超时！", gravity: ToastGravity.BOTTOM, txtColor: Colors.red);
       } else if (CancelToken.isCancel(e)) {
         print('post请求取消! ' + e.message);
+      }else if(e.type==DioErrorType.RESPONSE){
+        MessageBox.popUpMsg(
+            "服务器出错！", gravity: ToastGravity.BOTTOM, txtColor: Colors.red);
       }
 
     }
@@ -97,9 +101,9 @@ class HttpUtil {
       print('get请求成功!response.data：${response.data}');
     } on DioError catch (e) {
       if(e.type==DioErrorType.DEFAULT){
-        HiddenDangerFound.popUpMsg("请检查服务配置！",gravity: ToastGravity.BOTTOM,txtColor: Colors.red);
+        MessageBox.popUpMsg("请检查服务配置！",gravity: ToastGravity.BOTTOM,txtColor: Colors.red);
       }else if(e.type==DioErrorType.CONNECT_TIMEOUT){
-        HiddenDangerFound.popUpMsg("请求超时！",gravity: ToastGravity.BOTTOM,txtColor: Colors.red);
+        MessageBox.popUpMsg("请求超时！",gravity: ToastGravity.BOTTOM,txtColor: Colors.red);
       }else if (CancelToken.isCancel(e)) {
         print('post请求取消! ' + e.message);
       }
@@ -117,26 +121,27 @@ class HttpUtil {
 
     print('post请求启动! serverUrl：' + serverUrl + url + ',body: $data');
 
-    String token = pref.get("user_token");
-    print(token);
     Response response;
     try {
       response = await dio.post(
           serverUrl + url,
           data: data,
           cancelToken: cancelToken,
-          options: Options(headers: {"X-From-Service": true, "X-Access-Token": token})
+          options: Options(headers: {"X-From-Service": true,/* "X-Access-Token": token*/})
       );
       if(response==null)
         print("请求不成功 response为null");
       print('post请求成功!response.data：${response.data}');
     } on DioError catch (e) {
       if(e.type==DioErrorType.DEFAULT){
-        HiddenDangerFound.popUpMsg("请检查服务配置！",gravity: ToastGravity.BOTTOM,txtColor: Colors.red);
+        MessageBox.popUpMsg("请检查服务配置！",gravity: ToastGravity.BOTTOM,txtColor: Colors.red);
       }else if(e.type==DioErrorType.CONNECT_TIMEOUT){
-        HiddenDangerFound.popUpMsg("请求超时！",gravity: ToastGravity.BOTTOM,txtColor: Colors.red);
+        MessageBox.popUpMsg("请求超时！",gravity: ToastGravity.BOTTOM,txtColor: Colors.red);
       }else if (CancelToken.isCancel(e)) {
         print('post请求取消! ' + e.message);
+      }else if(e.type==DioErrorType.RESPONSE){
+        MessageBox.popUpMsg(
+            "服务器出错！", gravity: ToastGravity.BOTTOM, txtColor: Colors.red);
       }
       print('post请求发生错误：$e');
     }
@@ -151,7 +156,7 @@ class HttpUtil {
     serverUrl = pref.getString("bizServerUrl")??ApiAddress.DEFAULT_BIZ_API_URL; //ApiAddress.BIZ_API_URL;
 
     print('post请求启动! url：$url ,body: $data');
-    String token = pref.get("user_token");
+//    String token = pref.get("user_token");
     Response response;
     try {
       response = await dio.put(
@@ -159,7 +164,7 @@ class HttpUtil {
           data: data,
           cancelToken: cancelToken,
           options: Options(
-              headers: {"X-From-Service": true, "X-Access-Token": token})
+              headers: {"X-From-Service": true, /*"X-Access-Token": token*/})
       );
       print('put请求成功!response.data：${response.data}');
     } on DioError catch (e) {

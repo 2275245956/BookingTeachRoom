@@ -32,5 +32,6 @@ Future<APIResponse> stuLogin(var jsonStr, int roleType) async {
       break;
   }
   var data = await HttpUtil().post(requestUrl, data: json.encode(jsonStr));
+
   return APIResponse.fromJson(data);
 }

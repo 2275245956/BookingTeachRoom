@@ -14,7 +14,7 @@ class APIResponse {
   APIResponse.fromJson(jsonRes) {
     message = jsonRes['message'];
     dataList = jsonRes['dataList'];
-    success = jsonRes['success'];
+    success = jsonRes['success']??false;
     result = jsonRes['result'];
   }
 

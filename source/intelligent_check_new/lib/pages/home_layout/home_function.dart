@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_bottom_tab_bar/eachtab.dart';
+import 'package:intelligent_check_new/model/StudentModel/StudentModel.dart';
 import 'package:intelligent_check_new/pages/message/message_list.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -17,12 +20,12 @@ class _HomeFunctionState extends State<HomeFunction> {
   bool isAnimating = false;
 
   String theme = "red"; //主题
-  String userName = "--";
+  StudentsInfo studentInfo;
   int userType = -1;
 
   @override
   Widget build(BuildContext context) {
-    if (this.theme.isEmpty) {
+    if (studentInfo==null) {
       return Scaffold(body: Text(""));
     }
     return ModalProgressHUD(
@@ -48,7 +51,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                             children: <Widget>[
                               Container(
                                 child: Text(
-                                  "${GetConfig.getRoleDesc(userType)}:$userName",
+                                  "${studentInfo.sRole}:${studentInfo.sName}",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(color: Colors.white),
                                 ),
@@ -271,8 +274,11 @@ class _HomeFunctionState extends State<HomeFunction> {
   void initData() async {
     await SharedPreferences.getInstance().then((sp) {
       setState(() {
-        userType = int.parse(sp.getString("userType") ?? "-1");
-        userName = sp.getString("userName");
+        //用户类型
+        userType = sp.getInt("userRole");
+        if(sp.getString("userInfo")!=null){
+          studentInfo=StudentsInfo.fromJson(json.decode(sp.getString("userInfo")));
+        }
       });
     });
   }
