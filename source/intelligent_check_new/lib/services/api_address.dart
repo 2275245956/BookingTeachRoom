@@ -1,11 +1,40 @@
 class ApiAddress {
   // API地址
   static const String DEFAULT_BIZ_API_URL =
-      "http://2w277p.natappfree.cc";// "http://wtik54.natappfree.cc/";//"http://wvun7x.natappfree.cc"; //
+      "http://122.51.225.40:8088";// "http://wtik54.natappfree.cc/";//"http://wvun7x.natappfree.cc"; //
 
 
-  static const String DEFAULT_AUTH_API_URL =
-      "http://server.natappfree.cc:45226";//"http://server.natappfree.cc:41047/"; //
+  static  const String STUDENT_LOGIN="/stuLogin";
+  static  const String TEACHER_LOGIN="/teacherLogin";
+  static  const String ADMIN_LOGIN="/AdminLogin";
+  static  const String EXPADMIN_LOGIN="/expAdminLogin";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//  static const String DEFAULT_AUTH_API_URL =
+//      "http://server.natappfree.cc:45226";//"http://server.natappfree.cc:41047/"; //
 
   // "http://39.100.241.164:8800";
   static const String DEFAULT_UPDATE_URL = "";

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class MessageBox{
 
@@ -80,4 +81,16 @@ class MessageBox{
       action();
     });
   }
+
+  ///消息提示
+  static popUpMsg(String msg,{txtColor,bgColor,gravity}) {
+    Fluttertoast.showToast(
+        msg: msg,
+        gravity: gravity ?? ToastGravity.CENTER,
+        toastLength: Toast.LENGTH_SHORT,
+        textColor: txtColor ?? Colors.white,
+        backgroundColor: bgColor ?? Colors.black54
+    );
+  }
+
 }

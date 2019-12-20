@@ -6,6 +6,7 @@ import 'package:intelligent_check_new/model/version.dart';
 import 'package:intelligent_check_new/pages/SelCompanyAndDept.dart';
 import 'package:intelligent_check_new/pages/custom_setting_page.dart';
 import 'package:intelligent_check_new/pages/navigation_keep_alive.dart';
+import 'package:intelligent_check_new/services/StudentServices/StudentOperate.dart';
 import 'package:intelligent_check_new/services/api_address.dart';
 import 'package:intelligent_check_new/services/company_services.dart';
 import 'package:intelligent_check_new/services/myinfo_services.dart';
@@ -36,8 +37,9 @@ class _LoginPageState extends State<LoginPage> {
   String ErrorMsg = "";
   var loginState = false;
   int count = 0;
-
+  int roleType = null;
   Version _version;
+
 //  bool loginButtonEnable = true;
   PermissionStatus _permissionStatus = PermissionStatus.unknown;
   String theme = "red";
@@ -49,11 +51,25 @@ class _LoginPageState extends State<LoginPage> {
     }
     final logo = new Column(
       children: <Widget>[
-        Image.asset(
-          'assets/images/login/logo_red.png',
+        Container(
           width: 130.0,
-          height: 119.0,
+          height:  130.0,
+          //  margin: EdgeInsets.only(right: 5),
+          decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius:
+              BorderRadius.all(
+                  Radius.circular(
+                      65.0)),
+              image: DecorationImage(
+                  image: ExactAssetImage('assets/images/login/logo_red.png'),
+                  fit: BoxFit.cover)),
         ),
+//        Image.asset(
+//          'assets/images/login/logo_red.png',
+//          width: 130.0,
+//          height: 119.0,
+//        ),
         Text(
           '实验室预约系统',
           style: new TextStyle(
@@ -142,64 +158,131 @@ class _LoginPageState extends State<LoginPage> {
         ),
         child: new Container(child: password));
 
-    final loginButton = Container(
-      padding: EdgeInsets.symmetric(vertical: 8.0),
-      width: double.infinity,
-      child:  RaisedButton(
-              onPressed: () {
-                this.ErrorMsg = "";
-
-                if (this.usernameController.text.isEmpty ||
-                    this.passwordController.text.isEmpty) {
-                  //MessageBox.showMessageOnly("用户名密码不能为空！", context);
-                  setState(() {
-                    this.ErrorMsg = "用户名密码不能为空！";
-                  });
-                  return;
-                }
-                login(this.usernameController.text,
-                    this.passwordController.text, isSavePassword);
-              },
-              padding: EdgeInsets.all(10),
-//        color: Color.fromRGBO(218, 37, 30, 1),
-              color: Color.fromRGBO(209, 6, 24, 1),
-              child: Text('登录',
+    final userRoleFinal = new Container(
+        padding: EdgeInsets.all(3),
+        width: MediaQuery.of(context).size.width,
+        decoration: new BoxDecoration(
+          color: Color.fromRGBO(247, 249, 250, 1),
+          border: new Border.all(
+            color: Colors.grey[300],
+            width: 1,
+          ),
+          borderRadius: new BorderRadius.all(Radius.circular(5)),
+        ),
+        child: Row(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(left: 10),
+              child: Icon(
+                Icons.power,
+                size: 23,
+                color: Color.fromRGBO(209, 6, 24, 1),
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width - 90,
+              padding: EdgeInsets.only(left: 10),
+              child: new DropdownButtonHideUnderline(
+                  child: new DropdownButton(
+                items: [
+                  new DropdownMenuItem(
+                    child: new Text(
+                      '学生',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                    value: 0,
+                  ),
+                  new DropdownMenuItem(
+                    child: new Text(
+                      '教师',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                    value: 1,
+                  ),
+                  new DropdownMenuItem(
+                    child: new Text(
+                      '管理员',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                    value: 2,
+                  ),
+                  new DropdownMenuItem(
+                    child: new Text(
+                      '实验管理员',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                    value: 3,
+                  ),
+                ],
+                hint: new Text(
+                  '请选择登陆角色',
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700)),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  side: BorderSide(style: BorderStyle.none)),
+                    color: Colors.black12,
+                  ),
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    roleType = value;
+                  });
+                },
+                value: roleType,
+                elevation: 24,
+
+                style: new TextStyle(
+                  fontSize: 18,
+                ),
+//              isDense: false,//减少按钮的高度。默认情况下，此按钮的高度与其菜单项的高度相同。如果isDense为true，则按钮的高度减少约一半。 这个当按钮嵌入添加的容器中时，非常有用
+                iconSize: 40.0,
+                iconEnabledColor: Colors.black12,
+              )),
             )
-//          : RaisedButton(
-//              onPressed: () {
-//                showDialog(
-//                    context: context,
-//                    builder: (_) => new AlertDialog(
-//                            title: new Text("警告"),
-//                            content: new Text("本版本必须更新，请重新运行本程序进行更新操作！"),
-//                            actions: <Widget>[
-//                              new FlatButton(
-//                                child: new Text("关闭"),
-//                                onPressed: () {
-//                                  Navigator.of(context).pop();
-//                                },
-//                              )
-//                            ]));
-//              },
-//              padding: EdgeInsets.all(10),
-//              color: Color.fromRGBO(218, 37, 30, 1),
-//              child: Text('登录',
-//                  style: TextStyle(
-//                      color: Colors.white,
-//                      fontSize: 20,
-//                      fontWeight: FontWeight.w700)),
-//              shape: RoundedRectangleBorder(
-//                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-//                  side: BorderSide(style: BorderStyle.none)),
-//            ),
-    );
+          ],
+        ));
+    final loginButton = Container(
+        padding: EdgeInsets.symmetric(vertical: 8.0),
+        width: double.infinity,
+        child: RaisedButton(
+          onPressed: () {
+            this.ErrorMsg = "";
+
+            if (this.usernameController.text.isEmpty ||
+                this.passwordController.text.isEmpty) {
+              //MessageBox.showMessageOnly("用户名密码不能为空！", context);
+              setState(() {
+                this.ErrorMsg = "用户名密码不能为空！";
+              });
+              return;
+            }
+            if (roleType == null) {
+              setState(() {
+                this.ErrorMsg = "请选择登陆角色！";
+              });
+
+              return;
+            }
+            login(this.usernameController.text, this.passwordController.text,
+                isSavePassword);
+          },
+          padding: EdgeInsets.all(10),
+//        color: Color.fromRGBO(218, 37, 30, 1),
+          color: Color.fromRGBO(209, 6, 24, 1),
+          child: Text('登录',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              side: BorderSide(style: BorderStyle.none)),
+        ));
     return Scaffold(
         backgroundColor: Color.fromRGBO(242, 246, 249, 1),
         body: ModalProgressHUD(
@@ -247,18 +330,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: <Widget>[
                     GestureDetector(
                       child: logo,
-                      onTap: () {
-//                          print(count);
-//                          setState(() {
-//                            count++;
-//                            if(count == 5){
-//                              count = 0;
-//                              Navigator.push(context,
-//                                  new MaterialPageRoute(builder: (context) {
-//                                    return new CustomSettingPage();
-//                                  }));
-//                            }
-//                          });
+                      onTap: () { 
                       },
                     ),
 
@@ -266,6 +338,9 @@ class _LoginPageState extends State<LoginPage> {
                     usernameFinal,
                     SizedBox(height: 8.0),
                     passwordFinal,
+                    SizedBox(height: 8.0),
+                    userRoleFinal,
+
                     Stack(
                       children: <Widget>[
                         Container(
@@ -277,7 +352,8 @@ class _LoginPageState extends State<LoginPage> {
                                   children: <Widget>[
                                     new Checkbox(
                                       value: isSavePassword,
-                                      activeColor: Color.fromRGBO(209, 6, 24, 1),
+                                      activeColor:
+                                          Color.fromRGBO(209, 6, 24, 1),
                                       onChanged: (bool val) {
 //                          // val 是布尔值
                                         this.setState(() {
@@ -317,9 +393,10 @@ class _LoginPageState extends State<LoginPage> {
                 width: MediaQuery.of(context).size.width,
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(
-                    top:MediaQuery.of(context).size.height-30),
+                    top: MediaQuery.of(context).size.height - 30),
                 child: Text(
-                  "范文强-寇晨宇 2275245956@qq.com © " + DateTime.now().year.toString(),
+                  "范文强-寇晨宇 2275245956@qq.com © " +
+                      DateTime.now().year.toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 15, color: Color.fromRGBO(153, 153, 153, 1)),
@@ -330,9 +407,7 @@ class _LoginPageState extends State<LoginPage> {
           inAsyncCall: isAnimating,
           opacity: 0.7,
           progressIndicator: CircularProgressIndicator(),
-        )
-
-        );
+        ));
   }
 
   login(String userName, String password, bool savePassword) async {
@@ -340,20 +415,39 @@ class _LoginPageState extends State<LoginPage> {
       isAnimating = true;
     });
     try {
-      await TdPasswordEncodePlugin.getPasswordByPlugin(password).then((data) {
-        if(userName=='admin') {
-
-            Navigator.of(context).pushAndRemoveUntil(
-                new MaterialPageRoute(builder: (context) => NavigationKeepAlive()),
-                    (route) => route == null);
-          }
+      var jsonStr = {'sNumber': userName, 'sPass': password};
+      stuLogin(jsonStr,roleType).then((data){
+        setState(() {
+          isAnimating = false;
+        });
+        print(data);
       });
-    } catch (e) {
-      //loginStateText = "登录异常，请稍后重试！";
-      this.ErrorMsg = "登录异常，请稍后重试！";
-//      setState(() {
-//        isAnimating = false;
+//      await TdPasswordEncodePlugin.getPasswordByPlugin(password).then((pwd) {
+//
+//
+//
+////        if (userName == 'admin') {
+////
+////          //保存用户信息
+////          SharedPreferences.getInstance().then((sp){
+////            sp.setString("userName",userName );
+////            sp.setString("userType", roleType.toString());
+////
+////          });
+//
+////
+////          Navigator.of(context).pushAndRemoveUntil(
+////              new MaterialPageRoute(
+////                  builder: (context) => NavigationKeepAlive()),
+////              (route) => route == null);
+////        }
 //      });
+    } catch (e) {
+      print(e);
+      this.ErrorMsg = "登录异常，请稍后重试！";
+      setState(() {
+        isAnimating = false;
+      });
     }
   }
 
@@ -366,10 +460,8 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     //强制竖屏
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown
-    ]);
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     loginStateText = "";
     getTheme();
     getUserNameAndPassword();
@@ -377,7 +469,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     //取消强制竖屏
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,

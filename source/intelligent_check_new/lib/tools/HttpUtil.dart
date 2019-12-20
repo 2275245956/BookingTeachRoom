@@ -1,19 +1,16 @@
-//import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intelligent_check_new/pages/hidedanger_manage/hidden_danger_found.dart';
 import 'package:intelligent_check_new/services/api_address.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
-//import 'package:xfzb_manage/model/login_user.dart';
-//import 'package:xfzb_manage/utils/token_util.dart';
 
 class HttpUtil {
   static HttpUtil instance;
   Dio dio;
   Options options;
 
-//  String serverUrl="";
 
   static HttpUtil getInstance() {
     print('getInstance');
@@ -42,17 +39,12 @@ class HttpUtil {
   }
 
   get(url, {data, options, cancelToken, isAuth = false}) async {
-//    final pref = await SharedPreferences.getInstance();
-//    String serverUrl = pref.getString("serverUrl");
-//    String token = await new TokenUtil().getToken();
 
     final pref = await SharedPreferences.getInstance();
     String serverUrl;
-    if (isAuth) {
-      serverUrl = pref.getString("authServerUrl")??ApiAddress.DEFAULT_AUTH_API_URL; //ApiAddress.AUTH_API_URL;
-    } else {
-      serverUrl = pref.getString("bizServerUrl")??ApiAddress.DEFAULT_BIZ_API_URL; //ApiAddress.BIZ_API_URL;
-    }
+
+    serverUrl = pref.getString("bizServerUrl")??ApiAddress.DEFAULT_BIZ_API_URL; //ApiAddress.BIZ_API_URL;
+
     print('get请求启动! serverUrl：' + serverUrl + url + ',body: $data');
     String token = pref.get("user_token");
     print(token);
@@ -67,19 +59,18 @@ class HttpUtil {
       );
       print('get请求成功!response.data：${response.data}');
     } on DioError catch (e) {
-      if (CancelToken.isCancel(e)) {
-        print('get请求取消! ' + e.message);
-//        Fluttertoast.showToast(
-//          msg: '数据请求被取消! ',
-//          toastLength: Toast.LENGTH_LONG,
-//        );
+
+      if (e.type == DioErrorType.DEFAULT) {
+        HiddenDangerFound.popUpMsg(
+            "请检查服务配置！", gravity: ToastGravity.BOTTOM,
+            txtColor: Colors.red);
+      } else if (e.type == DioErrorType.CONNECT_TIMEOUT) {
+        HiddenDangerFound.popUpMsg(
+            "请求超时！", gravity: ToastGravity.BOTTOM, txtColor: Colors.red);
+      } else if (CancelToken.isCancel(e)) {
+        print('post请求取消! ' + e.message);
       }
-      print('get请求发生错误：$e');
-//      Fluttertoast.showToast(
-//        msg: '数据请求发生错误！',
-//        toastLength: Toast.LENGTH_LONG,
-//      );
-      throw e;
+
     }
     return response.data;
   }
@@ -105,19 +96,14 @@ class HttpUtil {
       );
       print('get请求成功!response.data：${response.data}');
     } on DioError catch (e) {
-      if (CancelToken.isCancel(e)) {
-        print('get请求取消! ' + e.message);
-//        Fluttertoast.showToast(
-//          msg: '数据请求被取消! ',
-//          toastLength: Toast.LENGTH_LONG,
-//        );
+      if(e.type==DioErrorType.DEFAULT){
+        HiddenDangerFound.popUpMsg("请检查服务配置！",gravity: ToastGravity.BOTTOM,txtColor: Colors.red);
+      }else if(e.type==DioErrorType.CONNECT_TIMEOUT){
+        HiddenDangerFound.popUpMsg("请求超时！",gravity: ToastGravity.BOTTOM,txtColor: Colors.red);
+      }else if (CancelToken.isCancel(e)) {
+        print('post请求取消! ' + e.message);
       }
-//      print('get请求发生错误：$e');
-//      Fluttertoast.showToast(
-//        msg: '数据请求发生错误！',
-//        toastLength: Toast.LENGTH_LONG,
-//      );
-      throw e;
+
     }
     return response.data;
   }
@@ -126,14 +112,10 @@ class HttpUtil {
 
     final pref = await SharedPreferences.getInstance();
     String serverUrl;
-    if (isAuth) {
-      serverUrl = pref.getString("authServerUrl")??ApiAddress.DEFAULT_AUTH_API_URL; //ApiAddress.AUTH_API_URL;
-    } else {
-      serverUrl = pref.getString("bizServerUrl")??ApiAddress.DEFAULT_BIZ_API_URL; //ApiAddress.BIZ_API_URL;
-    }
-    print('post请求启动! serverUrl：' + serverUrl + url + ',body: $data');
 
-//    print('post请求启动! url：$url ,body: $data');
+    serverUrl = pref.getString("bizServerUrl")??ApiAddress.DEFAULT_BIZ_API_URL; //ApiAddress.BIZ_API_URL;
+
+    print('post请求启动! serverUrl：' + serverUrl + url + ',body: $data');
 
     String token = pref.get("user_token");
     print(token);
@@ -149,7 +131,11 @@ class HttpUtil {
         print("请求不成功 response为null");
       print('post请求成功!response.data：${response.data}');
     } on DioError catch (e) {
-      if (CancelToken.isCancel(e)) {
+      if(e.type==DioErrorType.DEFAULT){
+        HiddenDangerFound.popUpMsg("请检查服务配置！",gravity: ToastGravity.BOTTOM,txtColor: Colors.red);
+      }else if(e.type==DioErrorType.CONNECT_TIMEOUT){
+        HiddenDangerFound.popUpMsg("请求超时！",gravity: ToastGravity.BOTTOM,txtColor: Colors.red);
+      }else if (CancelToken.isCancel(e)) {
         print('post请求取消! ' + e.message);
       }
       print('post请求发生错误：$e');
@@ -158,28 +144,17 @@ class HttpUtil {
   }
 
   put(url, {data, options, cancelToken, isAuth = false}) async {
-//    final pref = await SharedPreferences.getInstance();
-//    String serverUrl = pref.getString("serverUrl");
-//    LoginUser user = LoginUser.fromJson(json.decode(pref.getString("localUserInfo")));
-//    String token = user == null?"":user.userToken;
-//    print('get请求启动! token is：'+token);
 
     final pref = await SharedPreferences.getInstance();
     String serverUrl;
-    if (isAuth) {
-      serverUrl = pref.getString("authServerUrl")??ApiAddress.DEFAULT_AUTH_API_URL; //ApiAddress.AUTH_API_URL;
-    } else {
-      serverUrl = pref.getString("bizServerUrl")??ApiAddress.DEFAULT_BIZ_API_URL; //ApiAddress.BIZ_API_URL;
-    }
-//    String serverUrl = ApiAddress.API_URL;
-    //print('get请求启动! serverUrl：' + serverUrl + url + ',body: $data');
+
+    serverUrl = pref.getString("bizServerUrl")??ApiAddress.DEFAULT_BIZ_API_URL; //ApiAddress.BIZ_API_URL;
 
     print('post请求启动! url：$url ,body: $data');
     String token = pref.get("user_token");
     Response response;
     try {
       response = await dio.put(
-//        serverUrl + url +"?Authentication="+token,
           serverUrl + url,
           data: data,
           cancelToken: cancelToken,
@@ -197,28 +172,16 @@ class HttpUtil {
   }
 
   delete(url, {data, options, cancelToken, isAuth = false}) async {
-//    final pref = await SharedPreferences.getInstance();
-//    String serverUrl = pref.getString("serverUrl");
-//    LoginUser user = LoginUser.fromJson(json.decode(pref.getString("localUserInfo")));
-//    String token = user == null?"":user.userToken;
-//    print('get请求启动! token is：'+token);
 
-//    String serverUrl = ApiAddress.API_URL;
     final pref = await SharedPreferences.getInstance();
     String serverUrl;
-    if (isAuth) {
-      serverUrl = pref.getString("authServerUrl")??ApiAddress.DEFAULT_AUTH_API_URL; //ApiAddress.AUTH_API_URL;
-    } else {
-      serverUrl = pref.getString("bizServerUrl")??ApiAddress.DEFAULT_BIZ_API_URL; //ApiAddress.BIZ_API_URL;
-    }
-    //print('get请求启动! serverUrl：' + serverUrl + url + ',body: $data');
 
-//    print('post请求启动! url：$url ,body: $data');
+    serverUrl = pref.getString("bizServerUrl")??ApiAddress.DEFAULT_BIZ_API_URL; //ApiAddress.BIZ_API_URL;
+
     String token = pref.get("user_token");
     Response response;
     try {
       response = await dio.delete(
-//        serverUrl + url +"?Authentication="+token,
           serverUrl + url,
           data: data,
           cancelToken: cancelToken,
@@ -236,17 +199,12 @@ class HttpUtil {
   }
 
   getOptional(url, {data, options, cancelToken, isAuth = false}) async {
-//    final pref = await SharedPreferences.getInstance();
-//    String serverUrl = pref.getString("serverUrl");
-//    String token = await new TokenUtil().getToken();
 
     final pref = await SharedPreferences.getInstance();
     String serverUrl;
-    if (isAuth) {
-      serverUrl = pref.getString("authServerUrl")??ApiAddress.DEFAULT_AUTH_API_URL; //ApiAddress.AUTH_API_URL;
-    } else {
-      serverUrl = pref.getString("bizServerUrl")??ApiAddress.DEFAULT_BIZ_API_URL; //ApiAddress.BIZ_API_URL;
-    }
+
+    serverUrl = pref.getString("bizServerUrl")??ApiAddress.DEFAULT_BIZ_API_URL; //ApiAddress.BIZ_API_URL;
+
     print('get请求启动! serverUrl：' + serverUrl + url + ',body: $data');
     String token = pref.get("user_token");
     Response response;

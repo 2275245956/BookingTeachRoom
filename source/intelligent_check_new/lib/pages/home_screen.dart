@@ -66,10 +66,10 @@ class _HomeScreenState extends State<HomeScreen>
       List<String> tags = List();
       tags.add(companyCode);
 
-      jpush.setAlias(userId??"0");
-      jpush.setTags(tags);
+      await jpush.setAlias(userId??"0");
+      await jpush.setTags(tags);
 
-      jpush.addEventHandler(
+       jpush.addEventHandler(
         onReceiveNotification: (Map<String, dynamic> message) async {
           print("flutter onReceiveNotification: $message");
           print("extras info:" + message["extras"]["cn.jpush.android.EXTRA"]);

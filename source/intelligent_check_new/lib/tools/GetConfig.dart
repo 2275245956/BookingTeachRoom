@@ -29,4 +29,22 @@ class GetConfig{
       return Color.fromRGBO(209, 6, 24, 1);
     }
   }
+
+  static getRoleDesc(int roleType){
+    switch(roleType){
+      case 0:
+        return "学生";
+        break;
+      case 1:
+        return "教师";
+        break;
+      case 2:
+        return "管理员";
+        break;
+      case 3:
+        return "实验管理员";
+        break;
+      default:return "未知";
+    }
+  }
 }
