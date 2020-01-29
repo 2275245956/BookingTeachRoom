@@ -1,10 +1,10 @@
 class ApiAddress {
   // API地址
   static const String DEFAULT_BIZ_API_URL =
-      "http://122.51.225.40:8088";// "http://wtik54.natappfree.cc/";//"http://wvun7x.natappfree.cc"; //
+      "http://192.168.1.103";//"http://122.51.225.40:8088";// "http://wtik54.natappfree.cc/";//"http://wvun7x.natappfree.cc"; //
 
 
-  static  const String STUDENT_LOGIN="/stuLogin";
+  static  const String STUDENT_LOGIN="/api/Account/Login";
   static  const String TEACHER_LOGIN="/teacherLogin";
   static  const String ADMIN_LOGIN="/AdminLogin";
   static  const String EXPADMIN_LOGIN="/expAdminLogin";

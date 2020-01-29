@@ -14,6 +14,7 @@ import 'package:intelligent_check_new/services/company_services.dart';
 import 'package:intelligent_check_new/services/myinfo_services.dart';
 import 'package:intelligent_check_new/services/update.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
+import 'package:intelligent_check_new/tools/MD5String.dart';
 import 'package:intelligent_check_new/tools/MessageBox.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:package_info/package_info.dart';
@@ -40,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
   String ErrorMsg = "";
   var loginState = false;
   int count = 0;
-  int roleType = null;
+  int roleType =null;
   Version _version;
 
 //  bool loginButtonEnable = true;
@@ -413,33 +414,35 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       isAnimating = true;
     });
+
+    String md5Password = await Md5Util.generateMd5(password);
+
     try {
-      var jsonStr = {'sNumber': userName, 'sPass': password};
-      stuLogin(jsonStr, roleType).then((data) {
+      stuLogin(userName, md5Password, roleType).then((data) {
         if (data.success) {
           SharedPreferences.getInstance().then((sp) {
-            if(savePassword){
-              sp.setString("userName",userName);
+            if (savePassword) {
+              sp.setString("userName", userName);
               sp.setString("userPwd", password);
             }
-            //保存用户信息
-            StudentsInfo user=StudentsInfo.fromJson(data.dataList);
-            sp.setString("userInfo",  user.toString());
-            sp.setInt("userRole", roleType);
+            sp.setInt("userRole",roleType);
+            var userJson = json.encode(data.dataList);
+            sp.setString("userModel", userJson);
+
             Navigator.of(context).pushAndRemoveUntil(
                 new MaterialPageRoute(
                     builder: (context) => NavigationKeepAlive()),
                     (route) => route == null);
           });
-        }else{
-           MessageBox.popUpMsg(data.message??"登陆失败",gravity:ToastGravity.BOTTOM );
+        } else {
+          MessageBox.popUpMsg(data.message ?? "登陆失败",
+              gravity: ToastGravity.BOTTOM);
         }
 
         setState(() {
           isAnimating = false;
         });
       });
-
     } catch (e) {
       this.ErrorMsg = "登录异常，请稍后重试！";
       setState(() {

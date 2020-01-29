@@ -20,12 +20,12 @@ class _HomeFunctionState extends State<HomeFunction> {
   bool isAnimating = false;
 
   String theme = "red"; //主题
-  StudentsInfo studentInfo;
+  UserModel userInfo;
   int userType = -1;
 
   @override
   Widget build(BuildContext context) {
-    if (studentInfo==null) {
+    if (userInfo==null) {
       return Scaffold(body: Text(""));
     }
     return ModalProgressHUD(
@@ -51,7 +51,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                             children: <Widget>[
                               Container(
                                 child: Text(
-                                  "${studentInfo.sRole}:${studentInfo.sName}",
+                                  "${GetConfig.getRoleDesc(userInfo.userType)}:${userInfo.userName}",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(color: Colors.white),
                                 ),
@@ -276,8 +276,8 @@ class _HomeFunctionState extends State<HomeFunction> {
       setState(() {
         //用户类型
         userType = sp.getInt("userRole");
-        if(sp.getString("userInfo")!=null){
-          studentInfo=StudentsInfo.fromJson(json.decode(sp.getString("userInfo")));
+        if(sp.getString("userModel")!=null){
+          userInfo=UserModel.fromJson(json.decode(sp.getString("userModel")));
         }
       });
     });

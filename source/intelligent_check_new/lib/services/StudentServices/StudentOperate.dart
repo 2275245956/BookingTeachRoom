@@ -15,7 +15,7 @@ import 'package:intelligent_check_new/tools/HttpUtil.dart';
 import 'package:path_provider/path_provider.dart';
 
 //列表查询
-Future<APIResponse> stuLogin(var jsonStr, int roleType) async {
+Future<APIResponse> stuLogin(String userName,String pwd, int roleType) async {
   String requestUrl = "";
   switch (roleType) {
     case 0:
@@ -31,7 +31,7 @@ Future<APIResponse> stuLogin(var jsonStr, int roleType) async {
       requestUrl = ApiAddress.EXPADMIN_LOGIN;
       break;
   }
-  var data = await HttpUtil().post(requestUrl, data: json.encode(jsonStr));
+  var data = await HttpUtil().post(requestUrl+"?userName=$userName&password=$pwd");
 
   return APIResponse.fromJson(data);
 }

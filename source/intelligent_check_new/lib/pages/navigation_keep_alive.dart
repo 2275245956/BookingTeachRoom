@@ -5,8 +5,6 @@ import 'package:intelligent_check_new/pages/AndroidBackTop.dart';
 import 'package:intelligent_check_new/pages/home_screen.dart';
 import 'package:intelligent_check_new/pages/my/my_screen.dart';
 import 'package:intelligent_check_new/pages/statistics_screen.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class NavigationKeepAlive extends StatefulWidget {
   @override
