@@ -8,7 +8,6 @@ import 'package:intelligent_check_new/pages/hidedanger_manage/hidden_danger_proc
 import 'package:intelligent_check_new/pages/hidedanger_manage/hidden_danger_rectification.dart';
 import 'package:intelligent_check_new/pages/hidedanger_manage/hidden_danger_review.dart';
 import 'package:intelligent_check_new/pages/hidedanger_manage/hidedanger_pending.dart';
-import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intelligent_check_new/services/HiddenDanger.dart';
 import 'package:intelligent_check_new/model/Hidden_Danger/hidden_danger_model.dart';

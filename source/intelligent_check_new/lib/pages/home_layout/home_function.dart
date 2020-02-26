@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_bottom_tab_bar/eachtab.dart';
-import 'package:intelligent_check_new/model/StudentModel/StudentModel.dart';
+import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
+import 'package:intelligent_check_new/pages/SystemSettings/ScheduleSettingPage.dart';
 import 'package:intelligent_check_new/pages/message/message_list.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -21,7 +21,6 @@ class _HomeFunctionState extends State<HomeFunction> {
 
   String theme = "red"; //主题
   UserModel userInfo;
-  int userType = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +50,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                             children: <Widget>[
                               Container(
                                 child: Text(
-                                  "${GetConfig.getRoleDesc(userInfo.userType)}:${userInfo.userName}",
+                                  "${GetConfig.getRoleDesc(userInfo.role)}:${userInfo.userName}",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(color: Colors.white),
                                 ),
@@ -73,7 +72,6 @@ class _HomeFunctionState extends State<HomeFunction> {
                               Container(
                                 width: 36,
                                 height:  36,
-                                //  margin: EdgeInsets.only(right: 5),
                                 decoration: BoxDecoration(
                                     color: Colors.transparent,
                                     borderRadius:
@@ -97,7 +95,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                                         color: Colors.white, fontSize: 12),
                                   ),
                                   Text(
-                                    "Xi'an Aviation Institute of Technology",
+                                    "Xi'an Aeronatutical Polytechnic Institute",
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 8),
                                   ),
@@ -170,7 +168,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                               padding: EdgeInsets.only(left: 10),
                             ),
                             new Text(
-                              "模块一",
+                              "系统配置",
                               style: TextStyle(
                                   color: Color.fromRGBO(102, 102, 102, 1)),
                             )
@@ -216,7 +214,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                               padding: EdgeInsets.only(left: 10),
                             ),
                             new Text(
-                              "模块二",
+                              "实验管理",
                               style: TextStyle(
                                   color: Color.fromRGBO(102, 102, 102, 1)),
                             )
@@ -264,10 +262,6 @@ class _HomeFunctionState extends State<HomeFunction> {
   @override
   void initState() {
     super.initState();
-
-    if (!mounted) {
-      return;
-    }
     initData();
   }
 
@@ -275,7 +269,6 @@ class _HomeFunctionState extends State<HomeFunction> {
     await SharedPreferences.getInstance().then((sp) {
       setState(() {
         //用户类型
-        userType = sp.getInt("userRole");
         if(sp.getString("userModel")!=null){
           userInfo=UserModel.fromJson(json.decode(sp.getString("userModel")));
         }
@@ -285,115 +278,298 @@ class _HomeFunctionState extends State<HomeFunction> {
 
   getFirstMenus() {
     List<Container> firstMenu = List();
-    Container container1 = Container(
-        height: 82,
-        width: 82,
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-          color: Colors.white,
-          border: new Border.all(width: 0.5, color: Colors.grey[100]),
-        ),
-        child: GestureDetector(
-          child: EachTab(
-            width: 80,
-            badge: CircleAvatar(
-              backgroundColor: Colors.red,
-              radius: 3,
+    switch  (userInfo.role){
+      case "student"://学生
+        firstMenu.add(Container(
+            height: 82,
+            width: 82,
+            decoration: new BoxDecoration(
+              borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
+              color: Colors.white,
+              border: new Border.all(width: 0.5, color: Colors.grey[100]),
             ),
-            badgeColor: Colors.red,
-            height: 40,
-            padding: EdgeInsets.all(0),
-            icon: Icon(Icons.functions, size: 32, color: Colors.red),
-            text: "功能1",
-            textStyle: TextStyle(
-                fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-            color: Colors.white,
-          ),
-          onTap: () {},
-        ));
-    Container container2 = Container(
-        height: 82,
-        width: 82,
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-          color: Colors.white,
-          border: new Border.all(width: 0.5, color: Colors.grey[100]),
-        ),
-        child: GestureDetector(
-          child: EachTab(
-            width: 80,
-            badge: CircleAvatar(
-              backgroundColor: Colors.red,
-              radius: 3,
+            child: GestureDetector(
+              child: EachTab(
+                width: 80,
+                badge: CircleAvatar(
+                  backgroundColor: Colors.red,
+                  radius: 3,
+                ),
+                badgeColor: Colors.red,
+                height: 40,
+                padding: EdgeInsets.all(0),
+                icon: Icon(Icons.functions, size: 32, color: Colors.red),
+                text: "学生功能1",
+                textStyle: TextStyle(
+                    fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
+                color: Colors.white,
+              ),
+              onTap: () {},
+            )));
+        firstMenu.add(Container(
+            height: 82,
+            width: 82,
+            decoration: new BoxDecoration(
+              borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
+              color: Colors.white,
+              border: new Border.all(width: 0.5, color: Colors.grey[100]),
             ),
-            badgeColor: Colors.red,
-            height: 40,
-            padding: EdgeInsets.all(0),
-            icon: Icon(Icons.functions, size: 32, color: Colors.red),
-            text: "功能2",
-            textStyle: TextStyle(
-                fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-            color: Colors.white,
-          ),
-          onTap: () {},
-        ));
-    Container container3 = Container(
-        height: 82,
-        width: 82,
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-          color: Colors.white,
-          border: new Border.all(width: 0.5, color: Colors.grey[100]),
-        ),
-        child: GestureDetector(
-          child: EachTab(
-            width: 80,
-            badge: CircleAvatar(
-              backgroundColor: Colors.red,
-              radius: 3,
+            child: GestureDetector(
+              child: EachTab(
+                width: 80,
+                badge: CircleAvatar(
+                  backgroundColor: Colors.red,
+                  radius: 3,
+                ),
+                badgeColor: Colors.red,
+                height: 40,
+                padding: EdgeInsets.all(0),
+                icon: Icon(Icons.functions, size: 32, color: Colors.red),
+                text: "学生功能1",
+                textStyle: TextStyle(
+                    fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
+                color: Colors.white,
+              ),
+              onTap: () {},
+            )));
+        firstMenu.add(Container(
+            height: 82,
+            width: 82,
+            decoration: new BoxDecoration(
+              borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
+              color: Colors.white,
+              border: new Border.all(width: 0.5, color: Colors.grey[100]),
             ),
-            badgeColor: Colors.red,
-            height: 40,
-            padding: EdgeInsets.all(0),
-            icon: Icon(Icons.functions, size: 32, color: Colors.red),
-            text: "功能3",
-            textStyle: TextStyle(
-                fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-            color: Colors.white,
-          ),
-          onTap: () {},
-        ));
-    Container container4 = Container(
-        height: 82,
-        width: 82,
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-          color: Colors.white,
-          border: new Border.all(width: 0.5, color: Colors.grey[100]),
-        ),
-        child: GestureDetector(
-          child: EachTab(
-            width: 80,
-            badge: CircleAvatar(
-              backgroundColor: Colors.red,
-              radius: 3,
+            child: GestureDetector(
+              child: EachTab(
+                width: 80,
+                badge: CircleAvatar(
+                  backgroundColor: Colors.red,
+                  radius: 3,
+                ),
+                badgeColor: Colors.red,
+                height: 40,
+                padding: EdgeInsets.all(0),
+                icon: Icon(Icons.functions, size: 32, color: Colors.red),
+                text: "学生功能1",
+                textStyle: TextStyle(
+                    fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
+                color: Colors.white,
+              ),
+              onTap: () {},
+            )));
+        break;
+      case "teacher"://教师
+        firstMenu.add(Container(
+            height: 82,
+            width: 82,
+            decoration: new BoxDecoration(
+              borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
+              color: Colors.white,
+              border: new Border.all(width: 0.5, color: Colors.grey[100]),
             ),
-            badgeColor: Colors.red,
-            height: 40,
-            padding: EdgeInsets.all(0),
-            icon: Icon(Icons.functions, size: 32, color: Colors.red),
-            text: "功能4",
-            textStyle: TextStyle(
-                fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-            color: Colors.white,
-          ),
-          onTap: () {},
-        ));
-    firstMenu.add(container1);
-    firstMenu.add(container2);
-    firstMenu.add(container3);
-    firstMenu.add(container4);
+            child: GestureDetector(
+              child: EachTab(
+                width: 80,
+                badge: CircleAvatar(
+                  backgroundColor: Colors.red,
+                  radius: 3,
+                ),
+                badgeColor: Colors.red,
+                height: 40,
+                padding: EdgeInsets.all(0),
+                icon: Icon(Icons.functions, size: 32, color: Colors.red),
+                text: "教师功能1",
+                textStyle: TextStyle(
+                    fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
+                color: Colors.white,
+              ),
+              onTap: () {},
+            )));
+        firstMenu.add(Container(
+            height: 82,
+            width: 82,
+            decoration: new BoxDecoration(
+              borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
+              color: Colors.white,
+              border: new Border.all(width: 0.5, color: Colors.grey[100]),
+            ),
+            child: GestureDetector(
+              child: EachTab(
+                width: 80,
+                badge: CircleAvatar(
+                  backgroundColor: Colors.red,
+                  radius: 3,
+                ),
+                badgeColor: Colors.red,
+                height: 40,
+                padding: EdgeInsets.all(0),
+                icon: Icon(Icons.functions, size: 32, color: Colors.red),
+                text: "教师功能1",
+                textStyle: TextStyle(
+                    fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
+                color: Colors.white,
+              ),
+              onTap: () {},
+            )));
+        firstMenu.add(Container(
+            height: 82,
+            width: 82,
+            decoration: new BoxDecoration(
+              borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
+              color: Colors.white,
+              border: new Border.all(width: 0.5, color: Colors.grey[100]),
+            ),
+            child: GestureDetector(
+              child: EachTab(
+                width: 80,
+                badge: CircleAvatar(
+                  backgroundColor: Colors.red,
+                  radius: 3,
+                ),
+                badgeColor: Colors.red,
+                height: 40,
+                padding: EdgeInsets.all(0),
+                icon: Icon(Icons.functions, size: 32, color: Colors.red),
+                text: "教师功能1",
+                textStyle: TextStyle(
+                    fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
+                color: Colors.white,
+              ),
+              onTap: () {},
+            )));
+        break;
+      case "admin"://管理员
+        firstMenu.add(Container(
+            height: 82,
+            width: 82,
+            decoration: new BoxDecoration(
+              borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
+              color: Colors.white,
+              border: new Border.all(width: 0.5, color: Colors.grey[100]),
+            ),
+            child: GestureDetector(
+              child: EachTab(
+                width: 80,
+                badgeColor: Colors.red,
+                height: 40,
+                padding: EdgeInsets.all(0),
+                icon: Icon(Icons.access_alarm, size: 32, color: Colors.red),
+                text: "作息时间",
+                textStyle: TextStyle(
+                    fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
+                color: Colors.white,
+              ),
+              onTap: () =>Navigator.push(context, new MaterialPageRoute(builder: (context){
+                return ScheduleSettingPage();
+              })),
+            )));
 
+        firstMenu.add(Container(
+            height: 82,
+            width: 82,
+            decoration: new BoxDecoration(
+              borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
+              color: Colors.white,
+              border: new Border.all(width: 0.5, color: Colors.grey[100]),
+            ),
+            child: GestureDetector(
+              child: EachTab(
+                width: 80,
+
+                badgeColor: Colors.red,
+                height: 40,
+                padding: EdgeInsets.all(0),
+                icon: Icon(Icons.settings, size: 32, color: Colors.red),
+                text: "实验室配置",
+                textStyle: TextStyle(
+                    fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
+                color: Colors.white,
+              ),
+              onTap: () {},
+            )));
+        break;
+      case "expAdmin"://实验室管理员
+        firstMenu.add(Container(
+            height: 82,
+            width: 82,
+            decoration: new BoxDecoration(
+              borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
+              color: Colors.white,
+              border: new Border.all(width: 0.5, color: Colors.grey[100]),
+            ),
+            child: GestureDetector(
+              child: EachTab(
+                width: 80,
+                badge: CircleAvatar(
+                  backgroundColor: Colors.red,
+                  radius: 3,
+                ),
+                badgeColor: Colors.red,
+                height: 40,
+                padding: EdgeInsets.all(0),
+                icon: Icon(Icons.functions, size: 32, color: Colors.red),
+                text: "管理员功能1",
+                textStyle: TextStyle(
+                    fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
+                color: Colors.white,
+              ),
+              onTap: () {},
+            )));
+        firstMenu.add(Container(
+            height: 82,
+            width: 82,
+            decoration: new BoxDecoration(
+              borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
+              color: Colors.white,
+              border: new Border.all(width: 0.5, color: Colors.grey[100]),
+            ),
+            child: GestureDetector(
+              child: EachTab(
+                width: 80,
+                badge: CircleAvatar(
+                  backgroundColor: Colors.red,
+                  radius: 3,
+                ),
+                badgeColor: Colors.red,
+                height: 40,
+                padding: EdgeInsets.all(0),
+                icon: Icon(Icons.functions, size: 32, color: Colors.red),
+                text: "管理员功能1",
+                textStyle: TextStyle(
+                    fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
+                color: Colors.white,
+              ),
+              onTap: () {},
+            )));
+        firstMenu.add(Container(
+            height: 82,
+            width: 82,
+            decoration: new BoxDecoration(
+              borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
+              color: Colors.white,
+              border: new Border.all(width: 0.5, color: Colors.grey[100]),
+            ),
+            child: GestureDetector(
+              child: EachTab(
+                width: 80,
+                badge: CircleAvatar(
+                  backgroundColor: Colors.red,
+                  radius: 3,
+                ),
+                badgeColor: Colors.red,
+                height: 40,
+                padding: EdgeInsets.all(0),
+                icon: Icon(Icons.functions, size: 32, color: Colors.red),
+                text: "管理员功能1",
+                textStyle: TextStyle(
+                    fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
+                color: Colors.white,
+              ),
+              onTap: () {},
+            )));
+        break;
+    }
     return firstMenu;
   }
 

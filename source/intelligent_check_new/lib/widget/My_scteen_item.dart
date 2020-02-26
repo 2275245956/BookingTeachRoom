@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/model/LoginResult.dart';
-import 'package:intelligent_check_new/model/StudentModel/StudentModel.dart';
+import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/pages/my/contact/contact_page.dart';
 import 'package:intelligent_check_new/pages/my/offlinemode_page.dart';
 import 'package:intelligent_check_new/pages/my/pswdchange_page.dart';
@@ -94,7 +94,7 @@ class ImItem extends StatelessWidget {
                 SharedPreferences.getInstance().then((sp) {
                   String str = sp.get('userInfo');
                   String myDbPath =
-                      join(dbPath, '${StudentsInfo.fromJson(str).sId.toString()}', 'my.db');
+                      join(dbPath, '${UserModel.fromJson(str).id.toString()}', 'my.db');
                   deleteDatabase(myDbPath);
                 });
               });

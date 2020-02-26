@@ -1,13 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:intelligent_check_new/model/StudentModel/StudentModel.dart';
-import 'package:intelligent_check_new/tools/GetConfig.dart';
+import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/widget/touch_callback.dart';
-import 'package:intelligent_check_new/model/LoginResult.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:intelligent_check_new/constants/color.dart';
-
 class MyInfoPage extends StatefulWidget {
   @override
   _MyInfoPageState createState() => _MyInfoPageState();
@@ -16,7 +11,7 @@ class MyInfoPage extends StatefulWidget {
 class _MyInfoPageState extends State<MyInfoPage> {
   var userCompany = "";
   var department = "";
-  StudentsInfo userInfo;
+  UserModel userInfo;
   String theme = "blue";
 
   @override
@@ -30,7 +25,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
       setState(() {
         String str = sp.get('userInfo');
         if (str != null) {
-          userInfo = StudentsInfo.fromJson(json.decode(str));
+          userInfo = UserModel.fromJson(json.decode(str));
         }
       });
     });
@@ -136,7 +131,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
                         child: CircleAvatar(
                           backgroundColor: Color.fromRGBO(209, 6, 24, 1),
                           child: Text(
-                            userInfo == null ? "" : userInfo.sName[0],
+                            userInfo == null ? "" : userInfo.userName[0],
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -176,7 +171,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
                   Expanded(
                     // child: new Text(myInfo.username),
                     child:
-                        new Text(userInfo.sName == null ? "" : userInfo.sName),
+                        new Text(userInfo.userName == null ? "" : userInfo.userName),
                     flex: 3,
                   ),
                 ],
@@ -243,7 +238,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
                   ),
                   Expanded(
                     //child: new Text(myInfo.userdepartment),
-                    child: new Text(userInfo.sMajor ?? "--"),
+                    child: new Text(userInfo.major ?? "--"),
                     flex: 3,
                   ),
                 ],
@@ -277,7 +272,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
                   Expanded(
                     //child: new Text(myInfo.userid.toString()),
                     child: new Text(
-                        userInfo.sNumber == null ? "" : userInfo.sNumber),
+                        userInfo.account == null ? "" : userInfo.account),
                     flex: 3,
                   ),
                 ],
@@ -310,7 +305,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
                   ),
                   Expanded(
                     child: new Text(
-                        userInfo.sEmail ??"--"),
+                        userInfo.email ??"--"),
                     flex:3,
                   ),
                 ],

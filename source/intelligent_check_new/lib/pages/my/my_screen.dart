@@ -1,20 +1,13 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:intelligent_check_new/model/StudentModel/StudentModel.dart';
+import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/widget/My_scteen_item.dart';
 import 'package:intelligent_check_new/widget/touch_callback.dart';
 import 'package:intelligent_check_new/pages/my/myinfo_page.dart';
 import 'package:intelligent_check_new/pages/login_page.dart';
-import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:intelligent_check_new/model/LoginResult.dart';
-import 'package:intelligent_check_new/services/myinfo_services.dart';
 import 'package:package_info/package_info.dart';
-import 'package:sqflite/sqflite.dart';
 
-//我的页面
-//qi 2019.03.03
 
 class MyScreen extends StatefulWidget {
   @override
@@ -25,8 +18,8 @@ class _MyScreenState extends State<MyScreen>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
-  StudentsInfo studentInfo;
-  int userType = -1;
+  UserModel userInfo;
+
 
   String version;
   bool isOffline = false;
@@ -51,10 +44,12 @@ class _MyScreenState extends State<MyScreen>
   getData() {
     SharedPreferences.getInstance().then((sp) {
       //用户类型
-      userType = sp.getInt("userRole");
-      if(sp.getString("userInfo")!=null){
-        studentInfo=StudentsInfo.fromJson(json.decode(sp.getString("userInfo")));
-      }
+      setState(() {
+        //用户类型
+        if(sp.getString("userModel")!=null){
+          userInfo=UserModel.fromJson(json.decode(sp.getString("userModel")));
+        }
+      });
     });
 
     PackageInfo.fromPlatform().then((packageInfo) {
@@ -93,7 +88,7 @@ class _MyScreenState extends State<MyScreen>
 
   @override
   Widget build(BuildContext context) {
-    if (studentInfo==null) {
+    if (userInfo==null) {
       return Scaffold(
         body: Text(""),
       );
@@ -130,8 +125,8 @@ class _MyScreenState extends State<MyScreen>
                       child: CircleAvatar(
                         backgroundColor: Color.fromRGBO(209, 6, 24, 1),
                         child: Text(
-                          studentInfo  == null ? "" : studentInfo.sName[0],
-                          style: TextStyle(color: Colors.white),
+                          userInfo  == null ? "" : userInfo.userName[0],
+                          style: TextStyle(color: Colors.white,fontSize: 25),
                         ),
                       ),
                     ),
@@ -142,14 +137,14 @@ class _MyScreenState extends State<MyScreen>
                         children: <Widget>[
                           Text(
                             //myInfo.username,
-                            studentInfo  == null ? "" : studentInfo.sName,
+                            userInfo  == null ? "" : userInfo.userName,
                             style: TextStyle(
                               fontSize: 18.0,
                               color: Color(0Xff353535),
                             ),
                           ),
                           Text(
-                             studentInfo  == null ? "" : studentInfo.sMajor,
+                            userInfo  == null ? "" : userInfo.major,
 
                             style: TextStyle(
                               fontSize: 14.0,

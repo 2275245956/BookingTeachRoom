@@ -3,25 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intelligent_check_new/constants/color.dart';
-import 'package:intelligent_check_new/model/StudentModel/StudentModel.dart';
 import 'package:intelligent_check_new/model/version.dart';
-import 'package:intelligent_check_new/pages/SelCompanyAndDept.dart';
 import 'package:intelligent_check_new/pages/custom_setting_page.dart';
 import 'package:intelligent_check_new/pages/navigation_keep_alive.dart';
 import 'package:intelligent_check_new/services/StudentServices/StudentOperate.dart';
-import 'package:intelligent_check_new/services/api_address.dart';
-import 'package:intelligent_check_new/services/company_services.dart';
-import 'package:intelligent_check_new/services/myinfo_services.dart';
-import 'package:intelligent_check_new/services/update.dart';
-import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intelligent_check_new/tools/MD5String.dart';
 import 'package:intelligent_check_new/tools/MessageBox.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:package_info/package_info.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:intelligent_check_new/model/LoginResult.dart';
-import 'package:td_password_encode_plugin/td_password_encode_plugin.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -41,7 +31,8 @@ class _LoginPageState extends State<LoginPage> {
   String ErrorMsg = "";
   var loginState = false;
   int count = 0;
-  int roleType =null;
+  String roleType =null;
+  int roleSel=null;
   Version _version;
 
 //  bool loginButtonEnable = true;
@@ -193,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
                         color: Colors.black,
                       ),
                     ),
-                    value: 0,
+                    value:0,
                   ),
                   new DropdownMenuItem(
                     child: new Text(
@@ -202,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                         color: Colors.black,
                       ),
                     ),
-                    value: 1,
+                    value:1,
                   ),
                   new DropdownMenuItem(
                     child: new Text(
@@ -231,10 +222,29 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 onChanged: (value) {
                   setState(() {
-                    roleType = value;
+                    roleSel = value;
+
+                    switch(roleSel){
+                      case 0:
+                        roleType="student";
+                        break;
+                      case 1:
+                        roleType="teacher";
+                        break;
+                      case 2:
+                        roleType="admin";
+                        break;
+                      case 3:
+                        roleType="expAdmin";
+                        break;
+                      default:
+                        roleType=null;
+                          break;
+
+                    }
                   });
                 },
-                value: roleType,
+                value: roleSel,
                 elevation: 24,
 
                 style: new TextStyle(
@@ -425,8 +435,8 @@ class _LoginPageState extends State<LoginPage> {
               sp.setString("userName", userName);
               sp.setString("userPwd", password);
             }
-            sp.setInt("userRole",roleType);
-            var userJson = json.encode(data.dataList);
+            sp.setString("userRole",roleType);
+            var userJson = json.encode(data.dataList[0]);
             sp.setString("userModel", userJson);
 
             Navigator.of(context).pushAndRemoveUntil(

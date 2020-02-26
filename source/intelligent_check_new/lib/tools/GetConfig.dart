@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intelligent_check_new/constants/color.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -30,18 +31,28 @@ class GetConfig{
     }
   }
 
-  static getRoleDesc(int roleType){
+  static popUpMsg(String msg,{txtColor,bgColor,gravity}){
+    Fluttertoast.showToast(
+        msg: msg,
+        gravity: gravity??ToastGravity.CENTER,
+        toastLength: Toast.LENGTH_SHORT,
+        textColor: txtColor??Colors.white,
+        backgroundColor:bgColor??Colors.black54
+    );
+  }
+
+  static getRoleDesc(String roleType){
     switch(roleType){
-      case 0:
+      case "student":
         return "学生";
         break;
-      case 1:
+      case "teacher":
         return "教师";
         break;
-      case 2:
+      case "admin":
         return "管理员";
         break;
-      case 3:
+      case "expAdmin":
         return "实验管理员";
         break;
       default:return "未知";
