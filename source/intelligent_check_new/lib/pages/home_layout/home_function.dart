@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_bottom_tab_bar/eachtab.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb/SelectDatePage.dart';
 import 'package:intelligent_check_new/pages/SystemSettings/ScheduleSettingPage.dart';
 import 'package:intelligent_check_new/pages/message/message_list.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
@@ -486,7 +487,9 @@ class _HomeFunctionState extends State<HomeFunction> {
                     fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
                 color: Colors.white,
               ),
-              onTap: () {},
+              onTap: () =>Navigator.push(context, new MaterialPageRoute(builder: (context){
+//                return TimeLinePage();
+              })),
             )));
         break;
       case "expAdmin"://实验室管理员
