@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_bottom_tab_bar/eachtab.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb/SelectDatePage.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb/SelectLambPage.dart';
 import 'package:intelligent_check_new/pages/SystemSettings/ScheduleSettingPage.dart';
 import 'package:intelligent_check_new/pages/message/message_list.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
@@ -488,7 +489,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                 color: Colors.white,
               ),
               onTap: () =>Navigator.push(context, new MaterialPageRoute(builder: (context){
-//                return TimeLinePage();
+               return SelLambScreen();
               })),
             )));
         break;
