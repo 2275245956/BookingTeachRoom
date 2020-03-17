@@ -7,6 +7,10 @@ class ApiAddress {
   static  const String USER_LOGIN="/login";
 //  SystemConifg
   static const String SCHEDULE_CONFIG="/saveOrUpdateSchdule";
+  static const String GETSYSTEM_CONFIGBYKEY="/getSettingValue";
+
+  //实验室申请
+  static const String GET_EMPTYLAM="/tea/findEmptyRoom";
 
 
 

@@ -7,6 +7,7 @@ import 'package:intelligent_check_new/model/version.dart';
 import 'package:intelligent_check_new/pages/custom_setting_page.dart';
 import 'package:intelligent_check_new/pages/navigation_keep_alive.dart';
 import 'package:intelligent_check_new/services/StudentServices/StudentOperate.dart';
+import 'package:intelligent_check_new/services/SystemService/SystemConfigService.dart';
 import 'package:intelligent_check_new/tools/MD5String.dart';
 import 'package:intelligent_check_new/tools/MessageBox.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -428,7 +429,7 @@ class _LoginPageState extends State<LoginPage> {
     String md5Password = await Md5Util.generateMd5(password);
 
     try {
-      stuLogin(userName, md5Password, roleType).then((data) {
+     await stuLogin(userName, md5Password, roleType).then((data) {
         if (data.success) {
           SharedPreferences.getInstance().then((sp) {
             if (savePassword) {
@@ -444,7 +445,8 @@ class _LoginPageState extends State<LoginPage> {
                     builder: (context) => NavigationKeepAlive()),
                     (route) => route == null);
           });
-        } else {
+        }
+        else {
           MessageBox.popUpMsg(data.message ?? "登陆失败",
               gravity: ToastGravity.BOTTOM);
         }
@@ -453,6 +455,17 @@ class _LoginPageState extends State<LoginPage> {
           isAnimating = false;
         });
       });
+
+     getConfigValueByKey("schedule").then((data){
+
+       var jsonStr=data.dataList[0]["configValue"];
+       SharedPreferences.getInstance().then((sp){
+         sp.setString("schedule", jsonStr);
+       });
+     });
+
+
+
     } catch (e) {
       this.ErrorMsg = "登录异常，请稍后重试！";
       setState(() {
@@ -505,195 +518,195 @@ class _LoginPageState extends State<LoginPage> {
       }
     });
   }
-
-//  // 更新============================================================================
-//  checkUpdate() async {
-//    final prefs = await SharedPreferences.getInstance();
-////    print(prefs.getString("updateUrl"));
-//    String updateUrl =
-//        prefs.getString("updateUrl") ?? ApiAddress.DEFAULT_UPDATE_URL;
-//    if (updateUrl == null || updateUrl.isEmpty) {
-//      return;
-//    } else {
-//      await checkNewVersion(updateUrl).then((version) {
-//        setState(() {
-//          _version = version;
-//        });
-//        if (_version != null) {
-//          PackageInfo.fromPlatform().then((packageInfo) {
-//            if (_version.version.compareTo(packageInfo.version) == 1) {
-//              if (_version.constraint) {
-//                setState(() {
-//                  this.loginButtonEnable = false;
-//                });
-//              }
-//              startUpdate();
-//            } else {
-////              initData();
-//              setState(() {
-//                this.loginButtonEnable = true;
-//              });
-//            }
-//          });
-//        } else {
-//          // 更新文件获取失败、不进行更新
-//        }
-//      });
-//    }
+//
+////  // 更新============================================================================
+////  checkUpdate() async {
+////    final prefs = await SharedPreferences.getInstance();
+//////    print(prefs.getString("updateUrl"));
+////    String updateUrl =
+////        prefs.getString("updateUrl") ?? ApiAddress.DEFAULT_UPDATE_URL;
+////    if (updateUrl == null || updateUrl.isEmpty) {
+////      return;
+////    } else {
+////      await checkNewVersion(updateUrl).then((version) {
+////        setState(() {
+////          _version = version;
+////        });
+////        if (_version != null) {
+////          PackageInfo.fromPlatform().then((packageInfo) {
+////            if (_version.version.compareTo(packageInfo.version) == 1) {
+////              if (_version.constraint) {
+////                setState(() {
+////                  this.loginButtonEnable = false;
+////                });
+////              }
+////              startUpdate();
+////            } else {
+//////              initData();
+////              setState(() {
+////                this.loginButtonEnable = true;
+////              });
+////            }
+////          });
+////        } else {
+////          // 更新文件获取失败、不进行更新
+////        }
+////      });
+////    }
+////  }
+////
+////  startUpdate() {
+////    _askedToUpdate(_version).then((result) {
+////      if (result != null && result) {
+////        showDialog(
+////            context: context,
+////            barrierDismissible: false,
+////            builder: (_) => new AlertDialog(
+////                  content: Container(
+////                      height: 100,
+////                      width: 50,
+////                      child: Center(
+////                        child: Wrap(
+////                          spacing: 10.0,
+////                          runSpacing: 16.0,
+////                          children: <Widget>[
+////                            AnimatedRotationBox(
+////                              child: GradientCircularProgressIndicator(
+////                                radius: 15.0,
+////                                colors: [
+////                                  Colors.blue[300],
+////                                  Colors.blue,
+////                                  Colors.grey[50]
+////                                ],
+////                                value: .8,
+////                                backgroundColor: Colors.transparent,
+////                              ),
+////                            ),
+////                            Text("更新中，请稍后。。。")
+////                          ],
+////                        ),
+////                      )),
+////                ));
+////
+////        // 选择更新
+////        if (defaultTargetPlatform == TargetPlatform.android) {
+////          PackageInfo.fromPlatform().then((packageInfo) {
+//////            if(_version.version.compareTo(packageInfo.version) == 1){
+////            // 服务器版本大于当前版本
+////            checkPermission().then((permissionStatus) {
+////              if (permissionStatus == PermissionStatus.granted) {
+////                executeDownload();
+////              } else {
+////                requestPermission().then((permissionRst) {
+////                  checkPermission().then((permissionStatus) {
+////                    if (permissionStatus == PermissionStatus.granted) {
+////                      executeDownload();
+////                    } else {
+////                      // 权限申请失败
+////                      // 不进行处理
+////                      setState(() {
+////                        _permissionStatus = PermissionStatus.denied;
+////                      });
+////                    }
+////                  });
+////                });
+////              }
+////            });
+//////            }else{
+//////              //服务器版本小于当前版本,不更新
+//////            }
+////          });
+////        } else {
+////          // 非安卓平台
+////        }
+////      } else {
+////        // 非强制更新并且客户选择不更新,正常执行原有逻辑
+//////        initData();
+////        setState(() {
+////          this.loginButtonEnable = true;
+////        });
+////      }
+////    });
+////  }
+//
+//  //是否有权限
+//  Future<PermissionStatus> checkPermission() async {
+//    return await PermissionHandler()
+//        .checkPermissionStatus(PermissionGroup.storage);
 //  }
 //
-//  startUpdate() {
-//    _askedToUpdate(_version).then((result) {
-//      if (result != null && result) {
-//        showDialog(
-//            context: context,
-//            barrierDismissible: false,
-//            builder: (_) => new AlertDialog(
-//                  content: Container(
-//                      height: 100,
-//                      width: 50,
-//                      child: Center(
-//                        child: Wrap(
-//                          spacing: 10.0,
-//                          runSpacing: 16.0,
-//                          children: <Widget>[
-//                            AnimatedRotationBox(
-//                              child: GradientCircularProgressIndicator(
-//                                radius: 15.0,
-//                                colors: [
-//                                  Colors.blue[300],
-//                                  Colors.blue,
-//                                  Colors.grey[50]
-//                                ],
-//                                value: .8,
-//                                backgroundColor: Colors.transparent,
-//                              ),
-//                            ),
-//                            Text("更新中，请稍后。。。")
-//                          ],
-//                        ),
-//                      )),
-//                ));
+////打开权限
+//  Future<Map<PermissionGroup, PermissionStatus>> requestPermission() async {
+//    return await PermissionHandler()
+//        .requestPermissions([PermissionGroup.storage]);
+//  }
 //
-//        // 选择更新
-//        if (defaultTargetPlatform == TargetPlatform.android) {
-//          PackageInfo.fromPlatform().then((packageInfo) {
-////            if(_version.version.compareTo(packageInfo.version) == 1){
-//            // 服务器版本大于当前版本
-//            checkPermission().then((permissionStatus) {
-//              if (permissionStatus == PermissionStatus.granted) {
-//                executeDownload();
-//              } else {
-//                requestPermission().then((permissionRst) {
-//                  checkPermission().then((permissionStatus) {
-//                    if (permissionStatus == PermissionStatus.granted) {
-//                      executeDownload();
-//                    } else {
-//                      // 权限申请失败
-//                      // 不进行处理
-//                      setState(() {
-//                        _permissionStatus = PermissionStatus.denied;
-//                      });
-//                    }
-//                  });
-//                });
-//              }
-//            });
-////            }else{
-////              //服务器版本小于当前版本,不更新
-////            }
-//          });
-//        } else {
-//          // 非安卓平台
-//        }
-//      } else {
-//        // 非强制更新并且客户选择不更新,正常执行原有逻辑
-////        initData();
-//        setState(() {
-//          this.loginButtonEnable = true;
-//        });
+//  // 获取安装地址
+//  Future<String> get _apkLocalPath async {
+//    final directory = await getExternalStorageDirectory();
+//    return directory.path;
+//  }
+//
+//// 下载
+//  Future<void> executeDownload() async {
+//    final path = await _apkLocalPath;
+//    //下载
+//    final taskId = await FlutterDownloader.enqueue(
+//        url: _version.apkUrl,
+//        savedDir: path,
+//        fileName: "实验预约",
+//        showNotification: true,
+//        openFileFromNotification: true);
+//
+//    FlutterDownloader.registerCallback((id, status, progress) {
+//      // 当下载完成时，调用安装
+//      if (taskId == id && status == DownloadTaskStatus.complete) {
+//        OpenFile.open(path);
+//        FlutterDownloader.open(taskId: id);
 //      }
 //    });
 //  }
-
-  //是否有权限
-  Future<PermissionStatus> checkPermission() async {
-    return await PermissionHandler()
-        .checkPermissionStatus(PermissionGroup.storage);
-  }
-
-//打开权限
-  Future<Map<PermissionGroup, PermissionStatus>> requestPermission() async {
-    return await PermissionHandler()
-        .requestPermissions([PermissionGroup.storage]);
-  }
-
-  // 获取安装地址
-  Future<String> get _apkLocalPath async {
-    final directory = await getExternalStorageDirectory();
-    return directory.path;
-  }
-
-// 下载
-  Future<void> executeDownload() async {
-    final path = await _apkLocalPath;
-    //下载
-    final taskId = await FlutterDownloader.enqueue(
-        url: _version.apkUrl,
-        savedDir: path,
-        fileName: "实验预约",
-        showNotification: true,
-        openFileFromNotification: true);
-
-    FlutterDownloader.registerCallback((id, status, progress) {
-      // 当下载完成时，调用安装
-      if (taskId == id && status == DownloadTaskStatus.complete) {
-        OpenFile.open(path);
-        FlutterDownloader.open(taskId: id);
-      }
-    });
-  }
-
-  Future<bool> _askedToUpdate(Version version) async {
-    return showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => AlertDialog(
-              title: Text('发现新版本是否更新？'),
-              content: Container(
-                  width: 100,
-                  height: 200,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text("更新内容:"),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 10),
-                      ),
-                      Text(version.updateInfo)
-                    ],
-                  )),
-              actions: <Widget>[
-                version.constraint
-                    ? FlatButton(
-                        child: Text('确定'),
-                        onPressed: () => Navigator.pop(context, true),
-                      )
-                    : Row(
-                        children: <Widget>[
-                          FlatButton(
-                            child: Text('暂不'),
-                            onPressed: () => Navigator.pop(context, false),
-                          ),
-                          FlatButton(
-                            child: Text('确定'),
-                            onPressed: () => Navigator.pop(context, true),
-                          ),
-                        ],
-                      )
-              ],
-            ));
-  }
+//
+//  Future<bool> _askedToUpdate(Version version) async {
+//    return showDialog(
+//        context: context,
+//        barrierDismissible: false,
+//        builder: (context) => AlertDialog(
+//              title: Text('发现新版本是否更新？'),
+//              content: Container(
+//                  width: 100,
+//                  height: 200,
+//                  child: Column(
+//                    crossAxisAlignment: CrossAxisAlignment.start,
+//                    children: <Widget>[
+//                      Text("更新内容:"),
+//                      Padding(
+//                        padding: EdgeInsets.only(bottom: 10),
+//                      ),
+//                      Text(version.updateInfo)
+//                    ],
+//                  )),
+//              actions: <Widget>[
+//                version.constraint
+//                    ? FlatButton(
+//                        child: Text('确定'),
+//                        onPressed: () => Navigator.pop(context, true),
+//                      )
+//                    : Row(
+//                        children: <Widget>[
+//                          FlatButton(
+//                            child: Text('暂不'),
+//                            onPressed: () => Navigator.pop(context, false),
+//                          ),
+//                          FlatButton(
+//                            child: Text('确定'),
+//                            onPressed: () => Navigator.pop(context, true),
+//                          ),
+//                        ],
+//                      )
+//              ],
+//            ));
+//  }
 
   // 获取主题
   getTheme() async {

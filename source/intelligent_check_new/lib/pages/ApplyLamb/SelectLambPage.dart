@@ -54,6 +54,7 @@ class _SelLambScreen extends State<SelLambScreen>
         "${GetConfig.getScheduleDesc("read")}(${schedule["read"]})",
         style: TextStyle(
           color: Colors.black,
+          fontSize: 14
         ),
       ),
       value: "read",
@@ -63,7 +64,7 @@ class _SelLambScreen extends State<SelLambScreen>
         child: new Text(
           "${GetConfig.getScheduleDesc("first")}(${schedule["first"]})",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.black,  fontSize: 14
           ),
         ),
         value: "first",
@@ -73,7 +74,7 @@ class _SelLambScreen extends State<SelLambScreen>
         child: new Text(
           "${GetConfig.getScheduleDesc("second")}(${schedule["second"]})",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.black,  fontSize: 14
           ),
         ),
         value: "second",
@@ -83,7 +84,7 @@ class _SelLambScreen extends State<SelLambScreen>
         child: new Text(
           "${GetConfig.getScheduleDesc("third")}(${schedule["third"]})",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.black,  fontSize: 14
           ),
         ),
         value: "third",
@@ -93,7 +94,7 @@ class _SelLambScreen extends State<SelLambScreen>
         child: new Text(
           "${GetConfig.getScheduleDesc("forth")}(${schedule["forth"]})",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.black,  fontSize: 14
           ),
         ),
         value: "forth",
@@ -103,7 +104,7 @@ class _SelLambScreen extends State<SelLambScreen>
         child: new Text(
           "${GetConfig.getScheduleDesc("fifth")}(${schedule["fifth"]})",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.black,  fontSize: 14
           ),
         ),
         value: "fifth",
@@ -113,7 +114,7 @@ class _SelLambScreen extends State<SelLambScreen>
         child: new Text(
           "${GetConfig.getScheduleDesc("sixth")}(${schedule["sixth"]})",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.black,  fontSize: 14
           ),
         ),
         value:"sixth",
@@ -123,7 +124,7 @@ class _SelLambScreen extends State<SelLambScreen>
         child: new Text(
           "${GetConfig.getScheduleDesc("seventh")}(${schedule["seventh"]})",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.black,  fontSize: 14
           ),
         ),
         value: "seventh",
@@ -133,7 +134,7 @@ class _SelLambScreen extends State<SelLambScreen>
         child: new Text(
           "${GetConfig.getScheduleDesc("eight")}(${schedule["eight"]})",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.black,  fontSize: 14
           ),
         ),
         value: "eight",
@@ -143,7 +144,7 @@ class _SelLambScreen extends State<SelLambScreen>
         child: new Text(
           "${GetConfig.getScheduleDesc("ninth")}(${schedule["ninth"]})",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.black,  fontSize: 14
           ),
         ),
         value:"ninth",
@@ -153,7 +154,7 @@ class _SelLambScreen extends State<SelLambScreen>
         child: new Text(
           "${GetConfig.getScheduleDesc("tenth")}(${schedule["tenth"]})",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.black,  fontSize: 14
           ),
         ),
         value:"tenth",
@@ -163,7 +164,7 @@ class _SelLambScreen extends State<SelLambScreen>
         child: new Text(
           "${GetConfig.getScheduleDesc("sleep")}(${schedule["sleep"]})",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.black,  fontSize: 14
           ),
         ),
         value: "sleep",
@@ -204,10 +205,18 @@ class _SelLambScreen extends State<SelLambScreen>
           Container(
             margin: EdgeInsets.only(right: 10),
             child:   GestureDetector(
-              child: Icon(Icons.search,color: GetConfig.getColor(theme),size: 32,),
+              child: Icon(Icons.search,color: GetConfig.getColor(theme),size: 28,),
               onTap: (){
-                var startDate="";
-                var enddate="";
+                var sDate=startDate.text;
+                var eDate=endDate.text;
+
+                var classbegin=schedule[startValue].contains("~")?schedule[startValue].split('~')[0]:schedule[startValue];
+                var classend=schedule[endvalue].contains("~")? schedule[endvalue].split('~')[1]:schedule[endvalue];
+
+                var beginDateStr="${sDate} ${classbegin}";
+                var endDateStr="${eDate} ${classend}";
+                print("${beginDateStr}   ${endDateStr}");
+
               },
             ),
           ),
@@ -221,11 +230,11 @@ class _SelLambScreen extends State<SelLambScreen>
             child: Column(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only(left: 10),
+              padding: EdgeInsets.only(left: 3),
               child: Row(
                 children: <Widget>[
                   Text(
-                    "开始时间",
+                    "开始",
                     style: TextStyle(
                         color: GetConfig.getColor(theme), fontSize: 16),
                   ),
@@ -233,9 +242,10 @@ class _SelLambScreen extends State<SelLambScreen>
                     child: Row(
                       children: <Widget>[
                         Expanded(
+                          flex:4,
                           child: Container(
-                              width: MediaQuery.of(context).size.width - 50,
-                              margin: EdgeInsets.only(left: 10),
+                              width: MediaQuery.of(context).size.width,
+                              margin: EdgeInsets.only(left: 3),
                               padding: EdgeInsets.only(top: 5, bottom: 5),
                               child: GestureDetector(
                                 child: Row(
@@ -246,6 +256,7 @@ class _SelLambScreen extends State<SelLambScreen>
                                           Expanded(
                                             flex: 7,
                                             child: TextField(
+                                              style: TextStyle(fontSize: 14),
                                               enabled: false,
                                               controller: startDate,
                                               maxLines: null,
@@ -253,9 +264,9 @@ class _SelLambScreen extends State<SelLambScreen>
                                                 contentPadding:
                                                     const EdgeInsets.symmetric(
                                                         vertical: 10.0,
-                                                        horizontal: 10),
+                                                        horizontal: 3),
                                                 border: InputBorder.none,
-                                                hintText: "选择实验时间",
+                                                hintText: "选择时间",
                                                 filled: true,
                                                 fillColor: Colors.white,
                                               ),
@@ -296,17 +307,20 @@ class _SelLambScreen extends State<SelLambScreen>
                               )),
                         ),
                         Expanded(
+                          flex:6,
                           child: Container(
                             color: Colors.white,
-                            width: MediaQuery.of(context).size.width - 90,
-                            padding: EdgeInsets.only(left: 10),
+                            height: 38,
+                            width: MediaQuery.of(context).size.width ,
+                            margin: EdgeInsets.only(left: 12,top: 7,bottom: 6,right: 5),
                             child: new DropdownButtonHideUnderline(
                                 child: new DropdownButton(
                               items: droplist,
                               hint: new Text(
-                                '请选择开始节次',
+                                '节次',
                                 style: TextStyle(
                                   color: Colors.black12,
+                                  fontSize: 12
                                 ),
                               ),
                               onChanged: (value) {
@@ -333,11 +347,11 @@ class _SelLambScreen extends State<SelLambScreen>
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 10),
+              padding: EdgeInsets.only(left: 3),
               child: Row(
                 children: <Widget>[
                   Text(
-                    "结束时间",
+                    "结束",
                     style: TextStyle(
                         color: GetConfig.getColor(theme), fontSize: 16),
                   ),
@@ -345,14 +359,16 @@ class _SelLambScreen extends State<SelLambScreen>
                     child: Row(
                       children: <Widget>[
                         Expanded(
+                          flex: 4,
                           child: Container(
-                              width: MediaQuery.of(context).size.width - 50,
-                              margin: EdgeInsets.only(left: 10),
+                              width: MediaQuery.of(context).size.width,
+                              margin: EdgeInsets.only(left: 3),
                               padding: EdgeInsets.only(top: 5, bottom: 5),
                               child: GestureDetector(
                                 child: Row(
                                   children: <Widget>[
                                     Expanded(
+
                                       child: Row(
                                         children: <Widget>[
                                           Expanded(
@@ -365,15 +381,15 @@ class _SelLambScreen extends State<SelLambScreen>
                                                 contentPadding:
                                                     const EdgeInsets.symmetric(
                                                         vertical: 10.0,
-                                                        horizontal: 10),
+                                                        horizontal: 3),
                                                 border: InputBorder.none,
-                                                hintText: "选择实验时间",
+                                                hintText: "选择时间",
                                                 filled: true,
                                                 fillColor: Colors.white,
+
                                               ),
-                                              onEditingComplete: () {
-                                                //print(this._controller.text);
-                                              },
+                                              style: TextStyle(fontSize: 14),
+
                                             ),
                                           ),
                                           Expanded(
@@ -408,15 +424,19 @@ class _SelLambScreen extends State<SelLambScreen>
                               )),
                         ),
                         Expanded(
+                          flex: 6,
                           child: Container(
+
                             color: Colors.white,
-                            width: MediaQuery.of(context).size.width - 90,
-                            padding: EdgeInsets.only(left: 10),
+                            width: MediaQuery.of(context).size.width ,
+                            height: 38,
+
+                            margin: EdgeInsets.only(left: 12,top: 7,bottom: 6,right: 5),
                             child: new DropdownButtonHideUnderline(
                                 child: new DropdownButton(
                               items: droplist,
                               hint: new Text(
-                                '请选择结束节次',
+                                '节次',
                                 style: TextStyle(
                                   color: Colors.black12,
                                 ),
@@ -459,7 +479,7 @@ class _SelLambScreen extends State<SelLambScreen>
                 //GridView.extent 就相当于指定 gridDelegate 为 SliverGridDelegateWithMaxCrossAxisExtent，它们相当于对普通构造方法的一种封装
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   //必传参数，Cross 轴（在 GridView 中通常是横轴，即每一行）子组件个数
-                  crossAxisCount: 4,
+                  crossAxisCount: 5,
                   //子组件宽高比，如 2 表示宽：高=2:1,如 0.5 表示宽：高=0.5:1=1:2，简单来说就是值大于 1 就会宽大于高，小于 1 就会宽小于高
                   childAspectRatio: 1,
                   //Cross 轴子组件的间隔，一行中第一个子组件左边不会添加间隔，最后一个子组件右边不会添加间隔，这一点很棒
@@ -484,7 +504,7 @@ class _SelLambScreen extends State<SelLambScreen>
                         border: new Border.all(width: 2.0, color: Colors.red),
                         color: Colors.grey,
                         borderRadius:
-                            new BorderRadius.all(new Radius.circular(20.0)),
+                            new BorderRadius.all(new Radius.circular(8.0)),
                       ),
                       padding: const EdgeInsets.all(8.0),
                       alignment: Alignment.centerLeft,
@@ -495,61 +515,212 @@ class _SelLambScreen extends State<SelLambScreen>
                         new MaterialPageRoute(
                             builder: (context) => SelectDatePage())),
                   ),
-                  Container(
-                    decoration: new BoxDecoration(
-                      border: new Border.all(width: 2.0, color: Colors.red),
-                      color: Colors.grey,
-                      borderRadius:
-                          new BorderRadius.all(new Radius.circular(20.0)),
+                  GestureDetector(
+                    child: Container(
+                      decoration: new BoxDecoration(
+                        border: new Border.all(width: 2.0, color: Colors.red),
+                        color: Colors.grey,
+                        borderRadius:
+                        new BorderRadius.all(new Radius.circular(8.0)),
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      alignment: Alignment.centerLeft,
+                      child: Text("4-401"),
                     ),
-                    padding: const EdgeInsets.all(8.0),
-                    alignment: Alignment.centerLeft,
-                    child: Text("4-401"),
+                    onTap: () => Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => SelectDatePage())),
                   ),
-                  Container(
-                    decoration: new BoxDecoration(
-                      border: new Border.all(width: 2.0, color: Colors.red),
-                      color: Colors.grey,
-                      borderRadius:
-                          new BorderRadius.all(new Radius.circular(20.0)),
+                  GestureDetector(
+                    child: Container(
+                      decoration: new BoxDecoration(
+                        border: new Border.all(width: 2.0, color: Colors.red),
+                        color: Colors.grey,
+                        borderRadius:
+                        new BorderRadius.all(new Radius.circular(8.0)),
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      alignment: Alignment.centerLeft,
+                      child: Text("4-401"),
                     ),
-                    padding: const EdgeInsets.all(8.0),
-                    alignment: Alignment.centerLeft,
-                    child: Text("4-401"),
+                    onTap: () => Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => SelectDatePage())),
                   ),
-                  Container(
-                    decoration: new BoxDecoration(
-                      border: new Border.all(width: 2.0, color: Colors.red),
-                      color: Colors.grey,
-                      borderRadius:
-                          new BorderRadius.all(new Radius.circular(20.0)),
+                  GestureDetector(
+                    child: Container(
+                      decoration: new BoxDecoration(
+                        border: new Border.all(width: 2.0, color: Colors.red),
+                        color: Colors.grey,
+                        borderRadius:
+                        new BorderRadius.all(new Radius.circular(8.0)),
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      alignment: Alignment.centerLeft,
+                      child: Text("4-401"),
                     ),
-                    padding: const EdgeInsets.all(8.0),
-                    alignment: Alignment.centerLeft,
-                    child: Text("4-401"),
+                    onTap: () => Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => SelectDatePage())),
                   ),
-                  Container(
-                    decoration: new BoxDecoration(
-                      border: new Border.all(width: 2.0, color: Colors.red),
-                      color: Colors.grey,
-                      borderRadius:
-                          new BorderRadius.all(new Radius.circular(20.0)),
+                  GestureDetector(
+                    child: Container(
+                      decoration: new BoxDecoration(
+                        border: new Border.all(width: 2.0, color: Colors.red),
+                        color: Colors.grey,
+                        borderRadius:
+                        new BorderRadius.all(new Radius.circular(8.0)),
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      alignment: Alignment.centerLeft,
+                      child: Text("4-401"),
                     ),
-                    padding: const EdgeInsets.all(8.0),
-                    alignment: Alignment.centerLeft,
-                    child: Text("4-401"),
+                    onTap: () => Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => SelectDatePage())),
                   ),
-                  Container(
-                    decoration: new BoxDecoration(
-                      border: new Border.all(width: 2.0, color: Colors.red),
-                      color: Colors.grey,
-                      borderRadius:
-                          new BorderRadius.all(new Radius.circular(20.0)),
+                  GestureDetector(
+                    child: Container(
+                      decoration: new BoxDecoration(
+                        border: new Border.all(width: 2.0, color: Colors.red),
+                        color: Colors.grey,
+                        borderRadius:
+                        new BorderRadius.all(new Radius.circular(8.0)),
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      alignment: Alignment.centerLeft,
+                      child: Text("4-401"),
                     ),
-                    padding: const EdgeInsets.all(8.0),
-                    alignment: Alignment.centerLeft,
-                    child: Text("4-401"),
+                    onTap: () => Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => SelectDatePage())),
                   ),
+                  GestureDetector(
+                    child: Container(
+                      decoration: new BoxDecoration(
+                        border: new Border.all(width: 2.0, color: Colors.red),
+                        color: Colors.grey,
+                        borderRadius:
+                        new BorderRadius.all(new Radius.circular(8.0)),
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      alignment: Alignment.centerLeft,
+                      child: Text("4-401"),
+                    ),
+                    onTap: () => Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => SelectDatePage())),
+                  ),
+                  GestureDetector(
+                    child: Container(
+                      decoration: new BoxDecoration(
+                        border: new Border.all(width: 2.0, color: Colors.red),
+                        color: Colors.grey,
+                        borderRadius:
+                        new BorderRadius.all(new Radius.circular(8.0)),
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      alignment: Alignment.centerLeft,
+                      child: Text("4-401"),
+                    ),
+                    onTap: () => Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => SelectDatePage())),
+                  ),
+                  GestureDetector(
+                    child: Container(
+                      decoration: new BoxDecoration(
+                        border: new Border.all(width: 2.0, color: Colors.red),
+                        color: Colors.grey,
+                        borderRadius:
+                        new BorderRadius.all(new Radius.circular(8.0)),
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      alignment: Alignment.centerLeft,
+                      child: Text("4-401"),
+                    ),
+                    onTap: () => Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => SelectDatePage())),
+                  ),
+                  GestureDetector(
+                    child: Container(
+                      decoration: new BoxDecoration(
+                        border: new Border.all(width: 2.0, color: Colors.red),
+                        color: Colors.grey,
+                        borderRadius:
+                        new BorderRadius.all(new Radius.circular(8.0)),
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      alignment: Alignment.centerLeft,
+                      child: Text("4-401"),
+                    ),
+                    onTap: () => Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => SelectDatePage())),
+                  ),
+                  GestureDetector(
+                    child: Container(
+                      decoration: new BoxDecoration(
+                        border: new Border.all(width: 2.0, color: Colors.red),
+                        color: Colors.grey,
+                        borderRadius:
+                        new BorderRadius.all(new Radius.circular(8.0)),
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      alignment: Alignment.centerLeft,
+                      child: Text("4-401"),
+                    ),
+                    onTap: () => Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => SelectDatePage())),
+                  ),
+                  GestureDetector(
+                    child: Container(
+                      decoration: new BoxDecoration(
+                        border: new Border.all(width: 2.0, color: Colors.red),
+                        color: Colors.grey,
+                        borderRadius:
+                        new BorderRadius.all(new Radius.circular(8.0)),
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      alignment: Alignment.centerLeft,
+                      child: Text("4-401"),
+                    ),
+                    onTap: () => Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => SelectDatePage())),
+                  ),
+                  GestureDetector(
+                    child: Container(
+                      decoration: new BoxDecoration(
+                        border: new Border.all(width: 2.0, color: Colors.red),
+                        color: Colors.grey,
+                        borderRadius:
+                        new BorderRadius.all(new Radius.circular(8.0)),
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      alignment: Alignment.centerLeft,
+                      child: Text("4-401"),
+                    ),
+                    onTap: () => Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => SelectDatePage())),
+                  ),
+
+
                 ],
               ),
             )

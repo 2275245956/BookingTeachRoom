@@ -13,3 +13,13 @@ Future<APIResponse> saveConfigInfo(Object jsonStr) async {
     throw e;
   }
 }
+
+Future<APIResponse> getConfigValueByKey(String key) async{
+  try{
+    var data=await HttpUtil().get(ApiAddress.GETSYSTEM_CONFIGBYKEY+"?key=$key");
+    return APIResponse.fromJson(data);
+  }catch(e){
+    throw e;
+  }
+
+}
