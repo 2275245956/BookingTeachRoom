@@ -6,6 +6,7 @@ import 'package:intelligent_check_new/services/SystemService/SystemConfigService
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ScheduleModel {
   TextEditingController startreadTimeController = new TextEditingController();
@@ -48,6 +49,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
   bool isAnimating = false;
   bool canOperate = true;
   ScheduleModel scheduleModel = new ScheduleModel();
+  String theme = "red";
 
   @override
   Widget build(BuildContext context) {
@@ -69,8 +71,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Icon(Icons.keyboard_arrow_left,
-                  color: Color.fromRGBO(
-                      50, 89, 206, 1) /*Color.fromRGBO(209, 6, 24, 1)*/,
+                  color:GetConfig.getColor(theme) /*Color.fromRGBO(209, 6, 24, 1)*/,
                   size: 32),
             ),
           ),
@@ -110,9 +111,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                   Expanded(
                                     child: Container(
                                         width:
-                                            MediaQuery.of(context).size.width /
-                                                    2 -
-                                                30,
+                                            MediaQuery.of(context).size.width /2 -30,
                                         margin:
                                             EdgeInsets.only(top: 5, bottom: 10),
                                         padding: EdgeInsets.only(
@@ -164,8 +163,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -253,8 +251,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -377,8 +374,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -466,8 +462,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -591,8 +586,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -680,8 +674,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -805,8 +798,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -894,8 +886,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1019,8 +1010,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1108,8 +1098,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1233,8 +1222,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1322,8 +1310,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1447,8 +1434,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1536,8 +1522,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1661,8 +1646,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1750,8 +1734,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1875,8 +1858,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1964,8 +1946,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -2089,8 +2070,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -2178,8 +2158,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -2303,8 +2282,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -2392,8 +2370,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -2515,8 +2492,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color: Color.fromRGBO(
-                                                            50, 89, 206, 1),
+                                                        color:GetConfig.getColor(theme),
                                                       ),
                                                     ),
                                                   ],
@@ -2586,7 +2562,7 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
               Container(
                 width: (MediaQuery.of(context).size.width / 2),
                 child: new MaterialButton(
-                  color: Color.fromRGBO(50, 89, 206, 1),
+                  color: GetConfig.getColor(theme),
                   height: 60,
                   textColor: Colors.white,
                   child: new Text('确定', style: TextStyle(fontSize: 24)),
@@ -2762,24 +2738,38 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
       isAnimating = true;
       canOperate = false;
     });
-  var jsonStr={
-    "0":"${model.startreadTimeController.text}~${model.endreadTimeController.text}",
-    "1":"${model.startfirstClassController.text}~${model.endfirstClassController.text}",
-    "2":"${model.startsecondClassController.text}~${model.endsecondClassController.text}",
-    "3":"${model.startthirdClassController.text}~${model.endthirdClassController.text}",
-    "4":"${model.startforthClassController.text}~${model.endforthClassController.text}",
-    "5":"${model.startfithClassController.text}~${model.endfithClassController.text}",
-    "6":"${model.startsixthClassController.text}~${model.endsixthClassController.text}",
-    "7":"${model.startsevenClassController.text}~${model.endsevenClassController.text}",
-    "8":"${model.starteightClassController.text}~${model.endeightClassController.text}",
-    "9":"${model.startnightClassController.text}~${model.endnightClassController.text}",
-    "10":"${model.starttenClassController.text}~${model.endtenClassController.text}",
-    "-1":"${model.closeTimeController.text}",
-  };
+    var jsonStr = {
+      "read":
+          "${model.startreadTimeController.text}~${model.endreadTimeController.text}",
+      "first":
+          "${model.startfirstClassController.text}~${model.endfirstClassController.text}",
+      "second":
+          "${model.startsecondClassController.text}~${model.endsecondClassController.text}",
+      "third":
+          "${model.startthirdClassController.text}~${model.endthirdClassController.text}",
+      "forth":
+          "${model.startforthClassController.text}~${model.endforthClassController.text}",
+      "fifth":
+          "${model.startfithClassController.text}~${model.endfithClassController.text}",
+      "sixth":
+          "${model.startsixthClassController.text}~${model.endsixthClassController.text}",
+      "seventh":
+          "${model.startsevenClassController.text}~${model.endsevenClassController.text}",
+      "eight":
+          "${model.starteightClassController.text}~${model.endeightClassController.text}",
+      "ninth":
+          "${model.startnightClassController.text}~${model.endnightClassController.text}",
+      "tenth":
+          "${model.starttenClassController.text}~${model.endtenClassController.text}",
+      "sleep": "${model.closeTimeController.text}",
+    };
     await saveConfigInfo(jsonStr).then((data) {
-      if(data.success){
-         GetConfig.popUpMsg(data.message);
-      }else{
+      if (data.success) {
+        GetConfig.popUpMsg(data.message);
+        SharedPreferences.getInstance().then((sp) {
+          sp.setString("schedule", json.encode(jsonStr));
+        });
+      } else {
         GetConfig.popUpMsg(data.message);
       }
 

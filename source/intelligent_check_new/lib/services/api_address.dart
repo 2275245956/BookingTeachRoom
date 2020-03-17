@@ -5,8 +5,6 @@ class ApiAddress {
 
 
   static  const String USER_LOGIN="/login";
-
-
 //  SystemConifg
   static const String SCHEDULE_CONFIG="/saveOrUpdateSchdule";
 

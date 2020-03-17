@@ -6,7 +6,7 @@ class SelectDatePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Time Line Demo',
+      title: '',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
