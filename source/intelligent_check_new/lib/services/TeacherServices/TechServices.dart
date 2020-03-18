@@ -5,7 +5,7 @@ import 'package:intelligent_check_new/tools/HttpUtil.dart';
 
 Future<APIResponse> getEmptyLam(String startDate,String endDate) async{
   try{
-    var data=await HttpUtil().get(ApiAddress.GET_EMPTYLAM+"?startDate=$startDate&endDate=$endDate");
+    var data=await HttpUtil().post(ApiAddress.GET_EMPTYLAM+"?sDate=$startDate&eDate=$endDate");
     return APIResponse.fromJson(data);
   }catch(e){
     throw e;
