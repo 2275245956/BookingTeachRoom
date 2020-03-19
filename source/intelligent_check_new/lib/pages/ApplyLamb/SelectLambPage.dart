@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/RoomModel.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb/ApplyLambInfo.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb/SelectDatePage.dart';
 import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
@@ -31,6 +32,8 @@ class _SelLambScreen extends State<SelLambScreen>
   var schedule;
   List<DropdownMenuItem> droplist = new List<DropdownMenuItem>();
 
+  String dateStart="";
+  String dateEnd="";
   List<RoomModel> roomlist=new List<RoomModel>();
   @override
   void initState() {
@@ -137,6 +140,24 @@ class _SelLambScreen extends State<SelLambScreen>
     return drop;
   }
 
+  getSelDate(TextEditingController controller){
+    DatePicker.showDatePicker(context,
+        showTitleActions: true,
+        theme: DatePickerTheme(
+            itemStyle: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold),
+            doneStyle: TextStyle(
+                color: Colors.blue,
+                fontSize: 16)),
+        onConfirm: (date) {
+          controller.text =
+              new DateFormat("yyyy-MM-dd")
+                  .format(date);
+        },
+        currentTime: DateTime.now(),
+        locale: LocaleType.zh);
+  }
  // ignore: missing_return
  DateTime _GetDateTime(String date,String time) {
    if (time.contains(":")) {
@@ -153,6 +174,7 @@ class _SelLambScreen extends State<SelLambScreen>
  }
 
  _SearchRoom() async{
+    roomlist.clear();
    var sDate = startDate.text;
    var eDate = endDate.text;
    if(sDate=="" || eDate==""){
@@ -176,10 +198,13 @@ class _SelLambScreen extends State<SelLambScreen>
    else{
      var sStr=DateFormat("yyyy-MM-dd HH:mm:00").format(start);
      var eStr=DateFormat("yyyy-MM-dd HH:mm:00").format(end);
+
     var response=await getEmptyLam(sStr,eStr);
     if(response.success){
       setState(() {
         for(var str in response.dataList){
+          dateStart=sStr;
+          dateEnd=eStr;
           roomlist.add(RoomModel.fromJson(str));
         }
       });
@@ -301,22 +326,7 @@ class _SelLambScreen extends State<SelLambScreen>
                                   ],
                                 ),
                                 onTap: () {
-                                  DatePicker.showDatePicker(context,
-                                      showTitleActions: true,
-                                      theme: DatePickerTheme(
-                                          itemStyle: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold),
-                                          doneStyle: TextStyle(
-                                              color: Colors.blue,
-                                              fontSize: 16)),
-                                      onConfirm: (date) {
-                                    startDate.text =
-                                        new DateFormat("yyyy-MM-dd")
-                                            .format(date);
-                                  },
-                                      currentTime: DateTime.now(),
-                                      locale: LocaleType.zh);
+                                  getSelDate(startDate);
                                 },
                               )),
                         ),
@@ -415,21 +425,7 @@ class _SelLambScreen extends State<SelLambScreen>
                                   ],
                                 ),
                                 onTap: () {
-                                  DatePicker.showDatePicker(context,
-                                      showTitleActions: true,
-                                      theme: DatePickerTheme(
-                                          itemStyle: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold),
-                                          doneStyle: TextStyle(
-                                              color: Colors.blue,
-                                              fontSize: 16)),
-                                      onConfirm: (date) {
-                                    endDate.text = new DateFormat("yyyy-MM-dd")
-                                        .format(date);
-                                  },
-                                      currentTime: DateTime.now(),
-                                      locale: LocaleType.zh);
+                                  getSelDate(endDate);
                                 },
                               )),
                         ),
@@ -481,71 +477,63 @@ class _SelLambScreen extends State<SelLambScreen>
               child: Text("说明：选择时间加载当前日期下的空闲教室，点击教室申请实验！",
                   style: TextStyle(color: Colors.red, fontSize: 12)),
             ),
-            Container(
-              child: GridView(
-                shrinkWrap: true,
-                //构造 GridView 的委托者，GridView.count 就相当于指定 gridDelegate 为 SliverGridDelegateWithFixedCrossAxisCount，
-                //GridView.extent 就相当于指定 gridDelegate 为 SliverGridDelegateWithMaxCrossAxisExtent，它们相当于对普通构造方法的一种封装
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  //必传参数，Cross 轴（在 GridView 中通常是横轴，即每一行）子组件个数
-                  crossAxisCount: 5,
-                  //子组件宽高比，如 2 表示宽：高=2:1,如 0.5 表示宽：高=0.5:1=1:2，简单来说就是值大于 1 就会宽大于高，小于 1 就会宽小于高
-                  childAspectRatio: 1,
-                  //Cross 轴子组件的间隔，一行中第一个子组件左边不会添加间隔，最后一个子组件右边不会添加间隔，这一点很棒
-                  crossAxisSpacing: 3,
-                  //Main 轴（在 GridView 中通常是纵轴，即每一列）子组件间隔，也就是每一行之间的间隔，同样第一行的上边和最后一行的下边不会添加间隔
-                  mainAxisSpacing: 3,
-                ),
+           Flexible(child: GridView(
+             shrinkWrap: true,
+             //构造 GridView 的委托者，GridView.count 就相当于指定 gridDelegate 为 SliverGridDelegateWithFixedCrossAxisCount，
+             //GridView.extent 就相当于指定 gridDelegate 为 SliverGridDelegateWithMaxCrossAxisExtent，它们相当于对普通构造方法的一种封装
+             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+               //必传参数，Cross 轴（在 GridView 中通常是横轴，即每一行）子组件个数
+               crossAxisCount:3,
+               //子组件宽高比，如 2 表示宽：高=2:1,如 0.5 表示宽：高=0.5:1=1:2，简单来说就是值大于 1 就会宽大于高，小于 1 就会宽小于高
+               childAspectRatio: 1,
+               //Cross 轴子组件的间隔，一行中第一个子组件左边不会添加间隔，最后一个子组件右边不会添加间隔，这一点很棒
+               crossAxisSpacing: 3,
+               //Main 轴（在 GridView 中通常是纵轴，即每一列）子组件间隔，也就是每一行之间的间隔，同样第一行的上边和最后一行的下边不会添加间隔
+               mainAxisSpacing: 3,
+             ),
+             cacheExtent: 0,
+             padding: EdgeInsets.all(5),
+             scrollDirection: Axis.vertical,
+             children: roomlist.map((room){
+               return GestureDetector(
+                 child: Container(
+                   decoration: new BoxDecoration(
+                     border: new Border.all(width: 2.0, color: Colors.black12),
+                     borderRadius:
+                     new BorderRadius.all(new Radius.circular(8.0)),
+                   ),
+                   padding: const EdgeInsets.all(8.0),
+                   alignment: Alignment.centerLeft,
+                   child: Column(
+                     children: <Widget>[
+                       Expanded(
+                         flex:3,
+                         child: Container(
+                           alignment: Alignment.centerLeft,
+                           child: Text(room.rNumber,style: TextStyle(fontSize: 16,color: Colors.red,fontWeight: FontWeight.w800)),
+                         ),
+                       ),
+                       Expanded(flex: 4,child:Container(
+                         alignment: Alignment.centerLeft,
+                         child: Text(room.rName,style: TextStyle(fontSize:12)),
+                       ),),
+                       Expanded(flex:4,child:Container(
+                         alignment: Alignment.centerLeft,
+                         child: Text(room.attriText01,style: TextStyle(fontSize:12)),
+                       ),),
+                     ],
+                   ),
+                 ),
+                 onTap: () => Navigator.push(
+                     context,
+                     new MaterialPageRoute(
+                         builder: (context) => ApplyLambInfo(room,dateStart,dateEnd))),
+               );
+             }).toList(),
+           ),)
 
-                cacheExtent: 0,
 
-                padding: EdgeInsets.all(5),
 
-                physics: new BouncingScrollPhysics(),
-                //Item 的顺序是否反转，若为 true 则反转，这个翻转只是行翻转，即第一行变成最后一行，但是每一行中的子组件还是从左往右摆放的
-//      reverse: true,
-                //GirdView 的方向，为 Axis.vertical 表示纵向，为 Axis.horizontal 表示横向，横向的话 CrossAxis 和 MainAxis 表示的轴也会调换
-                scrollDirection: Axis.vertical,
-                children: roomlist.map((room){
-                  return GestureDetector(
-                    child: Container(
-                      decoration: new BoxDecoration(
-                        border: new Border.all(width: 2.0, color: Colors.green),
-
-                        borderRadius:
-                        new BorderRadius.all(new Radius.circular(8.0)),
-                      ),
-                      padding: const EdgeInsets.all(8.0),
-                      alignment: Alignment.centerLeft,
-                      child: Column(
-                        children: <Widget>[
-                          Expanded(
-                            flex:4,
-                            child: Container(
-                              alignment: Alignment.centerLeft,
-                              child: Text(room.rNumber,style: TextStyle(fontSize: 20,color: Colors.red)),
-                            ),
-                          ),
-                          Expanded(flex: 3,child:Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(room.rName,style: TextStyle(fontSize:16)),
-                          ),),
-                          Expanded(flex: 3,child:Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(room.attriText01,style: TextStyle(fontSize:16)),
-                          ),),
-                        ],
-                      ),
-                    ),
-                    onTap: () => Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (context) => SelectDatePage())),
-                  );
-
-                }).toList(),
-              ),
-            )
           ],
         )),
         inAsyncCall: isAnimating,
