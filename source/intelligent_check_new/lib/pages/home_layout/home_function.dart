@@ -278,6 +278,17 @@ class _HomeFunctionState extends State<HomeFunction> {
     });
   }
 
+
+  GetMenu(){
+    switch  (userInfo.role){
+
+    }
+
+  }
+
+
+
+
   getFirstMenus() {
     List<Container> firstMenu = List();
     switch  (userInfo.role){
