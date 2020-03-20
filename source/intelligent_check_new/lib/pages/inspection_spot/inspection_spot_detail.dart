@@ -80,7 +80,7 @@ class _InspectionSpotDetail extends State<InspectionSpotDetail>{
     await getInherentPointDetail(this.widget.pointId).then((data){
       setState(() {
         if(data.pointId==null)
-          HiddenDangerFound.popUpMsg("查询巡检点详情失败！");
+          GetConfig.popUpMsg("查询巡检点详情失败！");
         else{
           detail=data;
         }

@@ -1,3 +1,4 @@
+import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/model/Statistics/StatisticsRiskDetail.dart';
 import 'package:intelligent_check_new/pages/hidedanger_manage/hidden_danger_found.dart';
@@ -38,7 +39,7 @@ class _StatisticsDanger extends State<StatisticsDanger>
           }
 
         } else {
-          HiddenDangerFound.popUpMsg(data.message ?? "获取数据失败");
+          GetConfig.popUpMsg(data.message ?? "获取数据失败");
         }
         isAnimating = false;
       });

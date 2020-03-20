@@ -1,3 +1,4 @@
+import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -214,7 +215,7 @@ class _SelCompanyAndDept extends State<SelCompanyAndDept> {
                     };
                     saveSelect(jsonStr);
                   } else {
-                    HiddenDangerFound.popUpMsg("请完成选择!");
+                    GetConfig.popUpMsg("请完成选择!");
                   }
                 },
               ),
@@ -298,7 +299,7 @@ class _SelCompanyAndDept extends State<SelCompanyAndDept> {
 
   departmentDialog() {
     if (selectedCompany == null) {
-      HiddenDangerFound.popUpMsg("请先选择公司！", gravity: ToastGravity.TOP);
+      GetConfig.popUpMsg("请先选择公司！", gravity: ToastGravity.TOP);
       return Container();
     }
 
@@ -334,13 +335,13 @@ class _SelCompanyAndDept extends State<SelCompanyAndDept> {
 
   roleDialog() {
     if (selectedCompany == null) {
-      HiddenDangerFound.popUpMsg("请先选择公司！", gravity: ToastGravity.TOP);
+      GetConfig.popUpMsg("请先选择公司！", gravity: ToastGravity.TOP);
       return Container();
     }
     //未选择部门
     else if (selectedeDept == null) {
       if (roleMap[selectedCompany.sequenceNbr] == null) {
-        HiddenDangerFound.popUpMsg("用户在该公司下没有分配角色，\n请先选择部门！",
+        GetConfig.popUpMsg("用户在该公司下没有分配角色，\n请先选择部门！",
             gravity: ToastGravity.TOP);
         return Container();
       }
@@ -376,7 +377,7 @@ class _SelCompanyAndDept extends State<SelCompanyAndDept> {
       //选择部门
 
       if (roleMap[selectedeDept.sequenceNbr] == null) {
-        HiddenDangerFound.popUpMsg("用户在该部门下没有分配角色！", gravity: ToastGravity.TOP);
+        GetConfig.popUpMsg("用户在该部门下没有分配角色！", gravity: ToastGravity.TOP);
         return Container();
       }
       showDialog<Null>(
@@ -424,7 +425,7 @@ class _SelCompanyAndDept extends State<SelCompanyAndDept> {
             new MaterialPageRoute(builder: (context) => NavigationKeepAlive()),
             (route) => route == null);
       } else {
-        HiddenDangerFound.popUpMsg("选择失败");
+        GetConfig.popUpMsg("选择失败");
       }
     });
   }

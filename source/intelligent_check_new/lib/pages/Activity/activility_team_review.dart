@@ -2,11 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/constants/color.dart';
 import 'package:intelligent_check_new/model/Activility/ActivilityModel.dart';
-import 'package:intelligent_check_new/pages/Activity/activility_department_review.dart';
 import 'package:intelligent_check_new/pages/Activity/activility_list.dart';
 import 'package:intelligent_check_new/pages/Activity/activility_run_log.dart';
 import 'package:intelligent_check_new/pages/Activity/activility_steps.dart';
-import 'package:intelligent_check_new/pages/hidedanger_manage/hidden_danger_found.dart';
+import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intelligent_check_new/services/Activility_services.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -59,7 +58,7 @@ class _ActivilityTeamReview extends State<ActivilityTeamReview> {
           initData = ActivilityModel.fromJson(data.dataList);
         } else {
           if (data.message != null) {
-            HiddenDangerFound.popUpMsg(data.message);
+            GetConfig.popUpMsg(data.message);
           }
         }
         isAnimating = false;
@@ -77,16 +76,16 @@ class _ActivilityTeamReview extends State<ActivilityTeamReview> {
         .then((response) {
       if (response.success) {
         //通过
-        HiddenDangerFound.popUpMsg("操作成功！");
+        GetConfig.popUpMsg("操作成功！");
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return new ActivilityList();
         }));
       } else {
         //流程执行失败
         if (response.message != null) {
-          HiddenDangerFound.popUpMsg(response.message);
+          GetConfig.popUpMsg(response.message);
         } else {
-          HiddenDangerFound.popUpMsg("操作失败！");
+          GetConfig.popUpMsg("操作失败！");
         }
       }
       isAnimating = false;
@@ -605,7 +604,7 @@ class _ActivilityTeamReview extends State<ActivilityTeamReview> {
                     if (canOperate) {
                       executeFlow(3, this._suggestion.text, null);
                     } else {
-                      HiddenDangerFound.popUpMsg("正在执行操作，请稍等...");
+                      GetConfig.popUpMsg("正在执行操作，请稍等...");
                     }
                   },
                 ),
@@ -621,7 +620,7 @@ class _ActivilityTeamReview extends State<ActivilityTeamReview> {
                     if (canOperate) {
                       executeFlow(2, this._suggestion.text, null);
                     } else {
-                      HiddenDangerFound.popUpMsg("正在执行操作，请稍等...");
+                      GetConfig.popUpMsg("正在执行操作，请稍等...");
                     }
                   },
                 ),

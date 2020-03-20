@@ -57,13 +57,13 @@ class _SecurityRiskJudegmentDetail extends State<SecurityRiskJudegmentDetail>
   saveAllRecord() async {
     await saveTaskStatus(this.initData.id).then((date) {
       if (date.success) {
-        HiddenDangerFound.popUpMsg("操作成功！");
+        GetConfig.popUpMsg("操作成功！");
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return SecurityRiskJudegmentList();
         }));
       } else {
           date.message=date.message??"操作失败！";
-          HiddenDangerFound.popUpMsg(date.message);
+          GetConfig.popUpMsg(date.message);
 
       }
     });
@@ -130,7 +130,7 @@ class _SecurityRiskJudegmentDetail extends State<SecurityRiskJudegmentDetail>
             ),
             onTap: () {
               if(isSubmit){
-                HiddenDangerFound.popUpMsg(
+                GetConfig.popUpMsg(
                     "任务" + this.initData.statusDesc + "！无法提交！",gravity: ToastGravity.BOTTOM);
                 return false;
               }
@@ -251,7 +251,7 @@ class _SecurityRiskJudegmentDetail extends State<SecurityRiskJudegmentDetail>
                 ),
                 child: GestureDetector(
                   onTap: () {
-                    HiddenDangerFound.popUpMsg(
+                    GetConfig.popUpMsg(
                         "任务" + this.initData.statusDesc + "！无法处理！");
                   },
                   child: Row(
@@ -392,7 +392,7 @@ class _SecurityRiskJudegmentDetail extends State<SecurityRiskJudegmentDetail>
                       ],
                     ),
                     onTap: () {
-                      HiddenDangerFound.popUpMsg(
+                      GetConfig.popUpMsg(
                           "任务" + this.initData.statusDesc + "！无法处理！");
                     },
                   ))

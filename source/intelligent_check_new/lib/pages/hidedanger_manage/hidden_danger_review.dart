@@ -18,6 +18,7 @@ import 'package:intelligent_check_new/services/HiddenDanger.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intelligent_check_new/tools/GetConfig.dart';
 
 class HiddenDangerReview extends StatefulWidget {
   // HiddenDangerReview({Key key}) : super(key: key);
@@ -131,9 +132,9 @@ class _HiddenDangerReview extends State<HiddenDangerReview> {
         ///保存文件路径
         if (data.success) {
           hidedanger.photoUrls = data.message;
-          HiddenDangerFound.popUpMsg("图片上传成功!");
+          GetConfig.popUpMsg("图片上传成功!");
         } else {
-          HiddenDangerFound.popUpMsg(data.message);
+          GetConfig.popUpMsg(data.message);
         }
 
         isAnimating = false;
@@ -162,10 +163,10 @@ class _HiddenDangerReview extends State<HiddenDangerReview> {
         .then((data) {
       setState(() {
         if (data.success) {
-          HiddenDangerFound.popUpMsg(data.message);
+          GetConfig.popUpMsg(data.message);
           Navigator.pop(context);
         } else {
-          HiddenDangerFound.popUpMsg(data.message);
+          GetConfig.popUpMsg(data.message);
         }
         isAnimating = false;
         canOperate = true;
@@ -176,27 +177,27 @@ class _HiddenDangerReview extends State<HiddenDangerReview> {
   bool _checkNeed() {
     if (radioValue != 2) {
 //      if (initData.dangerType == 1 && hidedanger.reviewDeptName.text == "") {
-//        HiddenDangerFound.popUpMsg("请选择治理部门！");
+//        GetConfig.popUpMsg("请选择治理部门！");
 //        return false;
 //      }
       if (initData.dangerType == 1 && hidedanger.reviewUserName.text == "") {
-        HiddenDangerFound.popUpMsg("请选择治理人！");
+        GetConfig.popUpMsg("请选择治理人！");
 
         return false;
       }
       if (hidedanger.limitDate.text == "") {
-        HiddenDangerFound.popUpMsg("请选择治理期限！");
+        GetConfig.popUpMsg("请选择治理期限！");
 
         return false;
       }
 //      if (imageList == [] || imageList == null) {
-//        HiddenDangerFound.popUpMsg("请上传图片！");
+//        GetConfig.popUpMsg("请上传图片！");
 //        return false;
 //      }
     } else {
       if (hidedanger.remark.text == "") {
         //不通过
-        HiddenDangerFound.popUpMsg("评审结果不通过！请填写评审说明！");
+        GetConfig.popUpMsg("评审结果不通过！请填写评审说明！");
         return false;
       }
     }
@@ -269,7 +270,7 @@ class _HiddenDangerReview extends State<HiddenDangerReview> {
             child: GestureDetector(
               onTap: () {
                 if (!initData.currentUserCanExcute) {
-                  HiddenDangerFound.popUpMsg("无权限操作该任务！");
+                  GetConfig.popUpMsg("无权限操作该任务！");
                   return false;
                 }
                 if (canOperate) {
@@ -277,7 +278,7 @@ class _HiddenDangerReview extends State<HiddenDangerReview> {
                     _saveReviewResult(hidedanger, radioValue);
                   }
                 } else {
-                  HiddenDangerFound.popUpMsg("正在执行操作！请稍等...");
+                  GetConfig.popUpMsg("正在执行操作！请稍等...");
                 }
               },
               child: Icon(
@@ -1289,7 +1290,7 @@ class _HiddenDangerReview extends State<HiddenDangerReview> {
                   ),
                   onTap: () {
                     if (!initData.currentUserCanExcute) {
-                      HiddenDangerFound.popUpMsg("无权限操作该任务！");
+                      GetConfig.popUpMsg("无权限操作该任务！");
                       return false;
                     }
                     //  print("拍照取证");

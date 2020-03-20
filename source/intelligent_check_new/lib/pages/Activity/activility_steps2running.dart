@@ -68,9 +68,9 @@ class _ActivilitySteps2Running extends State<ActivilitySteps2Running> {
               f.imgs = f.imgs + data.message + ",";
             }
 
-            HiddenDangerFound.popUpMsg("图片上传成功!");
+            GetConfig.popUpMsg("图片上传成功!");
           } else {
-            HiddenDangerFound.popUpMsg(data.message);
+            GetConfig.popUpMsg(data.message);
           }
 
           isAnimating = false;
@@ -83,7 +83,7 @@ class _ActivilitySteps2Running extends State<ActivilitySteps2Running> {
     bool _checkNeed(){
       for(StepMeasureModel st in this.widget.stepModel.taskworkMeasures){
         if(st.executeState==0){
-          HiddenDangerFound.popUpMsg("请完成《"+st.measuresContent+"》的状态选择！");
+          GetConfig.popUpMsg("请完成《"+st.measuresContent+"》的状态选择！");
           return false;
         }
       }
@@ -147,7 +147,7 @@ class _ActivilitySteps2Running extends State<ActivilitySteps2Running> {
                       }
 
                     } else {
-                      HiddenDangerFound.popUpMsg("正在执行操作，请稍等...");
+                      GetConfig.popUpMsg("正在执行操作，请稍等...");
                     }
                   }),
             ],

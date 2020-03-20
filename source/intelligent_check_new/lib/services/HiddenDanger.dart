@@ -1,3 +1,4 @@
+import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'dart:convert' show json;
 import 'dart:io';
 import 'package:dio/dio.dart';
@@ -234,7 +235,7 @@ Future<HideDangerInfoModel> getDangerFlowRrecord(int dangerId) async {
       var infoModels = HideDangerInfoModel.fromJson(data["dataList"]);
       return infoModels;
     } else {
-      HiddenDangerFound.popUpMsg(data["message"]??"获取失败！");
+      GetConfig.popUpMsg(data["message"]??"获取失败！");
       return null;
     }
   } catch (e) {

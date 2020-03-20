@@ -152,7 +152,7 @@ class _SubscribePageState extends State<SubscribePage> {
               ),
               onTap: () {
                 if (isSavedPressed) {
-                  HiddenDangerFound.popUpMsg("正在保存数据...");
+                  GetConfig.popUpMsg("正在保存数据...");
                   return false;
                 } else {
                   List<SubItem> msgOrderRes = new List();

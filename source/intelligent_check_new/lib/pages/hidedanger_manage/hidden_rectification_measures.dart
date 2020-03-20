@@ -1,3 +1,4 @@
+import 'package:intelligent_check_new/tools/GetConfig.dart';
 
 import 'dart:convert';
 
@@ -164,7 +165,7 @@ class _HiddenRectificationMeasures extends State<HiddenRectificationMeasures> {
                         child: Icon(Icons.add_comment,color:Color.fromRGBO(50, 89, 206, 1),size:25,),
                         onTap: (){
                           if(this._controller.text==""){
-                             HiddenDangerFound.popUpMsg("未输入内容");
+                             GetConfig.popUpMsg("未输入内容");
                              return false;
                           }
                           if(!reviewNotes.contains(this._controller.text)){

@@ -79,7 +79,7 @@ class _ActivilitySearchSearchResultPage extends State<ActivilitySearchSearchResu
           hasNext = !data.last;
         } else {
           if (data.message != null) {
-            HiddenDangerFound.popUpMsg(data.message);
+            GetConfig.popUpMsg(data.message);
           }
         }
         isAnimating = false;

@@ -8,6 +8,7 @@ import 'package:intelligent_check_new/pages/Activity/activility_list.dart';
 import 'package:intelligent_check_new/pages/Activity/activility_run_log.dart';
 import 'package:intelligent_check_new/pages/hidedanger_manage/hidden_danger_found.dart';
 import 'package:intelligent_check_new/services/Activility_services.dart';
+import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -37,16 +38,16 @@ class _ActivilityCheckAndAcceptance
       setState(() {
         if (response.success) {
           //通过
-          HiddenDangerFound.popUpMsg("操作成功！");
+          GetConfig.popUpMsg("操作成功！");
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return new ActivilityList();
           }));
         } else {
           //流程执行失败
           if (response.message != null) {
-            HiddenDangerFound.popUpMsg(response.message);
+            GetConfig.popUpMsg(response.message);
           } else {
-            HiddenDangerFound.popUpMsg("操作失败！");
+            GetConfig.popUpMsg("操作失败！");
           }
         }
         isAnimating = false;
@@ -90,7 +91,7 @@ class _ActivilityCheckAndAcceptance
               initData.records.removeAt(0);
         } else {
           if (data.message != null) {
-            HiddenDangerFound.popUpMsg(data.message);
+            GetConfig.popUpMsg(data.message);
           }
         }
         isAnimating = false;

@@ -85,7 +85,7 @@ class _SecurityRiskJudegmentList extends State<SecurityRiskJudegmentList>
             }
 
           } else {
-            if (date.message != null) HiddenDangerFound.popUpMsg(date.message);
+            if (date.message != null) GetConfig.popUpMsg(date.message);
           }
 
           hasNext = (date.totalElements+this.pageSize-1)/this.pageSize>=(this.pageNumber+1);

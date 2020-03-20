@@ -7,6 +7,7 @@ import 'package:intelligent_check_new/pages/CheckExecute/ImageList.dart';
 import 'package:intelligent_check_new/pages/hidedanger_manage/MultySelectContract.dart';
 import 'package:intelligent_check_new/pages/inspection_record/contact.dart';
 import 'package:intelligent_check_new/services/HiddenDanger.dart';
+import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intelligent_check_new/tools/MessageBox.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
@@ -28,17 +29,6 @@ class  HideDanger{
 
 class HiddenDangerFound extends StatefulWidget {
   HiddenDangerFound({Key key}) : super(key: key);
-  ///消息提示
-  static popUpMsg(String msg,{txtColor,bgColor,gravity}){
-
-    Fluttertoast.showToast(
-        msg: msg,
-        gravity: gravity??ToastGravity.CENTER,
-        toastLength: Toast.LENGTH_SHORT,
-        textColor: txtColor??Colors.white,
-        backgroundColor:bgColor??Colors.black54
-    );
-  }
   @override
   _HiddenDangerFound createState() => new _HiddenDangerFound();
 }
@@ -63,13 +53,13 @@ class _HiddenDangerFound extends State<HiddenDangerFound> {
       setState(() {
 
         if(data){
-          HiddenDangerFound.popUpMsg("隐患添加成功!");
+          GetConfig.popUpMsg("隐患添加成功!");
 
           reSetValue();//重置数据
           Navigator.pop(context);
 
         }else{
-          HiddenDangerFound.popUpMsg("隐患添加失败!");
+          GetConfig.popUpMsg("隐患添加失败!");
         }
         isAnimating = false;
         canOperate=true;
@@ -88,9 +78,9 @@ class _HiddenDangerFound extends State<HiddenDangerFound> {
         setState(() {
           if(data.success){
             hidedanger.photoUrls=data.message;
-            HiddenDangerFound.popUpMsg("图片上传成功!");
+            GetConfig.popUpMsg("图片上传成功!");
           }else{
-            HiddenDangerFound.popUpMsg(data.message);
+            GetConfig.popUpMsg(data.message);
           }
 
           isAnimating = false;
@@ -121,15 +111,15 @@ class _HiddenDangerFound extends State<HiddenDangerFound> {
   bool _checkNeed() {
 
     if(hidedanger.dangerPlace.text==null || hidedanger.dangerPlace.text==""){
-      HiddenDangerFound.popUpMsg("请填写隐患地点！");
+      GetConfig.popUpMsg("请填写隐患地点！");
       return false;
     }
     if(hidedanger.dangerName.text==null || hidedanger.dangerName.text==""){
-      HiddenDangerFound.popUpMsg("请填写隐患名称！");
+      GetConfig.popUpMsg("请填写隐患名称！");
       return false;
     }
 //    if(imageList==[] || imageList==null){
-//      HiddenDangerFound.popUpMsg("请上传隐患图片");
+//      GetConfig.popUpMsg("请上传隐患图片");
 //      return false;
 //    }
     return true;
@@ -524,7 +514,7 @@ class _HiddenDangerFound extends State<HiddenDangerFound> {
                   if(canOperate){
                     reSetValue();
                   }else{
-                    HiddenDangerFound.popUpMsg("网速较慢！请等待图片上传完成");
+                    GetConfig.popUpMsg("网速较慢！请等待图片上传完成");
                   }
 
                 },
@@ -546,7 +536,7 @@ class _HiddenDangerFound extends State<HiddenDangerFound> {
                       _saveHideDangerInfo(hidedanger);
                     }
                   }else{
-                    HiddenDangerFound.popUpMsg("正在执行操作！请稍等...");
+                    GetConfig.popUpMsg("正在执行操作！请稍等...");
                   }
 
                 },

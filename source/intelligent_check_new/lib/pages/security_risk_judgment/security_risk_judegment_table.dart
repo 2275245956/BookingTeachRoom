@@ -1,3 +1,4 @@
+import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/constants/color.dart';
@@ -61,9 +62,9 @@ class _SecurityRiskJudegmentTable extends State<SecurityRiskJudegmentTable> {
             f.photoResult = f.photoResult + data.message + ",";
           }
 
-          HiddenDangerFound.popUpMsg("图片上传成功!");
+          GetConfig.popUpMsg("图片上传成功!");
         } else {
-          HiddenDangerFound.popUpMsg(data.message);
+          GetConfig.popUpMsg(data.message);
         }
 
         isAnimating = false;
@@ -414,7 +415,7 @@ class _SecurityRiskJudegmentTable extends State<SecurityRiskJudegmentTable> {
 
   saveRecord(SubmitDataModel model) async {
     await saveRecordTable(model).then((date) {
-      HiddenDangerFound.popUpMsg(date.message);
+      GetConfig.popUpMsg(date.message);
       if (date.success) {
         Navigator.pop(context);
       }
@@ -440,7 +441,7 @@ class _SecurityRiskJudegmentTable extends State<SecurityRiskJudegmentTable> {
             item.itemFinish == 0) {
           //有项目从未展开过  提示展开
           //未展开
-          HiddenDangerFound.popUpMsg("《" + item.itemName + "》项未查看");
+          GetConfig.popUpMsg("《" + item.itemName + "》项未查看");
           return false;
         }
 
@@ -454,7 +455,7 @@ class _SecurityRiskJudegmentTable extends State<SecurityRiskJudegmentTable> {
             });
           } else {
             //展开了  有子项未操作  提示操作
-            HiddenDangerFound.popUpMsg("《" +
+            GetConfig.popUpMsg("《" +
                 item.itemName +
                 "》   下有子项     <" +
                 risk.itemName +
@@ -558,7 +559,7 @@ class _SecurityRiskJudegmentTable extends State<SecurityRiskJudegmentTable> {
             onTap: () {
               //正在上传图片不能做保存操作
               if (!this.canOperate) {
-                HiddenDangerFound.popUpMsg("请等待操作完成...");
+                GetConfig.popUpMsg("请等待操作完成...");
                 return false;
               }
               if (_checkNeeded()) {

@@ -16,6 +16,7 @@ import 'package:intelligent_check_new/pages/hidedanger_manage/hidden_danger_revi
 import 'package:intelligent_check_new/pages/hidedanger_manage/hidden_rectification_measures.dart';
 import 'package:intelligent_check_new/pages/hidedanger_manage/hidedanger_pending.dart';
 import 'package:intelligent_check_new/services/HiddenDanger.dart';
+import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -108,9 +109,9 @@ class _HiddenDangerRectification extends State<HiddenDangerRectification>
         ///保存文件路径
         if (data.success) {
           hideDanger.photoUrls = data.message;
-          HiddenDangerFound.popUpMsg("图片上传成功!");
+          GetConfig.popUpMsg("图片上传成功!");
         } else {
-          HiddenDangerFound.popUpMsg(data.message);
+          GetConfig.popUpMsg(data.message);
         }
         isAnimating = false;
         canOperate = true;
@@ -141,11 +142,11 @@ class _HiddenDangerRectification extends State<HiddenDangerRectification>
         .then((data) {
       setState(() {
         if (data.success) {
-          HiddenDangerFound.popUpMsg(data.message);
+          GetConfig.popUpMsg(data.message);
 
           Navigator.pop(context);
         } else {
-          HiddenDangerFound.popUpMsg(data.message);
+          GetConfig.popUpMsg(data.message);
         }
         isAnimating = false;
         canOperate = true;
@@ -155,33 +156,33 @@ class _HiddenDangerRectification extends State<HiddenDangerRectification>
 
   bool _checkNeed() {
 //    if (initData.dangerType == 1 && hideDanger.reviewDeptName.text == "") {
-//      HiddenDangerFound.popUpMsg("请选择验证部门！");
+//      GetConfig.popUpMsg("请选择验证部门！");
 //      return false;
 //    }
     if (initData.dangerType == 1 && hideDanger.reviewUserName.text == "") {
-      HiddenDangerFound.popUpMsg("请选择验证人！");
+      GetConfig.popUpMsg("请选择验证人！");
 
       return false;
     }
 //    if(hideDanger.limitDate.text==""){
-//      HiddenDangerFound.popUpMsg("请选择验证期限！");
+//      GetConfig.popUpMsg("请选择验证期限！");
 //
 //      return false;
 //    }
 //    if (imageList == [] || imageList == null) {
-//      HiddenDangerFound.popUpMsg("请上传图片！");
+//      GetConfig.popUpMsg("请上传图片！");
 //      return false;
 //    }
 
 //    if(rectMeasures==[] || rectMeasures.length<=0){
-//      HiddenDangerFound.popUpMsg("请填写整改措施！");
+//      GetConfig.popUpMsg("请填写整改措施！");
 //      return false;
 //    }
 //    if(radioValue==2 && hideDanger.remark.text==""){//不通过
-//      HiddenDangerFound.popUpMsg("评审结果不合格！请填写评审说明！");
+//      GetConfig.popUpMsg("评审结果不合格！请填写评审说明！");
 //      return false;
 //    } if(radioValue==2 && hideDanger.remark.text==""){//不通过
-////      HiddenDangerFound.popUpMsg("评审结果不合格！请填写评审说明！");
+////      GetConfig.popUpMsg("评审结果不合格！请填写评审说明！");
 ////      return false;
 ////    }
 
@@ -252,14 +253,14 @@ class _HiddenDangerRectification extends State<HiddenDangerRectification>
             child: GestureDetector(
               onTap: () {
                 if (!initData.currentUserCanExcute) {
-                  HiddenDangerFound.popUpMsg("无权限操作该任务！");
+                  GetConfig.popUpMsg("无权限操作该任务！");
                   return false;
                 }
 
                 if (canOperate) {
                   if (_checkNeed()) _saveReformResult(hideDanger, radioValue);
                 } else {
-                  HiddenDangerFound.popUpMsg("正在执行操作！请稍等...");
+                  GetConfig.popUpMsg("正在执行操作！请稍等...");
                 }
               },
               child: Icon(
@@ -1075,7 +1076,7 @@ class _HiddenDangerRectification extends State<HiddenDangerRectification>
                     ),
                     onTap: () {
                       if (!initData.currentUserCanExcute) {
-                        HiddenDangerFound.popUpMsg("无权限操作该任务！");
+                        GetConfig.popUpMsg("无权限操作该任务！");
                         return false;
                       }
 

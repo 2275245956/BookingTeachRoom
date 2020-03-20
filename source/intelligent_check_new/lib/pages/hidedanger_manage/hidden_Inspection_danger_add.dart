@@ -1,3 +1,4 @@
+import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/model/Task/TaskAddModel.dart';
 import 'package:intelligent_check_new/pages/CheckExecute/checkexec_inspection_list.dart';
@@ -43,14 +44,14 @@ class _InspectionHiddenDangerFound extends State<InspectionHiddenDangerFound> {
     if (this.widget.unCheckInputData != null) {
       for (UNCheckInput item in this.widget.unCheckInputData) {
         if (item.dangerLevel == null || item.dangerLevel == 0) {
-          HiddenDangerFound.popUpMsg("请选择：  “" + item.name + "”  巡检项的隐患等级");
+          GetConfig.popUpMsg("请选择：  “" + item.name + "”  巡检项的隐患等级");
           return false;
         }
       }
     } else if (items != null) {
       for (TaskErrorItem item in items) {
         if (item.dangerLevel == null || item.dangerLevel == 0) {
-          HiddenDangerFound.popUpMsg("请选择：  “" + item.name + "”  巡检项的隐患等级");
+          GetConfig.popUpMsg("请选择：  “" + item.name + "”  巡检项的隐患等级");
           return false;
         }
       }
@@ -67,13 +68,13 @@ class _InspectionHiddenDangerFound extends State<InspectionHiddenDangerFound> {
 
     await saveInspectionDangerInfo(checkId, details).then((data) {
       if (data) {
-        HiddenDangerFound.popUpMsg("隐患创建成功！");
+        GetConfig.popUpMsg("隐患创建成功！");
         Navigator.of(context).pushAndRemoveUntil(
             new MaterialPageRoute(
                 builder: (context) => new PendingHideDanger()),
             (route) => route == null);
       } else {
-        HiddenDangerFound.popUpMsg("隐患创建失败！");
+        GetConfig.popUpMsg("隐患创建失败！");
       }
       setState(() {
         isAnimating = false;
@@ -100,7 +101,7 @@ class _InspectionHiddenDangerFound extends State<InspectionHiddenDangerFound> {
         });
       });
     } else {
-      HiddenDangerFound.popUpMsg("数据不存在");
+      GetConfig.popUpMsg("数据不存在");
     }
   }
 
@@ -444,7 +445,7 @@ class _InspectionHiddenDangerFound extends State<InspectionHiddenDangerFound> {
                   if (canOperate) {
                     reSetValue();
                   } else {
-                    HiddenDangerFound.popUpMsg("正在执行操作！请稍等...");
+                    GetConfig.popUpMsg("正在执行操作！请稍等...");
                   }
                 },
               ),
@@ -462,7 +463,7 @@ class _InspectionHiddenDangerFound extends State<InspectionHiddenDangerFound> {
                     if (this.widget.unCheckInputData != null && items.length < 1) {
                       if (_checkNeed()) {
                         if (!canOperate) {
-                          HiddenDangerFound.popUpMsg("正在执行操作！请稍等...");
+                          GetConfig.popUpMsg("正在执行操作！请稍等...");
                         } else {
                           canOperate = false;
                           List<TaskDetailForAdd> details = new List();
@@ -482,7 +483,7 @@ class _InspectionHiddenDangerFound extends State<InspectionHiddenDangerFound> {
                         this.widget.unCheckInputData == null) {
                       if (_checkNeed()) {
                         if (!canOperate) {
-                          HiddenDangerFound.popUpMsg("正在执行操作！请稍等...");
+                          GetConfig.popUpMsg("正在执行操作！请稍等...");
                         } else {
                           canOperate = false;
                           List<TaskDetailForAdd> details = new List();
@@ -497,7 +498,7 @@ class _InspectionHiddenDangerFound extends State<InspectionHiddenDangerFound> {
                         }
                       }
                     } else {
-                      HiddenDangerFound.popUpMsg("不存在不合格检查项！");
+                      GetConfig.popUpMsg("不存在不合格检查项！");
                       return false;
                     }
                   }),

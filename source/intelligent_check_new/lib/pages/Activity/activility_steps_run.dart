@@ -61,16 +61,16 @@ class _ActivilityStepsRun extends State<ActivilityStepsRun> {
           setState(() {
             if (response.success) {
               //通过
-              HiddenDangerFound.popUpMsg("操作成功！");
+              GetConfig.popUpMsg("操作成功！");
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return new ActivilityList();
               }));
             } else {
               //流程执行失败
               if (response.message != null) {
-                HiddenDangerFound.popUpMsg(response.message);
+                GetConfig.popUpMsg(response.message);
               } else {
-                HiddenDangerFound.popUpMsg("操作失败！");
+                GetConfig.popUpMsg("操作失败！");
               }
             }
             isAnimating = false;
@@ -137,7 +137,7 @@ class _ActivilityStepsRun extends State<ActivilityStepsRun> {
                     };
                     executeFlow(2, "", jsonStr);
                   } else {
-                    HiddenDangerFound.popUpMsg("正在执行操作！请稍等...");
+                    GetConfig.popUpMsg("正在执行操作！请稍等...");
                   }
                 })
           ],

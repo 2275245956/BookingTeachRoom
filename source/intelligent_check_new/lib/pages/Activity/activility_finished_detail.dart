@@ -5,7 +5,8 @@ import 'package:intelligent_check_new/pages/Activity/activility_steps_finished.d
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:intelligent_check_new/constants/color.dart';
 import 'package:intelligent_check_new/model/Activility/ActivilityModel.dart';
-import 'package:intelligent_check_new/pages/hidedanger_manage/hidden_danger_found.dart';
+import 'package:intelligent_check_new/tools/GetConfig.dart';
+
 import 'package:intelligent_check_new/services/Activility_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class ActivilityFinishDetail extends StatefulWidget {
@@ -54,7 +55,7 @@ class _ActivilityFinishDetail extends State<ActivilityFinishDetail> {
               initData.records.removeAt(0);
         } else {
           if (data.message != null) {
-            HiddenDangerFound.popUpMsg(data.message);
+            GetConfig.popUpMsg(data.message);
           }
         }
         isAnimating = false;

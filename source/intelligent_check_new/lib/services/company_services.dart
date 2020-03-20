@@ -5,6 +5,7 @@ import 'package:intelligent_check_new/model/CompanyInfo.dart';
 import 'package:intelligent_check_new/model/InitData.dart';
 import 'package:intelligent_check_new/pages/hidedanger_manage/hidden_danger_found.dart';
 import 'package:intelligent_check_new/services/api_address.dart';
+import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intelligent_check_new/tools/HttpUtil.dart';
 import 'dart:async';
 
@@ -257,7 +258,7 @@ Future<bool> saveSeleCom(jsonData) async {
   if (data["result"] == "SUCCESS") {
    return true;
   }else{
-    HiddenDangerFound.popUpMsg(data["message"] ??"错误消息！");
+    GetConfig.popUpMsg(data["message"] ??"错误消息！");
   }
   return false;
 }

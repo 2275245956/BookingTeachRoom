@@ -47,7 +47,7 @@ class _ActivilityConfirmViolation extends State<ActivilityConfirmViolation> {
   bool _checkNeed(){
      for(StepMeasureModel st in this.widget.stepModel.taskworkMeasures){
        if(st.violateState==0){
-         HiddenDangerFound.popUpMsg("请完成《"+st.measuresContent+"》的状态选择！");
+         GetConfig.popUpMsg("请完成《"+st.measuresContent+"》的状态选择！");
          return false;
        }
      }

@@ -1,3 +1,4 @@
+import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -862,7 +863,7 @@ class _SecurityRiskJudegmentGetInfoTable
             item.children.length == 0 &&
             item.itemFinish == 0) {
           //未展开 提示展开
-          HiddenDangerFound.popUpMsg("《" + item.itemName + "》项未查看");
+          GetConfig.popUpMsg("《" + item.itemName + "》项未查看");
           return false;
         }
         for (SecurityRiskItem risk in item.children) {
@@ -899,7 +900,7 @@ class _SecurityRiskJudegmentGetInfoTable
               });
             }  else {
               //展开了  有子项未操作  提示操作
-              HiddenDangerFound.popUpMsg("《" +
+              GetConfig.popUpMsg("《" +
                   item.itemName +
                   "》   下有子项     <" +
                   risk.itemName +
@@ -924,7 +925,7 @@ class _SecurityRiskJudegmentGetInfoTable
 
   saveRecord(SubmitDataModel model) async {
     await saveRecordTable(model).then((date) {
-      HiddenDangerFound.popUpMsg(date.message);
+      GetConfig.popUpMsg(date.message);
       if (date.success) {
         Navigator.pop(context);
       }
@@ -976,7 +977,7 @@ class _SecurityRiskJudegmentGetInfoTable
 
               //正在上传图片不能做保存操作
               if (!this.canOperate) {
-                HiddenDangerFound.popUpMsg("请等待操作完成...");
+                GetConfig.popUpMsg("请等待操作完成...");
                 return false;
               }
               if (_checkNeeded()) {
@@ -1000,7 +1001,7 @@ class _SecurityRiskJudegmentGetInfoTable
                   sm.selectResult = item.selectResult;
                   sm.itemFinish = item.itemFinish;
 //                  if(!item.isExpanded){//未展开
-//                    HiddenDangerFound.popUpMsg("请检查《"+item.itemName+"》填写的数据！");
+//                    GetConfig.popUpMsg("请检查《"+item.itemName+"》填写的数据！");
 //                    return false;
 //                  }
                   if (item.children.length > 0) {

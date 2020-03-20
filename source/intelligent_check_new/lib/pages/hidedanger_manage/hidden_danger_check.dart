@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intelligent_check_new/constants/color.dart';
 import 'package:intelligent_check_new/model/Hidden_Danger/hidden_danger_model.dart';
 import 'package:intelligent_check_new/model/MovePointAttachment.dart';
@@ -11,9 +10,9 @@ import 'package:intelligent_check_new/pages/hidedanger_manage/hidden_danger_flow
 import 'package:intelligent_check_new/pages/hidedanger_manage/hidden_danger_found.dart';
 import 'package:intelligent_check_new/pages/hidedanger_manage/hidden_danger_processed_rectification_measures_show.dart';
 import 'package:intelligent_check_new/pages/hidedanger_manage/hidden_danger_review.dart';
-import 'package:intelligent_check_new/pages/hidedanger_manage/hidden_rectification_measures.dart';
 import 'package:intelligent_check_new/pages/hidedanger_manage/hidedanger_pending.dart';
 import 'package:intelligent_check_new/services/HiddenDanger.dart';
+import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -100,9 +99,9 @@ class _HiddenDangerProcessedDetailsChecked
         ///保存文件路径
         if (data.success) {
           hideDanger.photoUrls = data.message;
-          HiddenDangerFound.popUpMsg("图片上传成功!");
+          GetConfig.popUpMsg("图片上传成功!");
         } else {
-          HiddenDangerFound.popUpMsg(data.message);
+          GetConfig.popUpMsg(data.message);
         }
         isAnimating = false;
         canOperate = true;
@@ -132,11 +131,11 @@ class _HiddenDangerProcessedDetailsChecked
         .then((data) {
       setState(() {
         if (data.success) {
-          HiddenDangerFound.popUpMsg(data.message);
+          GetConfig.popUpMsg(data.message);
 
           Navigator.pop(context);
         } else {
-          HiddenDangerFound.popUpMsg(data.message);
+          GetConfig.popUpMsg(data.message);
         }
         isAnimating = false;
         canOperate = true;
@@ -146,11 +145,11 @@ class _HiddenDangerProcessedDetailsChecked
 
   bool _checkNeed() {
     if (radioValue == 2 && hideDanger.remark.text == "") {
-      HiddenDangerFound.popUpMsg("验收不合格！请填写备注信息！");
+      GetConfig.popUpMsg("验收不合格！请填写备注信息！");
       return false;
     }
 //    if (imageList == [] || imageList == null) {
-//      HiddenDangerFound.popUpMsg("请上传验证图片！");
+//      GetConfig.popUpMsg("请上传验证图片！");
 //      return false;
 //    }
     return true;
@@ -222,14 +221,14 @@ class _HiddenDangerProcessedDetailsChecked
             child: GestureDetector(
               onTap: () {
                 if (!initData.currentUserCanExcute) {
-                  HiddenDangerFound.popUpMsg("无权限操作该任务！");
+                  GetConfig.popUpMsg("无权限操作该任务！");
                   return false;
                 }
 
                 if (canOperate) {
                   if (_checkNeed()) _saveRecheckResult(hideDanger, radioValue);
                 } else {
-                  HiddenDangerFound.popUpMsg("正在执行操作！请稍等...");
+                  GetConfig.popUpMsg("正在执行操作！请稍等...");
                 }
               },
               child: Icon(
@@ -1089,7 +1088,7 @@ class _HiddenDangerProcessedDetailsChecked
                     ),
                     onTap: () {
                       if (!initData.currentUserCanExcute) {
-                        HiddenDangerFound.popUpMsg("无权限操作该任务！");
+                        GetConfig.popUpMsg("无权限操作该任务！");
                         return false;
                       }
 

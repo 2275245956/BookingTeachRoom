@@ -87,7 +87,7 @@ class _ActivilityList extends State<ActivilityList>
 
         } else {
           if (data.message != null) {
-            HiddenDangerFound.popUpMsg(data.message);
+            GetConfig.popUpMsg(data.message);
           }
         }
         hasNext =   hasNext = (data.totalElements+this.pageSize-1)/this.pageSize>=(this.pageNumber+1);
