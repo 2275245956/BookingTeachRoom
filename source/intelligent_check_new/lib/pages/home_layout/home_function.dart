@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_bottom_tab_bar/eachtab.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
-import 'package:intelligent_check_new/pages/ApplyLamb/SelectDatePage.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb/ApplyRecord.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb/SelectLambPage.dart';
 import 'package:intelligent_check_new/pages/SystemSettings/ScheduleSettingPage.dart';
 import 'package:intelligent_check_new/pages/message/message_list.dart';
@@ -361,14 +361,12 @@ class _HomeFunctionState extends State<HomeFunction> {
                              height: 40,
                              padding: EdgeInsets.all(0),
                              icon: Icon(Icons.attachment, size: 32, color: Colors.red),
-                             text: "已申请",
+                             text: "申请记录",
                              textStyle: TextStyle(
                                  fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
                              color: Colors.white,
                            ),
-                           onTap: () {
-
-                           },
+                           onTap: ()=>Navigator.push(context, new MaterialPageRoute(builder: (context)=>ApplyRecordListScreen())),
                          ))
                    ],
                    shrinkWrap: true,
