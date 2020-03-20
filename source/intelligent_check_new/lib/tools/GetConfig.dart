@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intelligent_check_new/constants/color.dart';
@@ -40,6 +41,46 @@ class GetConfig {
         textColor: txtColor ?? Colors.white,
         backgroundColor: bgColor ?? Colors.black54);
   }
+  static  IOSPopMsg(String title,Widget subTitle,BuildContext context,{Function confirmFun}) {
+
+    return  showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CupertinoAlertDialog(
+                title: Text(title),
+                content: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Align(
+                      child: subTitle,
+                      alignment: Alignment(0, 0),
+                    ),
+                  ],
+                ),
+                actions: <Widget>[
+                  CupertinoDialogAction(
+                    child: Text("取消"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  CupertinoDialogAction(
+                    child: Text("确定"),
+                    onPressed: (){
+                      if(confirmFun!=null){
+                        confirmFun();
+                      }
+
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              );
+            });
+  }
+
 
   static getRoleDesc(String roleType) {
     switch (roleType) {

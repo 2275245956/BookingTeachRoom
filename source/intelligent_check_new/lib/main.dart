@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/constants/color.dart';
 import 'package:intelligent_check_new/constants/system_config.dart';
@@ -48,6 +49,7 @@ class _MyApp extends State<MyApp>{
       localizationsDelegates: [                             //此处
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
+        const FallbackCupertinoLocalisationsDelegate()
       ],
       supportedLocales: [                                   //此处
         const Locale('zh','CH'),
@@ -57,4 +59,17 @@ class _MyApp extends State<MyApp>{
   }
 }
 
+class FallbackCupertinoLocalisationsDelegate
+    extends LocalizationsDelegate<CupertinoLocalizations> {
+  const FallbackCupertinoLocalisationsDelegate();
 
+  @override
+  bool isSupported(Locale locale) => true;
+
+  @override
+  Future<CupertinoLocalizations> load(Locale locale) =>
+      DefaultCupertinoLocalizations.load(locale);
+
+  @override
+  bool shouldReload(FallbackCupertinoLocalisationsDelegate old) => false;
+}

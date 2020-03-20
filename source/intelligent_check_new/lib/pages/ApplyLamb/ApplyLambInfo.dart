@@ -11,8 +11,9 @@ class ApplyLambInfo extends StatefulWidget {
   final RoomModel roomInfo;
   final String StartDate;
   final String EndDate;
+  final String sectionStr;
 
-  ApplyLambInfo(this.roomInfo, this.StartDate, this.EndDate);
+  ApplyLambInfo(this.roomInfo, this.StartDate, this.EndDate, this.sectionStr);
 
   @override
   _ApplyLambInfo createState() => new _ApplyLambInfo();
@@ -27,6 +28,8 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
   FocusNode _focusNodeForRemark = new FocusNode();
   FocusNode _focusNodeForLambName = new FocusNode();
 
+  TextEditingController lamName=new TextEditingController();
+  TextEditingController remark=new TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -64,8 +67,8 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Icon(Icons.keyboard_arrow_left,
-                  color:
-                  GetConfig.getColor(theme) /*Color.fromRGBO(209, 6, 24, 1)*/,
+                  color: GetConfig.getColor(
+                      theme) /*Color.fromRGBO(209, 6, 24, 1)*/,
                   size: 32),
             ),
           ),
@@ -76,7 +79,8 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
           child: new Form(
             key: _formKey,
             child: new SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 0.0, vertical: 20),
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
@@ -86,20 +90,25 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                         flex: 3,
                         child: Container(
                           padding:
-                          EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                              EdgeInsets.only(left: 10, top: 10, bottom: 10),
                           child: Text(
                             "教师名称",
-                            style:
-                            TextStyle(color: Colors.black, fontSize: 18),
+                            style: TextStyle(color: Colors.black, fontSize: 18),
                           ),
                         ),
                       ),
                       Expanded(
                         flex: 7,
                         child: Text(
-                            "${userInfo.userName}(${userInfo.account})"),
+                          "${userInfo.userName}(${userInfo.account})",
+                          style: TextStyle(color: Colors.black, fontSize: 18),
+                        ),
                       )
                     ],
+                  ),
+                  Container(
+                    color: Color.fromRGBO(242, 246, 249, 1),
+                    height: 10,
                   ),
                   Row(
                     children: <Widget>[
@@ -107,19 +116,20 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                         flex: 3,
                         child: Container(
                           padding:
-                          EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                              EdgeInsets.only(left: 10, top: 10, bottom: 10),
 //height: 50,
                           child: Text(
-                            "实验室",
-                            style:
-                            TextStyle(color: Colors.black, fontSize: 18),
+                            "教室名",
+                            style: TextStyle(color: Colors.black, fontSize: 18),
                           ),
                         ),
                       ),
                       Expanded(
                         flex: 7,
-                        child: Text("${this.widget.roomInfo.attriText01}-${this
-                            .widget.roomInfo.rName}"),
+                        child: Text(
+                          "${this.widget.roomInfo.attriText01}-${this.widget.roomInfo.rName}",
+                          style: TextStyle(color: Colors.black, fontSize: 18),
+                        ),
                       )
                     ],
                   ),
@@ -129,20 +139,49 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                         flex: 3,
                         child: Container(
                           padding:
-                          EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                              EdgeInsets.only(left: 10, top: 10, bottom: 10),
+//height: 50,
+                          child: Text(
+                            "教室编号",
+                            style: TextStyle(color: Colors.black, fontSize: 18),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 7,
+                        child: Text(
+                          "${this.widget.roomInfo.rNumber}",
+                          style: TextStyle(color: Colors.black, fontSize: 18),
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          padding:
+                              EdgeInsets.only(left: 10, top: 10, bottom: 10),
 //height: 50,
                           child: Text(
                             "最大人数",
-                            style:
-                            TextStyle(color: Colors.black, fontSize: 18),
+                            style: TextStyle(color: Colors.black, fontSize: 18),
                           ),
                         ),
                       ),
                       Expanded(
                         flex: 7,
-                        child: Text("${this.widget.roomInfo.rMaxPer}"),
+                        child: Text(
+                          "${this.widget.roomInfo.rMaxPer}",
+                          style: TextStyle(color: GetConfig.getColor(theme), fontSize: 18),
+                        ),
                       )
                     ],
+                  ),
+                  Container(
+                    color: Color.fromRGBO(242, 246, 249, 1),
+                    height: 10,
                   ),
                   Row(
                     children: <Widget>[
@@ -150,18 +189,20 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                         flex: 3,
                         child: Container(
                           padding:
-                          EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                              EdgeInsets.only(left: 10, top: 10, bottom: 10),
 //height: 50,
                           child: Text(
                             "开始时间",
-                            style:
-                            TextStyle(color: Colors.black, fontSize: 18),
+                            style: TextStyle(color: Colors.black, fontSize: 18),
                           ),
                         ),
                       ),
                       Expanded(
                         flex: 7,
-                        child: Text("${this.widget.StartDate}"),
+                        child: Text(
+                          "${this.widget.StartDate}",
+                          style: TextStyle(color: Colors.black, fontSize: 18),
+                        ),
                       )
                     ],
                   ),
@@ -171,18 +212,20 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                         flex: 3,
                         child: Container(
                           padding:
-                          EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                              EdgeInsets.only(left: 10, top: 10, bottom: 10),
 //height: 50,
                           child: Text(
                             "结束时间",
-                            style:
-                            TextStyle(color: Colors.black, fontSize: 18),
+                            style: TextStyle(color: Colors.black, fontSize: 18),
                           ),
                         ),
                       ),
                       Expanded(
                         flex: 7,
-                        child: Text("${this.widget.EndDate}"),
+                        child: Text(
+                          "${this.widget.EndDate}",
+                          style: TextStyle(color: Colors.black, fontSize: 18),
+                        ),
                       )
                     ],
                   ),
@@ -192,38 +235,73 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                         flex: 3,
                         child: Container(
                           padding:
-                          EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                              EdgeInsets.only(left: 10, top: 10, bottom: 10),
+//height: 50,
+                          child: Text(
+                            "节次",
+                            style: TextStyle(color: Colors.black, fontSize: 18),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 7,
+                        child: Text(
+                          "${this.widget.sectionStr}",
+                          style: TextStyle(color: Colors.black, fontSize: 18),
+                        ),
+                      )
+                    ],
+                  ),
+                  Container(
+                    color: Color.fromRGBO(242, 246, 249, 1),
+                    height: 10,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          padding:
+                              EdgeInsets.only(left: 10, top: 10, bottom: 10),
 //height: 50,
                           child: Text(
                             "实验名称",
-                            style:
-                            TextStyle(color: Colors.black, fontSize: 18),
+                            style: TextStyle(color: Colors.black, fontSize: 18),
                           ),
                         ),
                       ),
                       Expanded(
                         flex: 7,
                         child: Container(
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width,
-                            padding: EdgeInsets.only(
-                                top: 5, bottom: 5, right: 10),
-                            child: TextField(
-                              textInputAction: TextInputAction.done,
-                              autofocus: false,
-                              controller: TextEditingController(),
-                              maxLines: 1,
-                              decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 10),
-                                border: InputBorder.none,
-                                hintText: "请输入实验名称",
-                                filled: true,
-                                fillColor: Color.fromRGBO(244, 244, 244, 1),
-                              ),
-                            )),
+                            width: MediaQuery.of(context).size.width,
+                            padding:
+                                EdgeInsets.only(top: 5, bottom: 5, right: 10),
+                            child: EnsureVisibleWhenFocused(
+                                child: TextField(
+                                  style: TextStyle(fontSize: 18),
+                                  textInputAction: TextInputAction.done,
+                                  autofocus: true,
+                                  controller: lamName,
+                                  maxLines: 1,
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 10.0, horizontal: 10),
+                                    enabledBorder: InputBorder.none,
+                                    focusedBorder: OutlineInputBorder(
+
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(5), //边角为30
+                                      ),
+                                      borderSide: BorderSide(
+                                        color: GetConfig.getColor(theme), //边线颜色为黄色
+                                        width: 2, //边线宽度为2
+                                      ),),
+                                    hintText: "请输入实验名称",
+                                    filled: true,
+                                    fillColor: Color.fromRGBO(244, 244, 244, 1),
+                                  ),
+                                ),
+                                focusNode: _focusNodeForLambName)),
                       )
                     ],
                   ),
@@ -231,49 +309,50 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-
                       Expanded(
                         flex: 3,
                         child: Container(
                           padding:
-                          EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                              EdgeInsets.only(left: 10, top: 10, bottom: 10),
 //height: 50,
                           child: Text(
                             "备注",
-                            style:
-                            TextStyle(color: Colors.black, fontSize: 18),
+                            style: TextStyle(color: Colors.black, fontSize: 18),
                           ),
                         ),
                       ),
                       Expanded(
                         flex: 7,
                         child: Container(
-                            height: 100,
-                            margin: EdgeInsets.only(top: 10, right: 10),
-                            decoration: new BoxDecoration(
-                                color: Color.fromRGBO(244, 244, 244, 1)),
+                            width: MediaQuery.of(context).size.width,
+                            padding:
+                            EdgeInsets.only(top: 5, bottom: 5, right: 10),
                             child: EnsureVisibleWhenFocused(
-                              focusNode: _focusNodeForRemark,
-                              child: TextField(
-                                focusNode: _focusNodeForRemark,
-                                textInputAction: TextInputAction.done,
-                                autofocus: false,
-                                controller: TextEditingController(),
-                                enableInteractiveSelection: true,
-                                maxLines: null,
-                                decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 10),
-                                  border: InputBorder.none,
-                                  hintText: "请输入备注信息",
-                                  filled: true,
-                                  fillColor: Color.fromRGBO(244, 244, 244, 1),
+                                child: TextField(
+                                  style: TextStyle(fontSize: 18),
+                                  textInputAction: TextInputAction.done,
+                                  autofocus: true,
+                                  controller: remark,
+                                  maxLines: 5,
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 10.0, horizontal: 10),
+                                    enabledBorder: InputBorder.none,
+                                    focusedBorder: OutlineInputBorder(
+
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(5), //边角为30
+                                      ),
+                                      borderSide: BorderSide(
+                                        color: GetConfig.getColor(theme), //边线颜色为黄色
+                                        width: 2, //边线宽度为2
+                                      ),),
+                                    hintText: "请输入备注名称",
+                                    filled: true,
+                                    fillColor: Color.fromRGBO(244, 244, 244, 1),
+                                  ),
                                 ),
-                              ),
-                            )
-
-
-                        ),
+                                focusNode: _focusNodeForLambName)),
                       )
                     ],
                   ),
@@ -286,10 +365,7 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
           Row(
             children: <Widget>[
               Container(
-                width: (MediaQuery
-                    .of(context)
-                    .size
-                    .width / 2) - 16,
+                width: (MediaQuery.of(context).size.width / 2) - 16,
                 height: 60,
                 margin: EdgeInsets.only(left: 0),
                 child: new MaterialButton(
@@ -304,24 +380,47 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                 ),
               ),
               Container(
-                width: (MediaQuery
-                    .of(context)
-                    .size
-                    .width / 2),
+                width: (MediaQuery.of(context).size.width / 2),
                 child: new MaterialButton(
                   color: GetConfig.getColor(theme),
                   height: 60,
                   textColor: Colors.white,
                   child: new Text('提交', style: TextStyle(fontSize: 24)),
-                  onPressed: () {},
+                  onPressed: () {
+                    GetConfig.IOSPopMsg("提示", Text("确认无误后点击确定提交！"), context,
+                        confirmFun: null);
+                  },
                 ),
               ),
             ],
           ),
         ],
         resizeToAvoidBottomPadding: true,
-
       );
     }
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "实验信息",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 19,
+          ),
+        ),
+        centerTitle: true,
+        elevation: 0.2,
+        brightness: Brightness.light,
+        backgroundColor: Colors.white,
+        leading: new Container(
+          child: GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Icon(Icons.keyboard_arrow_left,
+                color:
+                    GetConfig.getColor(theme) /*Color.fromRGBO(209, 6, 24, 1)*/,
+                size: 32),
+          ),
+        ),
+      ),
+    );
   }
 }

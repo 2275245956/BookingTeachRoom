@@ -406,7 +406,7 @@ class _LoginPageState extends State<LoginPage> {
                 margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height - 30),
                 child: Text(
-                  "范文强-寇晨宇 2275245956@qq.com © " +
+                  "西安航空职业技术学院 © " +
                       DateTime.now().year.toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
