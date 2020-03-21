@@ -11,7 +11,7 @@ class ApiAddress {
 
   //实验室申请
   static const String GET_EMPTYLAM="/tea/findEmptyRoom";
-
+  static const String SAVE_APPLYINFO="/tea/commitExpApply";
 
 
 

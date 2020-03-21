@@ -178,36 +178,36 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
                                                         child: Column(
                                                           crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: <Widget>[
-                                                            new Text((index+1).toString()+"." +"1231",style: new TextStyle(fontSize: 16.0,fontWeight: FontWeight.w500),),
+                                                            new Text((index+1).toString()+"." +"实验名称",style: new TextStyle(fontSize: 20.0,fontWeight: FontWeight.w500),),
                                                             Padding(padding: EdgeInsets.only(top: 5),),
                                                             Row(
                                                               children: <Widget>[
                                                                 Padding(padding: EdgeInsets.only(left: 10),),
-                                                                Text("编号:1111111",style: TextStyle(color: Colors.grey,fontSize: 12),),
+                                                                Text("教室名称及编号:1111111",style: TextStyle(color: Colors.grey,fontSize: 12),),
                                                                 Padding(padding: EdgeInsets.only(left: 36),),
                                                                 Text(getStatusName("2"),style: TextStyle(color: getPointColor("3"),fontSize: 12),),
                                                               ],
                                                             ),
                                                             Row(
                                                               children: <Widget>[
-                                                                Padding(padding: EdgeInsets.only(left: 10),),
+
+
                                                                 Container(
-                                                                  width: 260,
-                                                                  child:Text("测试",style: TextStyle(color: Colors.grey,fontSize: 12),),
+                                                                  padding: EdgeInsets.only(left: 10),
+                                                                  width: MediaQuery.of(context).size.width-90,
+                                                                  child:Text("最大人数",style: TextStyle(color: Colors.grey,fontSize: 12),),
                                                                 ),
-                                                                new Icon(Icons.keyboard_arrow_right,color: Color.fromRGBO(209, 6, 24, 1),size: 20,),
+                                                                new Icon(Icons.keyboard_arrow_right,color:GetConfig.getColor(theme),size: 28,),
 
                                                               ],
                                                             ),
                                                             Row(
                                                               children: <Widget>[
                                                                 Padding(padding: EdgeInsets.only(left: 10),),
-                                                                Container(width: 120,
-                                                                  child:Text("测试",style: TextStyle(color: Colors.grey,fontSize: 12),),
-                                                                ),
-                                                                Container(width: 170,
-                                                                  child:Text("测试",style: TextStyle(color: Colors.grey,fontSize: 12),),
-                                                                )
+                                                                 Text("时间:",style: TextStyle(color: Colors.grey,fontSize: 12),),
+
+                                                                 Text("测试",style: TextStyle(color: Colors.grey,fontSize: 12),),
+
                                                               ],
                                                             ),
                                                           ],

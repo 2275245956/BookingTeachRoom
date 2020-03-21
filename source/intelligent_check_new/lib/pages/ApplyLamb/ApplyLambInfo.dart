@@ -2,6 +2,7 @@ import 'dart:convert' show json;
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/RoomModel.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
+import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
 import 'package:intelligent_check_new/tools/AvoidKeyBoradCoverInput.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -28,8 +29,9 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
   FocusNode _focusNodeForRemark = new FocusNode();
   FocusNode _focusNodeForLambName = new FocusNode();
 
-  TextEditingController lamName=new TextEditingController();
-  TextEditingController remark=new TextEditingController();
+  TextEditingController lamName = new TextEditingController();
+  TextEditingController remark = new TextEditingController();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -44,6 +46,32 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
           userInfo = UserModel.fromJson(json.decode(sp.getString("userModel")));
         }
       });
+    });
+  }
+
+  void SaveInfo() async {
+    if(lamName.text==""){
+      GetConfig.popUpMsg("请填写实验名称");
+      return;
+    }
+    var json = {
+      "tNumber": userInfo.account,
+      "tName": userInfo.userName,
+      "rNumber": this.widget.roomInfo.rNumber,
+      "rMaxPer": this.widget.roomInfo.rMaxPer,
+      "eDate": this.widget.StartDate,
+      "attriText01": this.widget.EndDate,
+      "section": this.widget.sectionStr,
+      "eName": lamName.text,
+      "remark": remark.text
+    };
+    await SaveApplyIfo(json).then((data) {
+      if (data.success) {
+        GetConfig.popUpMsg(data.message);
+      } else {
+        GetConfig.popUpMsg(data.message ?? "提交申请失败！");
+      }
+      Navigator.pop(context);
     });
   }
 
@@ -174,7 +202,8 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                         flex: 7,
                         child: Text(
                           "${this.widget.roomInfo.rMaxPer}",
-                          style: TextStyle(color: GetConfig.getColor(theme), fontSize: 18),
+                          style: TextStyle(
+                              color: GetConfig.getColor(theme), fontSize: 18),
                         ),
                       )
                     ],
@@ -288,14 +317,15 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                                         vertical: 10.0, horizontal: 10),
                                     enabledBorder: InputBorder.none,
                                     focusedBorder: OutlineInputBorder(
-
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(5), //边角为30
                                       ),
                                       borderSide: BorderSide(
-                                        color: GetConfig.getColor(theme), //边线颜色为黄色
+                                        color: GetConfig.getColor(theme),
+                                        //边线颜色为黄色
                                         width: 2, //边线宽度为2
-                                      ),),
+                                      ),
+                                    ),
                                     hintText: "请输入实验名称",
                                     filled: true,
                                     fillColor: Color.fromRGBO(244, 244, 244, 1),
@@ -326,7 +356,7 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                         child: Container(
                             width: MediaQuery.of(context).size.width,
                             padding:
-                            EdgeInsets.only(top: 5, bottom: 5, right: 10),
+                                EdgeInsets.only(top: 5, bottom: 5, right: 10),
                             child: EnsureVisibleWhenFocused(
                                 child: TextField(
                                   style: TextStyle(fontSize: 18),
@@ -339,14 +369,15 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                                         vertical: 10.0, horizontal: 10),
                                     enabledBorder: InputBorder.none,
                                     focusedBorder: OutlineInputBorder(
-
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(5), //边角为30
                                       ),
                                       borderSide: BorderSide(
-                                        color: GetConfig.getColor(theme), //边线颜色为黄色
+                                        color: GetConfig.getColor(theme),
+                                        //边线颜色为黄色
                                         width: 2, //边线宽度为2
-                                      ),),
+                                      ),
+                                    ),
                                     hintText: "请输入备注名称",
                                     filled: true,
                                     fillColor: Color.fromRGBO(244, 244, 244, 1),
@@ -387,8 +418,10 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                   textColor: Colors.white,
                   child: new Text('提交', style: TextStyle(fontSize: 24)),
                   onPressed: () {
-                    GetConfig.IOSPopMsg("提示", Text("确认无误后点击确定提交！"), context,
-                        confirmFun: null);
+                    setState(() {
+                      lamName.text="";
+                      remark.text="";
+                    });
                   },
                 ),
               ),

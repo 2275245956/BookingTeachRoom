@@ -169,7 +169,7 @@ class _SelLambScreen extends State<SelLambScreen>
   }
 
   _SearchRoom() async {
-    roomlist.clear();
+
     var sDate = startDate.text;
     var eDate = endDate.text;
     if (sDate == "" || eDate == "") {
@@ -200,7 +200,9 @@ class _SelLambScreen extends State<SelLambScreen>
 
     var sStr = DateFormat("yyyy-MM-dd HH:mm:00").format(start);
     var eStr = DateFormat("yyyy-MM-dd HH:mm:00").format(end);
-
+    setState(() {
+      roomlist.clear();
+    });
     var response = await getEmptyLam(sStr, eStr);
     if (response.success) {
       setState(() {

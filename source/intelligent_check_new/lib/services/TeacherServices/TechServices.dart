@@ -12,3 +12,13 @@ Future<APIResponse> getEmptyLam(String startDate,String endDate) async{
   }
 
 }
+
+Future<APIResponse> SaveApplyIfo(dynamic jsonStr) async{
+  try{
+    var data=await HttpUtil().post(ApiAddress.SAVE_APPLYINFO,data:json.encode(jsonStr));
+    return APIResponse.fromJson(data);
+  }catch(e){
+    throw e;
+  }
+
+}
