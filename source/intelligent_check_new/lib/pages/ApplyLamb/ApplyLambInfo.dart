@@ -1,5 +1,7 @@
 import 'dart:convert' show json;
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:intelligent_check_new/model/Lamb/ApplyLam/ExperimentModel.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/RoomModel.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
@@ -29,8 +31,10 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
   FocusNode _focusNodeForRemark = new FocusNode();
   FocusNode _focusNodeForLambName = new FocusNode();
 
-  TextEditingController lamName = new TextEditingController();
   TextEditingController remark = new TextEditingController();
+
+  List<DropdownMenuItem> droplist = new List<DropdownMenuItem>();
+  String selExp = "请选择";
 
   @override
   void initState() {
@@ -47,11 +51,35 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
         }
       });
     });
+    var data = await GetAllLambName();
+    if (data.success) {
+      setState(() {
+        droplist.add(new DropdownMenuItem(
+          child: new Text(
+            "请选择",
+            style: TextStyle( fontSize: 18),
+          ),
+          value: "请选择",
+        ));
+        for (var exp in data.dataList) {
+          var expModel = new ExperimentModel.fromJson(exp);
+          droplist.add(new DropdownMenuItem(
+            child: new Text(
+              "${expModel.eName}",
+              style: TextStyle(color: GetConfig.getColor(theme), fontSize: 18),
+            ),
+            value: "${expModel.eName}",
+          ));
+        }
+      });
+    } else {
+      GetConfig.popUpMsg("未查询到学校的实验种类，可在备注处填写实验名称等信息！");
+    }
   }
 
   void SaveInfo() async {
-    if(lamName.text==""){
-      GetConfig.popUpMsg("请填写实验名称");
+    if (selExp == "") {
+      GetConfig.popUpMsg("请选择实验名称");
       return;
     }
     var json = {
@@ -62,7 +90,7 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
       "eDate": this.widget.StartDate,
       "attriText01": this.widget.EndDate,
       "section": this.widget.sectionStr,
-      "eName": lamName.text,
+      "eName": selExp,
       "remark": remark.text
     };
     await SaveApplyIfo(json).then((data) {
@@ -219,7 +247,6 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                         child: Container(
                           padding:
                               EdgeInsets.only(left: 10, top: 10, bottom: 10),
-//height: 50,
                           child: Text(
                             "开始时间",
                             style: TextStyle(color: Colors.black, fontSize: 18),
@@ -242,7 +269,6 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                         child: Container(
                           padding:
                               EdgeInsets.only(left: 10, top: 10, bottom: 10),
-//height: 50,
                           child: Text(
                             "结束时间",
                             style: TextStyle(color: Colors.black, fontSize: 18),
@@ -292,7 +318,6 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                         child: Container(
                           padding:
                               EdgeInsets.only(left: 10, top: 10, bottom: 10),
-//height: 50,
                           child: Text(
                             "实验名称",
                             style: TextStyle(color: Colors.black, fontSize: 18),
@@ -302,36 +327,29 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                       Expanded(
                         flex: 7,
                         child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            padding:
-                                EdgeInsets.only(top: 5, bottom: 5, right: 10),
-                            child: EnsureVisibleWhenFocused(
-                                child: TextField(
-                                  style: TextStyle(fontSize: 18),
-                                  textInputAction: TextInputAction.done,
-                                  autofocus: true,
-                                  controller: lamName,
-                                  maxLines: 1,
-                                  decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 10.0, horizontal: 10),
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(5), //边角为30
-                                      ),
-                                      borderSide: BorderSide(
-                                        color: GetConfig.getColor(theme),
-                                        //边线颜色为黄色
-                                        width: 2, //边线宽度为2
-                                      ),
-                                    ),
-                                    hintText: "请输入实验名称",
-                                    filled: true,
-                                    fillColor: Color.fromRGBO(244, 244, 244, 1),
-                                  ),
-                                ),
-                                focusNode: _focusNodeForLambName)),
+                          width: MediaQuery.of(context).size.width,
+                          padding:
+                              EdgeInsets.only(top: 5, bottom: 5, right: 10),
+                          child: new DropdownButtonHideUnderline(
+                              child: new DropdownButton(
+                            items: droplist,
+                            hint: new Text(
+                              '实验选择',
+                              style: TextStyle(
+                                  color: Colors.black12, fontSize: 18),
+                            ),
+                            onChanged: (value) {
+                              setState(() {
+                                selExp = value;
+                              });
+                            },
+                            value: selExp,
+                            elevation: 24,
+//              isDense: false,//减少按钮的高度。默认情况下，此按钮的高度与其菜单项的高度相同。如果isDense为true，则按钮的高度减少约一半。 这个当按钮嵌入添加的容器中时，非常有用
+                            iconSize: 40.0,
+                            iconEnabledColor: GetConfig.getColor(theme),
+                          )),
+                        ),
                       )
                     ],
                   ),
@@ -359,9 +377,9 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                                 EdgeInsets.only(top: 5, bottom: 5, right: 10),
                             child: EnsureVisibleWhenFocused(
                                 child: TextField(
+                                  autofocus: false,
                                   style: TextStyle(fontSize: 18),
                                   textInputAction: TextInputAction.done,
-                                  autofocus: true,
                                   controller: remark,
                                   maxLines: 5,
                                   decoration: InputDecoration(
@@ -407,7 +425,12 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                     '重置',
                     style: TextStyle(fontSize: 24),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      remark.text = "";
+                      selExp = "请选择";
+                    });
+                  },
                 ),
               ),
               Container(
@@ -418,10 +441,8 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                   textColor: Colors.white,
                   child: new Text('提交', style: TextStyle(fontSize: 24)),
                   onPressed: () {
-                    setState(() {
-                      lamName.text="";
-                      remark.text="";
-                    });
+                    GetConfig.IOSPopMsg("提示", Text("确认无误后点击确定提交！"), context,
+                        confirmFun: SaveInfo);
                   },
                 ),
               ),

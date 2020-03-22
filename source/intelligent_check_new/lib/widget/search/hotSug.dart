@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intelligent_check_new/tools/GetConfig.dart';
 
 class HotSugWidget extends StatelessWidget {
   final List hotWords;
   final ValueChanged<String> searchData;
   final Function deleteBtnClick;
   final title;
+  String theme="red";
   HotSugWidget( {Key key,this.hotWords,this.title,this.searchData,this.deleteBtnClick}):super(key:key);
   @override
   Widget build(BuildContext context) { //Color.fromRGBO(240, 243, 245, 1)
@@ -20,12 +22,12 @@ class HotSugWidget extends StatelessWidget {
             children: <Widget>[
               Expanded(
                   child:Text(title,
-                    style: TextStyle(color: Color(0xff333333),fontSize: 17,fontWeight: FontWeight.bold),
+                    style: TextStyle(color: GetConfig.getColor(theme),fontSize: 17,fontWeight: FontWeight.bold),
                   ),
                   flex: 9,),
               Expanded(
                 child:GestureDetector(
-                  child: Image.asset("assets/images/delete_blue.png",height: 20,),
+                  child: Image.asset("assets/images/delete_red.png",color:GetConfig.getColor(theme),height: 20,),
                   onTap: ()=>deleteBtnClick()),
 
                 flex: 1,),
