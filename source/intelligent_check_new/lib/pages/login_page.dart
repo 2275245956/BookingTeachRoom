@@ -13,9 +13,6 @@ import 'package:intelligent_check_new/tools/MessageBox.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -167,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               padding: EdgeInsets.only(left: 10),
               child: Icon(
-                Icons.power,
+                Icons.folder_shared,
                 size: 23,
                 color: Color.fromRGBO(209, 6, 24, 1),
               ),
