@@ -13,8 +13,8 @@ class ApiAddress {
   static const String GET_EMPTYLAM="/tea/findEmptyRoom";
   static const String SAVE_APPLYINFO="/tea/commitExpApply";
   static const String GETALL_LAMBNAME="/tea/selectAllExp";
-
-
+  static const String GETTechAll_RECORDS="/tea/queryExpApplyByTeaNumAndStatus";
+  static const String GET_RECORDS_keywords="/tea/likeQueryExpApplyByTeaNum";
 
 
 
