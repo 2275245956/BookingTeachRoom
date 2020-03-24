@@ -9,24 +9,21 @@ class MyInfoPage extends StatefulWidget {
 }
 
 class _MyInfoPageState extends State<MyInfoPage> {
-  var userCompany = "";
-  var department = "";
+
   UserModel userInfo;
-  String theme = "blue";
+  String theme = "red";
 
   @override
   void initState() {
-    getData();
+
     super.initState();
+    getData();
   }
 
   getData() {
     SharedPreferences.getInstance().then((sp) {
       setState(() {
-        String str = sp.get('userInfo');
-        if (str != null) {
-          userInfo = UserModel.fromJson(json.decode(str));
-        }
+       userInfo=UserModel.fromJson(json.decode(sp.getString("userModel")));
       });
     });
   }
@@ -66,8 +63,9 @@ class _MyInfoPageState extends State<MyInfoPage> {
           elevation: 0.2,
           leading: IconButton(
               icon: Icon(
-                Icons.arrow_back_ios,
+                Icons.keyboard_arrow_left,
                 color: Color.fromRGBO(209, 6, 24, 1),
+                size: 28,
               ),
               onPressed: () {
                 Navigator.pop(context);
@@ -81,20 +79,6 @@ class _MyInfoPageState extends State<MyInfoPage> {
           ),
           centerTitle: true,
           actions: <Widget>[
-//            IconButton(
-//              icon: Text(
-//                '确定',
-//                style: new TextStyle(
-//                  color: Color.fromRGBO(209, 6, 24, 1),
-////                  fontWeight: FontWeight.bold,
-//                  fontSize: 16.0,
-//                ),
-//              ),
-//              onPressed: () {
-//                //确认后的处理
-//                Navigator.pop(context);
-//              },
-//            ),
           ],
         ),
         body: ListView(
@@ -171,7 +155,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
                   Expanded(
                     // child: new Text(myInfo.username),
                     child:
-                        new Text(userInfo.userName == null ? "" : userInfo.userName),
+                        new Text("${userInfo.userName}"),
                     flex: 3,
                   ),
                 ],
@@ -205,7 +189,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
                   ),
                   Expanded(
                     //child: new Text(myInfo.userdepartment),
-                    child: new Text(userInfo.attriText01 ?? "--"),
+                    child: new Text("${userInfo.deptName}"),
                     flex: 3,
                   ),
                 ],
@@ -272,7 +256,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
                   Expanded(
                     //child: new Text(myInfo.userid.toString()),
                     child: new Text(
-                        userInfo.account == null ? "" : userInfo.account),
+                       "${userInfo.account}"),
                     flex: 3,
                   ),
                 ],

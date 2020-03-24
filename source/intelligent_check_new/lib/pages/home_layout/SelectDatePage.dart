@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar/flutter_calendar.dart';
+import 'package:intelligent_check_new/tools/GetConfig.dart';
 
 class SelectDatePage extends StatelessWidget {
   // This widget is the root of your application.
@@ -7,9 +8,6 @@ class SelectDatePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: TimePage(),
     );
   }
@@ -19,6 +17,11 @@ class TimePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: GetConfig.getColor("red"),
+        centerTitle: true,
+        title: Text("时间轴"),
+      ),
       body: TimeLinePage(),
     );
   }

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_bottom_tab_bar/eachtab.dart';
 import 'package:intelligent_check_new/pages/AndroidBackTop.dart';
+import 'package:intelligent_check_new/pages/home_layout/SelectDatePage.dart';
 import 'package:intelligent_check_new/pages/home_screen.dart';
 import 'package:intelligent_check_new/pages/my/my_screen.dart';
 import 'package:intelligent_check_new/pages/statistics_screen.dart';
@@ -15,7 +16,7 @@ class _NavigationKeepAliveState extends State<NavigationKeepAlive>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
   int _selectedIndex = 0;
-  var titles = ['首页', '实验', '我的'];
+  var titles = ['首页', '时间轴', '我的'];
 
   bool isAnimating = false;
   String theme = "red";
@@ -137,7 +138,7 @@ class _NavigationKeepAliveState extends State<NavigationKeepAlive>
             controller: _tabController,
             children: <Widget>[
               HomeScreen(),
-              StatisticsScreen(),
+              SelectDatePage(),
               MyScreen()
             ],
           )),

@@ -1,18 +1,13 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/RoomModel.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb/ApplyLambInfo.dart';
-import 'package:intelligent_check_new/pages/ApplyLamb/SelectDatePage.dart';
 import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:intelligent_check_new/constants/color.dart';
-
-import 'package:charts_flutter/flutter.dart' as charts;
 
 class SelLambScreen extends StatefulWidget {
   @override

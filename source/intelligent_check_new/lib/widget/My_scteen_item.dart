@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -92,9 +93,9 @@ class ImItem extends StatelessWidget {
             {
               getDatabasesPath().then((dbPath) {
                 SharedPreferences.getInstance().then((sp) {
-                  String str = sp.get('userInfo');
+
                   String myDbPath =
-                      join(dbPath, '${UserModel.fromJson(str).id.toString()}', 'my.db');
+                      join(dbPath, '${UserModel.fromJson(json.decode(sp.getString("userModel"))).id}', 'my.db');
                   deleteDatabase(myDbPath);
                 });
               });

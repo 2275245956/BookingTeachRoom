@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
+import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intelligent_check_new/widget/My_scteen_item.dart';
 import 'package:intelligent_check_new/widget/touch_callback.dart';
 import 'package:intelligent_check_new/pages/my/myinfo_page.dart';
@@ -23,7 +24,7 @@ class _MyScreenState extends State<MyScreen>
 
   String version;
   bool isOffline = false;
-  String theme = "";
+  String theme = "red";
   num catchSize = 0.0;
   var userCompany = "";
    
@@ -44,12 +45,15 @@ class _MyScreenState extends State<MyScreen>
   getData() {
     SharedPreferences.getInstance().then((sp) {
       //用户类型
-      setState(() {
-        //用户类型
-        if(sp.getString("userModel")!=null){
-          userInfo=UserModel.fromJson(json.decode(sp.getString("userModel")));
-        }
-      });
+      if(!mounted){return;}
+        setState(() {
+          //用户类型
+          if(sp.getString("userModel")!=null){
+            userInfo=UserModel.fromJson(json.decode(sp.getString("userModel")));
+          }
+        });
+
+
     });
 
     PackageInfo.fromPlatform().then((packageInfo) {
@@ -60,24 +64,6 @@ class _MyScreenState extends State<MyScreen>
       }
     });
 
-//    getDatabasesPath().then((dbPath) {
-//      SharedPreferences.getInstance().then((sp) {
-//        String str = sp.get('LoginResult');
-//        String myDbPath = join(dbPath, '${LoginResult(str).user.id}', 'my.db');
-//        File(myDbPath).exists().then((exists) {
-//          if (exists) {
-//            print("DB Path exists:${myDbPath}");
-//            File(myDbPath).length().then((size) {
-//              print("${myDbPath}:${size}");
-//              catchSize = size;
-//            });
-//          } else {
-//            print("DB Path not exists:${myDbPath}");
-//            catchSize = 0;
-//          }
-//        });
-//      });
-//    });
   }
 
   clearCatch() {
@@ -94,15 +80,14 @@ class _MyScreenState extends State<MyScreen>
       );
     }
     return Scaffold(
-        backgroundColor: Color.fromRGBO(242, 246, 249, 1),
+
+
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0.2,
-          //backgroundColor: KColorConstant.floorTitleColor,
+          backgroundColor:GetConfig.getColor("red"),
           title: Text(
             '我的',
             style: new TextStyle(
-              color: Colors.black,
+              color: Colors.white,
 //              fontWeight: FontWeight.bold,
             ),
           ),
@@ -124,8 +109,7 @@ class _MyScreenState extends State<MyScreen>
                       padding: EdgeInsets.only(left: 20, right: 20),
                       child: CircleAvatar(
                         backgroundColor: Color.fromRGBO(209, 6, 24, 1),
-                        child: Text(
-                          userInfo  == null ? "" : userInfo.userName[0],
+                        child: Text("${userInfo.userName[0]}",
                           style: TextStyle(color: Colors.white,fontSize: 25),
                         ),
                       ),
@@ -137,13 +121,13 @@ class _MyScreenState extends State<MyScreen>
                         children: <Widget>[
                           Text(
                             //myInfo.username,
-                            userInfo  == null ? "" : userInfo.userName,
+                            "${userInfo.userName}" ,
                             style: TextStyle(
                               fontSize: 18.0,
                               color: Color(0Xff353535),
                             ),
                           ),
-                          userInfo.major==null?Text(""):Text("${userInfo.major}" ,
+                          Text("${userInfo.deptName}" ,
                             style: TextStyle(
                               fontSize: 14.0,
                               color: Color(0Xffa9a9a9),

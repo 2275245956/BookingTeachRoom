@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 
 import 'package:intelligent_check_new/pages/home_layout/home_background_image.dart';
 import 'package:jpush_flutter/jpush_flutter.dart';
@@ -58,16 +59,11 @@ class _HomeScreenState extends State<HomeScreen>
 
       final prefs = await SharedPreferences.getInstance();
 
-      String userId = prefs.getString("loginUserId");
-      String companyCode = prefs.getString("sel_com") != null
-          ? json.decode(prefs.getString("sel_com"))["companyName"]
-          : "-";
+      UserModel    userInfo=UserModel.fromJson(json.decode(prefs.getString("userModel")));
 
       List<String> tags = List();
-      tags.add(companyCode);
 
-      await jpush.setAlias(userId??"0");
-      await jpush.setTags(tags);
+      await jpush.setAlias(userInfo.account);
 
        jpush.addEventHandler(
         onReceiveNotification: (Map<String, dynamic> message) async {
