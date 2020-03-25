@@ -23,11 +23,12 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
   bool get wantKeepAlive => true;
 
   // 当前页码
-  int pageIndex = 0;
+  int pageNum = 1;
+  int pageSize = 10;
 
   // 是否有下一页
-  bool hasNext = false;
-  List<TeacherApplyRecord> initRecordData ;
+  bool hasNext = true;
+  List<TeacherApplyRecord> initRecordData = new List();
 
   // 分页所需控件
   GlobalKey<EasyRefreshState> _easyRefreshKey =
@@ -57,25 +58,31 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
           userInfo = UserModel.fromJson(json.decode(sp.getString("userModel")));
         }
       });
-    }).then((_){
+    }).then((_) {
       loadData();
     });
   }
-  void loadData()async{
-       var data= await GetAllRecordByStatus(userInfo.account, status);
-       if(data.success && data.dataList!=""){
-         initRecordData= new List();
-         for(var str in data.dataList){
-           setState(() {
-             initRecordData.add(new TeacherApplyRecord.fromJson(str));
-           });
-         }
-       }
+
+  void loadData() async {
+    var data =
+        await GetAllRecordByStatus(userInfo.account, status, pageNum, pageSize);
+    if (data.success && data.dataList != "") {
+      for (var str in data.dataList) {
+        setState(() {
+          initRecordData.add(new TeacherApplyRecord.fromJson(str));
+        });
+      }
+    }else{
+
+      setState(() {
+        hasNext=false;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (this.initRecordData==null && userInfo.account!="") {
+    if (this.initRecordData == null && userInfo.account != "") {
       return Scaffold(
           backgroundColor: Color.fromRGBO(242, 246, 249, 1),
           appBar: AppBar(
@@ -171,9 +178,10 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
           if (menuIndex == 0) {
             setState(() {
               var id = data["id"];
-               status=id.toString();
-               initRecordData=[];
-               loadData();
+              status = id.toString();
+              initRecordData = [];
+              pageNum=0;
+              loadData();
             });
           }
         },
@@ -202,8 +210,8 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
                   ),
                   new SliverList(
                       delegate: new SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
-                  }, childCount: 10)),
+                          (BuildContext context, int index) {},
+                          childCount: 10)),
                 ]),
             new Padding(
                 padding: new EdgeInsets.only(top: 46.0),
@@ -240,7 +248,6 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
                                   },
                                   child: Container(
                                     child: Card(
-
                                       elevation: 2,
                                       margin: EdgeInsets.only(
                                           top: 5, left: 3, right: 3),
@@ -260,7 +267,9 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
                                                           bottomLeft:
                                                               Radius.circular(
                                                                   4)),
-                                                  color: getPointColor(initRecordData[index].status),
+                                                  color: getPointColor(
+                                                      initRecordData[index]
+                                                          .status),
                                                 ),
                                               ),
                                               Container(
@@ -271,7 +280,7 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
                                                       CrossAxisAlignment.start,
                                                   children: <Widget>[
                                                     new Text(
-                                                      "${index+1}.  ${initRecordData[index].eName}",
+                                                      "${index + 1}.  ${initRecordData[index].eName}",
                                                       style: new TextStyle(
                                                           fontSize: 18.0,
                                                           fontWeight:
@@ -295,7 +304,6 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
                                                                   Colors.grey,
                                                               fontSize: 12),
                                                         ),
-
                                                       ],
                                                     ),
                                                     Row(
@@ -304,7 +312,11 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
                                                           padding:
                                                               EdgeInsets.only(
                                                                   left: 10),
-                                                          width: MediaQuery.of(context).size.width -50,
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width -
+                                                              50,
                                                           child: Text(
                                                             "节次：${initRecordData[index].section}",
                                                             style: TextStyle(
@@ -313,7 +325,6 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
                                                                 fontSize: 12),
                                                           ),
                                                         ),
-
                                                         new Icon(
                                                           Icons
                                                               .keyboard_arrow_right,
@@ -321,27 +332,30 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
                                                               .getColor(theme),
                                                           size: 28,
                                                         ),
-
                                                       ],
                                                     ),
                                                     Row(
                                                       children: <Widget>[
                                                         Padding(
                                                           padding:
-                                                          EdgeInsets.only(
-                                                              left: 10),
+                                                              EdgeInsets.only(
+                                                                  left: 10),
                                                         ),
                                                         Text(
                                                           "当前状态:",
                                                           style: TextStyle(
                                                               color:
-                                                              Colors.grey,
+                                                                  Colors.grey,
                                                               fontSize: 12),
                                                         ),
                                                         Text(
                                                           "${initRecordData[index].status}",
                                                           style: TextStyle(
-                                                              color:getPointColor(initRecordData[index].status),fontSize: 12),
+                                                              color: getPointColor(
+                                                                  initRecordData[
+                                                                          index]
+                                                                      .status),
+                                                              fontSize: 12),
                                                         ),
                                                       ],
                                                     ),
@@ -386,8 +400,8 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
                             await new Future.delayed(const Duration(seconds: 1),
                                 () {
                               setState(() {
-                                pageIndex = 0;
-                                // initData = [];
+                                pageNum = 1;
+                                initRecordData = new List();
                               });
                               loadData();
                             });
@@ -397,10 +411,11 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
                                 () {
                               if (hasNext) {
                                 setState(() {
-                                  pageIndex = pageIndex + 1;
+                                  pageNum = pageNum + 1;
                                 });
                                 loadData();
                               }
+
                             });
                           },
                         )),
@@ -487,14 +502,19 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
               height: kDropdownMenuItemHeight * TITLE_ALL_CONTENT.length),
         ]);
   }
- Color getPointColor(String status){
-    switch(status){
-      case "申请提交(教师)":return Colors.orange;
-      case "申请取消(教师)":return Colors.black;
-      case "申请通过(管理员)":return Colors.green;
-      case "申请退回(管理员)":return Colors.red;
-      default:return Colors.grey;
+
+  Color getPointColor(String status) {
+    switch (status) {
+      case "申请提交(教师)":
+        return Colors.orange;
+      case "申请取消(教师)":
+        return Colors.black;
+      case "申请通过(管理员)":
+        return Colors.green;
+      case "申请退回(管理员)":
+        return Colors.red;
+      default:
+        return Colors.grey;
     }
   }
-
 }

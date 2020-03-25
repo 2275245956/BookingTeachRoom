@@ -121,7 +121,6 @@ class _ApplySearchPage extends State<ApplySearchPage>{
               offstage: !_isNotSearching,
               child:Container(
                 color: Colors.white,
-
                 child:HotSugWidget(title:"搜索历史",hotWords:hotWords,searchData: searchByHistory,deleteBtnClick:deleteSearchHistory,),
               )
           ),

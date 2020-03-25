@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/model/LoginResult.dart';
-import 'package:intelligent_check_new/services/myinfo_services.dart';
+import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
+import 'package:intelligent_check_new/pages/login_page.dart';
+import 'package:intelligent_check_new/services/CommonServices/CommonServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intelligent_check_new/tools/MessageBox.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -17,25 +21,22 @@ class _PswdChangePageState extends State<PswdChangePage> {
   bool displayPassword1 = false;
   bool displayPassword2 = false;
   bool displayPassword3 = false;
-  final TextEditingController _pswdinputcontroller =
-      new TextEditingController();
+  final TextEditingController _pswdinputcontroller = new TextEditingController();
   final TextEditingController _newpswdcontroller = new TextEditingController();
-  final TextEditingController _checkpswdcontroller =
-      new TextEditingController();
+  final TextEditingController _checkpswdcontroller =new TextEditingController();
 
-  LoginResult loginResult;
 
   bool isSavedPressed = false;
-
+  UserModel userInfo;
   bool isAnimating = false;
 
-  String theme="blue";
+  String theme="red";
 
   getData()  {
     SharedPreferences.getInstance().then((sp){
-      String str= sp.get('LoginResult');
+
       setState(() {
-        loginResult = LoginResult(str);
+        userInfo=UserModel.fromJson(json.decode(sp.getString("userModel")));
         this.theme = sp.getString("theme")??KColorConstant.DEFAULT_COLOR;
       });
     });
@@ -297,11 +298,11 @@ class _PswdChangePageState extends State<PswdChangePage> {
                 onPressed: () {
                   if(_newpswdcontroller.text.isEmpty ||
                       _checkpswdcontroller.text.isEmpty || _pswdinputcontroller.text.isEmpty){
-                    MessageBox.showMessageOnly("请输入原密码和新密码再进行修改操作！", context);
+                    GetConfig.popUpMsg("请输入原密码和新密码再进行修改操作！");
                     return;
                   }
                   if(_newpswdcontroller.text !=  _checkpswdcontroller.text){
-                    MessageBox.showMessageOnly("两次密码输入不一致，请确认后重新输入！", context);
+                    GetConfig.popUpMsg("两次密码输入不一致，请确认后重新输入！");
                     return;
                   }
                   changPWD();
@@ -322,16 +323,24 @@ class _PswdChangePageState extends State<PswdChangePage> {
       isSavedPressed = true;
       isAnimating = true;
     });
-//    ChangePswd(_newpswdcontroller.text, _pswdinputcontroller.text, loginResult.user.id).then((data){
-//      setState(() {
-//        isSavedPressed = false;
-//        isAnimating = false;
-//      });
-//      if(data){
-//        MessageBox.showMessageAndExitCurrentPage("密码修改成功！", true, context);
-//      }else{
-//        MessageBox.showMessageOnly("密码修改失败！", context);
-//      }
-//    });
+   await ChangePwq(_newpswdcontroller.text
+       ,_pswdinputcontroller.text
+       ,_checkpswdcontroller.text
+       ,userInfo.account).then((data){
+      setState(() {
+        isSavedPressed = false;
+        isAnimating = false;
+      });
+      if(data.success){
+        SharedPreferences.getInstance().then((sp) {
+            sp.setString("userPwd", "");
+            Navigator.of(context).pushAndRemoveUntil(
+                new MaterialPageRoute(builder: (context) => LoginPage()),
+                    (route) => route == null);
+          });
+      }else{
+       GetConfig.IOSPopMsg("失败提示",Text(data.message), context);
+      }
+    });
   }
 }

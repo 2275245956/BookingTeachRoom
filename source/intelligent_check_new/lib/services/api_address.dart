@@ -16,6 +16,11 @@ class ApiAddress {
   static const String GETTechAll_RECORDS="/tea/queryExpApplyByTeaNumAndStatus";
   static const String GET_RECORDS_keywords="/tea/likeQueryExpApplyByTeaNum";
 
+  ///实验室管理员
+  static const String GETALLTEACH_APPLYLAM="/expAdmin/selectAllTeaExpApply";
+
+  ///Common url
+  static const String CHANGEPWD="/common/changePass";
 
 
 

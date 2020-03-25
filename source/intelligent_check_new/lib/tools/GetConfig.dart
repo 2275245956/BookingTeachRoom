@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -128,5 +130,13 @@ class GetConfig {
       case "sleep":
         return "熄灯";
     }
+  }
+
+  static  getRandomColor() {
+    return Color.fromARGB(
+        255,
+        Random.secure().nextInt(250),
+        Random.secure().nextInt(250),
+        1);
   }
 }

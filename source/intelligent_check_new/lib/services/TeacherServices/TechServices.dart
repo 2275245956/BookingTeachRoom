@@ -33,20 +33,20 @@ Future<APIResponse> GetAllLambName() async {
   }
 }
 
-Future<APIResponse> GetAllRecordByStatus(String tNumber, String status) async {
+Future<APIResponse> GetAllRecordByStatus(String tNumber, String status,int pageNum,int pageSize) async {
   try {
     var data = await HttpUtil().get(
-        ApiAddress.GETTechAll_RECORDS + "?status=$status&tNumber=$tNumber");
+        ApiAddress.GETTechAll_RECORDS + "?status=$status&tNumber=$tNumber&pageNum=$pageNum&pageSize=$pageSize");
     return APIResponse.fromJson(data);
   } catch (e) {
     throw e;
   }
 }
 
-Future<APIResponse> GetAllRecordByKeywords(String tNumber, String keywords) async {
+Future<APIResponse> GetAllRecordByKeywords(String tNumber, String keywords,pageNum) async {
   try {
     var data = await HttpUtil().get(ApiAddress.GET_RECORDS_keywords +
-        "?keywords=$keywords&tNumber=$tNumber");
+        "?keywords=$keywords&tNumber=$tNumber&pageNum=$pageNum&pageSize=10");
     return APIResponse.fromJson(data);
   } catch (e) {
     throw e;

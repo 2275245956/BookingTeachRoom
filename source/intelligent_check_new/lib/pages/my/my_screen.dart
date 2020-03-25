@@ -23,10 +23,9 @@ class _MyScreenState extends State<MyScreen>
 
 
   String version;
-  bool isOffline = false;
   String theme = "red";
   num catchSize = 0.0;
-  var userCompany = "";
+
    
 
   @override

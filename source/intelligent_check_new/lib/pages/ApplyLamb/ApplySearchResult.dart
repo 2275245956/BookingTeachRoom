@@ -34,9 +34,11 @@ class _ApplySearchResultPage extends State<ApplySearchResultPage>{
   String theme="red";
   FocusNode _focusNode = new FocusNode();
   // 当前页码
-  int pageIndex=0;
+  // 当前页码
+  int pageNum = 1;
+  int pageSize = 10;
   // 是否有下一页
-  bool hasNext=false;
+  bool hasNext=true;
   // 分页所需控件
   GlobalKey<EasyRefreshState> _easyRefreshKey = new GlobalKey<EasyRefreshState>();
   GlobalKey<RefreshHeaderState> _headerKey = new GlobalKey<RefreshHeaderState>();
@@ -59,9 +61,8 @@ class _ApplySearchResultPage extends State<ApplySearchResultPage>{
     });
   }
   void loadData () async{
-      var data= await GetAllRecordByKeywords(userInfo.account,this.widget.searchText);
+      var data= await GetAllRecordByKeywords(userInfo.account,this.widget.searchText,pageNum);
       if(data.success && data.dataList!=""){
-        initRecordData= new List();
         for(var str in data.dataList){
           setState(() {
             initRecordData.add(new TeacherApplyRecord.fromJson(str));
@@ -69,15 +70,6 @@ class _ApplySearchResultPage extends State<ApplySearchResultPage>{
         }
       }
   }
-  Color getLevelTextBgColor(int level)
-  {
-    if(level==1)
-      return Colors.orange;
-    if(level==2)
-      return Colors.red;
-    return Colors.black;
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -338,10 +330,10 @@ class _ApplySearchResultPage extends State<ApplySearchResultPage>{
           await new Future.delayed(
               const Duration(seconds: 1), () {
             setState(() {
-              pageIndex = 0;
-//                pointList = [];
+              pageNum = 0;
+               initRecordData=[];
             });
-//              loadData();
+             loadData();
           });
         },
         loadMore: () async {
@@ -349,9 +341,9 @@ class _ApplySearchResultPage extends State<ApplySearchResultPage>{
               const Duration(seconds: 1), () {
             if (hasNext) {
               setState(() {
-                pageIndex = pageIndex + 1;
+                pageNum = pageNum + 1;
               });
-//                loadData();
+              loadData();
             }
           });
         },

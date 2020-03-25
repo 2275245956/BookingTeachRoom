@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 
@@ -8,6 +10,8 @@ class HotSugWidget extends StatelessWidget {
   final title;
   String theme="red";
   HotSugWidget( {Key key,this.hotWords,this.title,this.searchData,this.deleteBtnClick}):super(key:key);
+
+
   @override
   Widget build(BuildContext context) { //Color.fromRGBO(240, 243, 245, 1)
     return Column(
@@ -45,12 +49,12 @@ class HotSugWidget extends StatelessWidget {
               onTap: ()=>searchData(i),
               child: Container(
                   decoration: BoxDecoration(
-                  color: Color(0xFFF2F2F2),
+                  color: GetConfig.getColor(theme),
                   borderRadius: BorderRadius.circular(5)),
                   padding:EdgeInsets.symmetric(vertical: 5, horizontal: 7),
                   child: Text(
                     i,
-                    style: TextStyle(color:Color(0xFF999999)),
+                    style: TextStyle(color:Colors.white),
                   )
               ),
             )).toList(),

@@ -4,6 +4,7 @@ import 'package:flutter_custom_bottom_tab_bar/eachtab.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb/ApplyRecord.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb/SelectLambPage.dart';
+import 'package:intelligent_check_new/pages/ExpPage/TeachApplyCheck.dart';
 import 'package:intelligent_check_new/pages/SystemSettings/ScheduleSettingPage.dart';
 import 'package:intelligent_check_new/pages/message/message_list.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
@@ -178,8 +179,7 @@ class _HomeFunctionState extends State<HomeFunction> {
    List<Widget>  menus=new List();
    switch (userInfo.role) {
      case "student":
-       menus.add(
-           Container(
+       menus.add(  Container(
                child: Column(
                  children: <Widget>[
                    Container(
@@ -280,12 +280,10 @@ class _HomeFunctionState extends State<HomeFunction> {
                        blurRadius: 5.0,
                      ),
                    ]),
-             ),
-       );
+             ),);
        break;
      case "teacher":
-       menus.add(
-         Container(
+       menus.add(Container(
            child: Column(
              children: <Widget>[
                Container(
@@ -384,8 +382,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                    blurRadius: 5.0,
                  ),
                ]),
-         ),
-       );
+         ),);
        break;
      case "admin":
        menus.add(
@@ -753,8 +750,34 @@ class _HomeFunctionState extends State<HomeFunction> {
                              badgeColor: Colors.red,
                              height: 40,
                              padding: EdgeInsets.all(0),
-                             icon: Icon(Icons.laptop_windows, size: 32, color: Colors.red),
-                             text: "实验审核",
+                             icon:Icon(Icons.playlist_add_check,color: GetConfig.getColor(theme),size: 32,),
+                             text: "教师审核",
+                             textStyle: TextStyle(
+                                 fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
+                             color: Colors.white,
+                           ),
+                           onTap: () =>Navigator.push(context, MaterialPageRoute(builder: (context)=>new TeachApplyCheck())),
+                         )),
+                     Container(
+                         height: 82,
+                         width: 82,
+                         decoration: new BoxDecoration(
+                           borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
+                           color: Colors.white,
+                           border: new Border.all(width: 0.5, color: Colors.grey[100]),
+                         ),
+                         child: GestureDetector(
+                           child: EachTab(
+                             width: 80,
+                             badge: CircleAvatar(
+                               backgroundColor: Colors.red,
+                               radius: 3,
+                             ),
+                             badgeColor: Colors.red,
+                             height: 40,
+                             padding: EdgeInsets.all(0),
+                             icon: Icon(Icons.spellcheck, size: 32, color: GetConfig.getColor(theme)),
+                             text: "学生审核",
                              textStyle: TextStyle(
                                  fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
                              color: Colors.white,
@@ -763,8 +786,6 @@ class _HomeFunctionState extends State<HomeFunction> {
 
                            },
                          )),
-
-
                    ],
                    shrinkWrap: true,
                  ),
