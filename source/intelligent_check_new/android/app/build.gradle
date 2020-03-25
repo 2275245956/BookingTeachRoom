@@ -32,7 +32,10 @@ android {
     compileSdkVersion 28
 
     lintOptions {
-        disable 'InvalidPackage'
+
+        abortOnError false
+        checkReleaseBuilds false
+        abortOnError false
     }
 
     defaultConfig {
@@ -43,10 +46,10 @@ android {
         versionName "0.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-//        ndk {
-//            //选择要添加的对应 cpu 类型的 .so 库。
-//            abiFilters 'armeabi-v7a'//,'armeabi',  'x86', 'x86_64', 'mips', 'mips64', 'arm64-v8a',
-//        }
+        ndk {
+            //选择要添加的对应 cpu 类型的 .so 库。
+            abiFilters 'armeabi-v7a'//,'armeabi',  'x86', 'x86_64', 'mips', 'mips64', 'arm64-v8a',
+        }
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME : applicationId,

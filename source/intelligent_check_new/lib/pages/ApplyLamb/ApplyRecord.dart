@@ -252,13 +252,13 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
                                       margin: EdgeInsets.only(
                                           top: 5, left: 3, right: 3),
                                       child: new Container(
-                                          height: 125.0,
+                                          height: 133.0,
 //                                          margin: EdgeInsets.only(top: 5,left: 20,right: 20),
                                           child: Row(
                                             children: <Widget>[
                                               Container(
                                                 width: 8,
-                                                height: 125,
+                                                height: 133,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.only(
