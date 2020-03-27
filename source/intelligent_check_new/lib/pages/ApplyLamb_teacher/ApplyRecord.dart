@@ -456,9 +456,9 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
   static const List<Map<String, dynamic>> TITLE_ALL_CONTENT = [
     {"title": "全部", "id": 0},
     {"title": "申请提交", "id": 1},
+    {"title": "申请取消", "id": 2},
     {"title": "申请通过", "id": 3},
     {"title": "申请退回", "id": 4},
-    {"title": "申请取消", "id": 2},
   ];
 
   DropdownMenu buildDropdownMenu() {
