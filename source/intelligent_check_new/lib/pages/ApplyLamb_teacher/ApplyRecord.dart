@@ -4,7 +4,8 @@ import 'package:dropdown_menu/dropdown_menu.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/TeacherApplyRecord.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
-import 'package:intelligent_check_new/pages/ApplyLamb/ApplySearchPage.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplyLambDetail.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplySearchPage.dart';
 import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -244,7 +245,9 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
                             itemBuilder: (BuildContext context, int index) {
                               return GestureDetector(
                                   onTap: () {
-                                    GetConfig.popUpMsg("点击");
+                                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                                      return ApplyLambDetail(initRecordData[index]);
+                                    }));
                                   },
                                   child: Container(
                                     child: Card(

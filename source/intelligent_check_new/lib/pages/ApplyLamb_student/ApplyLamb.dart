@@ -10,14 +10,14 @@ import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class TeachApplyCheck extends StatefulWidget {
-  TeachApplyCheck();
+class StudentApplyCheck extends StatefulWidget {
+  StudentApplyCheck();
 
   @override
   _RecordListScreenState createState() => _RecordListScreenState();
 }
 
-class _RecordListScreenState extends State<TeachApplyCheck>
+class _RecordListScreenState extends State<StudentApplyCheck>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;

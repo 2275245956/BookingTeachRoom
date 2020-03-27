@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/RoomModel.dart';
-import 'package:intelligent_check_new/pages/ApplyLamb/ApplyLambInfo.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplyLambInfo.dart';
 import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intl/intl.dart';
@@ -539,7 +539,13 @@ class _SelLambScreen extends State<SelLambScreen>
                         context,
                         new MaterialPageRoute(
                             builder: (context) =>
-                                ApplyLambInfo(room, dateStart, dateEnd,"${GetConfig.getScheduleDesc(startValue)}~${GetConfig.getScheduleDesc(endvalue)}"))),
+                                ApplyLambInfo(room
+                                    , dateStart
+                                    , dateEnd
+                                    ,"${GetConfig.getScheduleDesc(startValue)}~${GetConfig.getScheduleDesc(endvalue)}"
+                                ))).then((_){
+                      _SearchRoom();
+                    }),
                   );
                 }).toList(),
               ),

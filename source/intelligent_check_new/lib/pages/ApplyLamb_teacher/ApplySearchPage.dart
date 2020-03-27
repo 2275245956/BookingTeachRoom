@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intelligent_check_new/constants/color.dart';
-import 'package:intelligent_check_new/pages/ApplyLamb/ApplySearchResult.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplySearchResult.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intelligent_check_new/widget/search/hotSug.dart';
 import 'package:shared_preferences/shared_preferences.dart';

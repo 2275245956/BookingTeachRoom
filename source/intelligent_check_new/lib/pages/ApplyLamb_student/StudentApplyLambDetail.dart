@@ -1,40 +1,27 @@
 import 'dart:convert' show json;
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:intelligent_check_new/model/Lamb/ApplyLam/ExperimentModel.dart';
-import 'package:intelligent_check_new/model/Lamb/ApplyLam/RoomModel.dart';
+import 'package:intelligent_check_new/model/Lamb/ApplyLam/TeacherApplyRecord.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
-import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
-import 'package:intelligent_check_new/tools/AvoidKeyBoradCoverInput.dart';
+import 'package:intelligent_check_new/services/ExpServices/ExpServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ApplyLambInfo extends StatefulWidget {
-  final RoomModel roomInfo;
-  final String StartDate;
-  final String EndDate;
-  final String sectionStr;
+class StudentApplyLambDetail extends StatefulWidget {
+  final TeacherApplyRecord recordInfo;
 
-  ApplyLambInfo(this.roomInfo, this.StartDate, this.EndDate, this.sectionStr);
+  StudentApplyLambDetail(this.recordInfo);
 
   @override
-  _ApplyLambInfo createState() => new _ApplyLambInfo();
+  _ApplyLambDetail createState() => new _ApplyLambDetail();
 }
 
-class _ApplyLambInfo extends State<ApplyLambInfo> {
+class _ApplyLambDetail extends State<StudentApplyLambDetail> {
   bool isAnimating = false;
   bool canOperate = true;
   String theme = "red";
   UserModel userInfo;
+  int checkType=0;
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
-  FocusNode _focusNodeForRemark = new FocusNode();
-  FocusNode _focusNodeForLambName = new FocusNode();
-
-  TextEditingController remark = new TextEditingController();
-
-  List<DropdownMenuItem> droplist = new List<DropdownMenuItem>();
-  String selExp = "请选择";
 
   @override
   void initState() {
@@ -51,61 +38,20 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
         }
       });
     });
-    var data = await GetAllLambName();
-    if (data.success) {
-      setState(() {
-        droplist.add(new DropdownMenuItem(
-          child: new Text(
-            "请选择",
-            style: TextStyle( fontSize: 18),
-          ),
-          value: "请选择",
-        ));
-        for (var exp in data.dataList) {
-          var expModel = new ExperimentModel.fromJson(exp);
-          droplist.add(new DropdownMenuItem(
-            child: new Text(
-              "${expModel.eName}",
-              style: TextStyle(color: GetConfig.getColor(theme), fontSize: 18),
-            ),
-            value: "${expModel.eName}",
-          ));
-        }
-      });
-    } else {
-      GetConfig.popUpMsg("未查询到学校的实验种类，可在备注处填写实验名称等信息！");
-    }
   }
-
-  void SaveInfo() async {
-    if (selExp == "") {
-      GetConfig.popUpMsg("请选择实验名称");
-      return;
-    }
-    var json = {
-      "tNumber": userInfo.account,
-      "tName": userInfo.userName,
-      "rNumber": this.widget.roomInfo.rNumber,
-      "rMaxPer": this.widget.roomInfo.rMaxPer,
-      "eDate": this.widget.StartDate,
-      "attriText01": this.widget.EndDate,
-      "section": this.widget.sectionStr,
-      "eName": selExp,
-      "remark": remark.text
-    };
-    await SaveApplyIfo(json).then((data) {
-      if (data.success) {
-        GetConfig.popUpMsg(data.message);
-      } else {
-        GetConfig.popUpMsg(data.message ?? "提交申请失败！");
-      }
-      Navigator.pop(context);
-    });
+  void CheckResult() async{
+//         var data=await CheckApplyForTeach(this.widget.recordInfo.reqNumber,this.checkType.toString());
+//         if(data.success){
+//           GetConfig.popUpMsg("审核成功");
+//           Navigator.pop(context);
+//         }else{
+//           GetConfig.popUpMsg("审核失败");
+//         }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (userInfo != null && this.widget.roomInfo != null) {
+    if (userInfo != null && this.widget.recordInfo != null) {
       return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -156,7 +102,30 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${userInfo.userName}(${userInfo.account})",
+                          "${this.widget.recordInfo.tName}(${this.widget.recordInfo.tNumber})",
+                          style: TextStyle(color: Colors.black, fontSize: 18),
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          padding:
+                              EdgeInsets.only(left: 10, top: 10, bottom: 10),
+//height: 50,
+                          child: Text(
+                            "申请单号",
+                            style: TextStyle(color: Colors.black, fontSize: 18),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 7,
+                        child: Text(
+                          "${this.widget.recordInfo.reqNumber}",
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       )
@@ -175,29 +144,6 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                               EdgeInsets.only(left: 10, top: 10, bottom: 10),
 //height: 50,
                           child: Text(
-                            "教室名",
-                            style: TextStyle(color: Colors.black, fontSize: 18),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 7,
-                        child: Text(
-                          "${this.widget.roomInfo.attriText01}-${this.widget.roomInfo.rName}",
-                          style: TextStyle(color: Colors.black, fontSize: 18),
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          padding:
-                              EdgeInsets.only(left: 10, top: 10, bottom: 10),
-//height: 50,
-                          child: Text(
                             "教室编号",
                             style: TextStyle(color: Colors.black, fontSize: 18),
                           ),
@@ -206,7 +152,7 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.roomInfo.rNumber}",
+                          "${this.widget.recordInfo.rNumber}",
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       )
@@ -229,7 +175,7 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.roomInfo.rMaxPer}",
+                          "${this.widget.recordInfo.rMaxPer}",
                           style: TextStyle(
                               color: GetConfig.getColor(theme), fontSize: 18),
                         ),
@@ -256,7 +202,7 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.StartDate}",
+                          "${this.widget.recordInfo.eDate}",
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       )
@@ -278,7 +224,7 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.EndDate}",
+                          "${this.widget.recordInfo.attriText01}",
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       )
@@ -301,7 +247,7 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.sectionStr}",
+                          "${this.widget.recordInfo.section}",
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       )
@@ -330,25 +276,10 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                           width: MediaQuery.of(context).size.width,
                           padding:
                               EdgeInsets.only(top: 5, bottom: 5, right: 10),
-                          child: new DropdownButtonHideUnderline(
-                              child: new DropdownButton(
-                            items: droplist,
-                            hint: new Text(
-                              '实验选择',
-                              style: TextStyle(
-                                  color: Colors.black12, fontSize: 18),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                selExp = value;
-                              });
-                            },
-                            value: selExp,
-                            elevation: 24,
-//              isDense: false,//减少按钮的高度。默认情况下，此按钮的高度与其菜单项的高度相同。如果isDense为true，则按钮的高度减少约一半。 这个当按钮嵌入添加的容器中时，非常有用
-                            iconSize: 40.0,
-                            iconEnabledColor: GetConfig.getColor(theme),
-                          )),
+                          child: Text(
+                            "${this.widget.recordInfo.eName}",
+                            style: TextStyle(color: Colors.black, fontSize: 18),
+                          ),
                         ),
                       )
                     ],
@@ -372,36 +303,40 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                       Expanded(
                         flex: 7,
                         child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            padding:
-                                EdgeInsets.only(top: 5, bottom: 5, right: 10),
-                            child: EnsureVisibleWhenFocused(
-                                child: TextField(
-                                  autofocus: false,
-                                  style: TextStyle(fontSize: 18),
-                                  textInputAction: TextInputAction.done,
-                                  controller: remark,
-                                  maxLines: 5,
-                                  decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 10.0, horizontal: 10),
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(5), //边角为30
-                                      ),
-                                      borderSide: BorderSide(
-                                        color: GetConfig.getColor(theme),
-                                        //边线颜色为黄色
-                                        width: 2, //边线宽度为2
-                                      ),
-                                    ),
-                                    hintText: "请输入备注名称",
-                                    filled: true,
-                                    fillColor: Color.fromRGBO(244, 244, 244, 1),
-                                  ),
+                          constraints: BoxConstraints(
+                            minHeight: 100.0,
+                          ),
+                          width: MediaQuery.of(context).size.width,
+                          padding:
+                              EdgeInsets.only(top: 5, bottom: 5, right: 10),
+                          child: TextField(
+                            autofocus: false,
+                            style: TextStyle(fontSize: 18),
+                            controller: TextEditingController(
+                                text: this.widget.recordInfo.remark),
+                            maxLines: null,
+                            keyboardType: TextInputType.multiline,
+                            enabled: false,
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10),
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5), //边角为30
                                 ),
-                                focusNode: _focusNodeForLambName)),
+                                borderSide: BorderSide(
+                                  color: GetConfig.getColor(theme),
+                                  //边线颜色为黄色
+                                  width: 2, //边线宽度为2
+                                ),
+                              ),
+                              hintText: "",
+                              filled: true,
+                              fillColor: Color.fromRGBO(244, 244, 244, 1),
+                            ),
+                          ),
+                        ),
                       )
                     ],
                   ),
@@ -410,7 +345,7 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
             ),
           ),
         ),
-        persistentFooterButtons: <Widget>[
+        persistentFooterButtons:  <Widget>[
           Row(
             children: <Widget>[
               Container(
@@ -422,13 +357,13 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                   height: 60,
                   textColor: Colors.black,
                   child: new Text(
-                    '重置',
+                    '取消申请',
                     style: TextStyle(fontSize: 24),
                   ),
                   onPressed: () {
                     setState(() {
-                      remark.text = "";
-                      selExp = "请选择";
+                      checkType=2;
+                      GetConfig.IOSPopMsg("提示！", Text("确定驳回该实验，此操作无法撤销？"), context,confirmFun:CheckResult);
                     });
                   },
                 ),
@@ -439,15 +374,18 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                   color: GetConfig.getColor(theme),
                   height: 60,
                   textColor: Colors.white,
-                  child: new Text('提交', style: TextStyle(fontSize: 24)),
+                  child: new Text('申请实验', style: TextStyle(fontSize: 24)),
                   onPressed: () {
-                    GetConfig.IOSPopMsg("提示", Text("确认无误后点击确定提交！"), context,
-                        confirmFun: SaveInfo);
+                    setState(() {
+                      checkType=1;
+                      GetConfig.IOSPopMsg("提示！", Text("是否确认该操作？"), context,confirmFun:CheckResult);
+                    });
+
                   },
                 ),
               ),
             ],
-          ),
+          )
         ],
         resizeToAvoidBottomPadding: true,
       );

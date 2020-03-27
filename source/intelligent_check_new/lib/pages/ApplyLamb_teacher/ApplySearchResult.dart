@@ -135,7 +135,7 @@ class _ApplySearchResultPage extends State<ApplySearchResultPage>{
           title:InkWell(
             child: Container(
               height: 30,
-              padding: EdgeInsets.only(top: 7,bottom: 6),
+              padding: EdgeInsets.only(top: 3,bottom:3),
               decoration: new BoxDecoration(
                 color: Colors.grey[100],
                 borderRadius: new BorderRadius.all(Radius.circular(25.0)),

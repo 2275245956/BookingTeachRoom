@@ -18,6 +18,7 @@ class ApiAddress {
 
   ///实验室管理员
   static const String GETALLTEACH_APPLYLAM="/expAdmin/selectAllTeaExpApply";
+  static const String CheckTeacherApply="/expAdmin/updateTeaApplyStatus";
 
   ///Common url
   static const String CHANGEPWD="/common/changePass";
