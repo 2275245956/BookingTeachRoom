@@ -362,7 +362,7 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
                   ),
                   onPressed: () {
                     setState(() {
-                      checkType=2;
+                      checkType=4;
                       GetConfig.IOSPopMsg("提示！", Text("确定驳回该实验，此操作无法撤销？"), context,confirmFun:CheckResult);
                     });
                   },
@@ -377,7 +377,7 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
                   child: new Text('通过', style: TextStyle(fontSize: 24)),
                   onPressed: () {
                     setState(() {
-                      checkType=1;
+                      checkType=3;
                       GetConfig.IOSPopMsg("提示！", Text("是否确认该操作？"), context,confirmFun:CheckResult);
                     });
 
