@@ -189,7 +189,11 @@ class _RecordListScreenState extends State<TeachApplyCheck>
                                     return CheckApplyLambDetail(
                                         initRecordData[index]);
                                   })).then((_) {
-                                    initRecordData = [];
+                                    setState(() {
+                                      initRecordData = [];
+                                      pageNum = 1;
+                                    });
+
                                     loadData();
                                   });
                                 },

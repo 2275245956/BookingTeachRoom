@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/TeacherApplyRecord.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/services/ExpServices/ExpServices.dart';
+import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -39,13 +40,13 @@ class _ApplyLambDetail extends State<ApplyLambDetail> {
       });
     });
   }
-  void CheckResult() async{
-         var data=await CheckApplyForTeach(this.widget.recordInfo.reqNumber,this.checkType.toString());
+  void CancelLamInfo() async{
+         var data=await CancelApplyLamb(this.widget.recordInfo.reqNumber);
          if(data.success){
-           GetConfig.popUpMsg("审核成功");
+           GetConfig.popUpMsg(data.message??"审核成功");
            Navigator.pop(context);
          }else{
-           GetConfig.popUpMsg("审核失败");
+           GetConfig.popUpMsg(data.message??"审核失败");
          }
   }
 
@@ -345,71 +346,26 @@ class _ApplyLambDetail extends State<ApplyLambDetail> {
             ),
           ),
         ),
-        persistentFooterButtons: userInfo.role == "expAdmin"
-            ? <Widget>[
-                Row(
-                  children: <Widget>[
-                    Container(
-                      width: (MediaQuery.of(context).size.width / 2) - 16,
-                      height: 60,
-                      margin: EdgeInsets.only(left: 0),
-                      child: new MaterialButton(
-                        color: Color.fromRGBO(242, 246, 249, 1),
-                        height: 60,
-                        textColor: Colors.black,
-                        child: new Text(
-                          '驳回',
-                          style: TextStyle(fontSize: 24),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                             checkType=2;
-                             GetConfig.IOSPopMsg("提示！", Text("确定驳回该实验，此操作无法撤销？"), context,confirmFun:CheckResult);
-                          });
-                        },
-                      ),
-                    ),
-                    Container(
-                      width: (MediaQuery.of(context).size.width / 2),
-                      child: new MaterialButton(
-                        color: GetConfig.getColor(theme),
-                        height: 60,
-                        textColor: Colors.white,
-                        child: new Text('通过', style: TextStyle(fontSize: 24)),
-                        onPressed: () {
-                          setState(() {
-                            checkType=1;
-                            GetConfig.IOSPopMsg("提示！", Text("是否确认该操作？"), context,confirmFun:CheckResult);
-                          });
+        persistentFooterButtons: <Widget>[
+          Row(
+            children: <Widget>[
 
-                        },
-                      ),
-                    ),
-                  ],
-                )
-              ]
-            : (userInfo.role == "teacher"
-                ? <Widget>[
-                    Row(
-                      children: <Widget>[
-
-                        Container(
-                          width: (MediaQuery.of(context).size.width -26),
-                          child: new MaterialButton(
-                            color: GetConfig.getColor(theme),
-                            height: 60,
-                            textColor: Colors.white,
-                            child:
-                                new Text('取消申请', style: TextStyle(fontSize: 24)),
-                            onPressed: () {
-                                
-                            },
-                          ),
-                        ),
-                      ],
-                    )
-                  ]
-                : null),
+              Container(
+                width: (MediaQuery.of(context).size.width -26),
+                child: new MaterialButton(
+                  color: GetConfig.getColor(theme),
+                  height: 60,
+                  textColor: Colors.white,
+                  child:
+                  new Text('取消申请', style: TextStyle(fontSize: 24)),
+                  onPressed: () {
+                    GetConfig.IOSPopMsg("取消申请提示！", Text("确认取消实验？该操作将无法恢复！"), context,confirmFun: CancelLamInfo);
+                  },
+                ),
+              ),
+            ],
+          )
+        ],
         resizeToAvoidBottomPadding: true,
       );
     }

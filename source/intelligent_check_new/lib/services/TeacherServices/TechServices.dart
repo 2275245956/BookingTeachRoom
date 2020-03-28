@@ -52,3 +52,34 @@ Future<APIResponse> GetAllRecordByKeywords(String tNumber, String keywords,pageN
     throw e;
   }
 }
+
+
+
+Future<APIResponse> CancelApplyLamb(String reqNumber) async {
+  try {
+    var data =new HttpUtil().post(ApiAddress.CANCEL_LAMB + "?reqNumber=$reqNumber");
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}
+
+Future<APIResponse> GetAllApplyingStudentByTeachNum()async{
+  try {
+    var data =new HttpUtil().post(ApiAddress.GetAllStudentApplying );
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}
+
+Future<APIResponse> GetAllApplyedStudentByTeachNum()async{
+  try {
+    var data =new HttpUtil().post(ApiAddress.GetAllStudentApplyed );
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}
+
+

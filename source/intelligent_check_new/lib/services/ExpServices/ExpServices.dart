@@ -12,9 +12,10 @@ Future<APIResponse> getAllTeachApplyLam(int pageNumber) async {
   }
 }
 
-Future<APIResponse> CheckApplyForTeach(String reqNumber,String status) async {
+Future<APIResponse> CheckApplyForTeach(String reqNumber, String status) async {
   try {
-    var data = await HttpUtil().post(ApiAddress.CheckTeacherApply + "?reqNumber=$reqNumber&status=$status");
+    var data = await HttpUtil().post(
+        ApiAddress.CheckTeacherApply + "?reqNumber=$reqNumber&status=$status");
     return APIResponse.fromJson(data);
   } catch (e) {
     throw e;

@@ -68,7 +68,11 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
     var data =
         await GetAllRecordByStatus(userInfo.account, status, pageNum, pageSize);
     if (data.success && data.dataList != "") {
+      setState(() {
+        hasNext=true;
+      });
       for (var str in data.dataList) {
+
         setState(() {
           initRecordData.add(new TeacherApplyRecord.fromJson(str));
         });

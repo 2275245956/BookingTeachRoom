@@ -221,7 +221,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                                child: EachTab(
                                  width: 80,
                                  badge: CircleAvatar(
-                                   backgroundColor: GetConfig.getColor(theme),
+                                   backgroundColor:  GetConfig.getColor("blue"),
                                    radius: 3,
                                  ),
                                  badgeColor: GetConfig.getColor("blue"),
@@ -249,7 +249,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                                child: EachTab(
                                  width: 80,
                                  badge: CircleAvatar(
-                                   backgroundColor: GetConfig.getColor(theme),
+                                   backgroundColor:  GetConfig.getColor("blue"),
                                    radius: 3,
                                  ),
                                  badgeColor: GetConfig.getColor("blue"),
@@ -296,7 +296,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                        padding: EdgeInsets.only(left: 10),
                      ),
                      new Text(
-                       "教师菜单",
+                       "实验申请",
                        style: TextStyle(
                            color: Color.fromRGBO(102, 102, 102, 1)),
                      )
@@ -327,7 +327,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                            child: EachTab(
                              width: 80,
                              badge: CircleAvatar(
-                               backgroundColor: GetConfig.getColor(theme),
+                               backgroundColor:  GetConfig.getColor("blue"),
                                radius: 3,
                              ),
                              badgeColor: GetConfig.getColor("blue"),
@@ -355,7 +355,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                            child: EachTab(
                              width: 80,
                              badge: CircleAvatar(
-                               backgroundColor: GetConfig.getColor(theme),
+                               backgroundColor: GetConfig.getColor("blue"),
                                radius: 3,
                              ),
                              badgeColor: GetConfig.getColor("blue"),
@@ -369,6 +369,55 @@ class _HomeFunctionState extends State<HomeFunction> {
                            ),
                            onTap: ()=>Navigator.push(context, new MaterialPageRoute(builder: (context)=>ApplyRecordListScreen())),
                          )),
+
+                   ],
+                   shrinkWrap: true,
+                 ),
+               )
+             ],
+           ),
+           margin: const EdgeInsets.only(left: 15, right: 15, top: 20),
+           decoration: new BoxDecoration(
+             //                      color: Color.fromRGBO(242, 246, 249, 1),
+               borderRadius: new BorderRadius.circular(5),
+               boxShadow: [
+                 BoxShadow(
+                   color: Color.fromRGBO(242, 246, 249, 1),
+                   blurRadius: 5.0,
+                 ),
+               ]),
+         ),
+       );
+       menus.add(
+         Container(
+           child: Column(
+             children: <Widget>[
+               Container(
+                 child: new Row(
+                   children: <Widget>[
+                     Padding(
+                       padding: EdgeInsets.only(left: 10),
+                     ),
+                     new Text(
+                       "实验审核",
+                       style: TextStyle(
+                           color: Color.fromRGBO(102, 102, 102, 1)),
+                     )
+                   ],
+                 ),
+                 width: double.infinity,
+                 height: 40.0,
+                 decoration: new BoxDecoration(
+                   color: Color.fromRGBO(250, 251, 252, 1),
+                   borderRadius: new BorderRadius.vertical(
+                       top: Radius.circular(5.0)),
+                 ),
+               ),
+               Container(
+                 width: double.infinity,
+                 child: GridView.count(
+                   crossAxisCount: 4,
+                   children: <Widget>[
                      Container(
                          height: 82,
                          width: 82,
@@ -381,19 +430,49 @@ class _HomeFunctionState extends State<HomeFunction> {
                            child: EachTab(
                              width: 80,
                              badge: CircleAvatar(
-                               backgroundColor: GetConfig.getColor(theme),
+                               backgroundColor:  GetConfig.getColor("blue"),
                                radius: 3,
                              ),
                              badgeColor: GetConfig.getColor("blue"),
                              height: 40,
                              padding: EdgeInsets.all(0),
-                             icon: Icon(Icons.playlist_add_check, size: 32, color: GetConfig.getColor(theme)),
-                             text: "学生审核",
+                             icon: Icon(Icons.check_circle_outline, size: 32, color: GetConfig.getColor(theme)),
+                             text: "学生待审核",
                              textStyle: TextStyle(
                                  fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
                              color: Colors.white,
                            ),
-                           onTap: ()=>Navigator.push(context, new MaterialPageRoute(builder: (context)=>ApplyRecordListScreen())),
+                           onTap: () {
+
+                           },
+                         )),
+                     Container(
+                         height: 82,
+                         width: 82,
+                         decoration: new BoxDecoration(
+                           borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
+                           color: Colors.white,
+                           border: new Border.all(width: 0.5, color: Colors.grey[100]),
+                         ),
+                         child: GestureDetector(
+                           child: EachTab(
+                             width: 80,
+                             badge: CircleAvatar(
+                               backgroundColor: GetConfig.getColor("blue"),
+                               radius: 3,
+                             ),
+                             badgeColor: GetConfig.getColor("blue"),
+                             height: 40,
+                             padding: EdgeInsets.all(0),
+                             icon: Icon(Icons.check_circle, size: 32, color: GetConfig.getColor(theme)),
+                             text: "学生已审核",
+                             textStyle: TextStyle(
+                                 fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
+                             color: Colors.white,
+                           ),
+                           onTap: () {
+
+                           },
                          )),
                    ],
                    shrinkWrap: true,
@@ -457,7 +536,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                            child: EachTab(
                              width: 80,
                              badge: CircleAvatar(
-                               backgroundColor: GetConfig.getColor(theme),
+                               backgroundColor: GetConfig.getColor("blue"),
                                radius: 3,
                              ),
                              badgeColor: GetConfig.getColor("blue"),
@@ -485,7 +564,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                            child: EachTab(
                              width: 80,
                              badge: CircleAvatar(
-                               backgroundColor: GetConfig.getColor(theme),
+                               backgroundColor: GetConfig.getColor("blue"),
                                radius: 3,
                              ),
                              badgeColor: GetConfig.getColor("blue"),
@@ -513,7 +592,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                            child: EachTab(
                              width: 80,
                              badge: CircleAvatar(
-                               backgroundColor: GetConfig.getColor(theme),
+                               backgroundColor:  GetConfig.getColor("blue"),
                                radius: 3,
                              ),
                              badgeColor: GetConfig.getColor("blue"),
@@ -589,7 +668,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                            child: EachTab(
                              width: 80,
                              badge: CircleAvatar(
-                               backgroundColor: GetConfig.getColor(theme),
+                               backgroundColor: GetConfig.getColor("blue"),
                                radius: 3,
                              ),
                              badgeColor: GetConfig.getColor("blue"),
@@ -617,7 +696,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                            child: EachTab(
                              width: 80,
                              badge: CircleAvatar(
-                               backgroundColor: GetConfig.getColor(theme),
+                               backgroundColor:  GetConfig.getColor("blue"),
                                radius: 3,
                              ),
                              badgeColor: GetConfig.getColor("blue"),
@@ -694,7 +773,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                            child: EachTab(
                              width: 80,
                              badge: CircleAvatar(
-                               backgroundColor: GetConfig.getColor(theme),
+                               backgroundColor: GetConfig.getColor("blue"),
                                radius: 3,
                              ),
                              badgeColor: GetConfig.getColor("blue"),
@@ -774,7 +853,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                            child: EachTab(
                              width: 80,
                              badge: CircleAvatar(
-                               backgroundColor: GetConfig.getColor(theme),
+                               backgroundColor:  GetConfig.getColor("blue"),
                                radius: 3,
                              ),
                              badgeColor: GetConfig.getColor("blue"),
@@ -800,7 +879,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                            child: EachTab(
                              width: 80,
                              badge: CircleAvatar(
-                               backgroundColor: GetConfig.getColor(theme),
+                               backgroundColor:  GetConfig.getColor("blue"),
                                radius: 3,
                              ),
                              badgeColor: GetConfig.getColor("blue"),
