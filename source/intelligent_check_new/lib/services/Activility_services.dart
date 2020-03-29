@@ -1,9 +1,5 @@
 import 'dart:convert' show json;
-import 'dart:io';
-import 'package:dio/dio.dart';
 import 'package:intelligent_check_new/model/APIResponse.dart';
-import 'package:intelligent_check_new/model/Activility/ActivilityModel.dart';
-import 'package:intelligent_check_new/model/MovePointAttachment.dart';
 
 import 'package:intelligent_check_new/model/PageDto.dart';
 

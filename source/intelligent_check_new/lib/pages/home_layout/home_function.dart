@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_bottom_tab_bar/eachtab.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb_student/StudentApplyRecord.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplyRecord.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb_teacher/CheckApplyStudentPage.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/SelectLambPage.dart';
 import 'package:intelligent_check_new/pages/ExpPage/TeachApplyCheck.dart';
 import 'package:intelligent_check_new/pages/SystemSettings/ScheduleSettingPage.dart';
@@ -27,7 +29,7 @@ class _HomeFunctionState extends State<HomeFunction> {
 
   @override
   Widget build(BuildContext context) {
-    if (userInfo==null) {
+    if (userInfo == null) {
       return Scaffold(body: Text(""));
     }
     return ModalProgressHUD(
@@ -74,18 +76,16 @@ class _HomeFunctionState extends State<HomeFunction> {
                             children: <Widget>[
                               Container(
                                 width: 36,
-                                height:  36,
+                                height: 36,
                                 decoration: BoxDecoration(
                                     color: Colors.transparent,
                                     borderRadius:
-                                    BorderRadius.all(
-                                        Radius.circular(
-                                            65.0)),
+                                        BorderRadius.all(Radius.circular(65.0)),
                                     image: DecorationImage(
-                                        image: ExactAssetImage('assets/images/login/logo_red.png'),
+                                        image: ExactAssetImage(
+                                            'assets/images/login/logo_red.png'),
                                         fit: BoxFit.cover)),
                               ),
-
                               Padding(
                                 padding: EdgeInsets.only(right: 2),
                               ),
@@ -165,7 +165,6 @@ class _HomeFunctionState extends State<HomeFunction> {
                     children: GetFunctions(),
                   ),
                 ),
-
               ],
             );
           }),
@@ -175,752 +174,804 @@ class _HomeFunctionState extends State<HomeFunction> {
     );
   }
 
- List<Widget> GetFunctions(){
-   List<Widget>  menus=new List();
-   switch (userInfo.role) {
-     case "student":
-       menus.add(
-         Container(
-               child: Column(
-                 children: <Widget>[
-                   Container(
-                     child: new Row(
-                       children: <Widget>[
-                         Padding(
-                           padding: EdgeInsets.only(left: 10),
-                         ),
-                         new Text(
-                           "学生菜单",
-                           style: TextStyle(
-                               color: Color.fromRGBO(102, 102, 102, 1)),
-                         )
-                       ],
-                     ),
-                     width: double.infinity,
-                     height: 40.0,
-                     decoration: new BoxDecoration(
-                       color: Color.fromRGBO(250, 251, 252, 1),
-                       borderRadius: new BorderRadius.vertical(
-                           top: Radius.circular(5.0)),
-                     ),
-                   ),
-                   Container(
-                     width: double.infinity,
-                     child: GridView.count(
-                       crossAxisCount: 4,
-                       children: <Widget>[
-                         Container(
-                             height: 82,
-                             width: 82,
-                             decoration: new BoxDecoration(
-                               borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-                               color: Colors.white,
-                               border: new Border.all(width: 0.5, color: Colors.grey[100]),
-                             ),
-                             child: GestureDetector(
-                               child: EachTab(
-                                 width: 80,
-                                 badge: CircleAvatar(
-                                   backgroundColor:  GetConfig.getColor("blue"),
-                                   radius: 3,
-                                 ),
-                                 badgeColor: GetConfig.getColor("blue"),
-                                 height: 40,
-                                 padding: EdgeInsets.all(0),
-                                 icon: Icon(Icons.laptop_windows, size: 32, color: GetConfig.getColor(theme)),
-                                 text: "开放性实验",
-                                 textStyle: TextStyle(
-                                     fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-                                 color: Colors.white,
-                               ),
-                               onTap: () {
+  List<Widget> GetFunctions() {
+    List<Widget> menus = new List();
+    switch (userInfo.role) {
+      case "student":
+        menus.add(
+          Container(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  child: new Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 10),
+                      ),
+                      new Text(
+                        "学生菜单",
+                        style:
+                            TextStyle(color: Color.fromRGBO(102, 102, 102, 1)),
+                      )
+                    ],
+                  ),
+                  width: double.infinity,
+                  height: 40.0,
+                  decoration: new BoxDecoration(
+                    color: Color.fromRGBO(250, 251, 252, 1),
+                    borderRadius:
+                        new BorderRadius.vertical(top: Radius.circular(5.0)),
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  child: GridView.count(
+                    crossAxisCount: 4,
+                    children: <Widget>[
+                      Container(
+                          height: 82,
+                          width: 82,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.only(
+                                bottomLeft: Radius.circular(5)),
+                            color: Colors.white,
+                            border: new Border.all(
+                                width: 0.5, color: Colors.grey[100]),
+                          ),
+                          child: GestureDetector(
+                            child: EachTab(
+                              width: 80,
+                              badge: CircleAvatar(
+                                backgroundColor: GetConfig.getColor("blue"),
+                                radius: 3,
+                              ),
+                              badgeColor: GetConfig.getColor("blue"),
+                              height: 40,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(Icons.laptop_windows,
+                                  size: 32, color: GetConfig.getColor(theme)),
+                              text: "开放性实验",
+                              textStyle: TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(153, 153, 153, 1)),
+                              color: Colors.white,
+                            ),
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentApplyRecord()));
+                            },
+                          )),
+                      Container(
+                          height: 82,
+                          width: 82,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.only(
+                                bottomLeft: Radius.circular(5)),
+                            color: Colors.white,
+                            border: new Border.all(
+                                width: 0.5, color: Colors.grey[100]),
+                          ),
+                          child: GestureDetector(
+                            child: EachTab(
+                              width: 80,
+                              badge: CircleAvatar(
+                                backgroundColor: GetConfig.getColor("blue"),
+                                radius: 3,
+                              ),
+                              badgeColor: GetConfig.getColor("blue"),
+                              height: 40,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(Icons.assignment_ind,
+                                  size: 32, color: GetConfig.getColor(theme)),
+                              text: "我的实验",
+                              textStyle: TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(153, 153, 153, 1)),
+                              color: Colors.white,
+                            ),
+                            onTap: () {},
+                          ))
+                    ],
+                    shrinkWrap: true,
+                  ),
+                )
+              ],
+            ),
+            margin: const EdgeInsets.only(left: 15, right: 15, top: 20),
+            decoration: new BoxDecoration(
+                //                      color: Color.fromRGBO(242, 246, 249, 1),
+                borderRadius: new BorderRadius.circular(5),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromRGBO(242, 246, 249, 1),
+                    blurRadius: 5.0,
+                  ),
+                ]),
+          ),
+        );
+        break;
+      case "teacher":
+        menus.add(
+          Container(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  child: new Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 10),
+                      ),
+                      new Text(
+                        "实验申请",
+                        style:
+                            TextStyle(color: Color.fromRGBO(102, 102, 102, 1)),
+                      )
+                    ],
+                  ),
+                  width: double.infinity,
+                  height: 40.0,
+                  decoration: new BoxDecoration(
+                    color: Color.fromRGBO(250, 251, 252, 1),
+                    borderRadius:
+                        new BorderRadius.vertical(top: Radius.circular(5.0)),
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  child: GridView.count(
+                    crossAxisCount: 4,
+                    children: <Widget>[
+                      Container(
+                          height: 82,
+                          width: 82,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.only(
+                                bottomLeft: Radius.circular(5)),
+                            color: Colors.white,
+                            border: new Border.all(
+                                width: 0.5, color: Colors.grey[100]),
+                          ),
+                          child: GestureDetector(
+                            child: EachTab(
+                              width: 80,
+                              badge: CircleAvatar(
+                                backgroundColor: GetConfig.getColor("blue"),
+                                radius: 3,
+                              ),
+                              badgeColor: GetConfig.getColor("blue"),
+                              height: 40,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(Icons.apps,
+                                  size: 32, color: GetConfig.getColor(theme)),
+                              text: "实验申请",
+                              textStyle: TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(153, 153, 153, 1)),
+                              color: Colors.white,
+                            ),
+                            onTap: () => Navigator.push(context,
+                                    new MaterialPageRoute(builder: (context) {
+                                  return SelLambScreen();
+                                })),
+                          )),
+                      Container(
+                          height: 82,
+                          width: 82,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.only(
+                                bottomLeft: Radius.circular(5)),
+                            color: Colors.white,
+                            border: new Border.all(
+                                width: 0.5, color: Colors.grey[100]),
+                          ),
+                          child: GestureDetector(
+                            child: EachTab(
+                              width: 80,
+                              badge: CircleAvatar(
+                                backgroundColor: GetConfig.getColor("blue"),
+                                radius: 3,
+                              ),
+                              badgeColor: GetConfig.getColor("blue"),
+                              height: 40,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(Icons.attachment,
+                                  size: 32, color: GetConfig.getColor(theme)),
+                              text: "申请记录",
+                              textStyle: TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(153, 153, 153, 1)),
+                              color: Colors.white,
+                            ),
+                            onTap: () => Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (context) =>
+                                        ApplyRecordListScreen())),
+                          )),
+                    ],
+                    shrinkWrap: true,
+                  ),
+                )
+              ],
+            ),
+            margin: const EdgeInsets.only(left: 15, right: 15, top: 20),
+            decoration: new BoxDecoration(
+                //                      color: Color.fromRGBO(242, 246, 249, 1),
+                borderRadius: new BorderRadius.circular(5),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromRGBO(242, 246, 249, 1),
+                    blurRadius: 5.0,
+                  ),
+                ]),
+          ),
+        );
+        menus.add(
+          Container(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  child: new Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 10),
+                      ),
+                      new Text(
+                        "实验审核",
+                        style:
+                            TextStyle(color: Color.fromRGBO(102, 102, 102, 1)),
+                      )
+                    ],
+                  ),
+                  width: double.infinity,
+                  height: 40.0,
+                  decoration: new BoxDecoration(
+                    color: Color.fromRGBO(250, 251, 252, 1),
+                    borderRadius:
+                        new BorderRadius.vertical(top: Radius.circular(5.0)),
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  child: GridView.count(
+                    crossAxisCount: 4,
+                    children: <Widget>[
+                      Container(
+                          height: 82,
+                          width: 82,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.only(
+                                bottomLeft: Radius.circular(5)),
+                            color: Colors.white,
+                            border: new Border.all(
+                                width: 0.5, color: Colors.grey[100]),
+                          ),
+                          child: GestureDetector(
+                            child: EachTab(
+                              width: 80,
+                              badge: CircleAvatar(
+                                backgroundColor: GetConfig.getColor("blue"),
+                                radius: 3,
+                              ),
+                              badgeColor: GetConfig.getColor("blue"),
+                              height: 40,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(Icons.check_circle_outline,
+                                  size: 32, color: GetConfig.getColor(theme)),
+                              text: "学生待审核",
+                              textStyle: TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(153, 153, 153, 1)),
+                              color: Colors.white,
+                            ),
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return CheckApplyStudent();
+                              }));
+                            },
+                          )),
+                      Container(
+                          height: 82,
+                          width: 82,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.only(
+                                bottomLeft: Radius.circular(5)),
+                            color: Colors.white,
+                            border: new Border.all(
+                                width: 0.5, color: Colors.grey[100]),
+                          ),
+                          child: GestureDetector(
+                            child: EachTab(
+                              width: 80,
+                              badge: CircleAvatar(
+                                backgroundColor: GetConfig.getColor("blue"),
+                                radius: 3,
+                              ),
+                              badgeColor: GetConfig.getColor("blue"),
+                              height: 40,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(Icons.check_circle,
+                                  size: 32, color: GetConfig.getColor(theme)),
+                              text: "学生已审核",
+                              textStyle: TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(153, 153, 153, 1)),
+                              color: Colors.white,
+                            ),
+                            onTap: () {},
+                          )),
+                    ],
+                    shrinkWrap: true,
+                  ),
+                )
+              ],
+            ),
+            margin: const EdgeInsets.only(left: 15, right: 15, top: 20),
+            decoration: new BoxDecoration(
+                //                      color: Color.fromRGBO(242, 246, 249, 1),
+                borderRadius: new BorderRadius.circular(5),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromRGBO(242, 246, 249, 1),
+                    blurRadius: 5.0,
+                  ),
+                ]),
+          ),
+        );
+        break;
+      case "admin":
+        menus.add(
+          Container(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  child: new Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 10),
+                      ),
+                      new Text(
+                        "人员管理",
+                        style:
+                            TextStyle(color: Color.fromRGBO(102, 102, 102, 1)),
+                      )
+                    ],
+                  ),
+                  width: double.infinity,
+                  height: 40.0,
+                  decoration: new BoxDecoration(
+                    color: Color.fromRGBO(250, 251, 252, 1),
+                    borderRadius:
+                        new BorderRadius.vertical(top: Radius.circular(5.0)),
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  child: GridView.count(
+                    crossAxisCount: 4,
+                    children: <Widget>[
+                      Container(
+                          height: 82,
+                          width: 82,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.only(
+                                bottomLeft: Radius.circular(5)),
+                            color: Colors.white,
+                            border: new Border.all(
+                                width: 0.5, color: Colors.grey[100]),
+                          ),
+                          child: GestureDetector(
+                            child: EachTab(
+                              width: 80,
+                              badge: CircleAvatar(
+                                backgroundColor: GetConfig.getColor("blue"),
+                                radius: 3,
+                              ),
+                              badgeColor: GetConfig.getColor("blue"),
+                              height: 40,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(Icons.account_circle,
+                                  size: 32, color: GetConfig.getColor(theme)),
+                              text: "教师管理",
+                              textStyle: TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(153, 153, 153, 1)),
+                              color: Colors.white,
+                            ),
+                            onTap: () {},
+                          )),
+                      Container(
+                          height: 82,
+                          width: 82,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.only(
+                                bottomLeft: Radius.circular(5)),
+                            color: Colors.white,
+                            border: new Border.all(
+                                width: 0.5, color: Colors.grey[100]),
+                          ),
+                          child: GestureDetector(
+                            child: EachTab(
+                              width: 80,
+                              badge: CircleAvatar(
+                                backgroundColor: GetConfig.getColor("blue"),
+                                radius: 3,
+                              ),
+                              badgeColor: GetConfig.getColor("blue"),
+                              height: 40,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(Icons.accessibility_new,
+                                  size: 32, color: GetConfig.getColor(theme)),
+                              text: "学生管理",
+                              textStyle: TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(153, 153, 153, 1)),
+                              color: Colors.white,
+                            ),
+                            onTap: () {},
+                          )),
+                      Container(
+                          height: 82,
+                          width: 82,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.only(
+                                bottomLeft: Radius.circular(5)),
+                            color: Colors.white,
+                            border: new Border.all(
+                                width: 0.5, color: Colors.grey[100]),
+                          ),
+                          child: GestureDetector(
+                            child: EachTab(
+                              width: 80,
+                              badge: CircleAvatar(
+                                backgroundColor: GetConfig.getColor("blue"),
+                                radius: 3,
+                              ),
+                              badgeColor: GetConfig.getColor("blue"),
+                              height: 40,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(Icons.folder_shared,
+                                  size: 32, color: GetConfig.getColor(theme)),
+                              text: "管理员管理",
+                              textStyle: TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(153, 153, 153, 1)),
+                              color: Colors.white,
+                            ),
+                            onTap: () {},
+                          ))
+                    ],
+                    shrinkWrap: true,
+                  ),
+                )
+              ],
+            ),
+            margin: const EdgeInsets.only(left: 15, right: 15, top: 20),
+            decoration: new BoxDecoration(
+                //                      color: Color.fromRGBO(242, 246, 249, 1),
+                borderRadius: new BorderRadius.circular(5),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromRGBO(242, 246, 249, 1),
+                    blurRadius: 5.0,
+                  ),
+                ]),
+          ),
+        );
+        menus.add(
+          Container(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  child: new Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 10),
+                      ),
+                      new Text(
+                        "资源管理",
+                        style:
+                            TextStyle(color: Color.fromRGBO(102, 102, 102, 1)),
+                      )
+                    ],
+                  ),
+                  width: double.infinity,
+                  height: 40.0,
+                  decoration: new BoxDecoration(
+                    color: Color.fromRGBO(250, 251, 252, 1),
+                    borderRadius:
+                        new BorderRadius.vertical(top: Radius.circular(5.0)),
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  child: GridView.count(
+                    crossAxisCount: 4,
+                    children: <Widget>[
+                      Container(
+                          height: 82,
+                          width: 82,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.only(
+                                bottomLeft: Radius.circular(5)),
+                            color: Colors.white,
+                            border: new Border.all(
+                                width: 0.5, color: Colors.grey[100]),
+                          ),
+                          child: GestureDetector(
+                            child: EachTab(
+                              width: 80,
+                              badge: CircleAvatar(
+                                backgroundColor: GetConfig.getColor("blue"),
+                                radius: 3,
+                              ),
+                              badgeColor: GetConfig.getColor("blue"),
+                              height: 40,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(Icons.class_,
+                                  size: 32, color: GetConfig.getColor(theme)),
+                              text: "实验室分配",
+                              textStyle: TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(153, 153, 153, 1)),
+                              color: Colors.white,
+                            ),
+                            onTap: () {},
+                          )),
+                      Container(
+                          height: 82,
+                          width: 82,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.only(
+                                bottomLeft: Radius.circular(5)),
+                            color: Colors.white,
+                            border: new Border.all(
+                                width: 0.5, color: Colors.grey[100]),
+                          ),
+                          child: GestureDetector(
+                            child: EachTab(
+                              width: 80,
+                              badge: CircleAvatar(
+                                backgroundColor: GetConfig.getColor("blue"),
+                                radius: 3,
+                              ),
+                              badgeColor: GetConfig.getColor("blue"),
+                              height: 40,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(Icons.assignment,
+                                  size: 32, color: GetConfig.getColor(theme)),
+                              text: "实验室管理",
+                              textStyle: TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(153, 153, 153, 1)),
+                              color: Colors.white,
+                            ),
+                            onTap: () {},
+                          )),
+                    ],
+                    shrinkWrap: true,
+                  ),
+                )
+              ],
+            ),
+            margin: const EdgeInsets.only(left: 15, right: 15, top: 20),
+            decoration: new BoxDecoration(
+                //                      color: Color.fromRGBO(242, 246, 249, 1),
+                borderRadius: new BorderRadius.circular(5),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromRGBO(242, 246, 249, 1),
+                    blurRadius: 5.0,
+                  ),
+                ]),
+          ),
+        );
+        menus.add(
+          Container(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  child: new Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 10),
+                      ),
+                      new Text(
+                        "系统配置",
+                        style:
+                            TextStyle(color: Color.fromRGBO(102, 102, 102, 1)),
+                      )
+                    ],
+                  ),
+                  width: double.infinity,
+                  height: 40.0,
+                  decoration: new BoxDecoration(
+                    color: Color.fromRGBO(250, 251, 252, 1),
+                    borderRadius:
+                        new BorderRadius.vertical(top: Radius.circular(5.0)),
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  child: GridView.count(
+                    crossAxisCount: 4,
+                    children: <Widget>[
+                      Container(
+                          height: 82,
+                          width: 82,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.only(
+                                bottomLeft: Radius.circular(5)),
+                            color: Colors.white,
+                            border: new Border.all(
+                                width: 0.5, color: Colors.grey[100]),
+                          ),
+                          child: GestureDetector(
+                            child: EachTab(
+                              width: 80,
+                              badge: CircleAvatar(
+                                backgroundColor: GetConfig.getColor("blue"),
+                                radius: 3,
+                              ),
+                              badgeColor: GetConfig.getColor("blue"),
+                              height: 40,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(Icons.timer,
+                                  size: 32, color: GetConfig.getColor(theme)),
+                              text: "作息时间配置",
+                              textStyle: TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(153, 153, 153, 1)),
+                              color: Colors.white,
+                            ),
+                            onTap: () => Navigator.push(context,
+                                    new MaterialPageRoute(builder: (context) {
+                                  return ScheduleSettingPage();
+                                })),
+                          )),
+                    ],
+                    shrinkWrap: true,
+                  ),
+                )
+              ],
+            ),
+            margin: const EdgeInsets.only(left: 15, right: 15, top: 20),
+            decoration: new BoxDecoration(
+                //                      color: Color.fromRGBO(242, 246, 249, 1),
+                borderRadius: new BorderRadius.circular(5),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromRGBO(242, 246, 249, 1),
+                    blurRadius: 5.0,
+                  ),
+                ]),
+          ),
+        );
+        break;
+      case "expAdmin":
+        menus.add(
+          Container(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  child: new Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 10),
+                      ),
+                      new Text(
+                        "实验管理",
+                        style:
+                            TextStyle(color: Color.fromRGBO(102, 102, 102, 1)),
+                      )
+                    ],
+                  ),
+                  width: double.infinity,
+                  height: 40.0,
+                  decoration: new BoxDecoration(
+                    color: Color.fromRGBO(250, 251, 252, 1),
+                    borderRadius:
+                        new BorderRadius.vertical(top: Radius.circular(5.0)),
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  child: GridView.count(
+                    crossAxisCount: 4,
+                    children: <Widget>[
+                      Container(
+                          height: 82,
+                          width: 82,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.only(
+                                bottomLeft: Radius.circular(5)),
+                            color: Colors.white,
+                            border: new Border.all(
+                                width: 0.5, color: Colors.grey[100]),
+                          ),
+                          child: GestureDetector(
+                            child: EachTab(
+                              width: 80,
+                              badge: CircleAvatar(
+                                backgroundColor: GetConfig.getColor("blue"),
+                                radius: 3,
+                              ),
+                              badgeColor: GetConfig.getColor("blue"),
+                              height: 40,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(
+                                Icons.playlist_add_check,
+                                color: GetConfig.getColor(theme),
+                                size: 32,
+                              ),
+                              text: "教师审核",
+                              textStyle: TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(153, 153, 153, 1)),
+                              color: Colors.white,
+                            ),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        new TeachApplyCheck())),
+                          )),
+                      Container(
+                          height: 82,
+                          width: 82,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.only(
+                                bottomLeft: Radius.circular(5)),
+                            color: Colors.white,
+                            border: new Border.all(
+                                width: 0.5, color: Colors.grey[100]),
+                          ),
+                          child: GestureDetector(
+                            child: EachTab(
+                              width: 80,
+                              badge: CircleAvatar(
+                                backgroundColor: GetConfig.getColor("blue"),
+                                radius: 3,
+                              ),
+                              badgeColor: GetConfig.getColor("blue"),
+                              height: 40,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(Icons.spellcheck,
+                                  size: 32, color: GetConfig.getColor(theme)),
+                              text: "学生审核",
+                              textStyle: TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(153, 153, 153, 1)),
+                              color: Colors.white,
+                            ),
+                            onTap: () {},
+                          )),
+                    ],
+                    shrinkWrap: true,
+                  ),
+                )
+              ],
+            ),
+            margin: const EdgeInsets.only(left: 15, right: 15, top: 20),
+            decoration: new BoxDecoration(
+                //                      color: Color.fromRGBO(242, 246, 249, 1),
+                borderRadius: new BorderRadius.circular(5),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromRGBO(242, 246, 249, 1),
+                    blurRadius: 5.0,
+                  ),
+                ]),
+          ),
+        );
+        break;
 
-                               },
-                             )),
-                         Container(
-                             height: 82,
-                             width: 82,
-                             decoration: new BoxDecoration(
-                               borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-                               color: Colors.white,
-                               border: new Border.all(width: 0.5, color: Colors.grey[100]),
-                             ),
-                             child: GestureDetector(
-                               child: EachTab(
-                                 width: 80,
-                                 badge: CircleAvatar(
-                                   backgroundColor:  GetConfig.getColor("blue"),
-                                   radius: 3,
-                                 ),
-                                 badgeColor: GetConfig.getColor("blue"),
-                                 height: 40,
-                                 padding: EdgeInsets.all(0),
-                                 icon: Icon(Icons.assignment_ind, size: 32, color: GetConfig.getColor(theme)),
-                                 text: "我的实验",
-                                 textStyle: TextStyle(
-                                     fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-                                 color: Colors.white,
-                               ),
-                               onTap: () {
-
-                               },
-                             ))
-                       ],
-                       shrinkWrap: true,
-                     ),
-                   )
-                 ],
-               ),
-               margin: const EdgeInsets.only(left: 15, right: 15, top: 20),
-               decoration: new BoxDecoration(
-          //                      color: Color.fromRGBO(242, 246, 249, 1),
-                   borderRadius: new BorderRadius.circular(5),
-                   boxShadow: [
-                     BoxShadow(
-                       color: Color.fromRGBO(242, 246, 249, 1),
-                       blurRadius: 5.0,
-                     ),
-                   ]),
-             ),
-       );
-       break;
-     case "teacher":
-       menus.add(
-         Container(
-           child: Column(
-             children: <Widget>[
-               Container(
-                 child: new Row(
-                   children: <Widget>[
-                     Padding(
-                       padding: EdgeInsets.only(left: 10),
-                     ),
-                     new Text(
-                       "实验申请",
-                       style: TextStyle(
-                           color: Color.fromRGBO(102, 102, 102, 1)),
-                     )
-                   ],
-                 ),
-                 width: double.infinity,
-                 height: 40.0,
-                 decoration: new BoxDecoration(
-                   color: Color.fromRGBO(250, 251, 252, 1),
-                   borderRadius: new BorderRadius.vertical(
-                       top: Radius.circular(5.0)),
-                 ),
-               ),
-               Container(
-                 width: double.infinity,
-                 child: GridView.count(
-                   crossAxisCount: 4,
-                   children: <Widget>[
-                     Container(
-                         height: 82,
-                         width: 82,
-                         decoration: new BoxDecoration(
-                           borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-                           color: Colors.white,
-                           border: new Border.all(width: 0.5, color: Colors.grey[100]),
-                         ),
-                         child: GestureDetector(
-                           child: EachTab(
-                             width: 80,
-                             badge: CircleAvatar(
-                               backgroundColor:  GetConfig.getColor("blue"),
-                               radius: 3,
-                             ),
-                             badgeColor: GetConfig.getColor("blue"),
-                             height: 40,
-                             padding: EdgeInsets.all(0),
-                             icon: Icon(Icons.apps, size: 32, color: GetConfig.getColor(theme)),
-                             text: "实验申请",
-                             textStyle: TextStyle(
-                                 fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-                             color: Colors.white,
-                           ),
-                           onTap:() =>Navigator.push(context, new MaterialPageRoute(builder: (context){
-                             return SelLambScreen();
-                           })),
-                         )),
-                     Container(
-                         height: 82,
-                         width: 82,
-                         decoration: new BoxDecoration(
-                           borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-                           color: Colors.white,
-                           border: new Border.all(width: 0.5, color: Colors.grey[100]),
-                         ),
-                         child: GestureDetector(
-                           child: EachTab(
-                             width: 80,
-                             badge: CircleAvatar(
-                               backgroundColor: GetConfig.getColor("blue"),
-                               radius: 3,
-                             ),
-                             badgeColor: GetConfig.getColor("blue"),
-                             height: 40,
-                             padding: EdgeInsets.all(0),
-                             icon: Icon(Icons.attachment, size: 32, color: GetConfig.getColor(theme)),
-                             text: "申请记录",
-                             textStyle: TextStyle(
-                                 fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-                             color: Colors.white,
-                           ),
-                           onTap: ()=>Navigator.push(context, new MaterialPageRoute(builder: (context)=>ApplyRecordListScreen())),
-                         )),
-
-                   ],
-                   shrinkWrap: true,
-                 ),
-               )
-             ],
-           ),
-           margin: const EdgeInsets.only(left: 15, right: 15, top: 20),
-           decoration: new BoxDecoration(
-             //                      color: Color.fromRGBO(242, 246, 249, 1),
-               borderRadius: new BorderRadius.circular(5),
-               boxShadow: [
-                 BoxShadow(
-                   color: Color.fromRGBO(242, 246, 249, 1),
-                   blurRadius: 5.0,
-                 ),
-               ]),
-         ),
-       );
-       menus.add(
-         Container(
-           child: Column(
-             children: <Widget>[
-               Container(
-                 child: new Row(
-                   children: <Widget>[
-                     Padding(
-                       padding: EdgeInsets.only(left: 10),
-                     ),
-                     new Text(
-                       "实验审核",
-                       style: TextStyle(
-                           color: Color.fromRGBO(102, 102, 102, 1)),
-                     )
-                   ],
-                 ),
-                 width: double.infinity,
-                 height: 40.0,
-                 decoration: new BoxDecoration(
-                   color: Color.fromRGBO(250, 251, 252, 1),
-                   borderRadius: new BorderRadius.vertical(
-                       top: Radius.circular(5.0)),
-                 ),
-               ),
-               Container(
-                 width: double.infinity,
-                 child: GridView.count(
-                   crossAxisCount: 4,
-                   children: <Widget>[
-                     Container(
-                         height: 82,
-                         width: 82,
-                         decoration: new BoxDecoration(
-                           borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-                           color: Colors.white,
-                           border: new Border.all(width: 0.5, color: Colors.grey[100]),
-                         ),
-                         child: GestureDetector(
-                           child: EachTab(
-                             width: 80,
-                             badge: CircleAvatar(
-                               backgroundColor:  GetConfig.getColor("blue"),
-                               radius: 3,
-                             ),
-                             badgeColor: GetConfig.getColor("blue"),
-                             height: 40,
-                             padding: EdgeInsets.all(0),
-                             icon: Icon(Icons.check_circle_outline, size: 32, color: GetConfig.getColor(theme)),
-                             text: "学生待审核",
-                             textStyle: TextStyle(
-                                 fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-                             color: Colors.white,
-                           ),
-                           onTap: () {
-
-                           },
-                         )),
-                     Container(
-                         height: 82,
-                         width: 82,
-                         decoration: new BoxDecoration(
-                           borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-                           color: Colors.white,
-                           border: new Border.all(width: 0.5, color: Colors.grey[100]),
-                         ),
-                         child: GestureDetector(
-                           child: EachTab(
-                             width: 80,
-                             badge: CircleAvatar(
-                               backgroundColor: GetConfig.getColor("blue"),
-                               radius: 3,
-                             ),
-                             badgeColor: GetConfig.getColor("blue"),
-                             height: 40,
-                             padding: EdgeInsets.all(0),
-                             icon: Icon(Icons.check_circle, size: 32, color: GetConfig.getColor(theme)),
-                             text: "学生已审核",
-                             textStyle: TextStyle(
-                                 fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-                             color: Colors.white,
-                           ),
-                           onTap: () {
-
-                           },
-                         )),
-                   ],
-                   shrinkWrap: true,
-                 ),
-               )
-             ],
-           ),
-           margin: const EdgeInsets.only(left: 15, right: 15, top: 20),
-           decoration: new BoxDecoration(
-             //                      color: Color.fromRGBO(242, 246, 249, 1),
-               borderRadius: new BorderRadius.circular(5),
-               boxShadow: [
-                 BoxShadow(
-                   color: Color.fromRGBO(242, 246, 249, 1),
-                   blurRadius: 5.0,
-                 ),
-               ]),
-         ),
-       );
-       break;
-     case "admin":
-       menus.add(
-         Container(
-           child: Column(
-             children: <Widget>[
-               Container(
-                 child: new Row(
-                   children: <Widget>[
-                     Padding(
-                       padding: EdgeInsets.only(left: 10),
-                     ),
-                     new Text(
-                       "人员管理",
-                       style: TextStyle(
-                           color: Color.fromRGBO(102, 102, 102, 1)),
-                     )
-                   ],
-                 ),
-                 width: double.infinity,
-                 height: 40.0,
-                 decoration: new BoxDecoration(
-                   color: Color.fromRGBO(250, 251, 252, 1),
-                   borderRadius: new BorderRadius.vertical(
-                       top: Radius.circular(5.0)),
-                 ),
-               ),
-               Container(
-                 width: double.infinity,
-                 child: GridView.count(
-                   crossAxisCount: 4,
-                   children: <Widget>[
-                     Container(
-                         height: 82,
-                         width: 82,
-                         decoration: new BoxDecoration(
-                           borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-                           color: Colors.white,
-                           border: new Border.all(width: 0.5, color: Colors.grey[100]),
-                         ),
-                         child: GestureDetector(
-                           child: EachTab(
-                             width: 80,
-                             badge: CircleAvatar(
-                               backgroundColor: GetConfig.getColor("blue"),
-                               radius: 3,
-                             ),
-                             badgeColor: GetConfig.getColor("blue"),
-                             height: 40,
-                             padding: EdgeInsets.all(0),
-                             icon: Icon(Icons.account_circle, size: 32, color: GetConfig.getColor(theme)),
-                             text: "教师管理",
-                             textStyle: TextStyle(
-                                 fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-                             color: Colors.white,
-                           ),
-                           onTap: () {
-
-                           },
-                         )),
-                     Container(
-                         height: 82,
-                         width: 82,
-                         decoration: new BoxDecoration(
-                           borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-                           color: Colors.white,
-                           border: new Border.all(width: 0.5, color: Colors.grey[100]),
-                         ),
-                         child: GestureDetector(
-                           child: EachTab(
-                             width: 80,
-                             badge: CircleAvatar(
-                               backgroundColor: GetConfig.getColor("blue"),
-                               radius: 3,
-                             ),
-                             badgeColor: GetConfig.getColor("blue"),
-                             height: 40,
-                             padding: EdgeInsets.all(0),
-                             icon: Icon(Icons.accessibility_new, size: 32, color: GetConfig.getColor(theme)),
-                             text: "学生管理",
-                             textStyle: TextStyle(
-                                 fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-                             color: Colors.white,
-                           ),
-                           onTap: () {
-
-                           },
-                         )),
-                     Container(
-                         height: 82,
-                         width: 82,
-                         decoration: new BoxDecoration(
-                           borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-                           color: Colors.white,
-                           border: new Border.all(width: 0.5, color: Colors.grey[100]),
-                         ),
-                         child: GestureDetector(
-                           child: EachTab(
-                             width: 80,
-                             badge: CircleAvatar(
-                               backgroundColor:  GetConfig.getColor("blue"),
-                               radius: 3,
-                             ),
-                             badgeColor: GetConfig.getColor("blue"),
-                             height: 40,
-                             padding: EdgeInsets.all(0),
-                             icon: Icon(Icons.folder_shared, size: 32, color: GetConfig.getColor(theme)),
-                             text: "管理员管理",
-                             textStyle: TextStyle(
-                                 fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-                             color: Colors.white,
-                           ),
-                           onTap: () {
-
-                           },
-                         ))
-                   ],
-                   shrinkWrap: true,
-                 ),
-               )
-             ],
-           ),
-           margin: const EdgeInsets.only(left: 15, right: 15, top: 20),
-           decoration: new BoxDecoration(
-             //                      color: Color.fromRGBO(242, 246, 249, 1),
-               borderRadius: new BorderRadius.circular(5),
-               boxShadow: [
-                 BoxShadow(
-                   color: Color.fromRGBO(242, 246, 249, 1),
-                   blurRadius: 5.0,
-                 ),
-               ]),
-         ),
-       );
-       menus.add(
-         Container(
-           child: Column(
-             children: <Widget>[
-               Container(
-                 child: new Row(
-                   children: <Widget>[
-                     Padding(
-                       padding: EdgeInsets.only(left: 10),
-                     ),
-                     new Text(
-                       "资源管理",
-                       style: TextStyle(
-                           color: Color.fromRGBO(102, 102, 102, 1)),
-                     )
-                   ],
-                 ),
-                 width: double.infinity,
-                 height: 40.0,
-                 decoration: new BoxDecoration(
-                   color: Color.fromRGBO(250, 251, 252, 1),
-                   borderRadius: new BorderRadius.vertical(
-                       top: Radius.circular(5.0)),
-                 ),
-               ),
-               Container(
-                 width: double.infinity,
-                 child: GridView.count(
-                   crossAxisCount: 4,
-                   children: <Widget>[
-                     Container(
-                         height: 82,
-                         width: 82,
-                         decoration: new BoxDecoration(
-                           borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-                           color: Colors.white,
-                           border: new Border.all(width: 0.5, color: Colors.grey[100]),
-                         ),
-                         child: GestureDetector(
-                           child: EachTab(
-                             width: 80,
-                             badge: CircleAvatar(
-                               backgroundColor: GetConfig.getColor("blue"),
-                               radius: 3,
-                             ),
-                             badgeColor: GetConfig.getColor("blue"),
-                             height: 40,
-                             padding: EdgeInsets.all(0),
-                             icon: Icon(Icons.class_, size: 32, color: GetConfig.getColor(theme)),
-                             text: "实验室分配",
-                             textStyle: TextStyle(
-                                 fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-                             color: Colors.white,
-                           ),
-                           onTap: () {
-
-                           },
-                         )),
-                     Container(
-                         height: 82,
-                         width: 82,
-                         decoration: new BoxDecoration(
-                           borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-                           color: Colors.white,
-                           border: new Border.all(width: 0.5, color: Colors.grey[100]),
-                         ),
-                         child: GestureDetector(
-                           child: EachTab(
-                             width: 80,
-                             badge: CircleAvatar(
-                               backgroundColor:  GetConfig.getColor("blue"),
-                               radius: 3,
-                             ),
-                             badgeColor: GetConfig.getColor("blue"),
-                             height: 40,
-                             padding: EdgeInsets.all(0),
-                             icon: Icon(Icons.assignment, size: 32, color: GetConfig.getColor(theme)),
-                             text: "实验室管理",
-                             textStyle: TextStyle(
-                                 fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-                             color: Colors.white,
-                           ),
-                           onTap: () {
-
-                           },
-                         )),
-
-                   ],
-                   shrinkWrap: true,
-                 ),
-               )
-             ],
-           ),
-           margin: const EdgeInsets.only(left: 15, right: 15, top: 20),
-           decoration: new BoxDecoration(
-             //                      color: Color.fromRGBO(242, 246, 249, 1),
-               borderRadius: new BorderRadius.circular(5),
-               boxShadow: [
-                 BoxShadow(
-                   color: Color.fromRGBO(242, 246, 249, 1),
-                   blurRadius: 5.0,
-                 ),
-               ]),
-         ),
-       );
-       menus.add(
-         Container(
-           child: Column(
-             children: <Widget>[
-               Container(
-                 child: new Row(
-                   children: <Widget>[
-                     Padding(
-                       padding: EdgeInsets.only(left: 10),
-                     ),
-                     new Text(
-                       "系统配置",
-                       style: TextStyle(
-                           color: Color.fromRGBO(102, 102, 102, 1)),
-                     )
-                   ],
-                 ),
-                 width: double.infinity,
-                 height: 40.0,
-                 decoration: new BoxDecoration(
-                   color: Color.fromRGBO(250, 251, 252, 1),
-                   borderRadius: new BorderRadius.vertical(
-                       top: Radius.circular(5.0)),
-                 ),
-               ),
-               Container(
-                 width: double.infinity,
-                 child: GridView.count(
-                   crossAxisCount: 4,
-                   children: <Widget>[
-                     Container(
-                         height: 82,
-                         width: 82,
-                         decoration: new BoxDecoration(
-                           borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-                           color: Colors.white,
-                           border: new Border.all(width: 0.5, color: Colors.grey[100]),
-                         ),
-                         child: GestureDetector(
-                           child: EachTab(
-                             width: 80,
-                             badge: CircleAvatar(
-                               backgroundColor: GetConfig.getColor("blue"),
-                               radius: 3,
-                             ),
-                             badgeColor: GetConfig.getColor("blue"),
-                             height: 40,
-                             padding: EdgeInsets.all(0),
-                             icon: Icon(Icons.timer, size: 32, color: GetConfig.getColor(theme)),
-                             text: "作息时间配置",
-                             textStyle: TextStyle(
-                                 fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-                             color: Colors.white,
-                           ),
-                           onTap: () =>Navigator.push(context, new MaterialPageRoute(builder: (context){
-                             return ScheduleSettingPage();
-                           })),
-                         )),
-
-
-                   ],
-                   shrinkWrap: true,
-                 ),
-               )
-             ],
-           ),
-           margin: const EdgeInsets.only(left: 15, right: 15, top: 20),
-           decoration: new BoxDecoration(
-             //                      color: Color.fromRGBO(242, 246, 249, 1),
-               borderRadius: new BorderRadius.circular(5),
-               boxShadow: [
-                 BoxShadow(
-                   color: Color.fromRGBO(242, 246, 249, 1),
-                   blurRadius: 5.0,
-                 ),
-               ]),
-         ),
-       );
-       break;
-     case "expAdmin":
-       menus.add(
-         Container(
-           child: Column(
-             children: <Widget>[
-               Container(
-                 child: new Row(
-                   children: <Widget>[
-                     Padding(
-                       padding: EdgeInsets.only(left: 10),
-                     ),
-                     new Text(
-                       "实验管理",
-                       style: TextStyle(
-                           color: Color.fromRGBO(102, 102, 102, 1)),
-                     )
-                   ],
-                 ),
-                 width: double.infinity,
-                 height: 40.0,
-                 decoration: new BoxDecoration(
-                   color: Color.fromRGBO(250, 251, 252, 1),
-                   borderRadius: new BorderRadius.vertical(
-                       top: Radius.circular(5.0)),
-                 ),
-               ),
-               Container(
-                 width: double.infinity,
-                 child: GridView.count(
-                   crossAxisCount: 4,
-                   children: <Widget>[
-                     Container(
-                         height: 82,
-                         width: 82,
-                         decoration: new BoxDecoration(
-                           borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-                           color: Colors.white,
-                           border: new Border.all(width: 0.5, color: Colors.grey[100]),
-                         ),
-                         child: GestureDetector(
-                           child: EachTab(
-                             width: 80,
-                             badge: CircleAvatar(
-                               backgroundColor:  GetConfig.getColor("blue"),
-                               radius: 3,
-                             ),
-                             badgeColor: GetConfig.getColor("blue"),
-                             height: 40,
-                             padding: EdgeInsets.all(0),
-                             icon:Icon(Icons.playlist_add_check,color: GetConfig.getColor(theme),size: 32,),
-                             text: "教师审核",
-                             textStyle: TextStyle(
-                                 fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-                             color: Colors.white,
-                           ),
-                           onTap: () =>Navigator.push(context, MaterialPageRoute(builder: (context)=>new TeachApplyCheck())),
-                         )),
-                     Container(
-                         height: 82,
-                         width: 82,
-                         decoration: new BoxDecoration(
-                           borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(5)),
-                           color: Colors.white,
-                           border: new Border.all(width: 0.5, color: Colors.grey[100]),
-                         ),
-                         child: GestureDetector(
-                           child: EachTab(
-                             width: 80,
-                             badge: CircleAvatar(
-                               backgroundColor:  GetConfig.getColor("blue"),
-                               radius: 3,
-                             ),
-                             badgeColor: GetConfig.getColor("blue"),
-                             height: 40,
-                             padding: EdgeInsets.all(0),
-                             icon: Icon(Icons.spellcheck, size: 32, color: GetConfig.getColor(theme)),
-                             text: "学生审核",
-                             textStyle: TextStyle(
-                                 fontSize: 13, color: Color.fromRGBO(153, 153, 153, 1)),
-                             color: Colors.white,
-                           ),
-                           onTap: () {
-
-                           },
-                         )),
-                   ],
-                   shrinkWrap: true,
-                 ),
-               )
-             ],
-           ),
-           margin: const EdgeInsets.only(left: 15, right: 15, top: 20),
-           decoration: new BoxDecoration(
-             //                      color: Color.fromRGBO(242, 246, 249, 1),
-               borderRadius: new BorderRadius.circular(5),
-               boxShadow: [
-                 BoxShadow(
-                   color: Color.fromRGBO(242, 246, 249, 1),
-                   blurRadius: 5.0,
-                 ),
-               ]),
-         ),
-       );
-       break;
-
-     default:
-       break;
-
-   }
-return menus;
+      default:
+        break;
+    }
+    return menus;
   }
+
   @override
   void initState() {
     super.initState();
@@ -931,12 +982,10 @@ return menus;
     await SharedPreferences.getInstance().then((sp) {
       setState(() {
         //用户类型
-        if(sp.getString("userModel")!=null){
-          userInfo=UserModel.fromJson(json.decode(sp.getString("userModel")));
+        if (sp.getString("userModel") != null) {
+          userInfo = UserModel.fromJson(json.decode(sp.getString("userModel")));
         }
       });
     });
   }
-
-
 }

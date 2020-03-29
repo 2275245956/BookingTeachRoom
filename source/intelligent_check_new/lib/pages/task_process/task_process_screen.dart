@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/model/Task/FeedbackDto.dart';
 import 'package:intelligent_check_new/pages/CheckExecute/ImageList.dart';
 import 'package:intelligent_check_new/tools/DateUtil.dart';
-import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intelligent_check_new/tools/MessageBox.dart';
 import 'package:intelligent_check_new/widget/touch_callback.dart';
 import 'package:intelligent_check_new/pages/task_process/feedback_screen.dart';

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intelligent_check_new/model/Task/TaskModel.dart';
 import 'package:intelligent_check_new/pages/task_detail/task_feedback_detail_screen.dart';
 import 'package:intelligent_check_new/services/TaskServices.dart';
 import 'package:intelligent_check_new/model/Task/ProcessInfo.dart';
 import 'package:intelligent_check_new/tools/DateUtil.dart';
-import 'package:intelligent_check_new/tools/GetConfig.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intelligent_check_new/constants/color.dart';
 

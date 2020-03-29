@@ -4,7 +4,6 @@ import 'package:intelligent_check_new/model/PageDto.dart';
 import 'package:intelligent_check_new/model/plan_inspection/check_point_detail.dart';
 import 'package:intelligent_check_new/model/plan_inspection/plan_task_detail.dart';
 import 'package:intelligent_check_new/model/plan_list_input.dart';
-import 'package:intelligent_check_new/model/plan_list_output.dart';
 import 'package:intelligent_check_new/services/api_address.dart';
 import 'package:intelligent_check_new/tools/HttpUtil.dart';
 import 'dart:async';
@@ -16,6 +15,7 @@ Future<PageDto> getPlanListOutputList(PlanListInput planListInput,num pageIndex)
     List<Map> request = new List();
 
     // 用户ID
+    // ignore: unrelated_type_equality_checks
     if(null != planListInput.userId && -1 != planListInput.userId){
       request.add({"name": "userId", "value" :planListInput.userId});
     }

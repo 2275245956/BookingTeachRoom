@@ -16,7 +16,32 @@ import 'package:path_provider/path_provider.dart';
 
 //列表查询
 Future<APIResponse> stuLogin(String userName,String pwd, String roleType) async {
-  var data = await HttpUtil().post(ApiAddress.USER_LOGIN+"?name=$userName&pass=$pwd&role=$roleType" );
-
-  return APIResponse.fromJson(data);
+  try{
+    var data = await HttpUtil().post(ApiAddress.USER_LOGIN+"?name=$userName&pass=$pwd&role=$roleType" );
+    return APIResponse.fromJson(data);
+  }catch(e){throw e;}
 }
+
+Future<APIResponse> GetAllPassedTeacherlambs(String sNumber,String pageNum)async{
+  try{
+    var data = await HttpUtil().get(ApiAddress.GETALLPASSEDLAMS+"?sNumber=$sNumber&pageNum=$pageNum" );
+    return APIResponse.fromJson(data);
+  }catch(e){throw e;}
+}
+
+Future<APIResponse> StudentCancelApply(String reqNumber)async{
+  try{
+    var data = await HttpUtil().post(ApiAddress.STUCANCELAPPLY+"?reqNumber=$reqNumber" );
+    return APIResponse.fromJson(data);
+  }catch(e){throw e;}
+}
+
+Future<APIResponse> StuSaveApplyInfo(dynamic jsonStr) async {
+  try {
+    var data = await HttpUtil().post(ApiAddress.STUAPPLYLAMB, data: json.encode(jsonStr));
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}
+

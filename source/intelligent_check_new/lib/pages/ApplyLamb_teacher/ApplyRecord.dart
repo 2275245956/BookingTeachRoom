@@ -491,16 +491,6 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
                                       fontWeight: FontWeight.w400)
                                   : new TextStyle(fontSize: 14.0),
                             ),
-//                            new Expanded(
-//                                child: new Align(
-//                              alignment: Alignment.centerRight,
-//                              child: selected
-//                                  ? new Icon(
-//                                      Icons.check,
-//                                      color: Theme.of(context).primaryColor,
-//                                    )
-//                                  : null,
-//                            )),
                           ],
                         ));
                   },

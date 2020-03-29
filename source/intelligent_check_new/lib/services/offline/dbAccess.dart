@@ -1,5 +1,4 @@
 import 'dart:convert' show json;
-import 'dart:io';
 import 'package:intelligent_check_new/common/JunCommon.dart';
 import 'package:intelligent_check_new/model/LoginResult.dart';
 import 'package:intelligent_check_new/services/api_address.dart';

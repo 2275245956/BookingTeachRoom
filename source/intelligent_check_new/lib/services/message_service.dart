@@ -26,9 +26,9 @@ Future<PageDto> getMessageList(MessageType condition,[num pageNumber=0,num pageS
   if(condition != null && condition.id != "-1"){
     request["value"] = condition.id;
   }
-  List<Map> request_data = List();
-  request_data.add(request);
-  var data = await HttpUtil().post(ApiAddress.MESSAGE_LIST+"?pageNumber=$pageNumber",data: request_data);
+  List<Map> requestData = List();
+  requestData.add(request);
+  var data = await HttpUtil().post(ApiAddress.MESSAGE_LIST+"?pageNumber=$pageNumber",data: requestData);
   if (data["result"] == "SUCCESS" ) {
     return PageDto.fromParams(content: data["dataList"]["content"],last: data["dataList"]["last"]);
   }else{

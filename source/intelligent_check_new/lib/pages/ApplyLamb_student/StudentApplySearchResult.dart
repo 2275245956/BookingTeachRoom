@@ -6,6 +6,7 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:intelligent_check_new/constants/color.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/TeacherApplyRecord.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb_student/StudentApplyLambDetail.dart';
 import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -61,7 +62,7 @@ class _ApplySearchResultPage extends State<StudentApplySearchResultPage>{
     });
   }
   void loadData () async{
-      var data= await GetAllRecordByKeywords(userInfo.account,this.widget.searchText,pageNum);
+      var data= await GETAllPassedLamInfoByTNumber(eName:this.widget.searchText);
       if(data.success && data.dataList!=""){
         for(var str in data.dataList){
           setState(() {
@@ -180,7 +181,9 @@ class _ApplySearchResultPage extends State<StudentApplySearchResultPage>{
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
                 onTap: () {
-                  GetConfig.popUpMsg("点击");
+                  Navigator.push(context, MaterialPageRoute(builder: (context){
+                    return StudentApplyLambDetail(initRecordData[index]);
+                  }));
                 },
                 child: Container(
                   child: Card(
@@ -190,7 +193,6 @@ class _ApplySearchResultPage extends State<StudentApplySearchResultPage>{
                         top: 5, left: 3, right: 3),
                     child: new Container(
                         height: 125.0,
-//                                          margin: EdgeInsets.only(top: 5,left: 20,right: 20),
                         child: Row(
                           children: <Widget>[
                             Container(

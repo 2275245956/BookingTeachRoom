@@ -11,6 +11,7 @@ Future<PageDto> getInspectionRecordList(InspectionRecordFilter filter,num pageNu
     List<Map> request = new List();
 
     // 用户ID
+    // ignore: unrelated_type_equality_checks
     if(null != filter.userId && -1 != filter.userId){
       request.add({"name": "userId", "value" :filter.userId});
     }

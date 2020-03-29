@@ -1,5 +1,4 @@
 import 'dart:convert' show json;
-import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:intelligent_check_new/model/APIResponse.dart';

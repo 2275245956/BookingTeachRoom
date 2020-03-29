@@ -57,25 +57,44 @@ Future<APIResponse> GetAllRecordByKeywords(String tNumber, String keywords,pageN
 
 Future<APIResponse> CancelApplyLamb(String reqNumber) async {
   try {
-    var data =new HttpUtil().post(ApiAddress.CANCEL_LAMB + "?reqNumber=$reqNumber");
+    var data = await new HttpUtil().post(ApiAddress.CANCEL_LAMB + "?reqNumber=$reqNumber");
     return APIResponse.fromJson(data);
   } catch (e) {
     throw e;
   }
 }
 
-Future<APIResponse> GetAllApplyingStudentByTeachNum()async{
+Future<APIResponse> GetAllApplyingStudentByTeachNum(String eName,String tNumber,String pageNum)async{
   try {
-    var data =new HttpUtil().post(ApiAddress.GetAllStudentApplying );
+    var data = await new HttpUtil().get(ApiAddress.GetAllStudentApplying+"?eName=$eName&tNumber=$tNumber&pageNum=$pageNum");
     return APIResponse.fromJson(data);
   } catch (e) {
     throw e;
   }
 }
 
-Future<APIResponse> GetAllApplyedStudentByTeachNum()async{
+Future<APIResponse> GetAllApplyedStudentByTeachNum(String pageNum,String tNumber)async{
   try {
-    var data =new HttpUtil().post(ApiAddress.GetAllStudentApplyed );
+    var data = await new HttpUtil().get(ApiAddress.GetAllStudentApplyed+"?tNumber=$tNumber&pageNum=$pageNum" );
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}
+
+Future<APIResponse>GETAllPassedLamInfoByTNumber({tNumber,eName,rNumber}) async{
+  try {
+    var url=ApiAddress.GETAllPassedLamInfoByTNumber+"?";
+    if(tNumber!=null && tNumber!=""){
+      url+="tNumber=$tNumber&";
+    }
+    if(eName!=null && eName!="" ){
+      url+="eName=$eName&";
+    }
+    if(rNumber!=null && rNumber!="" ){
+      url+="rNumber=$rNumber&";
+    }
+    var data = await new HttpUtil().get(url+"status=3");
     return APIResponse.fromJson(data);
   } catch (e) {
     throw e;
@@ -83,3 +102,11 @@ Future<APIResponse> GetAllApplyedStudentByTeachNum()async{
 }
 
 
+Future<APIResponse>CheckStudentApplyTeacher(String reqNumber,int status) async{
+  try {
+    var data = await new HttpUtil().get(ApiAddress.CHECKStuApply+"?reqNumber=$reqNumber&status=$status");
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}

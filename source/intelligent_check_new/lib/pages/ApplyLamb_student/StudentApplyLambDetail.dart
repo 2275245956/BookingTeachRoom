@@ -2,7 +2,6 @@ import 'dart:convert' show json;
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/TeacherApplyRecord.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
-import 'package:intelligent_check_new/services/ExpServices/ExpServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

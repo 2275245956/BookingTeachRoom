@@ -1,4 +1,3 @@
-import 'dart:convert' show json;
 import 'package:intelligent_check_new/model/APIResponse.dart';
 import 'package:intelligent_check_new/services/api_address.dart';
 import 'package:intelligent_check_new/tools/HttpUtil.dart';

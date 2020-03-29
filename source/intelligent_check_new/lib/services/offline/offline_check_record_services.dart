@@ -55,7 +55,8 @@ Future<Map<String,List<CheckPointRecordDetail>>> getCheckPointRecordList(PlanLis
     List<Map> request = new List();
 
     // 用户ID
-    if(null != planListInput.userId && -1 != planListInput.userId){
+    // ignore: unrelated_type_equality_checks
+    if(null != planListInput.userId &&    planListInput.userId!=-1){
       request.add({"name": "userId", "value" :planListInput.userId});
     }
 

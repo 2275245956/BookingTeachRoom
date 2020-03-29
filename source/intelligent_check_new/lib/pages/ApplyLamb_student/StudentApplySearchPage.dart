@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intelligent_check_new/constants/color.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb_student/StudentApplySearchResult.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplySearchResult.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intelligent_check_new/widget/search/hotSug.dart';
@@ -166,7 +167,7 @@ class _ApplySearchPage extends State<StudentApplySearchPage>{
       // 页面跳转，查询并显示结果
       Navigator.push(context,
           new MaterialPageRoute(builder: (context) {
-            return new ApplySearchResultPage(keyword,this.widget.isHandle);
+            return new StudentApplySearchResultPage(keyword,this.widget.isHandle);
           })
       );
     }
@@ -176,7 +177,7 @@ class _ApplySearchPage extends State<StudentApplySearchPage>{
     // 页面跳转，查询并显示结果
     Navigator.push(context,
         new MaterialPageRoute(builder: (context) {
-          return new ApplySearchResultPage(text,this.widget.isHandle);
+          return new StudentApplySearchResultPage(text,this.widget.isHandle);
         })
     );
   }

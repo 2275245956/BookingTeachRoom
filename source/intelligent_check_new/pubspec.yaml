@@ -24,6 +24,7 @@ dependencies:
 
   intro_slider: ^1.1.2
   crypto: ^2.0.6  #MD5加密
+  flutter_slidable: "^0.5.4"
 
 
   shared_preferences: any

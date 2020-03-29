@@ -4,9 +4,9 @@ import 'package:dropdown_menu/dropdown_menu.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/TeacherApplyRecord.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
-import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplyLambDetail.dart';
-import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplySearchPage.dart';
-import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb_student/StudentApplyLambDetail.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb_student/StudentApplySearchPage.dart';
+import 'package:intelligent_check_new/services/StudentServices/StudentOperate.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -66,7 +66,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
 
   void loadData() async {
     var data =
-        await GetAllRecordByStatus(userInfo.account, status, pageNum, pageSize);
+        await GetAllPassedTeacherlambs(userInfo.account,pageNum.toString());
     if (data.success && data.dataList != "") {
       for (var str in data.dataList) {
         setState(() {
@@ -74,7 +74,6 @@ class _RecordListScreenState extends State<StudentApplyRecord>
         });
       }
     }else{
-
       setState(() {
         hasNext=false;
       });
@@ -88,7 +87,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
           backgroundColor: Color.fromRGBO(242, 246, 249, 1),
           appBar: AppBar(
             title: Text(
-              "申请记录",
+              "开放性实验",
               style: TextStyle(color: Colors.black, fontSize: 19),
             ),
             centerTitle: true,
@@ -107,7 +106,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                 onTap: () {
                   Navigator.push(context,
                       new MaterialPageRoute(builder: (context) {
-                    return ApplySearchPage(false);
+                    return StudentApplySearchPage(false);
                   }));
                 },
               )
@@ -126,7 +125,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
         backgroundColor: Color.fromRGBO(242, 246, 249, 1),
         appBar: AppBar(
           title: Text(
-            "申请记录",
+            "开放性实验",
             style: TextStyle(color: Colors.black, fontSize: 19),
           ),
           centerTitle: true,
@@ -145,8 +144,8 @@ class _RecordListScreenState extends State<StudentApplyRecord>
               onTap: () {
                 Navigator.push(context,
                     new MaterialPageRoute(builder: (context) {
-                  return ApplySearchPage(false);
-                }));
+                      return StudentApplySearchPage(false);
+                    }));
               },
             )
           ],
@@ -246,7 +245,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                               return GestureDetector(
                                   onTap: () {
                                     Navigator.push(context, MaterialPageRoute(builder: (context){
-                                      return ApplyLambDetail(initRecordData[index]);
+                                      return StudentApplyLambDetail(initRecordData[index]);
                                     }));
                                   },
                                   child: Container(

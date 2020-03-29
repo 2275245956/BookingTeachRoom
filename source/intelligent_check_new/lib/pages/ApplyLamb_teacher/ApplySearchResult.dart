@@ -6,6 +6,7 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:intelligent_check_new/constants/color.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/TeacherApplyRecord.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplyLambDetail.dart';
 import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -180,7 +181,9 @@ class _ApplySearchResultPage extends State<ApplySearchResultPage>{
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
                 onTap: () {
-                  GetConfig.popUpMsg("点击");
+                  Navigator.push(context, MaterialPageRoute(builder: (context){
+                    return ApplyLambDetail(initRecordData[index]);
+                  }));
                 },
                 child: Container(
                   child: Card(

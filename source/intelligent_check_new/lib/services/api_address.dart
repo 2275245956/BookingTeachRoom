@@ -4,11 +4,9 @@ class ApiAddress {
       "http://122.51.225.40:8080/lams";//"http://122.51.225.40:8088";// "http://wtik54.natappfree.cc/";//"http://wvun7x.natappfree.cc"; //
 
 
-  static  const String USER_LOGIN="/login";
-//  SystemConifg
+  ///SystemConifg
   static const String SCHEDULE_CONFIG="/saveOrUpdateSchdule";
   static const String GETSYSTEM_CONFIGBYKEY="/getSettingValue";
-
   ///实验室申请=======================================教师
   static const String GET_EMPTYLAM="/tea/findEmptyRoom";
   static const String SAVE_APPLYINFO="/tea/commitExpApply";
@@ -17,14 +15,20 @@ class ApiAddress {
   static const String CANCEL_LAMB="/tea/updateTeaApplyStatus";
   static const String GetAllStudentApplying="/tea/auditingApply";
   static const String GetAllStudentApplyed="/tea/auditedApply";
+  static const String CHECKStuApply="/tea/updateStuApplyStatus";
   ///=========================================实验室管理员
   static const String GETALLTEACH_APPLYLAM="/expAdmin/selectAllTeaExpApply";
   static const String CheckTeacherApply="/expAdmin/updateTeaApplyStatus";
 
+  ///学生实验操作
+  static const String GETALLPASSEDLAMS="/stu/findAllCanApplyExp";
+  static const String STUAPPLYLAMB="/stu/applyExp";
+  static const String STUCANCELAPPLY="/stu/cancelApply";
   ///Common url
+  static const String USER_LOGIN="/login";
   static const String CHANGEPWD="/common/changePass";
   static const String GETALL_LAMBNAME="/tea/selectAllExp";
-
+  static const String GETAllPassedLamInfoByTNumber="/common/likeQueryExpApplyT";
 
 
 

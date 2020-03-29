@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert' show json;
 
 import 'package:intelligent_check_new/model/offline/offline_plan_list_output.dart';

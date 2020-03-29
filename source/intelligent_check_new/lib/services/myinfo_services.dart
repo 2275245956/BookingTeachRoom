@@ -26,6 +26,7 @@ Future getMyInfo() async {
 }
 
 //更改密码
+// ignore: non_constant_identifier_names
 Future<bool> ChangePswd(String newpswd, String pswd, String userId) async {
   try {
     var data = await HttpUtil().post(ApiAddress.CHANGE_PSWD+"?password=$pswd&newPassword=$newpswd");

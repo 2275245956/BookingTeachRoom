@@ -13,7 +13,7 @@ class APIResponse {
 
   APIResponse.fromJson(jsonRes) {
     message = jsonRes['message'];
-    dataList = jsonRes['dataList'];
+    dataList = jsonRes['dataList']??null;
     success = jsonRes['success']??false;
     result = jsonRes['result'];
   }
