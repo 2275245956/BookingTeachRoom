@@ -65,8 +65,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
   }
 
   void loadData() async {
-    var data =
-        await GetAllPassedTeacherlambs(userInfo.account,pageNum.toString());
+    var data =await GetAllPassedTeacherlambs(userInfo.account,pageNum.toString());
     if (data.success && data.dataList != "") {
       for (var str in data.dataList) {
         setState(() {

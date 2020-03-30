@@ -5,6 +5,7 @@ import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_student/StudentApplyRecord.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplyRecord.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/CheckApplyStudentPage.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb_teacher/CheckedApplyStudentPage.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/SelectLambPage.dart';
 import 'package:intelligent_check_new/pages/ExpPage/TeachApplyCheck.dart';
 import 'package:intelligent_check_new/pages/SystemSettings/ScheduleSettingPage.dart';
@@ -268,7 +269,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                                   color: Color.fromRGBO(153, 153, 153, 1)),
                               color: Colors.white,
                             ),
-                            onTap: () {},
+                            onTap: () =>Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentApplyRecord())),
                           ))
                     ],
                     shrinkWrap: true,
@@ -498,7 +499,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                                   color: Color.fromRGBO(153, 153, 153, 1)),
                               color: Colors.white,
                             ),
-                            onTap: () {},
+                            onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>CheckedApplyStudent())),
                           )),
                     ],
                     shrinkWrap: true,

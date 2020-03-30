@@ -1,4 +1,6 @@
 import 'dart:convert' show json;
+import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intelligent_check_new/model/APIResponse.dart';
 import 'package:intelligent_check_new/services/api_address.dart';
@@ -73,9 +75,9 @@ Future<APIResponse> GetAllApplyingStudentByTeachNum(String eName,String tNumber,
   }
 }
 
-Future<APIResponse> GetAllApplyedStudentByTeachNum(String pageNum,String tNumber)async{
+Future<APIResponse> GetAllApplyedStudentByTeachNum(String tNumber ,String pageNum)async{
   try {
-    var data = await new HttpUtil().get(ApiAddress.GetAllStudentApplyed+"?tNumber=$tNumber&pageNum=$pageNum" );
+    var data = await new HttpUtil().get(ApiAddress.GetAllStudentApplyed+"?pageNum=$pageNum&tNumber=$tNumber" );
     return APIResponse.fromJson(data);
   } catch (e) {
     throw e;
@@ -110,3 +112,19 @@ Future<APIResponse>CheckStudentApplyTeacher(String reqNumber,int status) async{
     throw e;
   }
 }
+
+
+
+Future<APIResponse> UpLoadFile(File file) async{
+  try {
+  String filename = file.path.substring(file.path.lastIndexOf("/") + 1);
+    // 开始上传
+    FormData formData = new FormData.from(
+        {"file": new UploadFileInfo(file, filename)});
+    var data = await new HttpUtil().post("", data: formData);
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}
+

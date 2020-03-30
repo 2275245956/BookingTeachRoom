@@ -2,6 +2,7 @@ import 'dart:convert' show json;
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/TeacherApplyRecord.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
+import 'package:intelligent_check_new/services/StudentServices/StudentOperate.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,7 +20,6 @@ class _ApplyLambDetail extends State<StudentApplyLambDetail> {
   bool canOperate = true;
   String theme = "red";
   UserModel userInfo;
-  int checkType=0;
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
   @override
@@ -38,14 +38,27 @@ class _ApplyLambDetail extends State<StudentApplyLambDetail> {
       });
     });
   }
-  void CheckResult() async{
-//         var data=await CheckApplyForTeach(this.widget.recordInfo.reqNumber,this.checkType.toString());
-//         if(data.success){
-//           GetConfig.popUpMsg("审核成功");
-//           Navigator.pop(context);
-//         }else{
-//           GetConfig.popUpMsg("审核失败");
-//         }
+
+  void CheckResult() async {
+    var jsonStr = {
+      "eEndtime": this.widget.recordInfo.attriText01,
+      "eName":  this.widget.recordInfo.eName,
+
+      "eStarttime":  this.widget.recordInfo.eDate,
+      "eTName":this.widget.recordInfo.tName,
+      "remark":this.widget.recordInfo.remark,
+
+      "sMajor": userInfo.major,
+      "sName": userInfo.userName,
+      "sNumber": userInfo.account
+    };
+   var res = await StuSaveApplyInfo(jsonStr);
+   if(res.success){
+     GetConfig.popUpMsg(res.message??"申请成功");
+     Navigator.pop(context);
+   }else{
+     GetConfig.popUpMsg(res.message??"申请失败");
+   }
   }
 
   @override
@@ -164,7 +177,6 @@ class _ApplyLambDetail extends State<StudentApplyLambDetail> {
                         child: Container(
                           padding:
                               EdgeInsets.only(left: 10, top: 10, bottom: 10),
-//height: 50,
                           child: Text(
                             "最大人数",
                             style: TextStyle(color: Colors.black, fontSize: 18),
@@ -344,31 +356,11 @@ class _ApplyLambDetail extends State<StudentApplyLambDetail> {
             ),
           ),
         ),
-        persistentFooterButtons:  <Widget>[
+        persistentFooterButtons: <Widget>[
           Row(
             children: <Widget>[
               Container(
-                width: (MediaQuery.of(context).size.width / 2) - 16,
-                height: 60,
-                margin: EdgeInsets.only(left: 0),
-                child: new MaterialButton(
-                  color: Color.fromRGBO(242, 246, 249, 1),
-                  height: 60,
-                  textColor: Colors.black,
-                  child: new Text(
-                    '取消申请',
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      checkType=2;
-                      GetConfig.IOSPopMsg("提示！", Text("确定驳回该实验，此操作无法撤销？"), context,confirmFun:CheckResult);
-                    });
-                  },
-                ),
-              ),
-              Container(
-                width: (MediaQuery.of(context).size.width / 2),
+                width: (MediaQuery.of(context).size.width - 16),
                 child: new MaterialButton(
                   color: GetConfig.getColor(theme),
                   height: 60,
@@ -376,10 +368,9 @@ class _ApplyLambDetail extends State<StudentApplyLambDetail> {
                   child: new Text('申请实验', style: TextStyle(fontSize: 24)),
                   onPressed: () {
                     setState(() {
-                      checkType=1;
-                      GetConfig.IOSPopMsg("提示！", Text("是否确认该操作？"), context,confirmFun:CheckResult);
+                      GetConfig.IOSPopMsg("提示！", Text("是否确认该操作？"), context,
+                          confirmFun: CheckResult);
                     });
-
                   },
                 ),
               ),

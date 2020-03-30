@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_menu/dropdown_menu.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/StuApplyLamModel.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
@@ -141,7 +140,7 @@ class _RecordListScreenState extends State<CheckApplyStudent>
           backgroundColor: Color.fromRGBO(242, 246, 249, 1),
           appBar: AppBar(
             title: Text(
-              "申请记录",
+              "学生待审核",
               style: TextStyle(color: Colors.black, fontSize: 19),
             ),
             centerTitle: true,
@@ -163,7 +162,7 @@ class _RecordListScreenState extends State<CheckApplyStudent>
         backgroundColor: Color.fromRGBO(242, 246, 249, 1),
         appBar: AppBar(
           title: Text(
-            "申请记录",
+            "学生待审核",
             style: TextStyle(color: Colors.black, fontSize: 19),
           ),
           centerTitle: true,
