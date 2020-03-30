@@ -1,7 +1,6 @@
 import 'dart:convert' show json;
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intelligent_check_new/model/APIResponse.dart';
 import 'package:intelligent_check_new/services/api_address.dart';
 import 'package:intelligent_check_new/tools/HttpUtil.dart';
@@ -55,8 +54,6 @@ Future<APIResponse> GetAllRecordByKeywords(String tNumber, String keywords,pageN
   }
 }
 
-
-
 Future<APIResponse> CancelApplyLamb(String reqNumber) async {
   try {
     var data = await new HttpUtil().post(ApiAddress.CANCEL_LAMB + "?reqNumber=$reqNumber");
@@ -103,7 +100,6 @@ Future<APIResponse>GETAllPassedLamInfoByTNumber({tNumber,eName,rNumber}) async{
   }
 }
 
-
 Future<APIResponse>CheckStudentApplyTeacher(String reqNumber,int status) async{
   try {
     var data = await new HttpUtil().post(ApiAddress.CHECKStuApply+"?reqNumber=$reqNumber&status=$status");
@@ -112,8 +108,6 @@ Future<APIResponse>CheckStudentApplyTeacher(String reqNumber,int status) async{
     throw e;
   }
 }
-
-
 
 Future<APIResponse> UpLoadFile(File file) async{
   try {

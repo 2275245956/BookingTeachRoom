@@ -21,3 +21,21 @@ Future<APIResponse> CheckApplyForTeach(String reqNumber, String status) async {
     throw e;
   }
 }
+
+Future<APIResponse> getAllStudentApplyLam(int pageNumber) async {
+  try {
+    var data = await HttpUtil().get(ApiAddress.GETALLTEACHERPASSEDSTU + "?pageNum=$pageNumber");
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}
+
+Future<APIResponse> CheckStuApply(String reqNumber,int status) async {
+  try {
+    var data = await HttpUtil().post(ApiAddress.CHECKSTUAPPLY + "?reqNumber=$reqNumber&status=$status");
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}
