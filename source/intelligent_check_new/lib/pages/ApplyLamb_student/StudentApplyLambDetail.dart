@@ -1,5 +1,6 @@
 import 'dart:convert' show json;
 import 'package:flutter/material.dart';
+import 'package:intelligent_check_new/model/Lamb/ApplyLam/StuApplyLamModel.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/TeacherApplyRecord.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/services/StudentServices/StudentOperate.dart';
@@ -19,6 +20,7 @@ class _ApplyLambDetail extends State<StudentApplyLambDetail> {
   bool isAnimating = false;
   bool canOperate = true;
   String theme = "red";
+  bool hasApplyed=false;
   UserModel userInfo;
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
@@ -30,35 +32,46 @@ class _ApplyLambDetail extends State<StudentApplyLambDetail> {
   }
 
   void initData() async {
-    await SharedPreferences.getInstance().then((sp) {
-      setState(() {
+   var sp= await SharedPreferences.getInstance();
+   setState(() {
         if (sp.getString("userModel") != null) {
           userInfo = UserModel.fromJson(json.decode(sp.getString("userModel")));
         }
       });
-    });
+   var data=await  StuApplyRecord(userInfo.account);
+   if(data.success && data.dataList!=null){
+     for(var str in data.dataList){
+       setState(() {
+         if(str["status"]=="申请提交(学生)"
+             ||str["status"]=="申请通过(教师)"
+             || str["status"]=="申请通过(管理员)"){
+           hasApplyed=true;
+         }
+       });
+       break;
+     }
+   }
   }
 
   void CheckResult() async {
     var jsonStr = {
       "eEndtime": this.widget.recordInfo.attriText01,
-      "eName":  this.widget.recordInfo.eName,
-
-      "eStarttime":  this.widget.recordInfo.eDate,
-      "eTName":this.widget.recordInfo.tName,
-      "remark":this.widget.recordInfo.remark,
-
+      "eName": this.widget.recordInfo.eName,
+      "eStarttime": this.widget.recordInfo.eDate,
+      "eTName": this.widget.recordInfo.tName,
+      "remark": this.widget.recordInfo.remark,
       "sMajor": userInfo.major,
       "sName": userInfo.userName,
       "sNumber": userInfo.account
     };
-   var res = await StuSaveApplyInfo(jsonStr);
-   if(res.success){
-     GetConfig.popUpMsg(res.message??"申请成功");
-     Navigator.pop(context);
-   }else{
-     GetConfig.popUpMsg(res.message??"申请失败");
-   }
+
+    var res = await StuSaveApplyInfo(jsonStr);
+    if (res.success) {
+      GetConfig.popUpMsg(res.message ?? "申请成功");
+      Navigator.pop(context);
+    } else {
+      GetConfig.popUpMsg(res.message ?? "申请失败");
+    }
   }
 
   @override
@@ -289,7 +302,8 @@ class _ApplyLambDetail extends State<StudentApplyLambDetail> {
                               EdgeInsets.only(top: 5, bottom: 5, right: 10),
                           child: Text(
                             "${this.widget.recordInfo.eName}",
-                            style: TextStyle(color: Colors.black, fontSize: 18),
+                            style: TextStyle(
+                                color: GetConfig.getColor(theme), fontSize: 18),
                           ),
                         ),
                       )
@@ -362,15 +376,17 @@ class _ApplyLambDetail extends State<StudentApplyLambDetail> {
               Container(
                 width: (MediaQuery.of(context).size.width - 16),
                 child: new MaterialButton(
-                  color: GetConfig.getColor(theme),
+                  color: hasApplyed?Colors.grey:GetConfig.getColor(theme),
                   height: 60,
                   textColor: Colors.white,
                   child: new Text('申请实验', style: TextStyle(fontSize: 24)),
                   onPressed: () {
-                    setState(() {
+                    if(hasApplyed){
+                      GetConfig.IOSPopMsg("提示！", Text("您已存在已申请或者已通过审核的记录，不能重复申请！"), context);
+                    } else{
                       GetConfig.IOSPopMsg("提示！", Text("是否确认该操作？"), context,
                           confirmFun: CheckResult);
-                    });
+                    }
                   },
                 ),
               ),

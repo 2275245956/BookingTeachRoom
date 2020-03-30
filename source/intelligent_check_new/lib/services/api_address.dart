@@ -24,6 +24,7 @@ class ApiAddress {
   static const String GETALLPASSEDLAMS="/stu/findAllCanApplyExp";
   static const String STUAPPLYLAMB="/stu/applyExp";
   static const String STUCANCELAPPLY="/stu/cancelApply";
+  static const String STUAPPLYRECORD="/stu/findExpStatus";
   ///Common url
   static const String USER_LOGIN="/login";
   static const String CHANGEPWD="/common/changePass";

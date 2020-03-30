@@ -106,7 +106,7 @@ Future<APIResponse>GETAllPassedLamInfoByTNumber({tNumber,eName,rNumber}) async{
 
 Future<APIResponse>CheckStudentApplyTeacher(String reqNumber,int status) async{
   try {
-    var data = await new HttpUtil().get(ApiAddress.CHECKStuApply+"?reqNumber=$reqNumber&status=$status");
+    var data = await new HttpUtil().post(ApiAddress.CHECKStuApply+"?reqNumber=$reqNumber&status=$status");
     return APIResponse.fromJson(data);
   } catch (e) {
     throw e;

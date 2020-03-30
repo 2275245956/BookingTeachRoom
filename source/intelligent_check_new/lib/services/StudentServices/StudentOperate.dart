@@ -34,3 +34,11 @@ Future<APIResponse> StuSaveApplyInfo(dynamic jsonStr) async {
   }
 }
 
+Future<APIResponse> StuApplyRecord(String sNumber) async {
+  try {
+    var data = await HttpUtil().get(ApiAddress.STUAPPLYRECORD+"?sNumber=$sNumber");
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}

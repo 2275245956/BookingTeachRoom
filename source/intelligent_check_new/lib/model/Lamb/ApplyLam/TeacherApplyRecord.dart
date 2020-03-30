@@ -20,6 +20,7 @@ class TeacherApplyRecord {
   String tName;
   String tNumber;
   String updateDate;
+  bool selected=false;
 
   TeacherApplyRecord.fromParams({this.attriNumber01, this.attriNumber02, this.attriText02, this.id, this.rMaxPer, this.rNowPer, this.attriText01, this.createDate, this.eDate, this.eName, this.rNumber, this.remark, this.reqNumber, this.section, this.status, this.tName, this.tNumber, this.updateDate});
 
