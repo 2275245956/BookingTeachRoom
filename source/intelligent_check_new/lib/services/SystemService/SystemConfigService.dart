@@ -1,4 +1,6 @@
 import 'dart:convert' show json;
+import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:intelligent_check_new/model/APIResponse.dart';
 import 'package:intelligent_check_new/services/api_address.dart';
 import 'package:intelligent_check_new/tools/HttpUtil.dart';
@@ -23,3 +25,19 @@ Future<APIResponse> getConfigValueByKey(String key) async{
   }
 
 }
+
+
+
+Future<APIResponse> UpLoadFile(File file) async{
+  try {
+    String filename = file.path.substring(file.path.lastIndexOf("/") + 1);
+    // 开始上传
+    FormData formData = new FormData.from(
+        {"file": new UploadFileInfo(file, filename)});
+    var data = await new HttpUtil().post(ApiAddress.UPFILE, data: formData);
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}
+

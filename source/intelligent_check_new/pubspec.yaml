@@ -25,6 +25,7 @@ dependencies:
   intro_slider: ^1.1.2
   crypto: ^2.0.6  #MD5加密
   flutter_slidable: "^0.5.4"
+  file_picker: ^1.4.3+2
 
 
   shared_preferences: any
@@ -117,7 +118,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_luban: ^0.1.1
 
 
 

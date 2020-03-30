@@ -31,7 +31,7 @@ class ApiAddress {
   static const String CHANGEPWD="/common/changePass";
   static const String GETALL_LAMBNAME="/tea/selectAllExp";
   static const String GETAllPassedLamInfoByTNumber="/common/likeQueryExpApplyT";
-
+  static const String UPFILE="/import";
 
   // 权限相关API
   //static const String  SUPPLIER_INFO_ALL = "api/supplier/all";

@@ -108,17 +108,3 @@ Future<APIResponse>CheckStudentApplyTeacher(String reqNumber,int status) async{
     throw e;
   }
 }
-
-Future<APIResponse> UpLoadFile(File file) async{
-  try {
-  String filename = file.path.substring(file.path.lastIndexOf("/") + 1);
-    // 开始上传
-    FormData formData = new FormData.from(
-        {"file": new UploadFileInfo(file, filename)});
-    var data = await new HttpUtil().post("", data: formData);
-    return APIResponse.fromJson(data);
-  } catch (e) {
-    throw e;
-  }
-}
-

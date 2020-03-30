@@ -10,6 +10,7 @@ import 'package:intelligent_check_new/pages/ApplyLamb_teacher/SelectLambPage.dar
 import 'package:intelligent_check_new/pages/ExpPage/ExpCheckStudentApply.dart';
 import 'package:intelligent_check_new/pages/ExpPage/TeachApplyCheck.dart';
 import 'package:intelligent_check_new/pages/SystemSettings/ScheduleSettingPage.dart';
+import 'package:intelligent_check_new/pages/SystemSettings/UpLoadFileData.dart';
 import 'package:intelligent_check_new/pages/message/message_list.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -829,6 +830,38 @@ class _HomeFunctionState extends State<HomeFunction> {
                             onTap: () => Navigator.push(context,
                                     new MaterialPageRoute(builder: (context) {
                                   return ScheduleSettingPage();
+                                })),
+                          )),    Container(
+                          height: 82,
+                          width: 82,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.only(
+                                bottomLeft: Radius.circular(5)),
+                            color: Colors.white,
+                            border: new Border.all(
+                                width: 0.5, color: Colors.grey[100]),
+                          ),
+                          child: GestureDetector(
+                            child: EachTab(
+                              width: 80,
+                              badge: CircleAvatar(
+                                backgroundColor: GetConfig.getColor("blue"),
+                                radius: 3,
+                              ),
+                              badgeColor: GetConfig.getColor("blue"),
+                              height: 40,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(Icons.file_upload,
+                                  size: 32, color: GetConfig.getColor(theme)),
+                              text: "file",
+                              textStyle: TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(153, 153, 153, 1)),
+                              color: Colors.white,
+                            ),
+                            onTap: () => Navigator.push(context,
+                                new MaterialPageRoute(builder: (context) {
+                                  return FileUpLoad();
                                 })),
                           )),
                     ],
