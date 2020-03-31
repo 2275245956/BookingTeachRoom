@@ -2,7 +2,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intelligent_check_new/pages/hidedanger_manage/hidden_danger_found.dart';
 import 'package:intelligent_check_new/services/api_address.dart';
 import 'package:intelligent_check_new/tools/MessageBox.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -225,16 +224,10 @@ class HttpUtil {
     } on DioError catch (e) {
       if (CancelToken.isCancel(e)) {
         print('get请求取消! ' + e.message);
-//        Fluttertoast.showToast(
-//          msg: '数据请求被取消! ',
-//          toastLength: Toast.LENGTH_LONG,
-//        );
+
       }
       print('get请求发生错误：$e');
-//      Fluttertoast.showToast(
-//        msg: '数据请求发生错误！',
-//        toastLength: Toast.LENGTH_LONG,
-//      );
+
       throw e;
     }
     return response.data;

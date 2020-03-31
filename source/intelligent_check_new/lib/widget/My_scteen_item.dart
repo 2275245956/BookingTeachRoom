@@ -1,14 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:intelligent_check_new/model/LoginResult.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
-import 'package:intelligent_check_new/pages/my/contact/contact_page.dart';
-import 'package:intelligent_check_new/pages/my/offlinemode_page.dart';
 import 'package:intelligent_check_new/pages/my/pswdchange_page.dart';
-import 'package:intelligent_check_new/pages/my/subscribe_page.dart';
-import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intelligent_check_new/widget/completedialog.dart';
 import 'package:intelligent_check_new/widget/loadingdialoge.dart';
 import 'package:path/path.dart';
@@ -77,15 +70,7 @@ class ImItem extends StatelessWidget {
 //              new MaterialPageRoute(builder: (context) => new SubscribePage()),
 //            );
             break;
-          case '离线模式':
-            //路由到离线模式界面
-            //Navigator.pushNamed(context, '');
-            Navigator.push(
-              context,
-              new MaterialPageRoute(
-                  builder: (context) => new OfflineModePage()),
-            );
-            break;
+       
           case '清除缓存':
             //路由到清除缓存界面
             //Navigator.pushNamed(context, '');

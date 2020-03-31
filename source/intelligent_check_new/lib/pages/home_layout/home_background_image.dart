@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/constants/color.dart';
-import 'package:intelligent_check_new/model/CompanyInfo.dart';
 import 'package:intelligent_check_new/pages/home_layout/home_function.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

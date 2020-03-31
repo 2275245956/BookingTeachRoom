@@ -1,12 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:intelligent_check_new/model/LoginResult.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/pages/login_page.dart';
 import 'package:intelligent_check_new/services/CommonServices/CommonServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
-import 'package:intelligent_check_new/tools/MessageBox.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intelligent_check_new/constants/color.dart';

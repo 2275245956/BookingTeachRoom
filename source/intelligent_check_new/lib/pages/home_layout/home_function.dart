@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_bottom_tab_bar/eachtab.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_student/StudentApplyRecord.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb_student/StudentSelfApplyRecord.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplyRecord.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/CheckApplyStudentPage.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/CheckedApplyStudentPage.dart';
@@ -11,7 +12,6 @@ import 'package:intelligent_check_new/pages/ExpPage/ExpCheckStudentApply.dart';
 import 'package:intelligent_check_new/pages/ExpPage/TeachApplyCheck.dart';
 import 'package:intelligent_check_new/pages/SystemSettings/ScheduleSettingPage.dart';
 import 'package:intelligent_check_new/pages/SystemSettings/UpLoadFileData.dart';
-import 'package:intelligent_check_new/pages/message/message_list.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -119,7 +119,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                               Stack(
                                 children: <Widget>[
                                   Icon(
-                                    Icons.message,
+                                    Icons.notifications_active,
                                     color: Colors.white,
                                     size: 18,
                                   ),
@@ -148,11 +148,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                             mainAxisAlignment: MainAxisAlignment.end,
                           ),
                           onTap: () {
-                            // MessageListPage
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) {
-                              return new MessageListPage();
-                            })).then((v) {});
+                            GetConfig.popUpMsg("消息");
                           },
                         ),
                         flex: 2,
@@ -271,7 +267,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                                   color: Color.fromRGBO(153, 153, 153, 1)),
                               color: Colors.white,
                             ),
-                            onTap: () =>Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentApplyRecord())),
+                            onTap: () =>Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentSelfApplyRecord())),
                           ))
                     ],
                     shrinkWrap: true,

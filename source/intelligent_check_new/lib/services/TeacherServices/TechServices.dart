@@ -65,6 +65,12 @@ Future<APIResponse> CancelApplyLamb(String reqNumber) async {
 
 Future<APIResponse> GetAllApplyingStudentByTeachNum(String eName,String tNumber,String pageNum)async{
   try {
+//    var jsonStr={
+//      "eName":eName,
+//      "tNumber":tNumber,
+//      "pageNUm":pageNum
+//
+//    };
     var data = await new HttpUtil().get(ApiAddress.GetAllStudentApplying+"?eName=$eName&tNumber=$tNumber&pageNum=$pageNum");
     return APIResponse.fromJson(data);
   } catch (e) {
@@ -102,7 +108,7 @@ Future<APIResponse>GETAllPassedLamInfoByTNumber({tNumber,eName,rNumber}) async{
 
 Future<APIResponse>CheckStudentApplyTeacher(String reqNumber,int status) async{
   try {
-    var data = await new HttpUtil().post(ApiAddress.CHECKStuApply+"?reqNumber=$reqNumber&status=$status");
+    var data = await new HttpUtil().post(ApiAddress.CHECKStuApply+"?reqNumber=$reqNumber&status=${status.toString()}");
     return APIResponse.fromJson(data);
   } catch (e) {
     throw e;

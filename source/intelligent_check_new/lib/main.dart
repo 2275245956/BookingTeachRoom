@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intelligent_check_new/constants/color.dart';
 import 'package:intelligent_check_new/constants/system_config.dart';
 import 'package:intelligent_check_new/pages/splash_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:intelligent_check_new/services/CommonService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 

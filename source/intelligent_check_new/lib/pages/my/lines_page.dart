@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intelligent_check_new/model/line_data.dart';
 import 'package:intelligent_check_new/model/name_value.dart';
-import 'package:intelligent_check_new/services/route_list_services.dart';
-import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intelligent_check_new/constants/color.dart';
 
@@ -39,7 +36,7 @@ class _LinesPageState extends State<LinesPage> {
   @override
   void initState() {
     super.initState();
-    getInitInfo();
+
     initConfig();
   }
 
@@ -296,22 +293,5 @@ class _LinesPageState extends State<LinesPage> {
             }));
   }
 
-  void getInitInfo() async {
-    // 获取线路数据
-    await getRouteList().then((data) {
-      setState(() {
-        routeList = data;
-        tmpRouteList = data;
 
-        for (int i = 0; i < routeList.length; i++){
-          if(_checkIdInSelected(routeList[i].value)){
-            checklist.add(true);
-            selected.add(routeList[i]);
-          }else{
-            checklist.add(false);
-          }
-        }
-      });
-    });
-  }
 }

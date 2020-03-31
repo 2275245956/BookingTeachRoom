@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intelligent_check_new/model/message/SubscribeInfo.dart';
-import 'package:intelligent_check_new/model/name_value.dart';
-import 'package:intelligent_check_new/pages/hidedanger_manage/hidden_danger_found.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
-import 'package:intelligent_check_new/widget/touch_callback.dart';
-import 'package:intelligent_check_new/pages/my/lines_page.dart';
-import 'package:intelligent_check_new/services/myinfo_services.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intelligent_check_new/constants/color.dart';
@@ -41,7 +36,7 @@ class _SubscribePageState extends State<SubscribePage> {
   @override
   void initState() {
     super.initState();
-    getData();
+
     initConfig();
   }
 
@@ -50,44 +45,6 @@ class _SubscribePageState extends State<SubscribePage> {
       setState(() {
         this.theme =
             preferences.getString("theme") ?? KColorConstant.DEFAULT_COLOR;
-      });
-    });
-  }
-
-  getData() async {
-    await getSubscribe().then((data) {
-      if (!mounted) return;
-      setState(() {
-        _subscribeInfo = data;
-
-        if (_subscribeInfo != null) {
-          //获取plan数据
-          if (_subscribeInfo.plan != null) {
-            for (SubItem planItem in _subscribeInfo.plan) {
-              if (planItem.msgType == "planBeginApp") {
-                _before = planItem.attribute1 == "False" ? false : true;
-                _beforeController.text = planItem.attribute2 ?? "";
-              }
-
-              if (planItem.msgType == "planWarnApp") {
-                _started = planItem.attribute1 == "False" ? false : true;
-                _startedController.text = planItem.attribute2 ?? "";
-              }
-              if (planItem.msgType == "planEndApp") {
-                _after = planItem.attribute1 == "False" ? false : true;
-                _afterController.text = planItem.attribute2 ?? "";
-              }
-            }
-          }
-          //获取检查项
-          if (_subscribeInfo.check != null) {
-            for (SubItem checkItem in _subscribeInfo.check) {
-              if (checkItem.attribute1 == "True") {
-                checkGroupValue = checkItem.msgType;
-              }
-            }
-          }
-        }
       });
     });
   }
@@ -568,17 +525,7 @@ class _SubscribePageState extends State<SubscribePage> {
       isSavedPressed = true;
       isAnimating = true;
     });
-    saveSubscribe(msgOrderResult).then((data) {
-      setState(() {
-        isSavedPressed = false;
-        isAnimating = false;
-      });
-      if (data) {
-        showAlertMessageOnly("数据保存成功！");
-      } else {
-        showAlertMessageOnly("数据保存失败！");
-      }
-    });
+
   }
 
   showAlertMessageOnly(String text) async {
