@@ -71,7 +71,7 @@ Future<APIResponse> GetAllApplyingStudentByTeachNum(String eName,String tNumber,
 //      "pageNUm":pageNum
 //
 //    };
-    var data = await new HttpUtil().get(ApiAddress.GetAllStudentApplying+"?eName=$eName&tNumber=$tNumber&pageNum=$pageNum");
+    var data = await new HttpUtil().get(ApiAddress.GetAllStudentApplying+"?tNumber=$tNumber&eName=$eName&pageNum=$pageNum");
     return APIResponse.fromJson(data);
   } catch (e) {
     throw e;

@@ -346,10 +346,9 @@ class _ApplyLambDetail extends State<ApplyLambDetail> {
             ),
           ),
         ),
-        persistentFooterButtons: <Widget>[
+        persistentFooterButtons:(this.widget.recordInfo.status!=""&&this.widget.recordInfo.status!=null&&this.widget.recordInfo.status!="申请通过(管理员)")? <Widget>[
           Row(
             children: <Widget>[
-
               Container(
                 width: (MediaQuery.of(context).size.width -26),
                 child: new MaterialButton(
@@ -365,7 +364,7 @@ class _ApplyLambDetail extends State<ApplyLambDetail> {
               ),
             ],
           )
-        ],
+        ]:null,
         resizeToAvoidBottomPadding: true,
       );
     }

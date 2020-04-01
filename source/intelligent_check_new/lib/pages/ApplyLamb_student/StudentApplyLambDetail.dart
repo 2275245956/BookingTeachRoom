@@ -41,14 +41,16 @@ class _ApplyLambDetail extends State<StudentApplyLambDetail> {
    var data=await  StuApplyRecord(userInfo.account);
    if(data.success && data.dataList!=null){
      for(var str in data.dataList){
-       setState(() {
-         if(str["status"]=="申请提交(学生)"
-             ||str["status"]=="申请通过(教师)"
-             || str["status"]=="申请通过(管理员)"){
+       if(str["status"]=="申请提交(学生)"
+           ||str["status"]=="申请通过(教师)"
+           || str["status"]=="申请通过(管理员)"){
+         setState(() {
            hasApplyed=true;
-         }
-       });
-       break;
+         });
+         break;
+       }
+
+
      }
    }
   }

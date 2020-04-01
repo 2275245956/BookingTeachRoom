@@ -5,6 +5,7 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/StuApplyLamModel.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
+import 'package:intelligent_check_new/services/ExpServices/ExpServices.dart';
 import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -62,25 +63,9 @@ class _RecordListScreenState extends State<CheckedApplyStudent>
         }
       });
     }).then((_){
-//      GETAllPassedLamInfoByTNumber(tNumber:userInfo.account).then((data){
-//        setState(() {
-//          if(data.success) {
-//            TITLE_ALL_CONTENT.add({"title": "全部", "id": 0});
-//            for (var str in data.dataList) {
-//              Map<String, dynamic> map = new Map();
-//              map["title"] = str["eName"];
-//              map["id"] = str["reqNumber"];
-//              if(!allLams.contains(str["eName"])){
-//                allLams.add(str["eName"]);
-//                TITLE_ALL_CONTENT.add(map);
-//              }
-//            }
-//          }
-//        });
-//      });
-
+      loadData();
     });
-    await loadData();
+
   }
 
 
@@ -114,7 +99,7 @@ class _RecordListScreenState extends State<CheckedApplyStudent>
     setState(() {
       isAnimating=true;
     });
-    var data= await CheckStudentApplyTeacher(tempModel.reqNumber,status);
+    var data= await CheckStuApply(tempModel.reqNumber,status);
     if(data.success){
       GetConfig.popUpMsg(data.message??"操作成功");
       setState(() {
@@ -136,7 +121,7 @@ class _RecordListScreenState extends State<CheckedApplyStudent>
           backgroundColor: Color.fromRGBO(242, 246, 249, 1),
           appBar: AppBar(
             title: Text(
-              "申请记录",
+              "已审核学生",
               style: TextStyle(color: Colors.black, fontSize: 19),
             ),
             centerTitle: true,
@@ -158,7 +143,7 @@ class _RecordListScreenState extends State<CheckedApplyStudent>
         backgroundColor: Color.fromRGBO(242, 246, 249, 1),
         appBar: AppBar(
           title: Text(
-            "申请记录",
+            "已审核学生",
             style: TextStyle(color: Colors.black, fontSize: 19),
           ),
           centerTitle: true,
@@ -175,9 +160,8 @@ class _RecordListScreenState extends State<CheckedApplyStudent>
           ),
         ),
         body: ModalProgressHUD(
-
           child:  new Padding(
-              padding: new EdgeInsets.only(top: 46.0),
+              padding: new EdgeInsets.only(top: 0.0),
               child: new Column(
                 children: <Widget>[
                   new Expanded(

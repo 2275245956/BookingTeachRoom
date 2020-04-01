@@ -91,8 +91,7 @@ class _RecordListScreenState extends State<CheckApplyStudent>
     setState(() {
       isAnimating=true;
     });
-    var data = await GetAllApplyingStudentByTeachNum(
-       eName, userInfo.account, pageNum.toString());
+    var data = await GetAllApplyingStudentByTeachNum(eName, userInfo.account, pageNum.toString());
     if (data.success && data.dataList != "") {
       setState(() {
         hasNext = true;
@@ -100,6 +99,11 @@ class _RecordListScreenState extends State<CheckApplyStudent>
       for (var str in data.dataList) {
         setState(() {
           initRecordData.add(new StuApplyModel.fromJson(str));
+        });
+      }
+      if(initRecordData.length<10){
+        setState(() {
+          hasNext = false;
         });
       }
     } else {
@@ -127,7 +131,6 @@ class _RecordListScreenState extends State<CheckApplyStudent>
    }else{
      GetConfig.popUpMsg(data.message??"操作失败");
    }
-
 
     setState(() {
       isAnimating=false;

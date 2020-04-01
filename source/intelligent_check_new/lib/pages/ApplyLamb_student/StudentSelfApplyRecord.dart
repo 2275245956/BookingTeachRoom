@@ -87,7 +87,7 @@ class _RecordListScreenState extends State<StudentSelfApplyRecord>
           backgroundColor: Color.fromRGBO(242, 246, 249, 1),
           appBar: AppBar(
             title: Text(
-              "开放性实验",
+              "申请记录",
               style: TextStyle(color: Colors.black, fontSize: 19),
             ),
             centerTitle: true,
@@ -111,7 +111,7 @@ class _RecordListScreenState extends State<StudentSelfApplyRecord>
         backgroundColor: Color.fromRGBO(242, 246, 249, 1),
         appBar: AppBar(
           title: Text(
-            "开放性实验",
+            "申请记录",
             style: TextStyle(color: Colors.black, fontSize: 19),
           ),
           centerTitle: true,
@@ -119,21 +119,7 @@ class _RecordListScreenState extends State<StudentSelfApplyRecord>
           brightness: Brightness.light,
           backgroundColor: Colors.white,
           actions: <Widget>[
-            GestureDetector(
-              child: Container(
-                child: Image.asset(
-                  "assets/images/search_red.png",
-                  width: 22,
-                ),
-                padding: EdgeInsets.only(right: 20),
-              ),
-              onTap: () {
-                Navigator.push(context,
-                    new MaterialPageRoute(builder: (context) {
-                      return StudentApplySearchPage(false);
-                    }));
-              },
-            )
+
           ],
           leading: new Container(
             child: GestureDetector(
@@ -183,13 +169,13 @@ class _RecordListScreenState extends State<StudentSelfApplyRecord>
                                             margin: EdgeInsets.only(
                                                 top: 5, left: 3, right: 3),
                                             child: new Container(
-                                                height: 133.0,
+                                                height: 120.0,
 //                                          margin: EdgeInsets.only(top: 5,left: 20,right: 20),
                                                 child: Row(
                                                   children: <Widget>[
                                                     Container(
                                                       width: 8,
-                                                      height: 133,
+                                                      height: 120,
                                                       decoration: BoxDecoration(
                                                         borderRadius:
                                                         BorderRadius.only(
@@ -256,13 +242,7 @@ class _RecordListScreenState extends State<StudentSelfApplyRecord>
                                                                       fontSize: 12),
                                                                 ),
                                                               ),
-                                                              new Icon(
-                                                                Icons
-                                                                    .keyboard_arrow_right,
-                                                                color: GetConfig
-                                                                    .getColor(theme),
-                                                                size: 28,
-                                                              ),
+
                                                             ],
                                                           ),
                                                           Row(
@@ -290,10 +270,7 @@ class _RecordListScreenState extends State<StudentSelfApplyRecord>
                                                               ),
                                                             ],
                                                           ),
-                                                          Padding(
-                                                            padding: EdgeInsets.only(
-                                                                top: 5),
-                                                          ),
+
                                                           Row(
                                                             children: <Widget>[
                                                               Padding(
