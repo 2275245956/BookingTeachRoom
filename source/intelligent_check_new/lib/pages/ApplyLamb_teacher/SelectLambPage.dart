@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart'
+    as prefix0;
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/RoomModel.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplyLambInfo.dart';
 import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
@@ -8,6 +9,7 @@ import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 
 class SelLambScreen extends StatefulWidget {
   @override
@@ -52,84 +54,84 @@ class _SelLambScreen extends State<SelLambScreen>
     drop.add(new DropdownMenuItem(
       child: new Text(
         "${GetConfig.getScheduleDesc("read")}(${schedule["read"]})",
-        style: TextStyle(color: Colors.black, fontSize: 14),
+        style: TextStyle(color: Colors.black, fontSize: 13),
       ),
       value: "read",
     ));
     drop.add(new DropdownMenuItem(
       child: new Text(
         "${GetConfig.getScheduleDesc("first")}(${schedule["first"]})",
-        style: TextStyle(color: Colors.black, fontSize: 14),
+        style: TextStyle(color: Colors.black, fontSize: 13),
       ),
       value: "first",
     ));
     drop.add(new DropdownMenuItem(
       child: new Text(
         "${GetConfig.getScheduleDesc("second")}(${schedule["second"]})",
-        style: TextStyle(color: Colors.black, fontSize: 14),
+        style: TextStyle(color: Colors.black, fontSize: 13),
       ),
       value: "second",
     ));
     drop.add(new DropdownMenuItem(
       child: new Text(
         "${GetConfig.getScheduleDesc("third")}(${schedule["third"]})",
-        style: TextStyle(color: Colors.black, fontSize: 14),
+        style: TextStyle(color: Colors.black, fontSize: 12),
       ),
       value: "third",
     ));
     drop.add(new DropdownMenuItem(
       child: new Text(
         "${GetConfig.getScheduleDesc("forth")}(${schedule["forth"]})",
-        style: TextStyle(color: Colors.black, fontSize: 14),
+        style: TextStyle(color: Colors.black, fontSize: 12),
       ),
       value: "forth",
     ));
     drop.add(new DropdownMenuItem(
       child: new Text(
         "${GetConfig.getScheduleDesc("fifth")}(${schedule["fifth"]})",
-        style: TextStyle(color: Colors.black, fontSize: 14),
+        style: TextStyle(color: Colors.black, fontSize: 12),
       ),
       value: "fifth",
     ));
     drop.add(new DropdownMenuItem(
       child: new Text(
         "${GetConfig.getScheduleDesc("sixth")}(${schedule["sixth"]})",
-        style: TextStyle(color: Colors.black, fontSize: 14),
+        style: TextStyle(color: Colors.black, fontSize: 12),
       ),
       value: "sixth",
     ));
     drop.add(new DropdownMenuItem(
       child: new Text(
         "${GetConfig.getScheduleDesc("seventh")}(${schedule["seventh"]})",
-        style: TextStyle(color: Colors.black, fontSize: 14),
+        style: TextStyle(color: Colors.black, fontSize: 12),
       ),
       value: "seventh",
     ));
     drop.add(new DropdownMenuItem(
       child: new Text(
         "${GetConfig.getScheduleDesc("eight")}(${schedule["eight"]})",
-        style: TextStyle(color: Colors.black, fontSize: 14),
+        style: TextStyle(color: Colors.black, fontSize: 12),
       ),
       value: "eight",
     ));
     drop.add(new DropdownMenuItem(
       child: new Text(
         "${GetConfig.getScheduleDesc("ninth")}(${schedule["ninth"]})",
-        style: TextStyle(color: Colors.black, fontSize: 14),
+        style: TextStyle(color: Colors.black, fontSize: 12),
       ),
       value: "ninth",
     ));
     drop.add(new DropdownMenuItem(
       child: new Text(
         "${GetConfig.getScheduleDesc("tenth")}(${schedule["tenth"]})",
-        style: TextStyle(color: Colors.black, fontSize: 14),
+        style: TextStyle(color: Colors.black, fontSize: 12),
       ),
       value: "tenth",
     ));
     drop.add(new DropdownMenuItem(
       child: new Text(
         "${GetConfig.getScheduleDesc("sleep")}(${schedule["sleep"]})",
-        style: TextStyle(color: Colors.black, fontSize: 14),
+        style: TextStyle(color: Colors.black, fontSize: 12),
       ),
       value: "sleep",
     ));
@@ -137,15 +139,32 @@ class _SelLambScreen extends State<SelLambScreen>
   }
 
   getSelDate(TextEditingController controller) {
-    DatePicker.showDatePicker(context,
-        showTitleActions: true,
-        theme: DatePickerTheme(
-            itemStyle:
-                TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            doneStyle: TextStyle(color: Colors.blue, fontSize: 16)),
-        onConfirm: (date) {
-      controller.text = new DateFormat("yyyy-MM-dd").format(date);
-    }, currentTime: DateTime.now(), locale: LocaleType.zh);
+    bool _showTitle = true;
+
+    DateTimePickerLocale _locale = DateTimePickerLocale.zh_cn;
+
+    String _format = 'yyyy年MM月dd日    EEEE';
+
+    DatePicker.showDatePicker(
+      context,
+      minDateTime: DateTime.now(),
+      maxDateTime: DateTime.now().add(Duration(days: 365)),
+      initialDateTime: DateTime.now(),
+      dateFormat: _format,
+      locale: DateTimePickerLocale.zh_cn,
+      pickerTheme: DateTimePickerTheme(
+        showTitle: true,
+      ),
+      pickerMode: DateTimePickerMode.datetime,
+      // show TimePicker
+      onConfirm: (dateTime, List<int> index) {
+        setState(() {
+          controller.text = DateFormat("yyyy-MM-dd    EEEE", "zh")
+              .format(dateTime)
+              .toString();
+        });
+      },
+    );
   }
 
   // ignore: missing_return
@@ -164,7 +183,6 @@ class _SelLambScreen extends State<SelLambScreen>
   }
 
   _SearchRoom() async {
-
     var sDate = startDate.text;
     var eDate = endDate.text;
     if (sDate == "" || eDate == "") {
@@ -265,206 +283,203 @@ class _SelLambScreen extends State<SelLambScreen>
             child: Column(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only(left: 3),
+              padding: EdgeInsets.only(left: 10),
               child: Row(
                 children: <Widget>[
-                  Text(
-                    "开始",
-                    style: TextStyle(
-                        color: GetConfig.getColor(theme), fontSize: 16),
+                  Expanded(
+                    child: Text(
+                      "开始时间",
+                      style: TextStyle(
+                          color: GetConfig.getColor(theme), fontSize: 16),
+                    ),
+                    flex: 2,
                   ),
                   Expanded(
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          flex: 4,
-                          child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin: EdgeInsets.only(left: 3),
-                              padding: EdgeInsets.only(top: 5, bottom: 5),
-                              child: GestureDetector(
+                    child: Container(
+                        margin: EdgeInsets.only(left: 10, right: 10),
+                        padding: EdgeInsets.only(top: 5, bottom: 5),
+                        child: GestureDetector(
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
                                 child: Row(
                                   children: <Widget>[
                                     Expanded(
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 7,
-                                            child: TextField(
-                                              style: TextStyle(fontSize: 14),
-                                              enabled: false,
-                                              controller: startDate,
-                                              maxLines: null,
-                                              decoration: InputDecoration(
-                                                contentPadding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 10.0,
-                                                        horizontal: 3),
-                                                border: InputBorder.none,
-                                                hintText: "选择时间",
-                                                filled: true,
-                                                fillColor: Colors.white,
-                                              ),
-                                              onEditingComplete: () {
-                                                //print(this._controller.text);
-                                              },
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 1,
-                                            child: Icon(
-                                              Icons.date_range,
-                                              color: GetConfig.getColor(theme),
-                                            ),
-                                          ),
-                                        ],
+                                      flex: 7,
+                                      child: TextField(
+                                        style: TextStyle(fontSize: 14),
+                                        enabled: false,
+                                        controller: startDate,
+                                        maxLines: null,
+                                        decoration: InputDecoration(
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                                  vertical: 10.0,
+                                                  horizontal: 3),
+                                          border: InputBorder.none,
+                                          hintText: "选择时间",
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                        ),
+                                        onEditingComplete: () {
+                                          //print(this._controller.text);
+                                        },
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Icon(
+                                        Icons.date_range,
+                                        color: GetConfig.getColor(theme),
                                       ),
                                     ),
                                   ],
                                 ),
-                                onTap: () {
-                                  getSelDate(startDate);
-                                },
-                              )),
-                        ),
-                        Expanded(
-                          flex: 6,
-                          child: Container(
-                            color: Colors.white,
-                            height: 38,
-                            width: MediaQuery.of(context).size.width,
-                            margin: EdgeInsets.only(
-                                left: 12, top: 7, bottom: 6, right: 5),
-                            child: new DropdownButtonHideUnderline(
-                                child: new DropdownButton(
-                              items: droplist,
-                              hint: new Text(
-                                '节次',
-                                style: TextStyle(
-                                    color: Colors.black12, fontSize: 12),
                               ),
-                              onChanged: (value) {
-                                setState(() {
-                                  startValue = value;
-                                });
-                              },
-                              value: startValue,
-                              elevation: 24,
-
-                              style: new TextStyle(
-                                fontSize: 18,
-                              ),
-//              isDense: false,//减少按钮的高度。默认情况下，此按钮的高度与其菜单项的高度相同。如果isDense为true，则按钮的高度减少约一半。 这个当按钮嵌入添加的容器中时，非常有用
-                              iconSize: 40.0,
-                              iconEnabledColor: Colors.black12,
-                            )),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                  )
+                          onTap: () {
+                            getSelDate(startDate);
+                          },
+                        )),
+                    flex: 8,
+                  ),
                 ],
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 3),
+              padding: EdgeInsets.only(left: 10),
               child: Row(
                 children: <Widget>[
-                  Text(
-                    "结束",
-                    style: TextStyle(
-                        color: GetConfig.getColor(theme), fontSize: 16),
+                  Expanded(
+                    child: Text(
+                      "结束时间",
+                      style: TextStyle(
+                          color: GetConfig.getColor(theme), fontSize: 16),
+                    ),
+                    flex: 2,
                   ),
                   Expanded(
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          flex: 4,
-                          child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin: EdgeInsets.only(left: 3),
-                              padding: EdgeInsets.only(top: 5, bottom: 5),
-                              child: GestureDetector(
+                    child: Container(
+                        margin: EdgeInsets.only(left: 10, right: 10),
+                        padding: EdgeInsets.only(top: 5, bottom: 5),
+                        child: GestureDetector(
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
                                 child: Row(
                                   children: <Widget>[
                                     Expanded(
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 7,
-                                            child: TextField(
-                                              enabled: false,
-                                              controller: endDate,
-                                              maxLines: null,
-                                              decoration: InputDecoration(
-                                                contentPadding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 10.0,
-                                                        horizontal: 3),
-                                                border: InputBorder.none,
-                                                hintText: "选择时间",
-                                                filled: true,
-                                                fillColor: Colors.white,
-                                              ),
-                                              style: TextStyle(fontSize: 14),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 1,
-                                            child: Icon(
-                                              Icons.date_range,
-                                              color: GetConfig.getColor(theme),
-                                            ),
-                                          ),
-                                        ],
+                                      flex: 7,
+                                      child: TextField(
+                                        enabled: false,
+                                        controller: endDate,
+                                        maxLines: null,
+                                        decoration: InputDecoration(
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                                  vertical: 10.0,
+                                                  horizontal: 3),
+                                          border: InputBorder.none,
+                                          hintText: "选择时间",
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                        ),
+                                        style: TextStyle(fontSize: 14),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Icon(
+                                        Icons.date_range,
+                                        color: GetConfig.getColor(theme),
                                       ),
                                     ),
                                   ],
                                 ),
-                                onTap: () {
-                                  getSelDate(endDate);
-                                },
-                              )),
-                        ),
-                        Expanded(
-                          flex: 6,
-                          child: Container(
-                            color: Colors.white,
-                            width: MediaQuery.of(context).size.width,
-                            height: 38,
-                            margin: EdgeInsets.only(
-                                left: 12, top: 7, bottom: 6, right: 5),
-                            child: new DropdownButtonHideUnderline(
-                                child: new DropdownButton(
-                              items: droplist,
-                              hint: new Text(
-                                '节次',
-                                style: TextStyle(
-                                  color: Colors.black12,
-                                ),
                               ),
-                              onChanged: (value) {
-                                setState(() {
-                                  endvalue = value;
-                                });
-                              },
-                              value: endvalue,
-                              elevation: 24,
-                              style: new TextStyle(
-                                fontSize: 18,
-                              ),
-//              isDense: false,//减少按钮的高度。默认情况下，此按钮的高度与其菜单项的高度相同。如果isDense为true，则按钮的高度减少约一半。 这个当按钮嵌入添加的容器中时，非常有用
-                              iconSize: 40.0,
-                              iconEnabledColor: Colors.black12,
-                            )),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                  )
+                          onTap: () {
+                            getSelDate(endDate);
+                          },
+                        )),
+                    flex: 8,
+                  ),
                 ],
               ),
             ),
+           Container(
+margin: EdgeInsets.only(left: 10,right: 10),
+             child:  Row(
+               children: <Widget>[
+                 Expanded(
+                   child: Container(
+                     color: Colors.white,
+                     height: 38,
+                     child: new DropdownButtonHideUnderline(
+                         child: new DropdownButton(
+                           items: droplist,
+                           hint: new Text(
+                             '节次',
+                             style: TextStyle(color: Colors.black12, fontSize: 12),
+                           ),
+                           onChanged: (value) {
+                             setState(() {
+                               startValue = value;
+                             });
+                           },
+                           value: startValue,
+                           elevation: 24,
+
+                           style: new TextStyle(
+                             fontSize: 12,
+                           ),
+//              isDense: false,//减少按钮的高度。默认情况下，此按钮的高度与其菜单项的高度相同。如果isDense为true，则按钮的高度减少约一半。 这个当按钮嵌入添加的容器中时，非常有用
+                           iconSize: 30.0,
+                           iconEnabledColor: Colors.black12,
+                         )),
+                   ) ,
+                   flex: 10,
+                 ),
+                 Expanded(
+                   child: Text(" ~"),
+                   flex: 1,
+                 ),
+                 Expanded(
+                   child: Container(
+                     color: Colors.white,
+                     height: 38,
+                     child: new DropdownButtonHideUnderline(
+                         child: new DropdownButton(
+                           items: droplist,
+                           hint: new Text(
+                             '节次',
+                             style: TextStyle(
+                               color: Colors.black12,
+                             ),
+                           ),
+                           onChanged: (value) {
+                             setState(() {
+                               endvalue = value;
+                             });
+                           },
+                           value: endvalue,
+                           elevation: 24,
+                           style: new TextStyle(
+                             fontSize: 12,
+                           ),
+//              isDense: false,//减少按钮的高度。默认情况下，此按钮的高度与其菜单项的高度相同。如果isDense为true，则按钮的高度减少约一半。 这个当按钮嵌入添加的容器中时，非常有用
+                           iconSize: 30.0,
+                           iconEnabledColor: Colors.black12,
+                         )),
+                   ),
+                   flex: 10,
+                 ),
+               ],
+             ),
+           ),
+
             Divider(
               color: GetConfig.getColor(theme),
             ),
@@ -536,16 +551,16 @@ class _SelLambScreen extends State<SelLambScreen>
                       ),
                     ),
                     onTap: () => Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (context) =>
-                                ApplyLambInfo(room
-                                    , dateStart
-                                    , dateEnd
-                                    ,"${GetConfig.getScheduleDesc(startValue)}~${GetConfig.getScheduleDesc(endvalue)}"
-                                ))).then((_){
-                      _SearchRoom();
-                    }),
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (context) => ApplyLambInfo(
+                                        room,
+                                        dateStart,
+                                        dateEnd,
+                                        "${GetConfig.getScheduleDesc(startValue)}~${GetConfig.getScheduleDesc(endvalue)}")))
+                            .then((_) {
+                          _SearchRoom();
+                        }),
                   );
                 }).toList(),
               ),
