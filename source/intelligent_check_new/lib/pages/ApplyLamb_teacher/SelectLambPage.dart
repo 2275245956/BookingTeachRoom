@@ -1,10 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart'
-    as prefix0;
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/RoomModel.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplyLambInfo.dart';
-import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -32,6 +29,7 @@ class _SelLambScreen extends State<SelLambScreen>
   String dateStart = "";
   String dateEnd = "";
   List<RoomModel> roomlist = new List<RoomModel>();
+ var initDateTime=new DateTime.now();
 
   @override
   void initState() {
@@ -139,9 +137,6 @@ class _SelLambScreen extends State<SelLambScreen>
   }
 
   getSelDate(TextEditingController controller) {
-    bool _showTitle = true;
-
-    DateTimePickerLocale _locale = DateTimePickerLocale.zh_cn;
 
     String _format = 'yyyy年MM月dd日    EEEE';
 
@@ -149,7 +144,7 @@ class _SelLambScreen extends State<SelLambScreen>
       context,
       minDateTime: DateTime.now(),
       maxDateTime: DateTime.now().add(Duration(days: 365)),
-      initialDateTime: DateTime.now(),
+      initialDateTime: initDateTime,
       dateFormat: _format,
       locale: DateTimePickerLocale.zh_cn,
       pickerTheme: DateTimePickerTheme(
@@ -159,9 +154,12 @@ class _SelLambScreen extends State<SelLambScreen>
       // show TimePicker
       onConfirm: (dateTime, List<int> index) {
         setState(() {
-          controller.text = DateFormat("yyyy-MM-dd    EEEE", "zh")
+          controller.text = DateFormat("yyyy-MM-dd(EEEE)", "zh")
               .format(dateTime)
               .toString();
+          if(startDate.text!=""){
+              initDateTime=DateTime.parse(startDate.text.substring(0,10));
+          }
         });
       },
     );
@@ -183,8 +181,8 @@ class _SelLambScreen extends State<SelLambScreen>
   }
 
   _SearchRoom() async {
-    var sDate = startDate.text;
-    var eDate = endDate.text;
+    var sDate = startDate.text.substring(0,10);
+    var eDate = endDate.text.substring(0,10);
     if (sDate == "" || eDate == "") {
       GetConfig.popUpMsg("请选择时间!");
       return;
@@ -216,18 +214,18 @@ class _SelLambScreen extends State<SelLambScreen>
     setState(() {
       roomlist.clear();
     });
-    var response = await getEmptyLam(sStr, eStr);
-    if (response.success) {
-      setState(() {
-        for (var str in response.dataList) {
-          dateStart = sStr;
-          dateEnd = eStr;
-          roomlist.add(RoomModel.fromJson(str));
-        }
-      });
-    } else {
-      GetConfig.popUpMsg(response.message ?? "获取失败");
-    }
+//    var response = await getEmptyLam(sStr, eStr);
+//    if (response.success) {
+//      setState(() {
+//        for (var str in response.dataList) {
+//          dateStart = sStr;
+//          dateEnd = eStr;
+//          roomlist.add(RoomModel.fromJson(str));
+//        }
+//      });
+//    } else {
+//      GetConfig.popUpMsg(response.message ?? "获取失败");
+//    }
   }
 
   @override
@@ -443,7 +441,7 @@ margin: EdgeInsets.only(left: 10,right: 10),
                    flex: 10,
                  ),
                  Expanded(
-                   child: Text(" ~"),
+                   child: Text("~",style: TextStyle(),textAlign: TextAlign.center,),
                    flex: 1,
                  ),
                  Expanded(

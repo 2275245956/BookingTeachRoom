@@ -67,15 +67,14 @@ class _RecordListScreenState extends State<CheckApplyStudent>
         setState(() {
           if(data.success) {
 
-            for (var str in data.dataList) {
+            for (var jsonstr in data.dataList) {
               Map<String, dynamic> map = new Map();
-              map["title"] = str["eName"];
-              map["id"] = str["reqNumber"];
-             if(!allLams.contains(str["eName"])){
-               allLams.add(str["eName"]);
+              map["title"] = jsonstr["eName"];
+              map["id"] = jsonstr["reqNumber"];
+             if(!allLams.contains(jsonstr["eName"])){
+               allLams.add(jsonstr["eName"]);
                TITLE_ALL_CONTENT.add(map);
              }
-
             }
           }
         });

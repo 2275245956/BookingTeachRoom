@@ -1,6 +1,6 @@
 import 'dart:convert' show json;
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:intelligent_check_new/pages/navigation_keep_alive.dart';
 import 'package:intelligent_check_new/services/SystemService/SystemConfigService.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
@@ -10,10 +10,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ScheduleModel {
   TextEditingController startreadTimeController = new TextEditingController();
-
   TextEditingController startfirstClassController = new TextEditingController();
-  TextEditingController startsecondClassController =
-      new TextEditingController();
+  TextEditingController startsecondClassController =new TextEditingController();
   TextEditingController startthirdClassController = new TextEditingController();
   TextEditingController startforthClassController = new TextEditingController();
   TextEditingController startfithClassController = new TextEditingController();
@@ -51,6 +49,87 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
   ScheduleModel scheduleModel = new ScheduleModel();
   String theme = "red";
 
+  _getDateTime(TextEditingController controller) {
+    String _format = 'H时:mm分';
+
+    const String MIN_DATETIME = '2020-01-01 00:00:00';
+    const String MAX_DATETIME = '2020-12-31 23:59:59';
+
+    DatePicker.showDatePicker(
+      context,
+      minDateTime: DateTime.parse(MIN_DATETIME),
+      maxDateTime: DateTime.parse(MAX_DATETIME),
+      initialDateTime: DateTime.now(),
+      dateFormat: _format,
+      pickerMode: DateTimePickerMode.time,
+      locale: DateTimePickerLocale.zh_cn,
+      pickerTheme: DateTimePickerTheme(
+        showTitle: true,
+      ),
+      // show TimePicker
+      onConfirm: (dateTime, List<int> index) {
+        setState(() {
+          controller.text =
+              DateFormat("HH:mm", "zh").format(dateTime).toString();
+        });
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    initData();
+  }
+
+  void initData() async{
+
+    var ss=await SharedPreferences.getInstance();
+    setState(() {
+     var schedule = json.decode(ss.getString("schedule"));
+     scheduleModel.startreadTimeController.text=schedule["read"].toString().split("~")[0];
+     scheduleModel.endreadTimeController.text=schedule["read"].toString().split("~")[1];
+
+     scheduleModel.startfirstClassController.text=schedule["first"].toString().split("~")[0];
+     scheduleModel.endfirstClassController.text=schedule["first"].toString().split("~")[1];
+
+     scheduleModel.startsecondClassController.text=schedule["second"].toString().split("~")[0];
+     scheduleModel.endsecondClassController.text=schedule["second"].toString().split("~")[1];
+
+     scheduleModel.startthirdClassController.text=schedule["third"].toString().split("~")[0];
+     scheduleModel.endthirdClassController.text=schedule["third"].toString().split("~")[1];
+
+     scheduleModel.startforthClassController.text=schedule["forth"].toString().split("~")[0];
+     scheduleModel.endforthClassController.text=schedule["forth"].toString().split("~")[1];
+
+     scheduleModel.startfithClassController.text=schedule["fifth"].toString().split("~")[0];
+     scheduleModel.endfithClassController.text=schedule["fifth"].toString().split("~")[1];
+
+     scheduleModel.startsixthClassController.text=schedule["sixth"].toString().split("~")[0];
+     scheduleModel.endsixthClassController.text=schedule["sixth"].toString().split("~")[1];
+
+     scheduleModel.startsevenClassController.text=schedule["seventh"].toString().split("~")[0];
+     scheduleModel.endsevenClassController.text=schedule["seventh"].toString().split("~")[1];
+
+
+     scheduleModel.starteightClassController.text=schedule["eight"].toString().split("~")[0];
+     scheduleModel.endeightClassController.text=schedule["eight"].toString().split("~")[1];
+
+     scheduleModel.startnightClassController.text=schedule["ninth"].toString().split("~")[0];
+     scheduleModel.endnightClassController.text=schedule["ninth"].toString().split("~")[1];
+
+
+     scheduleModel.starttenClassController.text=schedule["tenth"].toString().split("~")[0];
+     scheduleModel.endtenClassController.text=schedule["tenth"].toString().split("~")[1];
+
+     scheduleModel.closeTimeController.text=schedule["sleep"].toString();
+
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -71,7 +150,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Icon(Icons.keyboard_arrow_left,
-                  color:GetConfig.getColor(theme) /*Color.fromRGBO(209, 6, 24, 1)*/,
+                  color: GetConfig.getColor(
+                      theme) /*Color.fromRGBO(209, 6, 24, 1)*/,
                   size: 32),
             ),
           ),
@@ -111,7 +191,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                   Expanded(
                                     child: Container(
                                         width:
-                                            MediaQuery.of(context).size.width /2 -30,
+                                            MediaQuery.of(context).size.width /
+                                                    2 -
+                                                30,
                                         margin:
                                             EdgeInsets.only(top: 5, bottom: 10),
                                         padding: EdgeInsets.only(
@@ -163,7 +245,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -172,25 +256,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .startreadTimeController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                            _getDateTime(scheduleModel
+                                                .startreadTimeController);
                                           },
                                         )),
                                   ),
@@ -251,7 +318,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -260,25 +329,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .endreadTimeController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                            _getDateTime(scheduleModel
+                                                .endreadTimeController);
                                           },
                                         )),
                                   ),
@@ -374,7 +426,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -383,25 +437,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .startfirstClassController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                            _getDateTime(scheduleModel
+                                                .startfirstClassController);
                                           },
                                         )),
                                   ),
@@ -462,7 +499,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -471,25 +510,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .endfirstClassController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                            _getDateTime(scheduleModel
+                                                .endfirstClassController);
                                           },
                                         )),
                                   ),
@@ -586,7 +608,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -595,25 +619,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                  .startsecondClassController
-                                                  .text = new DateFormat(
-                                                      "HH:mm")
-                                                  .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                            _getDateTime(scheduleModel
+                                                .startsecondClassController);
                                           },
                                         )),
                                   ),
@@ -674,7 +681,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -683,25 +692,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .endsecondClassController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                            _getDateTime(scheduleModel
+                                                .endsecondClassController);
                                           },
                                         )),
                                   ),
@@ -798,7 +790,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -807,25 +801,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .startthirdClassController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                            _getDateTime(scheduleModel
+                                                .startthirdClassController);
                                           },
                                         )),
                                   ),
@@ -886,7 +863,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -895,25 +874,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .endthirdClassController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                            _getDateTime(scheduleModel
+                                                .endthirdClassController);
                                           },
                                         )),
                                   ),
@@ -1010,7 +972,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1019,25 +983,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .startforthClassController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                            _getDateTime(scheduleModel
+                                                .startforthClassController);
                                           },
                                         )),
                                   ),
@@ -1098,7 +1045,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1107,25 +1056,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .endforthClassController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                            _getDateTime(scheduleModel
+                                                .endforthClassController);
                                           },
                                         )),
                                   ),
@@ -1222,7 +1154,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1231,25 +1165,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .startfithClassController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                            _getDateTime(scheduleModel
+                                                .startfithClassController);
                                           },
                                         )),
                                   ),
@@ -1310,7 +1227,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1319,25 +1238,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .endfithClassController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                            _getDateTime(scheduleModel
+                                                .endfithClassController);
                                           },
                                         )),
                                   ),
@@ -1434,7 +1336,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1443,25 +1347,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .startsixthClassController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                          _getDateTime(scheduleModel
+                                              .startsixthClassController);
                                           },
                                         )),
                                   ),
@@ -1522,7 +1409,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1531,25 +1420,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .endsixthClassController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                          _getDateTime(scheduleModel
+                                              .endsixthClassController);
                                           },
                                         )),
                                   ),
@@ -1646,7 +1518,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1655,25 +1529,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .startsevenClassController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                          _getDateTime(scheduleModel
+                                              .startsevenClassController);
                                           },
                                         )),
                                   ),
@@ -1734,7 +1591,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1743,25 +1602,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .endsevenClassController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                          _getDateTime(scheduleModel
+                                              .endsevenClassController);
                                           },
                                         )),
                                   ),
@@ -1858,7 +1700,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1867,25 +1711,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .starteightClassController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                          _getDateTime(scheduleModel
+                                              .starteightClassController);
                                           },
                                         )),
                                   ),
@@ -1946,7 +1773,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -1955,25 +1784,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .endeightClassController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                          _getDateTime(scheduleModel
+                                              .endeightClassController);
                                           },
                                         )),
                                   ),
@@ -2070,7 +1882,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -2079,25 +1893,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .startnightClassController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                          _getDateTime(scheduleModel
+                                              .startnightClassController);
                                           },
                                         )),
                                   ),
@@ -2158,7 +1955,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -2167,25 +1966,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .endnightClassController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                          _getDateTime(scheduleModel
+                                              .endnightClassController);
                                           },
                                         )),
                                   ),
@@ -2282,7 +2064,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -2291,25 +2075,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .starttenClassController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                          _getDateTime(scheduleModel
+                                              .starttenClassController);
                                           },
                                         )),
                                   ),
@@ -2370,7 +2137,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -2379,25 +2148,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel
-                                                      .endtenClassController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                          _getDateTime(scheduleModel
+                                              .endtenClassController);
                                           },
                                         )),
                                   ),
@@ -2492,7 +2244,9 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                                       flex: 1,
                                                       child: Icon(
                                                         Icons.date_range,
-                                                        color:GetConfig.getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                       ),
                                                     ),
                                                   ],
@@ -2501,24 +2255,8 @@ class _ScheduleSettingPage extends State<ScheduleSettingPage> {
                                             ],
                                           ),
                                           onTap: () {
-                                            DatePicker.showTimePicker(context,
-                                                showTitleActions: true,
-                                                theme: DatePickerTheme(
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 16)),
-                                                onConfirm: (date) {
-                                              scheduleModel.closeTimeController
-                                                      .text =
-                                                  new DateFormat("HH:mm")
-                                                      .format(date);
-                                            },
-                                                currentTime: DateTime.now(),
-                                                locale: LocaleType.zh);
+                                          _getDateTime(scheduleModel
+                                              .closeTimeController);
                                           },
                                         )),
                                   ),
