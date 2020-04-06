@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/RoomModel.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplyLambInfo.dart';
+import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -208,24 +209,31 @@ class _SelLambScreen extends State<SelLambScreen>
       GetConfig.popUpMsg("早读时间和熄灯时间不在实验范围内！");
       return;
     }
+  GetConfig.IOSPopMsg("提示！",Text("您选择的结果是：\r\n${startDate.text}~${endDate.text}的每周${startDate.text.substring(11,14)}的空教室",textAlign: TextAlign.left,), context);
+  }
+  _Apply(String classbegin,String classend,String sDate,String eDate)async{
 
-    var sStr = DateFormat("yyyy-MM-dd HH:mm:00").format(start);
-    var eStr = DateFormat("yyyy-MM-dd HH:mm:00").format(end);
+
+    var sTime="${classbegin.toString().split(":")[0]}${classbegin.toString().split(":")[1]}";
+    var eTime="${classend.toString().split(":")[0]}${classend.toString().split(":")[1]}";
     setState(() {
       roomlist.clear();
     });
-//    var response = await getEmptyLam(sStr, eStr);
-//    if (response.success) {
-//      setState(() {
-//        for (var str in response.dataList) {
-//          dateStart = sStr;
-//          dateEnd = eStr;
-//          roomlist.add(RoomModel.fromJson(str));
-//        }
-//      });
-//    } else {
-//      GetConfig.popUpMsg(response.message ?? "获取失败");
-//    }
+    print(sDate +"====>"+sTime);
+    print(eDate +"====>"+eTime);
+
+
+    var response = await getEmptyLam(sDate,sTime,eDate,eTime);
+    if (response.success) {
+      setState(() {
+        for (var str in response.dataList) {
+
+          roomlist.add(RoomModel.fromJson(str));
+        }
+      });
+    } else {
+      GetConfig.popUpMsg(response.message ?? "获取失败");
+    }
   }
 
   @override
