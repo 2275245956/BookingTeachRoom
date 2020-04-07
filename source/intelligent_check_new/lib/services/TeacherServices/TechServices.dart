@@ -1,14 +1,14 @@
 import 'dart:convert' show json;
-import 'dart:io';
-import 'package:dio/dio.dart';
 import 'package:intelligent_check_new/model/APIResponse.dart';
 import 'package:intelligent_check_new/services/api_address.dart';
 import 'package:intelligent_check_new/tools/HttpUtil.dart';
 
-Future<APIResponse> getEmptyLam(String startDate, String endDate) async {
+Future<APIResponse> getEmptyLam(String sDate,String sTime, String eDate,String eTime) async {
   try {
+    var stime=int.parse(sTime);
+    var etime=int.parse(eTime);
     var data = await HttpUtil()
-        .post(ApiAddress.GET_EMPTYLAM + "?sDate=$startDate&eDate=$endDate");
+        .post(ApiAddress.GET_EMPTYLAM + "?sDate=$sDate&sTime=$stime&eDate=$eDate&eTime=$etime");
     return APIResponse.fromJson(data);
   } catch (e) {
     throw e;
@@ -65,13 +65,13 @@ Future<APIResponse> CancelApplyLamb(String reqNumber) async {
 
 Future<APIResponse> GetAllApplyingStudentByTeachNum(String eName,String tNumber,String pageNum)async{
   try {
-//    var jsonStr={
-//      "eName":eName,
-//      "tNumber":tNumber,
-//      "pageNUm":pageNum
-//
-//    };
-    var data = await new HttpUtil().get(ApiAddress.GetAllStudentApplying+"?tNumber=$tNumber&eName=$eName&pageNum=$pageNum");
+    var jsonStr={
+      "eName":eName,
+      "tNumber":tNumber,
+      "pageNum":pageNum
+
+    };
+    var data = await new HttpUtil().post(ApiAddress.GetAllStudentApplying+"?tNumber=$tNumber",data: json.encode(jsonStr));
     return APIResponse.fromJson(data);
   } catch (e) {
     throw e;
