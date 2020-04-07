@@ -408,7 +408,7 @@ class _SelLambScreen extends State<SelLambScreen>
               ),
             ),
            Container(
-margin: EdgeInsets.only(left: 10,right: 10),
+             margin: EdgeInsets.only(left: 10,right: 10),
              child:  Row(
                children: <Widget>[
                  Expanded(
