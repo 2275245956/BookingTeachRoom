@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:intelligent_check_new/constants/index.dart';
-import 'package:intelligent_check_new/model/Lamb/ApplyLam/RoomModel.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb_teacher/SelectLambPage.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intelligent_check_new/tools/min_calendar/model/date_day.dart';
 import 'package:intelligent_check_new/tools/min_calendar/model/i18n_model.dart';
@@ -13,12 +12,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 
 
-class SelLambScreen extends StatefulWidget {
+class SelectSection extends StatefulWidget {
   @override
-  _SelLambScreen createState() => _SelLambScreen();
+  _SelectSection createState() => _SelectSection();
 }
 
-class _SelLambScreen extends State<SelLambScreen>
+class _SelectSection extends State<SelectSection>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
@@ -28,14 +27,15 @@ class _SelLambScreen extends State<SelLambScreen>
   var endvalue = "read";
   Map<DateDay,String> _selDateMap=new Map();
 
-  TextEditingController startDate = new TextEditingController();
-  TextEditingController endDate = new TextEditingController();
+  TextEditingController startDate = new TextEditingController(text: DateFormat("yyyy-MM-dd","zh").format(DateTime.now()));
+  DateTime selSDate=DateTime.now();
+  DateTime selEDate=DateTime.now();
+  TextEditingController endDate = new TextEditingController(text: DateFormat("yyyy-MM-dd","zh").format(DateTime.now()));
   var schedule;
   List<DropdownMenuItem> droplist = new List<DropdownMenuItem>();
 
   String dateStart = "";
   String dateEnd = "";
-  List<RoomModel> roomlist = new List<RoomModel>();
   var initDateTime = new DateTime.now();
 
   @override
@@ -160,8 +160,12 @@ class _SelLambScreen extends State<SelLambScreen>
       // show TimePicker
       onConfirm: (dateTime, List<int> index) {
         setState(() {
-          controller.text =
-              DateFormat("yyyy-MM-dd(EEEE)", "zh").format(dateTime).toString();
+          controller.text = DateFormat("yyyy-MM-dd").format(dateTime).toString();
+          if(_selDateMap.length>0){
+            _selDateMap.clear();
+            GetConfig.popUpMsg("当前选择已清空");
+          }
+
           if (startDate.text != "") {
             initDateTime = DateTime.parse(startDate.text.substring(0, 10));
           }
@@ -200,8 +204,7 @@ class _SelLambScreen extends State<SelLambScreen>
         : schedule[endvalue];
 
     var start = _GetDateTime(sDate, classbegin);
-    var end = _GetDateTime(eDate, classend);
-
+    var end = _GetDateTime(sDate, classend);
     if (end.isBefore(start)) {
       GetConfig.popUpMsg("开始时间和结束时间不可有交叉！");
       return;
@@ -216,21 +219,18 @@ class _SelLambScreen extends State<SelLambScreen>
 
     var sStr = DateFormat("yyyy-MM-dd HH:mm:00").format(start);
     var eStr = DateFormat("yyyy-MM-dd HH:mm:00").format(end);
-    setState(() {
-      roomlist.clear();
-    });
-//    var response = await getEmptyLam(sStr, eStr);
-//    if (response.success) {
-//      setState(() {
-//        for (var str in response.dataList) {
-//          dateStart = sStr;
-//          dateEnd = eStr;
-//          roomlist.add(RoomModel.fromJson(str));
-//        }
-//      });
-//    } else {
-//      GetConfig.popUpMsg(response.message ?? "获取失败");
-//    }
+    print(sDate+"========>"+classbegin);
+    print(eDate+"========>"+classend);
+    var sTime="${classbegin.toString().split(":")[0]}${classbegin.toString().split(":")[1]}";
+    var eTime="${classend.toString().split(":")[0]}${classend.toString().split(":")[1]}";
+    var josnStr={
+      "sDate":sDate,
+      "eDate":eDate,
+      "sTime":sTime,
+      "eTime":eTime,
+      "section": "${GetConfig.getScheduleDesc(startValue)}~${GetConfig.getScheduleDesc(endvalue)}"
+    };
+    Navigator.push(context, new MaterialPageRoute(builder: (context)=>SelLambScreen(selValue:josnStr,selDateMa: _selDateMap,)));
   }
 
   @override
@@ -238,6 +238,26 @@ class _SelLambScreen extends State<SelLambScreen>
   Widget build(BuildContext context) {
     if (theme.isEmpty || droplist.length == 0) {
       return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            '上课时间',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 22,
+            ),
+          ),
+          leading: GestureDetector(
+            child: Icon(
+              Icons.keyboard_arrow_left,
+              color: GetConfig.getColor(theme),
+              size: 28,
+            ),
+            onTap: () => Navigator.pop(context),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          elevation: 0,
+        ),
         backgroundColor: Color.fromRGBO(242, 246, 249, 1),
         body: Text(""),
       );
@@ -248,7 +268,7 @@ class _SelLambScreen extends State<SelLambScreen>
       backgroundColor: Color.fromRGBO(242, 246, 249, 1),
       appBar: AppBar(
         title: Text(
-          '实验室选择',
+          '上课时间',
           style: TextStyle(
             color: Colors.black,
             fontSize: 22,
@@ -285,6 +305,7 @@ class _SelLambScreen extends State<SelLambScreen>
         child: Container(
             child: Column(
               children: <Widget>[
+                ///开始时间
                 Container(
                   padding: EdgeInsets.only(left: 10),
                   child: Row(
@@ -350,6 +371,7 @@ class _SelLambScreen extends State<SelLambScreen>
                     ],
                   ),
                 ),
+                ///结束时间
                 Container(
                   padding: EdgeInsets.only(left: 10),
                   child: Row(
@@ -412,183 +434,117 @@ class _SelLambScreen extends State<SelLambScreen>
                     ],
                   ),
                 ),
-//           Container(
-//margin: EdgeInsets.only(left: 10,right: 10),
-//             child:  Row(
-//               children: <Widget>[
-//                 Expanded(
-//                   child: Container(
-//                     color: Colors.white,
-//                     height: 38,
-//                     child: new DropdownButtonHideUnderline(
-//                         child: new DropdownButton(
-//                           items: droplist,
-//                           hint: new Text(
-//                             '节次',
-//                             style: TextStyle(color: Colors.black12, fontSize: 12),
-//                           ),
-//                           onChanged: (value) {
-//                             setState(() {
-//                               startValue = value;
-//                             });
-//                           },
-//                           value: startValue,
-//                           elevation: 24,
-//
-//                           style: new TextStyle(
-//                             fontSize: 12,
-//                           ),
-////              isDense: false,//减少按钮的高度。默认情况下，此按钮的高度与其菜单项的高度相同。如果isDense为true，则按钮的高度减少约一半。 这个当按钮嵌入添加的容器中时，非常有用
-//                           iconSize: 30.0,
-//                           iconEnabledColor: Colors.black12,
-//                         )),
-//                   ) ,
-//                   flex: 10,
-//                 ),
-//                 Expanded(
-//                   child: Text("~",style: TextStyle(),textAlign: TextAlign.center,),
-//                   flex: 1,
-//                 ),
-//                 Expanded(
-//                   child: Container(
-//                     color: Colors.white,
-//                     height: 38,
-//                     child: new DropdownButtonHideUnderline(
-//                         child: new DropdownButton(
-//                           items: droplist,
-//                           hint: new Text(
-//                             '节次',
-//                             style: TextStyle(
-//                               color: Colors.black12,
-//                             ),
-//                           ),
-//                           onChanged: (value) {
-//                             setState(() {
-//                               endvalue = value;
-//                             });
-//                           },
-//                           value: endvalue,
-//                           elevation: 24,
-//                           style: new TextStyle(
-//                             fontSize: 12,
-//                           ),
-////              isDense: false,//减少按钮的高度。默认情况下，此按钮的高度与其菜单项的高度相同。如果isDense为true，则按钮的高度减少约一半。 这个当按钮嵌入添加的容器中时，非常有用
-//                           iconSize: 30.0,
-//                           iconEnabledColor: Colors.black12,
-//                         )),
-//                   ),
-//                   flex: 10,
-//                 ),
-//               ],
-//             ),
-//           ),
-
                 Container(
+                  margin: EdgeInsets.only(left: 10,right: 10),
+                  child:  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.white,
+                          height: 38,
+                          child: new DropdownButtonHideUnderline(
+                              child: new DropdownButton(
+                                items: droplist,
+                                hint: new Text(
+                                  '节次',
+                                  style: TextStyle(color: Colors.black12, fontSize: 12),
+                                ),
+                                onChanged: (value) {
+                                  setState(() {
+                                    startValue = value;
+                                  });
+                                },
+                                value: startValue,
+                                elevation: 24,
 
+                                style: new TextStyle(
+                                  fontSize: 12,
+                                ),
+//              isDense: false,//减少按钮的高度。默认情况下，此按钮的高度与其菜单项的高度相同。如果isDense为true，则按钮的高度减少约一半。 这个当按钮嵌入添加的容器中时，非常有用
+                                iconSize: 30.0,
+                                iconEnabledColor: Colors.black12,
+                              )),
+                        ) ,
+                        flex: 10,
+                      ),
+                      Expanded(
+                        child: Text("~",style: TextStyle(),textAlign: TextAlign.center,),
+                        flex: 1,
+                      ),
+                      Expanded(
+                        child: Container(
+                          color: Colors.white,
+                          height: 38,
+                          child: new DropdownButtonHideUnderline(
+                              child: new DropdownButton(
+                                items: droplist,
+                                hint: new Text(
+                                  '节次',
+                                  style: TextStyle(
+                                    color: Colors.black12,
+                                  ),
+                                ),
+                                onChanged: (value) {
+                                  setState(() {
+                                    endvalue = value;
+                                  });
+                                },
+                                value: endvalue,
+                                elevation: 24,
+                                style: new TextStyle(
+                                  fontSize: 12,
+                                ),
+//              isDense: false,//减少按钮的高度。默认情况下，此按钮的高度与其菜单项的高度相同。如果isDense为true，则按钮的高度减少约一半。 这个当按钮嵌入添加的容器中时，非常有用
+                                iconSize: 30.0,
+                                iconEnabledColor: Colors.black12,
+                              )),
+                        ),
+                        flex: 10,
+                      ),
+                    ],
+                  ),
+                ),
+
+                Divider(
+                  color: GetConfig.getColor(theme),
+                ),
+                ///上课时间选择
+                Container(
                   child:     MonthPageView(
                     padding: EdgeInsets.all(1),
                     option: MonthOption(
                       marks:_selDateMap,
                     ),
                     showWeekHead: true,
-                    onDaySelected: (day, data) {
 
+                    buildMark: (ctx, day, data) => Positioned(
+                      bottom: 3,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: Icon(
+                          Icons.check_circle,
+                          color: Colors.green,
+                          size:25,
+                        ),
+                      ),
+                    ),
+                    onDaySelected: (day, data) {
                       setState(() {
-                        if(DateTime.now().isAfter(DateTime.parse(day.toString()))){
-                          GetConfig.popUpMsg("时间不小于当前时间！");
-                          return ;
+                        if(DateTime.parse(startDate.text).isAfter(DateTime.parse(day.toString())) || DateTime.parse(endDate.text).isBefore(DateTime.parse(day.toString()))){
+                          GetConfig.popUpMsg("该时间不在开始和结束时间的范围内！");
+                          return;
                         }
-                        _selDateMap[day]=data;
+                        if(_selDateMap.containsKey(day)){
+                          _selDateMap.remove(day);
+                        }else{
+                          _selDateMap[day]=data;
+                        }
                       });
                     },
                     localeType: LocaleType.zh,
                   ),
                 ),
-                Divider(
-                  color: GetConfig.getColor(theme),
-                ),
-//            Container(
-//              padding: EdgeInsets.all(8),
-//              alignment: Alignment.centerLeft,
-//              child: Text("说明：选择时间加载当前日期下的空闲教室，点击教室申请实验！",
-//                  style: TextStyle(color: Colors.red, fontSize: 12)),
-//            ),
-//            Flexible(
-//              child: GridView(
-//                shrinkWrap: true,
-//                //构造 GridView 的委托者，GridView.count 就相当于指定 gridDelegate 为 SliverGridDelegateWithFixedCrossAxisCount，
-//                //GridView.extent 就相当于指定 gridDelegate 为 SliverGridDelegateWithMaxCrossAxisExtent，它们相当于对普通构造方法的一种封装
-//                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                  //必传参数，Cross 轴（在 GridView 中通常是横轴，即每一行）子组件个数
-//                  crossAxisCount: 3,
-//                  //子组件宽高比，如 2 表示宽：高=2:1,如 0.5 表示宽：高=0.5:1=1:2，简单来说就是值大于 1 就会宽大于高，小于 1 就会宽小于高
-//                  childAspectRatio: 1,
-//                  //Cross 轴子组件的间隔，一行中第一个子组件左边不会添加间隔，最后一个子组件右边不会添加间隔，这一点很棒
-//                  crossAxisSpacing: 3,
-//                  //Main 轴（在 GridView 中通常是纵轴，即每一列）子组件间隔，也就是每一行之间的间隔，同样第一行的上边和最后一行的下边不会添加间隔
-//                  mainAxisSpacing: 3,
-//                ),
-//                cacheExtent: 0,
-//                padding: EdgeInsets.all(5),
-//                scrollDirection: Axis.vertical,
-//                children: roomlist.map((room) {
-//                  return GestureDetector(
-//                    child: Container(
-//                      decoration: new BoxDecoration(
-//                        border:
-//                            new Border.all(width: 2.0, color: Colors.black12),
-//                        borderRadius:
-//                            new BorderRadius.all(new Radius.circular(8.0)),
-//                      ),
-//                      padding: const EdgeInsets.all(8.0),
-//                      alignment: Alignment.centerLeft,
-//                      child: Column(
-//                        children: <Widget>[
-//                          Expanded(
-//                            flex: 3,
-//                            child: Container(
-//                              alignment: Alignment.centerLeft,
-//                              child: Text(room.rNumber,
-//                                  style: TextStyle(
-//                                      fontSize: 16,
-//                                      color: Colors.red,
-//                                      fontWeight: FontWeight.w800)),
-//                            ),
-//                          ),
-//                          Expanded(
-//                            flex: 4,
-//                            child: Container(
-//                              alignment: Alignment.centerLeft,
-//                              child: Text(room.rName,
-//                                  style: TextStyle(fontSize: 12)),
-//                            ),
-//                          ),
-//                          Expanded(
-//                            flex: 4,
-//                            child: Container(
-//                              alignment: Alignment.centerLeft,
-//                              child: Text(room.attriText01,
-//                                  style: TextStyle(fontSize: 12)),
-//                            ),
-//                          ),
-//                        ],
-//                      ),
-//                    ),
-//                    onTap: () => Navigator.push(
-//                                context,
-//                                new MaterialPageRoute(
-//                                    builder: (context) => ApplyLambInfo(
-//                                        room,
-//                                        dateStart,
-//                                        dateEnd,
-//                                        "${GetConfig.getScheduleDesc(startValue)}~${GetConfig.getScheduleDesc(endvalue)}")))
-//                            .then((_) {
-//                          _SearchRoom();
-//                        }),
-//                  );
-//                }).toList(),
-//              ),
-//            )
               ],
             )),
         inAsyncCall: isAnimating,

@@ -1,15 +1,20 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/RoomModel.dart';
+import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplyLambInfo.dart';
 import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
-import 'package:intl/intl.dart';
+import 'package:intelligent_check_new/tools/min_calendar/model/date_day.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 
 class SelLambScreen extends StatefulWidget {
+  final dynamic selValue;
+  final Map<DateDay, String> selDateMa;
+
+  SelLambScreen({this.selValue, this.selDateMa});
+
   @override
   _SelLambScreen createState() => _SelLambScreen();
 }
@@ -20,17 +25,8 @@ class _SelLambScreen extends State<SelLambScreen>
   bool get wantKeepAlive => true;
   String theme = "red";
   bool isAnimating = false;
-  var startValue = "read";
-  var endvalue = "read";
-  TextEditingController startDate = new TextEditingController();
-  TextEditingController endDate = new TextEditingController();
-  var schedule;
-  List<DropdownMenuItem> droplist = new List<DropdownMenuItem>();
-
-  String dateStart = "";
-  String dateEnd = "";
   List<RoomModel> roomlist = new List<RoomModel>();
- var initDateTime=new DateTime.now();
+  UserModel userInfo;
 
   @override
   void initState() {
@@ -42,204 +38,27 @@ class _SelLambScreen extends State<SelLambScreen>
   _InitData() async {
     await SharedPreferences.getInstance().then((sp) {
       setState(() {
-        schedule = jsonDecode(sp.getString("schedule"));
-        droplist = _getScheduleDrop();
+        userInfo = UserModel.fromJson(json.decode(sp.getString("userModel")));
       });
     });
-  }
-
-  List<DropdownMenuItem> _getScheduleDrop() {
-    var drop = new List<DropdownMenuItem>();
-    drop.add(new DropdownMenuItem(
-      child: new Text(
-        "${GetConfig.getScheduleDesc("read")}(${schedule["read"]})",
-        style: TextStyle(color: Colors.black, fontSize: 13),
-      ),
-      value: "read",
-    ));
-    drop.add(new DropdownMenuItem(
-      child: new Text(
-        "${GetConfig.getScheduleDesc("first")}(${schedule["first"]})",
-        style: TextStyle(color: Colors.black, fontSize: 13),
-      ),
-      value: "first",
-    ));
-    drop.add(new DropdownMenuItem(
-      child: new Text(
-        "${GetConfig.getScheduleDesc("second")}(${schedule["second"]})",
-        style: TextStyle(color: Colors.black, fontSize: 13),
-      ),
-      value: "second",
-    ));
-    drop.add(new DropdownMenuItem(
-      child: new Text(
-        "${GetConfig.getScheduleDesc("third")}(${schedule["third"]})",
-        style: TextStyle(color: Colors.black, fontSize: 12),
-      ),
-      value: "third",
-    ));
-    drop.add(new DropdownMenuItem(
-      child: new Text(
-        "${GetConfig.getScheduleDesc("forth")}(${schedule["forth"]})",
-        style: TextStyle(color: Colors.black, fontSize: 12),
-      ),
-      value: "forth",
-    ));
-    drop.add(new DropdownMenuItem(
-      child: new Text(
-        "${GetConfig.getScheduleDesc("fifth")}(${schedule["fifth"]})",
-        style: TextStyle(color: Colors.black, fontSize: 12),
-      ),
-      value: "fifth",
-    ));
-    drop.add(new DropdownMenuItem(
-      child: new Text(
-        "${GetConfig.getScheduleDesc("sixth")}(${schedule["sixth"]})",
-        style: TextStyle(color: Colors.black, fontSize: 12),
-      ),
-      value: "sixth",
-    ));
-    drop.add(new DropdownMenuItem(
-      child: new Text(
-        "${GetConfig.getScheduleDesc("seventh")}(${schedule["seventh"]})",
-        style: TextStyle(color: Colors.black, fontSize: 12),
-      ),
-      value: "seventh",
-    ));
-    drop.add(new DropdownMenuItem(
-      child: new Text(
-        "${GetConfig.getScheduleDesc("eight")}(${schedule["eight"]})",
-        style: TextStyle(color: Colors.black, fontSize: 12),
-      ),
-      value: "eight",
-    ));
-    drop.add(new DropdownMenuItem(
-      child: new Text(
-        "${GetConfig.getScheduleDesc("ninth")}(${schedule["ninth"]})",
-        style: TextStyle(color: Colors.black, fontSize: 12),
-      ),
-      value: "ninth",
-    ));
-    drop.add(new DropdownMenuItem(
-      child: new Text(
-        "${GetConfig.getScheduleDesc("tenth")}(${schedule["tenth"]})",
-        style: TextStyle(color: Colors.black, fontSize: 12),
-      ),
-      value: "tenth",
-    ));
-    drop.add(new DropdownMenuItem(
-      child: new Text(
-        "${GetConfig.getScheduleDesc("sleep")}(${schedule["sleep"]})",
-        style: TextStyle(color: Colors.black, fontSize: 12),
-      ),
-      value: "sleep",
-    ));
-    return drop;
-  }
-
-  getSelDate(TextEditingController controller) {
-
-    String _format = 'yyyy年MM月dd日    EEEE';
-
-    DatePicker.showDatePicker(
-      context,
-      minDateTime: DateTime.now(),
-      maxDateTime: DateTime.now().add(Duration(days: 365)),
-      initialDateTime: initDateTime,
-      dateFormat: _format,
-      locale: DateTimePickerLocale.zh_cn,
-      pickerTheme: DateTimePickerTheme(
-        showTitle: true,
-      ),
-      pickerMode: DateTimePickerMode.datetime,
-      // show TimePicker
-      onConfirm: (dateTime, List<int> index) {
+    var data = await getEmptyLam(
+        this.widget.selValue["sDate"],
+        this.widget.selValue["sTime"],
+        this.widget.selValue["eDate"],
+        this.widget.selValue["eTime"]);
+    if (data.success && data.dataList != null) {
+      for (var ss in data.dataList) {
         setState(() {
-          controller.text = DateFormat("yyyy-MM-dd(EEEE)", "zh")
-              .format(dateTime)
-              .toString();
-          if(startDate.text!=""){
-              initDateTime=DateTime.parse(startDate.text.substring(0,10));
-          }
+          roomlist.add(RoomModel.fromJson(ss));
         });
-      },
-    );
-  }
-
-  // ignore: missing_return
-  DateTime _GetDateTime(String date, String time) {
-    if (time.contains(":")) {
-      var timeStr = time.split(':');
-      var hour = timeStr[0];
-      var minute = timeStr[1];
-      if (hour.length == 1 && int.tryParse(hour) <= 9) {
-        hour = "0${hour}";
       }
-      var dateTime = DateTime.parse("${date} ${hour}:${minute}:00");
-      return dateTime;
-    }
-    return DateTime.now();
-  }
-
-  _SearchRoom() async {
-    var sDate = startDate.text.substring(0,10);
-    var eDate = endDate.text.substring(0,10);
-    if (sDate == "" || eDate == "") {
-      GetConfig.popUpMsg("请选择时间!");
-      return;
-    }
-    var classbegin = schedule[startValue].contains("~")
-        ? schedule[startValue].split('~')[0]
-        : schedule[startValue];
-    var classend = schedule[endvalue].contains("~")
-        ? schedule[endvalue].split('~')[1]
-        : schedule[endvalue];
-
-    var start = _GetDateTime(sDate, classbegin);
-    var end = _GetDateTime(eDate, classend);
-
-    if (end.isBefore(start)) {
-      GetConfig.popUpMsg("开始时间和结束时间不可有交叉！");
-      return;
-    }
-    if (startValue == "read" ||
-        startValue == "sleep" ||
-        endvalue == "read" ||
-        endvalue == "sleep") {
-      GetConfig.popUpMsg("早读时间和熄灯时间不在实验范围内！");
-      return;
-    }
-  GetConfig.IOSPopMsg("提示！",Text("您选择的结果是：\r\n${startDate.text}~${endDate.text}的每周${startDate.text.substring(11,14)}的空教室",textAlign: TextAlign.left,), context);
-  }
-  _Apply(String classbegin,String classend,String sDate,String eDate)async{
-
-
-    var sTime="${classbegin.toString().split(":")[0]}${classbegin.toString().split(":")[1]}";
-    var eTime="${classend.toString().split(":")[0]}${classend.toString().split(":")[1]}";
-    setState(() {
-      roomlist.clear();
-    });
-    print(sDate +"====>"+sTime);
-    print(eDate +"====>"+eTime);
-
-
-    var response = await getEmptyLam(sDate,sTime,eDate,eTime);
-    if (response.success) {
-      setState(() {
-        for (var str in response.dataList) {
-
-          roomlist.add(RoomModel.fromJson(str));
-        }
-      });
-    } else {
-      GetConfig.popUpMsg(response.message ?? "获取失败");
     }
   }
 
   @override
   // ignore: must_call_super
   Widget build(BuildContext context) {
-    if (theme.isEmpty || droplist.length == 0) {
+    if (theme.isEmpty) {
       return Scaffold(
         backgroundColor: Color.fromRGBO(242, 246, 249, 1),
         body: Text(""),
@@ -274,9 +93,7 @@ class _SelLambScreen extends State<SelLambScreen>
                 color: GetConfig.getColor(theme),
                 size: 28,
               ),
-              onTap: () {
-                _SearchRoom();
-              },
+              onTap: () {},
             ),
           ),
         ],
@@ -289,211 +106,57 @@ class _SelLambScreen extends State<SelLambScreen>
             child: Column(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only(left: 10),
-              child: Row(
+              color: Color.fromRGBO(242, 246, 249, 1),
+              height:6,
+            ),
+            Container(
+
+              color: Colors.white,
+              child: Column(
                 children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      "开始时间",
-                      style: TextStyle(
-                          color: GetConfig.getColor(theme), fontSize: 16),
+                  Container(
+                    padding: EdgeInsets.only(top: 10,bottom: 10,left: 10,right: 10),
+                    child:     Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex:3,
+                          child: Text("起止时间"),
+                        ),
+                        Expanded(flex: 7,
+                          child: Text("${this.widget.selValue["sDate"]}~${this.widget.selValue["eDate"]}"),
+                        ),
+                      ],
                     ),
-                    flex: 2,
-                  ),
-                  Expanded(
-                    child: Container(
-                        margin: EdgeInsets.only(left: 10, right: 10),
-                        padding: EdgeInsets.only(top: 5, bottom: 5),
-                        child: GestureDetector(
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 7,
-                                      child: TextField(
-                                        style: TextStyle(fontSize: 14),
-                                        enabled: false,
-                                        controller: startDate,
-                                        maxLines: null,
-                                        decoration: InputDecoration(
-                                          contentPadding:
-                                              const EdgeInsets.symmetric(
-                                                  vertical: 10.0,
-                                                  horizontal: 3),
-                                          border: InputBorder.none,
-                                          hintText: "选择时间",
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                        ),
-                                        onEditingComplete: () {
-                                          //print(this._controller.text);
-                                        },
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: Icon(
-                                        Icons.date_range,
-                                        color: GetConfig.getColor(theme),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          onTap: () {
-                            getSelDate(startDate);
-                          },
-                        )),
-                    flex: 8,
-                  ),
+                  )
+
                 ],
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 10),
-              child: Row(
+
+              color: Colors.white,
+              child: Column(
                 children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      "结束时间",
-                      style: TextStyle(
-                          color: GetConfig.getColor(theme), fontSize: 16),
+                  Container(
+                    padding: EdgeInsets.only(top: 10,bottom: 10,left: 10,right: 10),
+                    child:     Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex:3,
+                          child: Text("节次"),
+                        ),
+                        Expanded(flex: 7,
+                          child: Text("${this.widget.selValue["section"]}"),
+                        ),
+                      ],
                     ),
-                    flex: 2,
-                  ),
-                  Expanded(
-                    child: Container(
-                        margin: EdgeInsets.only(left: 10, right: 10),
-                        padding: EdgeInsets.only(top: 5, bottom: 5),
-                        child: GestureDetector(
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 7,
-                                      child: TextField(
-                                        enabled: false,
-                                        controller: endDate,
-                                        maxLines: null,
-                                        decoration: InputDecoration(
-                                          contentPadding:
-                                              const EdgeInsets.symmetric(
-                                                  vertical: 10.0,
-                                                  horizontal: 3),
-                                          border: InputBorder.none,
-                                          hintText: "选择时间",
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                        ),
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: Icon(
-                                        Icons.date_range,
-                                        color: GetConfig.getColor(theme),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          onTap: () {
-                            getSelDate(endDate);
-                          },
-                        )),
-                    flex: 8,
-                  ),
+                  )
+
                 ],
               ),
             ),
-           Container(
-             margin: EdgeInsets.only(left: 10,right: 10),
-             child:  Row(
-               children: <Widget>[
-                 Expanded(
-                   child: Container(
-                     color: Colors.white,
-                     height: 38,
-                     child: new DropdownButtonHideUnderline(
-                         child: new DropdownButton(
-                           items: droplist,
-                           hint: new Text(
-                             '节次',
-                             style: TextStyle(color: Colors.black12, fontSize: 12),
-                           ),
-                           onChanged: (value) {
-                             setState(() {
-                               startValue = value;
-                             });
-                           },
-                           value: startValue,
-                           elevation: 24,
-
-                           style: new TextStyle(
-                             fontSize: 12,
-                           ),
-//              isDense: false,//减少按钮的高度。默认情况下，此按钮的高度与其菜单项的高度相同。如果isDense为true，则按钮的高度减少约一半。 这个当按钮嵌入添加的容器中时，非常有用
-                           iconSize: 30.0,
-                           iconEnabledColor: Colors.black12,
-                         )),
-                   ) ,
-                   flex: 10,
-                 ),
-                 Expanded(
-                   child: Text("~",style: TextStyle(),textAlign: TextAlign.center,),
-                   flex: 1,
-                 ),
-                 Expanded(
-                   child: Container(
-                     color: Colors.white,
-                     height: 38,
-                     child: new DropdownButtonHideUnderline(
-                         child: new DropdownButton(
-                           items: droplist,
-                           hint: new Text(
-                             '节次',
-                             style: TextStyle(
-                               color: Colors.black12,
-                             ),
-                           ),
-                           onChanged: (value) {
-                             setState(() {
-                               endvalue = value;
-                             });
-                           },
-                           value: endvalue,
-                           elevation: 24,
-                           style: new TextStyle(
-                             fontSize: 12,
-                           ),
-//              isDense: false,//减少按钮的高度。默认情况下，此按钮的高度与其菜单项的高度相同。如果isDense为true，则按钮的高度减少约一半。 这个当按钮嵌入添加的容器中时，非常有用
-                           iconSize: 30.0,
-                           iconEnabledColor: Colors.black12,
-                         )),
-                   ),
-                   flex: 10,
-                 ),
-               ],
-             ),
-           ),
-
             Divider(
               color: GetConfig.getColor(theme),
-            ),
-            Container(
-              padding: EdgeInsets.all(8),
-              alignment: Alignment.centerLeft,
-              child: Text("说明：选择时间加载当前日期下的空闲教室，点击教室申请实验！",
-                  style: TextStyle(color: Colors.red, fontSize: 12)),
             ),
             Flexible(
               child: GridView(
@@ -556,17 +219,11 @@ class _SelLambScreen extends State<SelLambScreen>
                         ],
                       ),
                     ),
-                    onTap: () => Navigator.push(
-                                context,
-                                new MaterialPageRoute(
-                                    builder: (context) => ApplyLambInfo(
-                                        room,
-                                        dateStart,
-                                        dateEnd,
-                                        "${GetConfig.getScheduleDesc(startValue)}~${GetConfig.getScheduleDesc(endvalue)}")))
-                            .then((_) {
-                          _SearchRoom();
-                        }),
+                    onTap: () {
+                      var listData=this.widget.selDateMa.keys.toList();
+                      listData.sort((left,right)=>DateTime.parse(left.toString()).compareTo(DateTime.parse(right.toString())));
+                      Navigator.push(context, new MaterialPageRoute(builder: (context)=>ApplyLambInfo(room,this.widget.selValue,listData)));
+                    },
                   );
                 }).toList(),
               ),

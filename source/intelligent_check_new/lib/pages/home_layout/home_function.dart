@@ -7,7 +7,7 @@ import 'package:intelligent_check_new/pages/ApplyLamb_student/StudentSelfApplyRe
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplyRecord.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/CheckApplyStudentPage.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/CheckedApplyStudentPage.dart';
-import 'package:intelligent_check_new/pages/ApplyLamb_teacher/SelectLambPage.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb_teacher/SelectSection.dart';
 import 'package:intelligent_check_new/pages/ExpPage/ExpCheckStudentApply.dart';
 import 'package:intelligent_check_new/pages/ExpPage/TeachApplyCheck.dart';
 import 'package:intelligent_check_new/pages/SystemSettings/ScheduleSettingPage.dart';
@@ -349,7 +349,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                             ),
                             onTap: () => Navigator.push(context,
                                     new MaterialPageRoute(builder: (context) {
-                                  return SelLambScreen();
+                                  return SelectSection();
                                 })),
                           )),
                       Container(

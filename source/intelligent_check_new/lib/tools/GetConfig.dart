@@ -82,6 +82,55 @@ class GetConfig {
               );
             });
   }
+  static  AndroidPopMsg(BuildContext context,Widget title,Widget subTitle) {
+    showDialog<Null>(
+      context:  context,
+      barrierDismissible:false,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+            builder:(context, state) {
+              return SimpleDialog(
+
+                contentPadding: EdgeInsets.only(top:10),
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    padding: EdgeInsets.only(left: 15),
+                    alignment:Alignment.centerLeft,
+                    child:title,
+                  ),
+                  Column(
+                    children: <Widget>[
+
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                          width: 140,
+                          child: FlatButton(child: Text("取消",style: TextStyle(fontSize: 16),),onPressed: (){
+
+                            Navigator.pop(context);
+                          })
+                      ),
+                      Container(
+                        color: GetConfig.getColor("red"),
+                        width:140,
+                        child: FlatButton(child: Text("确定",style: TextStyle(fontSize: 16,color: Colors.white),),onPressed: (){
+
+                          Navigator.pop(context);
+                        }),
+                      )
+                    ],
+                  )
+                ],
+              );
+            }
+        );
+      },
+    );
+  }
 
 
   static getRoleDesc(String roleType) {

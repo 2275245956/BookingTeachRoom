@@ -5,15 +5,15 @@ import 'package:intelligent_check_new/model/Lamb/ApplyLam/RoomModel.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
+import 'package:intelligent_check_new/tools/min_calendar/mini_calendar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApplyLambInfo extends StatefulWidget {
   final RoomModel roomInfo;
-  final String StartDate;
-  final String EndDate;
-  final String sectionStr;
+  final dynamic selValue;
+  final List<DateDay> selDateMa;
 
-  ApplyLambInfo(this.roomInfo, this.StartDate, this.EndDate, this.sectionStr);
+  ApplyLambInfo(this.roomInfo,this.selValue,this.selDateMa);
 
   @override
   _ApplyLambInfo createState() => new _ApplyLambInfo();
@@ -27,6 +27,7 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
   TextEditingController remark = new TextEditingController();
+  TextEditingController lambName = new TextEditingController();
 
   List<DropdownMenuItem> droplist = new List<DropdownMenuItem>();
   String selExp = "请选择";
@@ -77,25 +78,32 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
       GetConfig.popUpMsg("请选择实验名称");
       return;
     }
-    var json = {
-      "tNumber": userInfo.account,
-      "tName": userInfo.userName,
-      "rNumber": this.widget.roomInfo.rNumber,
-      "rMaxPer": this.widget.roomInfo.rMaxPer,
-      "eDate": this.widget.StartDate,
-      "attriText01": this.widget.EndDate,
-      "section": this.widget.sectionStr,
-      "eName": selExp,
-      "remark": remark.text
-    };
-    await SaveApplyIfo(json).then((data) {
-      if (data.success) {
-        GetConfig.popUpMsg(data.message);
-      } else {
-        GetConfig.popUpMsg(data.message ?? "提交申请失败！");
-      }
-      Navigator.pop(context);
-    });
+
+//    for(DateDay day in this.widget.selDateMa){
+//          var json = {
+//      "tNumber": userInfo.account,
+//      "tName": userInfo.userName,
+//      "rNumber": this.widget.roomInfo.rNumber,
+//      "rMaxPer": this.widget.roomInfo.rMaxPer,
+//      "eDate": this.widget.selValue["eDate"],
+//      "attriText01": this.widget.EndDate,
+//      "section": this.widget.sectionStr,
+//      "eName": selExp,
+//      "remark": remark.text
+//    };
+      await SaveApplyIfo(json).then((data) {
+        if (data.success) {
+          GetConfig.popUpMsg(data.message);
+        } else {
+          GetConfig.popUpMsg(data.message ?? "提交申请失败！");
+        }
+        Navigator.pop(context);
+      });
+
+    //}
+
+
+
   }
 
   @override
@@ -251,7 +259,7 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.StartDate}",
+                          "${this.widget.selValue["sDate"]}",
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       )
@@ -273,7 +281,7 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.EndDate}",
+                          "${this.widget.selValue["eDate"]}",
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       )
@@ -296,7 +304,7 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.sectionStr}",
+                          "${this.widget.selValue["section"]}",
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       )
@@ -321,30 +329,31 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                       ),
                       Expanded(
                         flex: 7,
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding:
-                              EdgeInsets.only(top: 5, bottom: 5, right: 10),
-                          child: new DropdownButtonHideUnderline(
-                              child: new DropdownButton(
-                            items: droplist,
-                            hint: new Text(
-                              '实验选择',
-                              style: TextStyle(
-                                  color: Colors.black12, fontSize: 18),
+                        child:  TextField(
+                          style: TextStyle(fontSize: 18),
+                          textInputAction: TextInputAction.done,
+                          autofocus: true,
+                          controller: lambName,
+                          maxLines: 1,
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10),
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5), //边角为30
+                              ),
+                              borderSide: BorderSide(
+                                color: GetConfig.getColor(theme),
+                                //边线颜色为黄色
+                                width: 2, //边线宽度为2
+                              ),
                             ),
-                            onChanged: (value) {
-                              setState(() {
-                                selExp = value;
-                              });
-                            },
-                            value: selExp,
-                            elevation: 24,
-//              isDense: false,//减少按钮的高度。默认情况下，此按钮的高度与其菜单项的高度相同。如果isDense为true，则按钮的高度减少约一半。 这个当按钮嵌入添加的容器中时，非常有用
-                            iconSize: 40.0,
-                            iconEnabledColor: GetConfig.getColor(theme),
-                          )),
-                        ),
+                            hintText: "请输入实验名称",
+                            filled: true,
+                            fillColor: Color.fromRGBO(244, 244, 244, 1),
+                          ),
+                      )
                       )
                     ],
                   ),
