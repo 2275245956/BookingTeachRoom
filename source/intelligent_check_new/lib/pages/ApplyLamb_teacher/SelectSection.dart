@@ -518,13 +518,13 @@ class _SelectSection extends State<SelectSection>
                     showWeekHead: true,
 
                     buildMark: (ctx, day, data) => Positioned(
-                      bottom: 3,
+                      bottom: 0,
                       left: 0,
                       right: 0,
                       child: Center(
                         child: Icon(
-                          Icons.check_circle,
-                          color: Colors.green,
+                          Icons.bookmark,
+                          color:GetConfig.getColor(theme),
                           size:25,
                         ),
                       ),

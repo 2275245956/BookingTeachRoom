@@ -172,6 +172,7 @@ class _SelLambScreen extends State<SelLambScreen>
                   crossAxisSpacing: 3,
                   //Main 轴（在 GridView 中通常是纵轴，即每一列）子组件间隔，也就是每一行之间的间隔，同样第一行的上边和最后一行的下边不会添加间隔
                   mainAxisSpacing: 3,
+
                 ),
                 cacheExtent: 0,
                 padding: EdgeInsets.all(5),
@@ -179,44 +180,50 @@ class _SelLambScreen extends State<SelLambScreen>
                 children: roomlist.map((room) {
                   return GestureDetector(
                     child: Container(
+
                       decoration: new BoxDecoration(
                         border:
-                            new Border.all(width: 2.0, color: Colors.black12),
+                            new Border.all(width: 2.0, color: GetConfig.getColor(theme)),
                         borderRadius:
                             new BorderRadius.all(new Radius.circular(8.0)),
                       ),
-                      padding: const EdgeInsets.all(8.0),
+
                       alignment: Alignment.centerLeft,
-                      child: Column(
-                        children: <Widget>[
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              alignment: Alignment.centerLeft,
-                              child: Text(room.rNumber,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w800)),
+                      padding: EdgeInsets.all(3),
+                      child:Container(
+                      
+                        child:  Column(
+
+                          children: <Widget>[
+                            Expanded(
+                              flex: 3,
+                              child: Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(room.rNumber,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.w800)),
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 4,
-                            child: Container(
-                              alignment: Alignment.centerLeft,
-                              child: Text(room.rName,
-                                  style: TextStyle(fontSize: 12)),
+                            Expanded(
+                              flex: 4,
+                              child: Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(room.rName,
+                                    style: TextStyle(fontSize: 14)),
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 4,
-                            child: Container(
-                              alignment: Alignment.centerLeft,
-                              child: Text(room.attriText01,
-                                  style: TextStyle(fontSize: 12)),
+                            Expanded(
+                              flex: 4,
+                              child: Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(room.attriText01,
+                                    style: TextStyle(fontSize: 14)),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     onTap: () {
