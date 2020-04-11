@@ -180,14 +180,12 @@ class _SelLambScreen extends State<SelLambScreen>
                 children: roomlist.map((room) {
                   return GestureDetector(
                     child: Container(
-
                       decoration: new BoxDecoration(
                         border:
                             new Border.all(width: 2.0, color: GetConfig.getColor(theme)),
                         borderRadius:
                             new BorderRadius.all(new Radius.circular(8.0)),
                       ),
-
                       alignment: Alignment.centerLeft,
                       padding: EdgeInsets.all(3),
                       child:Container(

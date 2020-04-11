@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:intelligent_check_new/constants/color.dart';
+import 'package:intelligent_check_new/model/Lamb/ApplyLam/ExperimentModel.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/TeacherApplyRecord.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplyLambDetail.dart';
@@ -44,7 +45,7 @@ class _ApplySearchResultPage extends State<ApplySearchResultPage>{
   GlobalKey<EasyRefreshState> _easyRefreshKey = new GlobalKey<EasyRefreshState>();
   GlobalKey<RefreshHeaderState> _headerKey = new GlobalKey<RefreshHeaderState>();
   GlobalKey<RefreshFooterState> _footerKey = new GlobalKey<RefreshFooterState>();
-  List<TeacherApplyRecord> initRecordData=new List() ;
+  List<ExpModel> initRecordData=new List() ;
 
 
 
@@ -66,7 +67,7 @@ class _ApplySearchResultPage extends State<ApplySearchResultPage>{
       if(data.success && data.dataList!=""){
         for(var str in data.dataList){
           setState(() {
-            initRecordData.add(new TeacherApplyRecord.fromJson(str));
+            initRecordData.add(new ExpModel.fromJson(str));
           });
         }
       }
@@ -311,7 +312,7 @@ class _ApplySearchResultPage extends State<ApplySearchResultPage>{
                                             fontSize: 12),
                                       ),
                                       Text(
-                                        "${initRecordData[index].eDate} ~ ${initRecordData[index].attriText01}",
+                                        "${initRecordData[index].sDate} ~ ${initRecordData[index].eDate}",
                                         style: TextStyle(
                                             color:
                                             Colors.grey,

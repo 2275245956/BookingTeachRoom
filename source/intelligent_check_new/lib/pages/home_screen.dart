@@ -39,21 +39,21 @@ class _HomeScreenState extends State<HomeScreen>
     String platformVersion;
 
     // Platform messages may fail, so we use a try/catch PlatformException.
-//    jpush.getRegistrationID().then((rid) {
-////      setState(() {
-////        debugLable = "flutter getRegistrationID: $rid";
-////      });
-//      print("推送测试getRegistrationID>>>>>" + rid);
-//    });
+    jpush.getRegistrationID().then((rid) {
+//      setState(() {
+//        debugLable = "flutter getRegistrationID: $rid";
+//      });
+      print("推送测试getRegistrationID>>>>>" + rid);
+    });
 
-//    jpush.setup(
-//      appKey: "c08d0eec0ae9a79f6e6c7f75",
-//      channel: "developer-default",
-//      production: false,
-//      debug: true,
-//    );
-//    jpush.applyPushAuthority(
-//        new NotificationSettingsIOS(sound: true, alert: true, badge: true));
+    jpush.setup(
+      appKey: "3500f6a1262613c11690ea94",
+      channel: "developer-default",
+      production: false,
+      debug: true,
+    );
+    jpush.applyPushAuthority(
+        new NotificationSettingsIOS(sound: true, alert: true, badge: true));
 
     try {
 
@@ -71,6 +71,8 @@ class _HomeScreenState extends State<HomeScreen>
           print("extras info:" + message["extras"]["cn.jpush.android.EXTRA"]);
         },
         onOpenNotification: (Map<String, dynamic> message) async {
+          print("message open ===================================================");
+
           print("flutter onOpenNotification: $message");
           String extrasMsg = message["extras"]["cn.jpush.android.EXTRA"];
           print("extras info:" + extrasMsg);

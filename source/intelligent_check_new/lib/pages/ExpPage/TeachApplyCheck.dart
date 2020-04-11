@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:intelligent_check_new/model/Lamb/ApplyLam/ExperimentModel.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/TeacherApplyRecord.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplySearchPage.dart';
 import 'package:intelligent_check_new/pages/ExpPage/CheckApplyLambDetail.dart';
 import 'package:intelligent_check_new/services/ExpServices/ExpServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,7 +30,7 @@ class _RecordListScreenState extends State<TeachApplyCheck>
 
   // 是否有下一页
   bool hasNext = true;
-  List<TeacherApplyRecord> initRecordData = new List();
+  List<ExpModel> initRecordData = new List();
 
   // 分页所需控件
   GlobalKey<EasyRefreshState> _easyRefreshKey =
@@ -65,7 +67,7 @@ class _RecordListScreenState extends State<TeachApplyCheck>
     if (data.success && data.dataList != null) {
       for (var str in data.dataList) {
         setState(() {
-          initRecordData.add(new TeacherApplyRecord.fromJson(str));
+          initRecordData.add(new ExpModel.fromJson(str));
         });
       }
     } else {
@@ -89,23 +91,7 @@ class _RecordListScreenState extends State<TeachApplyCheck>
             elevation: 0.2,
             brightness: Brightness.light,
             backgroundColor: Colors.white,
-            actions: <Widget>[
-//              GestureDetector(
-//                child: Container(
-//                  child: Image.asset(
-//                    "assets/images/search_red.png",
-//                    width: 22,
-//                  ),
-//                  padding: EdgeInsets.only(right: 20),
-//                ),
-//                onTap: () {
-//                  Navigator.push(context,
-//                      new MaterialPageRoute(builder: (context) {
-//                    return ApplySearchPage(false);
-//                  }));
-//                },
-//              )
-            ],
+
             leading: new Container(
               child: GestureDetector(
                 onTap: () => Navigator.pop(context),
@@ -127,23 +113,6 @@ class _RecordListScreenState extends State<TeachApplyCheck>
           elevation: 0.2,
           brightness: Brightness.light,
           backgroundColor: Colors.white,
-          actions: <Widget>[
-//            GestureDetector(
-//              child: Container(
-//                child: Image.asset(
-//                  "assets/images/search_red.png",
-//                  width: 22,
-//                ),
-//                padding: EdgeInsets.only(right: 20),
-//              ),
-//              onTap: () {
-//                Navigator.push(context,
-//                    new MaterialPageRoute(builder: (context) {
-//                  return ApplySearchPage(false);
-//                }));
-//              },
-//            )
-          ],
           leading: new Container(
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
@@ -184,18 +153,9 @@ class _RecordListScreenState extends State<TeachApplyCheck>
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                                 onTap: () {
-                                  Navigator.push(context,
-                                      new MaterialPageRoute(builder: (context) {
-                                    return CheckApplyLambDetail(
-                                        initRecordData[index]);
-                                  })).then((_) {
-                                    setState(() {
-                                      initRecordData = [];
-                                      pageNum = 1;
-                                    });
-
-                                    loadData();
-                                  });
+                                  Navigator.push(context, MaterialPageRoute(builder: (context){
+                                    return CheckApplyLambDetail(initRecordData[index]);
+                                  }));
                                 },
                                 child: Container(
                                   child: Card(
@@ -203,18 +163,21 @@ class _RecordListScreenState extends State<TeachApplyCheck>
                                     margin: EdgeInsets.only(
                                         top: 5, left: 3, right: 3),
                                     child: new Container(
-                                        height: 125.0,
+                                        height: 133.0,
 //                                          margin: EdgeInsets.only(top: 5,left: 20,right: 20),
                                         child: Row(
                                           children: <Widget>[
                                             Container(
                                               width: 8,
-                                              height: 125,
+                                              height: 133,
                                               decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.only(
-                                                    topLeft: Radius.circular(4),
+                                                borderRadius:
+                                                BorderRadius.only(
+                                                    topLeft: Radius
+                                                        .circular(4),
                                                     bottomLeft:
-                                                        Radius.circular(4)),
+                                                    Radius.circular(
+                                                        4)),
                                                 color: getPointColor(
                                                     initRecordData[index]
                                                         .status),
@@ -225,30 +188,31 @@ class _RecordListScreenState extends State<TeachApplyCheck>
                                                   left: 8, top: 5),
                                               child: Column(
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                                 children: <Widget>[
                                                   new Text(
                                                     "${index + 1}.  ${initRecordData[index].eName}",
                                                     style: new TextStyle(
                                                         fontSize: 18.0,
                                                         fontWeight:
-                                                            FontWeight.w500),
+                                                        FontWeight.w500),
                                                   ),
                                                   Padding(
-                                                    padding:
-                                                        EdgeInsets.only(top: 5),
+                                                    padding: EdgeInsets.only(
+                                                        top: 5),
                                                   ),
                                                   Row(
                                                     children: <Widget>[
                                                       Padding(
                                                         padding:
-                                                            EdgeInsets.only(
-                                                                left: 10),
+                                                        EdgeInsets.only(
+                                                            left: 10),
                                                       ),
                                                       Text(
                                                         "教室名称及编号:${initRecordData[index].rNumber} (${initRecordData[index].rMaxPer})",
                                                         style: TextStyle(
-                                                            color: Colors.grey,
+                                                            color:
+                                                            Colors.grey,
                                                             fontSize: 12),
                                                       ),
                                                     ],
@@ -257,27 +221,26 @@ class _RecordListScreenState extends State<TeachApplyCheck>
                                                     children: <Widget>[
                                                       Container(
                                                         padding:
-                                                            EdgeInsets.only(
-                                                                left: 10),
+                                                        EdgeInsets.only(
+                                                            left: 10),
                                                         width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width -
+                                                            context)
+                                                            .size
+                                                            .width -
                                                             50,
                                                         child: Text(
                                                           "节次：${initRecordData[index].section}",
                                                           style: TextStyle(
                                                               color:
-                                                                  Colors.grey,
+                                                              Colors.grey,
                                                               fontSize: 12),
                                                         ),
                                                       ),
                                                       new Icon(
                                                         Icons
                                                             .keyboard_arrow_right,
-                                                        color:
-                                                            GetConfig.getColor(
-                                                                theme),
+                                                        color: GetConfig
+                                                            .getColor(theme),
                                                         size: 28,
                                                       ),
                                                     ],
@@ -286,13 +249,14 @@ class _RecordListScreenState extends State<TeachApplyCheck>
                                                     children: <Widget>[
                                                       Padding(
                                                         padding:
-                                                            EdgeInsets.only(
-                                                                left: 10),
+                                                        EdgeInsets.only(
+                                                            left: 10),
                                                       ),
                                                       Text(
                                                         "当前状态:",
                                                         style: TextStyle(
-                                                            color: Colors.grey,
+                                                            color:
+                                                            Colors.grey,
                                                             fontSize: 12),
                                                       ),
                                                       Text(
@@ -300,33 +264,35 @@ class _RecordListScreenState extends State<TeachApplyCheck>
                                                         style: TextStyle(
                                                             color: getPointColor(
                                                                 initRecordData[
-                                                                        index]
+                                                                index]
                                                                     .status),
                                                             fontSize: 12),
                                                       ),
                                                     ],
                                                   ),
                                                   Padding(
-                                                    padding:
-                                                        EdgeInsets.only(top: 5),
+                                                    padding: EdgeInsets.only(
+                                                        top: 5),
                                                   ),
                                                   Row(
                                                     children: <Widget>[
                                                       Padding(
                                                         padding:
-                                                            EdgeInsets.only(
-                                                                left: 10),
+                                                        EdgeInsets.only(
+                                                            left: 10),
                                                       ),
                                                       Text(
-                                                        "时间:",
+                                                        "实验提交时间:",
                                                         style: TextStyle(
-                                                            color: Colors.grey,
+                                                            color:
+                                                            Colors.grey,
                                                             fontSize: 12),
                                                       ),
                                                       Text(
-                                                        "${initRecordData[index].eDate} ~ ${initRecordData[index].attriText01}",
+                                                        "${DateFormat("yyyy年MM月dd日(EEEE)","zh").format(DateTime.parse(initRecordData[index].createDate))}",
                                                         style: TextStyle(
-                                                            color: Colors.grey,
+                                                            color:
+                                                            Colors.grey,
                                                             fontSize: 12),
                                                       ),
                                                     ],

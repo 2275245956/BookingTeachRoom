@@ -1,13 +1,16 @@
 import 'dart:convert' show json;
+import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:intelligent_check_new/model/Lamb/ApplyLam/TeacherApplyRecord.dart';
+import 'package:intelligent_check_new/model/Lamb/ApplyLam/ExperimentModel.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/services/ExpServices/ExpServices.dart';
+import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckApplyLambDetail extends StatefulWidget {
-  final TeacherApplyRecord recordInfo;
+  final ExpModel recordInfo;
 
   CheckApplyLambDetail(this.recordInfo);
 
@@ -20,8 +23,9 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
   bool canOperate = true;
   String theme = "red";
   UserModel userInfo;
-  int checkType=0;
+  int checkType = 0;
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  ExpModel expModel;
 
   @override
   void initState() {
@@ -38,20 +42,37 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
         }
       });
     });
+
+    await GetExpModdel(this.widget.recordInfo.reqNumber).then((data) {
+      var list = new List();
+      if (data.success && data.dataList != null && data.dataList.length > 0) {
+        setState(() {
+          for (var str in data.dataList) {
+            list.add(ExpModel.fromJson((str)));
+          }
+          if (list.length > 0) {
+            expModel = list[0];
+            expModel.eDate = list[list.length - 1].eDate;
+          }
+        });
+      }
+    });
   }
-  void CheckResult() async{
-         var data=await CheckApplyForTeach(this.widget.recordInfo.reqNumber,this.checkType.toString());
-         if(data.success){
-           GetConfig.popUpMsg("审核成功");
-           Navigator.pop(context);
-         }else{
-           GetConfig.popUpMsg("审核失败");
-         }
+
+  void CheckResult() async {
+    var data = await CheckApplyForTeach(
+        expModel.reqNumber, this.checkType.toString());
+    if (data.success) {
+      GetConfig.popUpMsg("审核成功");
+      Navigator.pop(context);
+    } else {
+      GetConfig.popUpMsg("审核失败");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (userInfo != null && this.widget.recordInfo != null) {
+    if (userInfo != null && expModel != null) {
       return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -102,7 +123,7 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.recordInfo.tName}(${this.widget.recordInfo.tNumber})",
+                          "${expModel.tName}(${expModel.tNumber})",
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       )
@@ -125,7 +146,7 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.recordInfo.reqNumber}",
+                          "${expModel.reqNumber}",
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       )
@@ -152,7 +173,7 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.recordInfo.rNumber}",
+                          "${expModel.rNumber}",
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       )
@@ -175,7 +196,7 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.recordInfo.rMaxPer}",
+                          "${expModel.rMaxPer}",
                           style: TextStyle(
                               color: GetConfig.getColor(theme), fontSize: 18),
                         ),
@@ -192,7 +213,7 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
                         flex: 3,
                         child: Container(
                           padding:
-                              EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                          EdgeInsets.only(left: 10, top: 10, bottom: 10),
                           child: Text(
                             "开始时间",
                             style: TextStyle(color: Colors.black, fontSize: 18),
@@ -202,7 +223,7 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.recordInfo.eDate}",
+                          "${DateFormat("yyyy年MM月dd日(EEEE)","zh").format(DateTime.parse(expModel.sDate))}",
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       )
@@ -214,7 +235,7 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
                         flex: 3,
                         child: Container(
                           padding:
-                              EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                          EdgeInsets.only(left: 10, top: 10, bottom: 10),
                           child: Text(
                             "结束时间",
                             style: TextStyle(color: Colors.black, fontSize: 18),
@@ -224,7 +245,7 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.recordInfo.attriText01}",
+                          "${DateFormat("yyyy年MM月dd日(EEEE)","zh").format(DateTime.parse(expModel.eDate))}",
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       )
@@ -236,7 +257,7 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
                         flex: 3,
                         child: Container(
                           padding:
-                              EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                          EdgeInsets.only(left: 10, top: 10, bottom: 10),
 //height: 50,
                           child: Text(
                             "节次",
@@ -253,6 +274,7 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
                       )
                     ],
                   ),
+
                   Container(
                     color: Color.fromRGBO(242, 246, 249, 1),
                     height: 10,
@@ -277,7 +299,7 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
                           padding:
                               EdgeInsets.only(top: 5, bottom: 5, right: 10),
                           child: Text(
-                            "${this.widget.recordInfo.eName}",
+                            "${expModel.eName}",
                             style: TextStyle(color: Colors.black, fontSize: 18),
                           ),
                         ),
@@ -313,7 +335,7 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
                             autofocus: false,
                             style: TextStyle(fontSize: 18),
                             controller: TextEditingController(
-                                text: this.widget.recordInfo.remark),
+                                text: expModel.remark),
                             maxLines: null,
                             keyboardType: TextInputType.multiline,
                             enabled: false,
@@ -345,7 +367,7 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
             ),
           ),
         ),
-        persistentFooterButtons:  <Widget>[
+        persistentFooterButtons: <Widget>[
           Row(
             children: <Widget>[
               Container(
@@ -362,8 +384,10 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
                   ),
                   onPressed: () {
                     setState(() {
-                      checkType=4;
-                      GetConfig.IOSPopMsg("提示！", Text("确定驳回该实验，此操作无法撤销？"), context,confirmFun:CheckResult);
+                      checkType = 4;
+                      GetConfig.IOSPopMsg(
+                          "提示！", Text("确定驳回该实验，此操作无法撤销？"), context,
+                          confirmFun: CheckResult);
                     });
                   },
                 ),
@@ -377,10 +401,10 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
                   child: new Text('通过', style: TextStyle(fontSize: 24)),
                   onPressed: () {
                     setState(() {
-                      checkType=3;
-                      GetConfig.IOSPopMsg("提示！", Text("是否确认该操作？"), context,confirmFun:CheckResult);
+                      checkType = 3;
+                      GetConfig.IOSPopMsg("提示！", Text("是否确认该操作？"), context,
+                          confirmFun: CheckResult);
                     });
-
                   },
                 ),
               ),

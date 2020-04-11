@@ -1,5 +1,7 @@
 import 'dart:convert' show json;
+import 'dart:convert';
 import 'package:intelligent_check_new/model/APIResponse.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplyLambInfo.dart';
 import 'package:intelligent_check_new/services/api_address.dart';
 import 'package:intelligent_check_new/tools/HttpUtil.dart';
 
@@ -15,10 +17,10 @@ Future<APIResponse> getEmptyLam(String sDate,String sTime, String eDate,String e
   }
 }
 
-Future<APIResponse> SaveApplyIfo(dynamic jsonStr) async {
+Future<APIResponse> SaveApplyIfo(dynamic jsonDate) async {
   try {
     var data = await HttpUtil()
-        .post(ApiAddress.SAVE_APPLYINFO, data: json.encode(jsonStr));
+        .post(ApiAddress.SAVE_APPLYINFOS, data:json.encode(jsonDate));
     return APIResponse.fromJson(data);
   } catch (e) {
     throw e;
@@ -113,4 +115,10 @@ Future<APIResponse>CheckStudentApplyTeacher(String reqNumber,int status) async{
   } catch (e) {
     throw e;
   }
+}
+
+
+Future<APIResponse> GetExpModdel(String reqNumber)async{
+  var data = await new HttpUtil().get(ApiAddress.GetExpModel+"?reqNumber=$reqNumber");
+  return APIResponse.fromJson(data);
 }

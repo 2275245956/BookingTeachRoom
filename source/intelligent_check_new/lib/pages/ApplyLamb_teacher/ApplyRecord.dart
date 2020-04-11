@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:dropdown_menu/dropdown_menu.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:intelligent_check_new/model/Lamb/ApplyLam/ExperimentModel.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/TeacherApplyRecord.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplyLambDetail.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplySearchPage.dart';
 import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,7 +31,7 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
 
   // 是否有下一页
   bool hasNext = true;
-  List<TeacherApplyRecord> initRecordData = new List();
+  List<ExpModel> initRecordData = new List();
 
   // 分页所需控件
   GlobalKey<EasyRefreshState> _easyRefreshKey =
@@ -74,11 +76,11 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
       for (var str in data.dataList) {
 
         setState(() {
-          initRecordData.add(new TeacherApplyRecord.fromJson(str));
+          initRecordData.add(new ExpModel.fromJson(str));
         });
       }
     }else{
-
+    GetConfig.popUpMsg(data.message?? "查询失败");
       setState(() {
         hasNext=false;
       });
@@ -378,14 +380,14 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
                                                                   left: 10),
                                                         ),
                                                         Text(
-                                                          "时间:",
+                                                          "实验提交时间:",
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.grey,
                                                               fontSize: 12),
                                                         ),
                                                         Text(
-                                                          "${initRecordData[index].eDate} ~ ${initRecordData[index].attriText01}",
+                                                          "${DateFormat("yyyy年MM月dd日(EEEE)","zh").format(DateTime.parse(initRecordData[index].createDate))}",
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.grey,

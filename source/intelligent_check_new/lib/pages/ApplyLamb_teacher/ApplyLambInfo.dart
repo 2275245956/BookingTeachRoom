@@ -1,6 +1,6 @@
 import 'dart:convert' show json;
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:intelligent_check_new/model/Lamb/ApplyLam/ExperimentModel.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/RoomModel.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
@@ -13,7 +13,7 @@ class ApplyLambInfo extends StatefulWidget {
   final dynamic selValue;
   final List<DateDay> selDateMa;
 
-  ApplyLambInfo(this.roomInfo,this.selValue,this.selDateMa);
+  ApplyLambInfo(this.roomInfo, this.selValue, this.selDateMa);
 
   @override
   _ApplyLambInfo createState() => new _ApplyLambInfo();
@@ -30,7 +30,6 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
   TextEditingController lambName = new TextEditingController();
 
   List<DropdownMenuItem> droplist = new List<DropdownMenuItem>();
-  String selExp = "请选择";
 
   @override
   void initState() {
@@ -47,63 +46,60 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
         }
       });
     });
-    var data = await GetAllLambName();
-    if (data.success) {
-      setState(() {
-        droplist.add(new DropdownMenuItem(
-          child: new Text(
-            "请选择",
-            style: TextStyle( fontSize: 18),
-          ),
-          value: "请选择",
-        ));
-        for (var exp in data.dataList) {
-          var expModel = new ExperimentModel.fromJson(exp);
-          droplist.add(new DropdownMenuItem(
-            child: new Text(
-              "${expModel.eName}",
-              style: TextStyle(color: GetConfig.getColor(theme), fontSize: 18),
-            ),
-            value: "${expModel.eName}",
-          ));
-        }
-      });
-    } else {
-      GetConfig.popUpMsg("未查询到学校的实验种类，可在备注处填写实验名称等信息！");
-    }
+//    var data = await GetAllLambName();
+//    if (data.success) {
+//      setState(() {
+//        droplist.add(new DropdownMenuItem(
+//          child: new Text(
+//            "请选择",
+//            style: TextStyle( fontSize: 18),
+//          ),
+//          value: "请选择",
+//        ));
+//        for (var exp in data.dataList) {
+//          var expModel = new ExperimentModel.fromJson(exp);
+//          droplist.add(new DropdownMenuItem(
+//            child: new Text(
+//              "${expModel.eName}",
+//              style: TextStyle(color: GetConfig.getColor(theme), fontSize: 18),
+//            ),
+//            value: "${expModel.eName}",
+//          ));
+//        }
+//      });
+//    } else {
+//      GetConfig.popUpMsg("未查询到学校的实验种类，可在备注处填写实验名称等信息！");
+//    }
   }
 
   void SaveInfo() async {
-    if (selExp == "请选择") {
-      GetConfig.popUpMsg("请选择实验名称");
-      return;
+    List<postFilter> list = new List();
+    var data=[];
+    for (var str in this.widget.selDateMa) {
+      var jsonStr = {
+        "tNumber": userInfo.account,
+        "tName": userInfo.userName,
+        "rNumber": this.widget.roomInfo.rNumber,
+        "rMaxPer": this.widget.roomInfo.rMaxPer,
+        "eDate":  str.toString(),
+        "eTime": this.widget.selValue["eTime"],
+        "sDate": str.toString(),
+        "sTime": this.widget.selValue["sTime"],
+        "section": this.widget.selValue["section"],
+        "eName": lambName.text,
+        "remark": remark.text
+      };
+
+      data.add(jsonStr);
     }
-
-//    for(DateDay day in this.widget.selDateMa){
-//          var json = {
-//      "tNumber": userInfo.account,
-//      "tName": userInfo.userName,
-//      "rNumber": this.widget.roomInfo.rNumber,
-//      "rMaxPer": this.widget.roomInfo.rMaxPer,
-//      "eDate": this.widget.selValue["eDate"],
-//      "attriText01": this.widget.EndDate,
-//      "section": this.widget.sectionStr,
-//      "eName": selExp,
-//      "remark": remark.text
-//    };
-      await SaveApplyIfo(json).then((data) {
-        if (data.success) {
-          GetConfig.popUpMsg(data.message);
-        } else {
-          GetConfig.popUpMsg(data.message ?? "提交申请失败！");
-        }
-        Navigator.pop(context);
-      });
-
-    //}
-
-
-
+    await SaveApplyIfo(data).then((data) {
+      if (data.success) {
+        GetConfig.popUpMsg(data.message);
+      } else {
+        GetConfig.popUpMsg(data.message ?? "提交申请失败！");
+      }
+      Navigator.pop(context);
+    });
   }
 
   @override
@@ -328,33 +324,32 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                         ),
                       ),
                       Expanded(
-                        flex: 7,
-                        child:  TextField(
-                          style: TextStyle(fontSize: 18),
-                          textInputAction: TextInputAction.done,
-                          autofocus: true,
-                          controller: lambName,
-                          maxLines: 1,
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 10),
-                            enabledBorder: InputBorder.none,
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(5), //边角为30
+                          flex: 7,
+                          child: TextField(
+                            style: TextStyle(fontSize: 18),
+                            textInputAction: TextInputAction.done,
+                            autofocus: true,
+                            controller: lambName,
+                            maxLines: 1,
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10),
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5), //边角为30
+                                ),
+                                borderSide: BorderSide(
+                                  color: GetConfig.getColor(theme),
+                                  //边线颜色为黄色
+                                  width: 2, //边线宽度为2
+                                ),
                               ),
-                              borderSide: BorderSide(
-                                color: GetConfig.getColor(theme),
-                                //边线颜色为黄色
-                                width: 2, //边线宽度为2
-                              ),
+                              hintText: "请输入实验名称",
+                              filled: true,
+                              fillColor: Color.fromRGBO(244, 244, 244, 1),
                             ),
-                            hintText: "请输入实验名称",
-                            filled: true,
-                            fillColor: Color.fromRGBO(244, 244, 244, 1),
-                          ),
-                      )
-                      )
+                          ))
                     ],
                   ),
                   Row(
@@ -376,35 +371,35 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                       Expanded(
                         flex: 7,
                         child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            padding:
-                                EdgeInsets.only(top: 5, bottom: 5, right: 10),
-                            child: TextField(
-                                  autofocus: false,
-                                  style: TextStyle(fontSize: 18),
-                                  textInputAction: TextInputAction.done,
-                                  controller: remark,
-                                  maxLines: 5,
-                                  decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 10.0, horizontal: 10),
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(5), //边角为30
-                                      ),
-                                      borderSide: BorderSide(
-                                        color: GetConfig.getColor(theme),
-                                        //边线颜色为黄色
-                                        width: 2, //边线宽度为2
-                                      ),
-                                    ),
-                                    hintText: "请输入备注名称",
-                                    filled: true,
-                                    fillColor: Color.fromRGBO(244, 244, 244, 1),
-                                  ),
+                          width: MediaQuery.of(context).size.width,
+                          padding:
+                              EdgeInsets.only(top: 5, bottom: 5, right: 10),
+                          child: TextField(
+                            autofocus: false,
+                            style: TextStyle(fontSize: 18),
+                            textInputAction: TextInputAction.done,
+                            controller: remark,
+                            maxLines: 5,
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10),
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5), //边角为30
                                 ),
+                                borderSide: BorderSide(
+                                  color: GetConfig.getColor(theme),
+                                  //边线颜色为黄色
+                                  width: 2, //边线宽度为2
+                                ),
+                              ),
+                              hintText: "请输入备注名称",
+                              filled: true,
+                              fillColor: Color.fromRGBO(244, 244, 244, 1),
                             ),
+                          ),
+                        ),
                       )
                     ],
                   ),
@@ -431,7 +426,6 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                   onPressed: () {
                     setState(() {
                       remark.text = "";
-                      selExp = "请选择";
                     });
                   },
                 ),
@@ -481,3 +475,41 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
     );
   }
 }
+class postFilter {
+
+  String rMaxPer;
+  String rNumber;
+  String eDate;
+  String eName;
+  String eTime;
+  String remark;
+  String sDate;
+  String sTime;
+  String section;
+  String tName;
+  String tNumber;
+
+  postFilter.fromParams({this.rMaxPer, this.rNumber, this.eDate, this.eName, this.eTime, this.remark, this.sDate, this.sTime, this.section, this.tName, this.tNumber});
+
+  factory postFilter(jsonStr) => jsonStr == null ? null : jsonStr is String ? new postFilter.fromJson(json.decode(jsonStr)) : new postFilter.fromJson(jsonStr);
+
+  postFilter.fromJson(jsonRes) {
+    rMaxPer = jsonRes['rMaxPer'].toString();
+    rNumber = jsonRes['rNumber'].toString();
+    eDate = jsonRes['eDate'];
+    eName = jsonRes['eName'];
+    eTime = jsonRes['eTime'];
+    remark = jsonRes['remark'];
+    sDate = jsonRes['sDate'];
+    sTime = jsonRes['sTime'];
+    section = jsonRes['section'];
+    tName = jsonRes['tName'];
+    tNumber = jsonRes['tNumber'];
+  }
+
+  @override
+  String toString() {
+    return '{"rMaxPer": ${rMaxPer != null?'${json.encode(rMaxPer)}':'null'},"rNumber":  ${rNumber != null?'${json.encode(rNumber)}':'null'},"eDate": ${eDate != null?'${json.encode(eDate)}':'null'},"eName": ${eName != null?'${json.encode(eName)}':'null'},"eTime": ${eTime != null?'${json.encode(eTime)}':'null'},"remark": ${remark != null?'${json.encode(remark)}':'null'},"sDate": ${sDate != null?'${json.encode(sDate)}':'null'},"sTime": ${sTime != null?'${json.encode(sTime)}':'null'},"section": ${section != null?'${json.encode(section)}':'null'},"tName": ${tName != null?'${json.encode(tName)}':'null'},"tNumber": ${tNumber != null?'${json.encode(tNumber)}':'null'}}';
+  }
+}
+
