@@ -1,13 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:intelligent_check_new/model/Lamb/ApplyLam/ExperimentModel.dart';
-import 'package:intelligent_check_new/model/Lamb/ApplyLam/TeacherApplyRecord.dart';
+import 'package:flutter/painting.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/model/message/SubscribeInfo.dart';
-import 'package:intelligent_check_new/pages/ApplyLamb_teacher/ApplySearchPage.dart';
-import 'package:intelligent_check_new/pages/ExpPage/CheckApplyLambDetail.dart';
-import 'package:intelligent_check_new/services/ExpServices/ExpServices.dart';
 import 'package:intelligent_check_new/services/SystemService/SystemConfigService.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intl/intl.dart';
@@ -64,6 +59,19 @@ class _RecordListScreenState extends State<MyMessagePage>
     }
   }
 
+  void  readAll(int id,bool readAll) async{
+     if(readAll){
+       for(MessageModel m in MessageList){
+         if(m.readed)continue;
+         var res= await readAllMessage(m.id);
+         if(!res.success)print("失败====================================");
+       }
+     }else{
+       var res=await readAllMessage(id);
+       if(!res.success)print("失败====================================");
+     }
+
+  }
   @override
   Widget build(BuildContext context) {
     if (this.MessageList == null && userInfo.account == "") {
@@ -80,7 +88,10 @@ class _RecordListScreenState extends State<MyMessagePage>
             backgroundColor: Colors.white,
             leading: new Container(
               child: GestureDetector(
-                onTap: () => Navigator.pop(context),
+                onTap: (){
+
+                  Navigator.pop(context,true);
+                },
                 child: Icon(Icons.keyboard_arrow_left,
                     color: GetConfig.getColor(theme), size: 32),
               ),
@@ -101,11 +112,32 @@ class _RecordListScreenState extends State<MyMessagePage>
           backgroundColor: Colors.white,
           leading: new Container(
             child: GestureDetector(
-              onTap: () => Navigator.pop(context),
+              onTap: (){
+                var hasReadAll=true;
+                for(MessageModel m in MessageList){
+                  if(!m.readed){
+                    hasReadAll=false;
+                    break;
+                  }
+                }
+                Navigator.pop(context,hasReadAll);
+              },
               child: Icon(Icons.keyboard_arrow_left,
                   color: GetConfig.getColor(theme), size: 32),
             ),
           ),
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+       label: Text("一键已读"),
+
+          onPressed: () {
+            for (MessageModel m in MessageList) {
+              setState(() {
+                if (!m.readed) m.readed = true;
+              });
+            }
+            readAll(0,true);
+          },
         ),
         body: ModalProgressHUD(
           child: new Padding(
@@ -115,49 +147,91 @@ class _RecordListScreenState extends State<MyMessagePage>
               itemCount: MessageList.length,
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        MessageList[index].readed = true;
+                        readAll(MessageList[index].id,false);
+                      });
+                    },
                     child: Container(
                       child: Card(
-                        elevation: 2,
+                        elevation: 5,
                         margin: EdgeInsets.only(top: 5, left: 3, right: 3),
                         child: new Container(
-                          margin: EdgeInsets.only(left: 10,right: 10),
-                            height: 100.0,
-//                                          margin: EdgeInsets.only(top: 5,left: 20,right: 20),
+                            margin:
+                                EdgeInsets.only(left: 10, right: 10, top: 5),
+                            height: 120.0,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Row(children: <Widget>[
-                                Expanded(
-                                flex: 1,
-                                child:   Icon(Icons.notifications_active,color: GetConfig.getColor(theme),size: 25,),
-                              ),
-                                Expanded(
-                                  flex: 9,
-                                  child: Text("${MessageList[index].messagetype}"),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 1,
+                                      child: Icon(
+                                        Icons.notifications_active,
+                                        color: MessageList[index].readed
+                                            ? Colors.grey
+                                            : GetConfig.getColor(theme),
+                                        size: 25,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 4,
+                                      child: Text(
+                                          "${MessageList[index].messagetype}"),
+                                    ),
+                                    Expanded(
+                                      flex: 5,
+                                      child: GestureDetector(
+                                        child: MessageList[index].readed
+                                            ? Text(
+                                                "已读",
+                                                style: TextStyle(
+                                                    color: Colors.grey),
+                                                textAlign: TextAlign.right,
+                                              )
+                                            : Text("标记已读",
+                                                style: TextStyle(
+                                                    color: GetConfig.getColor(
+                                                        theme)),
+                                                textAlign: TextAlign.right),
+                                        onTap: () {
+                                          setState(() {
+                                            MessageList[index].readed = true;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],),
                                 Divider(),
-                                Row(children: <Widget>[
-                                  Expanded(
-                                    flex: 1,
-                                    child:  Text("消息："),
-                                  ),
-                                  Expanded(
-                                    flex: 9,
-                                    child: Text("${MessageList[index].message}"),
-                                  ),
-                                ],),
-                                Row(children: <Widget>[
-                                  Expanded(
-                                    flex: 1,
-                                    child:  Text("时间："),
-                                  ),
-                                  Expanded(
-                                    flex: 9,
-                                    child: Text("${DateFormat("yyyy年MM月dd日（EEEE）","zh").format(DateTime.parse(MessageList[index].createdDate))}"),
-                                  ),
-                                ],),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text("消息："),
+                                    ),
+                                    Expanded(
+                                      flex: 9,
+                                      child:
+                                          Text("${MessageList[index].message}"),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text("时间："),
+                                    ),
+                                    Expanded(
+                                      flex: 9,
+                                      child: Text(
+                                          "${DateFormat("yyyy年MM月dd日（EEEE）", "zh").format(DateTime.parse(MessageList[index].createdDate))}"),
+                                    ),
+                                  ],
+                                ),
                               ],
                             )),
                       ),

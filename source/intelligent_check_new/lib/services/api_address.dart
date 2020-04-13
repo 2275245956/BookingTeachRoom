@@ -36,7 +36,7 @@ class ApiAddress {
   static const String GetExpModel="/common/getExpDetailByT";
   ///消息接口
   static  const String GetAllMessage="/push/findPushInfoByAccount";
-
+ static const  String ReadMessage="/push/updateReaded";
 
   // 权限相关API
   //static const String  SUPPLIER_INFO_ALL = "api/supplier/all";

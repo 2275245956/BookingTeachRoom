@@ -52,3 +52,14 @@ Future<APIResponse> getAllMessage(String  account) async{
   }
 }
 
+
+Future<APIResponse> readAllMessage(int  id) async{
+  try {
+    var data = await new HttpUtil().get(ApiAddress.ReadMessage+"?id=$id");
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}
+
+

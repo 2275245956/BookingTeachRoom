@@ -131,7 +131,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                                               bottom: 10, left: 15),
                                           child: CircleAvatar(
                                             radius: 3,
-                                            backgroundColor: Colors.blue,
+                                            backgroundColor: Color.fromRGBO(0, 250, 0, 1),
                                           ),
                                         )
                                       : Container()
@@ -153,7 +153,11 @@ class _HomeFunctionState extends State<HomeFunction> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => new MyMessagePage()));
+                                    builder: (context) => new MyMessagePage())).then((_){
+                                     setState(() {
+                                       _unReadCount=_?0:1;
+                                     });
+                            });
                           },
                         ),
                         flex: 2,

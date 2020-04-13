@@ -8,6 +8,7 @@ import 'package:intelligent_check_new/pages/custom_setting_page.dart';
 import 'package:intelligent_check_new/pages/navigation_keep_alive.dart';
 import 'package:intelligent_check_new/services/StudentServices/StudentOperate.dart';
 import 'package:intelligent_check_new/services/SystemService/SystemConfigService.dart';
+import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intelligent_check_new/tools/MD5String.dart';
 import 'package:intelligent_check_new/tools/MessageBox.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -319,12 +320,9 @@ class _LoginPageState extends State<LoginPage> {
                 child: Container(
 //                    height: 30,
 //                    width:double.infinity,
-                  child: Image.asset(
-                    "assets/images/login/system_setting_red.png",
-                    width: 20,
-                  ),
+                  child: Icon(Icons.settings,color: GetConfig.getColor(theme),),
                   alignment: Alignment.bottomRight,
-                  padding: EdgeInsets.only(top: 40, right: 30),
+                  padding: EdgeInsets.only(top: 40, right: 16),
                 ),
                 onTap: () {
                   Navigator.push(context,

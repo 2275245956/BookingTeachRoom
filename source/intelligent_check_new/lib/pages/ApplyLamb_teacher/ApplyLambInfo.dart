@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/RoomModel.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
+import 'package:intelligent_check_new/pages/navigation_keep_alive.dart';
 import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intelligent_check_new/tools/min_calendar/mini_calendar.dart';
@@ -95,10 +96,11 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
     await SaveApplyIfo(data).then((data) {
       if (data.success) {
         GetConfig.popUpMsg(data.message);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>NavigationKeepAlive()),(route)=>route==null);
       } else {
         GetConfig.popUpMsg(data.message ?? "提交申请失败！");
       }
-      Navigator.pop(context);
+
     });
   }
 
