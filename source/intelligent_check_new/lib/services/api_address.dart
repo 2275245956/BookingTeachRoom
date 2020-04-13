@@ -1,7 +1,7 @@
 class ApiAddress {
   // API地址
   static const String DEFAULT_BIZ_API_URL =
-      "http://192.168.0.7:8080/";//"http://122.51.225.40:8080/lams";//"http://122.51.225.40:8088";// "http://wtik54.natappfree.cc/";//"http://wvun7x.natappfree.cc"; //
+    "http://122.51.225.40:8080/lams";//  "http://192.168.0.7:8080/";//"http://122.51.225.40:8088";// "http://wtik54.natappfree.cc/";//"http://wvun7x.natappfree.cc"; //
   static const String DEFAULT_UPDATE_URL = "";
 
   ///SystemConifg
@@ -33,8 +33,10 @@ class ApiAddress {
   static const String GETALL_LAMBNAME="/tea/selectAllExp";
   static const String GETAllPassedLamInfoByTNumber="/common/likeQueryExpApplyT";
   static const String UPFILE="/import";
-
   static const String GetExpModel="/common/getExpDetailByT";
+  ///消息接口
+  static  const String GetAllMessage="/push/findPushInfoByAccount";
+
 
   // 权限相关API
   //static const String  SUPPLIER_INFO_ALL = "api/supplier/all";

@@ -12,6 +12,8 @@ import 'package:intelligent_check_new/pages/ExpPage/ExpCheckStudentApply.dart';
 import 'package:intelligent_check_new/pages/ExpPage/TeachApplyCheck.dart';
 import 'package:intelligent_check_new/pages/SystemSettings/ScheduleSettingPage.dart';
 import 'package:intelligent_check_new/pages/SystemSettings/UpLoadFileData.dart';
+import 'package:intelligent_check_new/pages/my/my_message.dart';
+import 'package:intelligent_check_new/services/SystemService/SystemConfigService.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,7 +26,7 @@ class HomeFunction extends StatefulWidget {
 }
 
 class _HomeFunctionState extends State<HomeFunction> {
-  int _unReadCount = 10;
+  int _unReadCount = 0;
   bool isAnimating = false;
 
   String theme = "red"; //主题
@@ -148,7 +150,10 @@ class _HomeFunctionState extends State<HomeFunction> {
                             mainAxisAlignment: MainAxisAlignment.end,
                           ),
                           onTap: () {
-                            GetConfig.popUpMsg("消息");
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => new MyMessagePage()));
                           },
                         ),
                         flex: 2,
@@ -220,11 +225,6 @@ class _HomeFunctionState extends State<HomeFunction> {
                           child: GestureDetector(
                             child: EachTab(
                               width: 80,
-                              badge: CircleAvatar(
-                                backgroundColor: GetConfig.getColor("blue"),
-                                radius: 3,
-                              ),
-                              badgeColor: GetConfig.getColor("blue"),
                               height: 40,
                               padding: EdgeInsets.all(0),
                               icon: Icon(Icons.laptop_windows,
@@ -236,7 +236,11 @@ class _HomeFunctionState extends State<HomeFunction> {
                               color: Colors.white,
                             ),
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentApplyRecord()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          StudentApplyRecord()));
                             },
                           )),
                       Container(
@@ -252,11 +256,6 @@ class _HomeFunctionState extends State<HomeFunction> {
                           child: GestureDetector(
                             child: EachTab(
                               width: 80,
-                              badge: CircleAvatar(
-                                backgroundColor: GetConfig.getColor("blue"),
-                                radius: 3,
-                              ),
-                              badgeColor: GetConfig.getColor("blue"),
                               height: 40,
                               padding: EdgeInsets.all(0),
                               icon: Icon(Icons.assignment_ind,
@@ -267,7 +266,11 @@ class _HomeFunctionState extends State<HomeFunction> {
                                   color: Color.fromRGBO(153, 153, 153, 1)),
                               color: Colors.white,
                             ),
-                            onTap: () =>Navigator.push(context, MaterialPageRoute(builder: (context)=>StudentSelfApplyRecord())),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        StudentSelfApplyRecord())),
                           ))
                     ],
                     shrinkWrap: true,
@@ -332,11 +335,6 @@ class _HomeFunctionState extends State<HomeFunction> {
                           child: GestureDetector(
                             child: EachTab(
                               width: 80,
-                              badge: CircleAvatar(
-                                backgroundColor: GetConfig.getColor("blue"),
-                                radius: 3,
-                              ),
-                              badgeColor: GetConfig.getColor("blue"),
                               height: 40,
                               padding: EdgeInsets.all(0),
                               icon: Icon(Icons.apps,
@@ -365,11 +363,6 @@ class _HomeFunctionState extends State<HomeFunction> {
                           child: GestureDetector(
                             child: EachTab(
                               width: 80,
-                              badge: CircleAvatar(
-                                backgroundColor: GetConfig.getColor("blue"),
-                                radius: 3,
-                              ),
-                              badgeColor: GetConfig.getColor("blue"),
                               height: 40,
                               padding: EdgeInsets.all(0),
                               icon: Icon(Icons.attachment,
@@ -447,11 +440,6 @@ class _HomeFunctionState extends State<HomeFunction> {
                           child: GestureDetector(
                             child: EachTab(
                               width: 80,
-                              badge: CircleAvatar(
-                                backgroundColor: GetConfig.getColor("blue"),
-                                radius: 3,
-                              ),
-                              badgeColor: GetConfig.getColor("blue"),
                               height: 40,
                               padding: EdgeInsets.all(0),
                               icon: Icon(Icons.check_circle_outline,
@@ -482,11 +470,6 @@ class _HomeFunctionState extends State<HomeFunction> {
                           child: GestureDetector(
                             child: EachTab(
                               width: 80,
-                              badge: CircleAvatar(
-                                backgroundColor: GetConfig.getColor("blue"),
-                                radius: 3,
-                              ),
-                              badgeColor: GetConfig.getColor("blue"),
                               height: 40,
                               padding: EdgeInsets.all(0),
                               icon: Icon(Icons.check_circle,
@@ -497,7 +480,11 @@ class _HomeFunctionState extends State<HomeFunction> {
                                   color: Color.fromRGBO(153, 153, 153, 1)),
                               color: Colors.white,
                             ),
-                            onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>CheckedApplyStudent())),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        CheckedApplyStudent())),
                           )),
                     ],
                     shrinkWrap: true,
@@ -562,11 +549,6 @@ class _HomeFunctionState extends State<HomeFunction> {
                           child: GestureDetector(
                             child: EachTab(
                               width: 80,
-                              badge: CircleAvatar(
-                                backgroundColor: GetConfig.getColor("blue"),
-                                radius: 3,
-                              ),
-                              badgeColor: GetConfig.getColor("blue"),
                               height: 40,
                               padding: EdgeInsets.all(0),
                               icon: Icon(Icons.account_circle,
@@ -592,11 +574,6 @@ class _HomeFunctionState extends State<HomeFunction> {
                           child: GestureDetector(
                             child: EachTab(
                               width: 80,
-                              badge: CircleAvatar(
-                                backgroundColor: GetConfig.getColor("blue"),
-                                radius: 3,
-                              ),
-                              badgeColor: GetConfig.getColor("blue"),
                               height: 40,
                               padding: EdgeInsets.all(0),
                               icon: Icon(Icons.accessibility_new,
@@ -622,11 +599,6 @@ class _HomeFunctionState extends State<HomeFunction> {
                           child: GestureDetector(
                             child: EachTab(
                               width: 80,
-                              badge: CircleAvatar(
-                                backgroundColor: GetConfig.getColor("blue"),
-                                radius: 3,
-                              ),
-                              badgeColor: GetConfig.getColor("blue"),
                               height: 40,
                               padding: EdgeInsets.all(0),
                               icon: Icon(Icons.folder_shared,
@@ -700,11 +672,6 @@ class _HomeFunctionState extends State<HomeFunction> {
                           child: GestureDetector(
                             child: EachTab(
                               width: 80,
-                              badge: CircleAvatar(
-                                backgroundColor: GetConfig.getColor("blue"),
-                                radius: 3,
-                              ),
-                              badgeColor: GetConfig.getColor("blue"),
                               height: 40,
                               padding: EdgeInsets.all(0),
                               icon: Icon(Icons.class_,
@@ -730,11 +697,6 @@ class _HomeFunctionState extends State<HomeFunction> {
                           child: GestureDetector(
                             child: EachTab(
                               width: 80,
-                              badge: CircleAvatar(
-                                backgroundColor: GetConfig.getColor("blue"),
-                                radius: 3,
-                              ),
-                              badgeColor: GetConfig.getColor("blue"),
                               height: 40,
                               padding: EdgeInsets.all(0),
                               icon: Icon(Icons.assignment,
@@ -808,11 +770,6 @@ class _HomeFunctionState extends State<HomeFunction> {
                           child: GestureDetector(
                             child: EachTab(
                               width: 80,
-                              badge: CircleAvatar(
-                                backgroundColor: GetConfig.getColor("blue"),
-                                radius: 3,
-                              ),
-                              badgeColor: GetConfig.getColor("blue"),
                               height: 40,
                               padding: EdgeInsets.all(0),
                               icon: Icon(Icons.timer,
@@ -827,7 +784,8 @@ class _HomeFunctionState extends State<HomeFunction> {
                                     new MaterialPageRoute(builder: (context) {
                                   return ScheduleSettingPage();
                                 })),
-                          )),    Container(
+                          )),
+                      Container(
                           height: 82,
                           width: 82,
                           decoration: new BoxDecoration(
@@ -840,11 +798,6 @@ class _HomeFunctionState extends State<HomeFunction> {
                           child: GestureDetector(
                             child: EachTab(
                               width: 80,
-                              badge: CircleAvatar(
-                                backgroundColor: GetConfig.getColor("blue"),
-                                radius: 3,
-                              ),
-                              badgeColor: GetConfig.getColor("blue"),
                               height: 40,
                               padding: EdgeInsets.all(0),
                               icon: Icon(Icons.file_upload,
@@ -856,7 +809,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                               color: Colors.white,
                             ),
                             onTap: () => Navigator.push(context,
-                                new MaterialPageRoute(builder: (context) {
+                                    new MaterialPageRoute(builder: (context) {
                                   return FileUpLoad();
                                 })),
                           )),
@@ -923,11 +876,6 @@ class _HomeFunctionState extends State<HomeFunction> {
                           child: GestureDetector(
                             child: EachTab(
                               width: 80,
-                              badge: CircleAvatar(
-                                backgroundColor: GetConfig.getColor("blue"),
-                                radius: 3,
-                              ),
-                              badgeColor: GetConfig.getColor("blue"),
                               height: 40,
                               padding: EdgeInsets.all(0),
                               icon: Icon(
@@ -960,11 +908,6 @@ class _HomeFunctionState extends State<HomeFunction> {
                           child: GestureDetector(
                             child: EachTab(
                               width: 80,
-                              badge: CircleAvatar(
-                                backgroundColor: GetConfig.getColor("blue"),
-                                radius: 3,
-                              ),
-                              badgeColor: GetConfig.getColor("blue"),
                               height: 40,
                               padding: EdgeInsets.all(0),
                               icon: Icon(Icons.spellcheck,
@@ -975,7 +918,11 @@ class _HomeFunctionState extends State<HomeFunction> {
                                   color: Color.fromRGBO(153, 153, 153, 1)),
                               color: Colors.white,
                             ),
-                            onTap: ()=>Navigator.push(context, MaterialPageRoute(builder:(context)=>ExpCheckStudentApply())),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ExpCheckStudentApply())),
                           )),
                     ],
                     shrinkWrap: true,
@@ -1018,5 +965,11 @@ class _HomeFunctionState extends State<HomeFunction> {
         }
       });
     });
+    var data = await getAllMessage(userInfo.account);
+    if (data.success && data.dataList != null && data.dataList.length > 0) {
+      setState(() {
+        _unReadCount = 1;
+      });
+    }
   }
 }

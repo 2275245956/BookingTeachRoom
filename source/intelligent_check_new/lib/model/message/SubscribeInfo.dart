@@ -139,3 +139,47 @@ class SubItem {
   }
 }
 
+class MessageModel {
+
+  Object attriText01;
+  Object attriText02;
+  Object attriText03;
+  Object reason;
+  int id;
+  bool readed;
+  String createdBy;
+  String createdDate;
+  String message;
+  String messagetype;
+  String receiver;
+  String reqnumber;
+  String role;
+  String updatedDate;
+
+  MessageModel.fromParams({this.attriText01, this.attriText02, this.attriText03, this.reason, this.id, this.readed, this.createdBy, this.createdDate, this.message, this.messagetype, this.receiver, this.reqnumber, this.role, this.updatedDate});
+
+  factory MessageModel(jsonStr) => jsonStr == null ? null : jsonStr is String ? new MessageModel.fromJson(json.decode(jsonStr)) : new MessageModel.fromJson(jsonStr);
+
+  MessageModel.fromJson(jsonRes) {
+    attriText01 = jsonRes['attriText01'];
+    attriText02 = jsonRes['attriText02'];
+    attriText03 = jsonRes['attriText03'];
+    reason = jsonRes['reason'];
+    id = jsonRes['id'];
+    readed = jsonRes['readed'];
+    createdBy = jsonRes['createdBy'];
+    createdDate = jsonRes['createdDate'];
+    message = jsonRes['message'];
+    messagetype = jsonRes['messagetype'];
+    receiver = jsonRes['receiver'];
+    reqnumber = jsonRes['reqnumber'];
+    role = jsonRes['role'];
+    updatedDate = jsonRes['updatedDate'];
+  }
+
+  @override
+  String toString() {
+    return '{"attriText01": $attriText01,"attriText02": $attriText02,"attriText03": $attriText03,"reason": $reason,"id": $id,"readed": $readed,"createdBy": ${createdBy != null?'${json.encode(createdBy)}':'null'},"createdDate": ${createdDate != null?'${json.encode(createdDate)}':'null'},"message": ${message != null?'${json.encode(message)}':'null'},"messagetype": ${messagetype != null?'${json.encode(messagetype)}':'null'},"receiver": ${receiver != null?'${json.encode(receiver)}':'null'},"reqnumber": ${reqnumber != null?'${json.encode(reqnumber)}':'null'},"role": ${role != null?'${json.encode(role)}':'null'},"updatedDate": ${updatedDate != null?'${json.encode(updatedDate)}':'null'}}';
+  }
+}
+

@@ -79,7 +79,7 @@ class _RecordListScreenState extends State<TeachApplyCheck>
 
   @override
   Widget build(BuildContext context) {
-    if (this.initRecordData == null && userInfo.account != "") {
+    if (this.initRecordData == null || userInfo.account == null) {
       return Scaffold(
           backgroundColor: Color.fromRGBO(242, 246, 249, 1),
           appBar: AppBar(

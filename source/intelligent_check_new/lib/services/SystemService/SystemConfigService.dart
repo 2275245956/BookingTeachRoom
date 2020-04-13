@@ -41,3 +41,14 @@ Future<APIResponse> UpLoadFile(File file) async{
   }
 }
 
+
+
+Future<APIResponse> getAllMessage(String  account) async{
+  try {
+    var data = await new HttpUtil().get(ApiAddress.GetAllMessage+"?account=$account");
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}
+
