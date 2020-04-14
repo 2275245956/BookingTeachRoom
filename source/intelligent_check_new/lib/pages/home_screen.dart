@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 
 import 'package:intelligent_check_new/pages/home_layout/home_background_image.dart';
+import 'package:intelligent_check_new/pages/my/my_message.dart';
 import 'package:jpush_flutter/jpush_flutter.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -71,22 +72,23 @@ class _HomeScreenState extends State<HomeScreen>
           print("extras info:" + message["extras"]["cn.jpush.android.EXTRA"]);
         },
         onOpenNotification: (Map<String, dynamic> message) async {
-          print("message open ===================================================");
-
-          print("flutter onOpenNotification: $message");
-          String extrasMsg = message["extras"]["cn.jpush.android.EXTRA"];
-          print("extras info:" + extrasMsg);
-          Map extras = json.decode(extrasMsg);
-
-          // 页面跳转
-          String id = extras["id"] ??"0";
-          String type = extras["type"];
-
-          int state = int.tryParse(extras["state"].toString());
-
-          if (type == "riskFatorApp") {
-
-          }
+//          print("message open ===================================================");
+//
+//          print("flutter onOpenNotification: $message");
+//          String extrasMsg = message["extras"]["cn.jpush.android.EXTRA"];
+//          print("extras info:" + extrasMsg);
+//          Map extras = json.decode(extrasMsg);
+//
+//          // 页面跳转
+//          String id = extras["id"] ??"0";
+//          String type = extras["type"];
+//
+//          int state = int.tryParse(extras["state"].toString());
+//
+//          if (type == "riskFatorApp") {
+//
+//          }
+        Navigator.push(context, new MaterialPageRoute(builder: (context)=>MyMessagePage()));
         },
         onReceiveMessage: (Map<String, dynamic> message) async {
           print("flutter onReceiveMessage: $message");

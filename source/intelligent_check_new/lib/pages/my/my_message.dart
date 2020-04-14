@@ -11,7 +11,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class MyMessagePage extends StatefulWidget {
   MyMessagePage();
-
   @override
   _RecordListScreenState createState() => _RecordListScreenState();
 }

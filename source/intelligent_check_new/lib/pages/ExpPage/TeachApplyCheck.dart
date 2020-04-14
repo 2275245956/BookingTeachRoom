@@ -79,7 +79,7 @@ class _RecordListScreenState extends State<TeachApplyCheck>
 
   @override
   Widget build(BuildContext context) {
-    if (this.initRecordData == null || userInfo.account == null) {
+    if (this.initRecordData == null || userInfo == null) {
       return Scaffold(
           backgroundColor: Color.fromRGBO(242, 246, 249, 1),
           appBar: AppBar(
@@ -155,7 +155,13 @@ class _RecordListScreenState extends State<TeachApplyCheck>
                                 onTap: () {
                                   Navigator.push(context, MaterialPageRoute(builder: (context){
                                     return CheckApplyLambDetail(initRecordData[index]);
-                                  }));
+                                  })).then((_){
+                                    setState(() {
+                                      pageNum = 1;
+                                      initRecordData = new List();
+                                    });
+                                    loadData();
+                                  });
                                 },
                                 child: Container(
                                   child: Card(

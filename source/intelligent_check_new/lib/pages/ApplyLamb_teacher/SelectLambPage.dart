@@ -107,51 +107,52 @@ class _SelLambScreen extends State<SelLambScreen>
           children: <Widget>[
             Container(
               color: Color.fromRGBO(242, 246, 249, 1),
-              height:6,
+              height: 6,
             ),
             Container(
-
               color: Colors.white,
               child: Column(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.only(top: 10,bottom: 10,left: 10,right: 10),
-                    child:     Row(
+                    padding: EdgeInsets.only(
+                        top: 10, bottom: 10, left: 10, right: 10),
+                    child: Row(
                       children: <Widget>[
                         Expanded(
-                          flex:3,
+                          flex: 3,
                           child: Text("起止时间"),
                         ),
-                        Expanded(flex: 7,
-                          child: Text("${this.widget.selValue["sDate"]}~${this.widget.selValue["eDate"]}"),
+                        Expanded(
+                          flex: 7,
+                          child: Text(
+                              "${this.widget.selValue["sDate"]}~${this.widget.selValue["eDate"]}"),
                         ),
                       ],
                     ),
                   )
-
                 ],
               ),
             ),
             Container(
-
               color: Colors.white,
               child: Column(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.only(top: 10,bottom: 10,left: 10,right: 10),
-                    child:     Row(
+                    padding: EdgeInsets.only(
+                        top: 10, bottom: 10, left: 10, right: 10),
+                    child: Row(
                       children: <Widget>[
                         Expanded(
-                          flex:3,
+                          flex: 3,
                           child: Text("节次"),
                         ),
-                        Expanded(flex: 7,
+                        Expanded(
+                          flex: 7,
                           child: Text("${this.widget.selValue["section"]}"),
                         ),
                       ],
                     ),
                   )
-
                 ],
               ),
             ),
@@ -172,7 +173,6 @@ class _SelLambScreen extends State<SelLambScreen>
                   crossAxisSpacing: 3,
                   //Main 轴（在 GridView 中通常是纵轴，即每一列）子组件间隔，也就是每一行之间的间隔，同样第一行的上边和最后一行的下边不会添加间隔
                   mainAxisSpacing: 3,
-
                 ),
                 cacheExtent: 0,
                 padding: EdgeInsets.all(5),
@@ -180,54 +180,56 @@ class _SelLambScreen extends State<SelLambScreen>
                 children: roomlist.map((room) {
                   return GestureDetector(
                     child: Container(
-                      decoration: new BoxDecoration(
-                        border:
-                            new Border.all(width: 2.0, color: GetConfig.getColor(theme)),
-                        borderRadius:
-                            new BorderRadius.all(new Radius.circular(8.0)),
-                      ),
                       alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.all(3),
-                      child:Container(
-                      
-                        child:  Column(
-
-                          children: <Widget>[
-                            Expanded(
-                              flex: 3,
-                              child: Container(
-                                alignment: Alignment.centerLeft,
-                                child: Text(room.rNumber,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w800)),
+                      child: Card(
+                        elevation: 10,
+                        child: new Container(
+                          margin:
+                          EdgeInsets.only(left: 10, right: 10, top: 5),
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                flex: 3,
+                                child: Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(room.rNumber,
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.w800)),
+                                ),
                               ),
-                            ),
-                            Expanded(
-                              flex: 4,
-                              child: Container(
-                                alignment: Alignment.centerLeft,
-                                child: Text(room.rName,
-                                    style: TextStyle(fontSize: 14)),
+                              Expanded(
+                                flex: 4,
+                                child: Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(room.rName,
+                                      style: TextStyle(fontSize: 14)),
+                                ),
                               ),
-                            ),
-                            Expanded(
-                              flex: 4,
-                              child: Container(
-                                alignment: Alignment.centerLeft,
-                                child: Text(room.attriText01,
-                                    style: TextStyle(fontSize: 14)),
+                              Expanded(
+                                flex: 4,
+                                child: Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(room.attriText01,
+                                      style: TextStyle(fontSize: 14)),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
                     onTap: () {
-                      var listData=this.widget.selDateMa.keys.toList();
-                      listData.sort((left,right)=>DateTime.parse(left.toString()).compareTo(DateTime.parse(right.toString())));
-                      Navigator.push(context, new MaterialPageRoute(builder: (context)=>ApplyLambInfo(room,this.widget.selValue,listData)));
+                      var listData = this.widget.selDateMa.keys.toList();
+                      listData.sort((left, right) =>
+                          DateTime.parse(left.toString())
+                              .compareTo(DateTime.parse(right.toString())));
+                      Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                              builder: (context) => ApplyLambInfo(
+                                  room, this.widget.selValue, listData)));
                     },
                   );
                 }).toList(),

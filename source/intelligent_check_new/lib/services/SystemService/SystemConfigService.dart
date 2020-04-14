@@ -26,8 +26,6 @@ Future<APIResponse> getConfigValueByKey(String key) async{
 
 }
 
-
-
 Future<APIResponse> UpLoadFile(File file) async{
   try {
     String filename = file.path.substring(file.path.lastIndexOf("/") + 1);
@@ -41,8 +39,6 @@ Future<APIResponse> UpLoadFile(File file) async{
   }
 }
 
-
-
 Future<APIResponse> getAllMessage(String  account) async{
   try {
     var data = await new HttpUtil().get(ApiAddress.GetAllMessage+"?account=$account");
@@ -51,7 +47,6 @@ Future<APIResponse> getAllMessage(String  account) async{
     throw e;
   }
 }
-
 
 Future<APIResponse> readAllMessage(int  id) async{
   try {
