@@ -1,4 +1,5 @@
 import 'dart:convert' show json;
+import 'dart:convert';
 import 'package:intelligent_check_new/model/APIResponse.dart';
 import 'package:intelligent_check_new/services/api_address.dart';
 import 'package:intelligent_check_new/tools/HttpUtil.dart';
@@ -25,6 +26,7 @@ Future<APIResponse> StudentCancelApply(String reqNumber)async{
   }catch(e){throw e;}
 }
 
+// ignore: non_constant_identifier_names
 Future<APIResponse> StuSaveApplyInfo(dynamic jsonStr) async {
   try {
     var data = await HttpUtil().post(ApiAddress.STUAPPLYLAMB, data: json.encode(jsonStr));

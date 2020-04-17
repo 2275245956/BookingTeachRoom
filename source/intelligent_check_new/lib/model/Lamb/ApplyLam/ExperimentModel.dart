@@ -59,6 +59,7 @@ class ExpModel {
   String tName;
   String tNumber;
   String updateDate;
+  bool selected=false;
 
   ExpModel.fromParams({this.attriNumber02, this.attriText02, this.attriNumber01, this.eTime, this.id, this.rMaxPer, this.rNowPer, this.sTime, this.attriText01, this.createDate, this.eDate, this.eName, this.rNumber, this.remark, this.reqNumber, this.sDate, this.section, this.status, this.tName, this.tNumber, this.updateDate});
 

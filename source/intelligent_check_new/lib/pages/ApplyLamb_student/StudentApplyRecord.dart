@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:dropdown_menu/dropdown_menu.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:intelligent_check_new/model/Lamb/ApplyLam/TeacherApplyRecord.dart';
+import 'package:intelligent_check_new/model/Lamb/ApplyLam/ExperimentModel.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_student/StudentApplyLambDetail.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_student/StudentApplySearchPage.dart';
 import 'package:intelligent_check_new/services/StudentServices/StudentOperate.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,7 +29,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
 
   // 是否有下一页
   bool hasNext = true;
-  List<TeacherApplyRecord> initRecordData = new List();
+  List<ExpModel> initRecordData = new List();
 
   // 分页所需控件
   GlobalKey<EasyRefreshState> _easyRefreshKey =
@@ -83,7 +83,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
       });
       for (var str in data.dataList) {
         setState(() {
-          var model = new TeacherApplyRecord.fromJson(str);
+          var model = new ExpModel.fromJson(str);
           model.selected = model.reqNumber == selectNumber;
           initRecordData.add(model);
         });
@@ -115,21 +115,21 @@ class _RecordListScreenState extends State<StudentApplyRecord>
             brightness: Brightness.light,
             backgroundColor: Colors.white,
             actions: <Widget>[
-              GestureDetector(
-                child: Container(
-                  child: Image.asset(
-                    "assets/images/search_red.png",
-                    width: 22,
-                  ),
-                  padding: EdgeInsets.only(right: 20),
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      new MaterialPageRoute(builder: (context) {
-                    return StudentApplySearchPage(false);
-                  }));
-                },
-              )
+//              GestureDetector(
+//                child: Container(
+//                  child: Image.asset(
+//                    "assets/images/search_red.png",
+//                    width: 22,
+//                  ),
+//                  padding: EdgeInsets.only(right: 20),
+//                ),
+//                onTap: () {
+//                  Navigator.push(context,
+//                      new MaterialPageRoute(builder: (context) {
+//                    return StudentApplySearchPage(false);
+//                  }));
+//                },
+//              )
             ],
             leading: new Container(
               child: GestureDetector(
@@ -153,21 +153,21 @@ class _RecordListScreenState extends State<StudentApplyRecord>
           brightness: Brightness.light,
           backgroundColor: Colors.white,
           actions: <Widget>[
-            GestureDetector(
-              child: Container(
-                child: Image.asset(
-                  "assets/images/search_red.png",
-                  width: 22,
-                ),
-                padding: EdgeInsets.only(right: 20),
-              ),
-              onTap: () {
-                Navigator.push(context,
-                    new MaterialPageRoute(builder: (context) {
-                  return StudentApplySearchPage(false);
-                }));
-              },
-            )
+//            GestureDetector(
+//              child: Container(
+//                child: Image.asset(
+//                  "assets/images/search_red.png",
+//                  width: 22,
+//                ),
+//                padding: EdgeInsets.only(right: 20),
+//              ),
+//              onTap: () {
+//                Navigator.push(context,
+//                    new MaterialPageRoute(builder: (context) {
+//                  return StudentApplySearchPage(false);
+//                }));
+//              },
+//            )
           ],
           leading: new Container(
             child: GestureDetector(
@@ -216,7 +216,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                                   }));
                                 },
                                 child: Container(
-                                  child: Card(
+                                  child:Card(
                                     elevation: 2,
                                     margin: EdgeInsets.only(
                                         top: 5, left: 3, right: 3),
@@ -225,49 +225,57 @@ class _RecordListScreenState extends State<StudentApplyRecord>
 //                                          margin: EdgeInsets.only(top: 5,left: 20,right: 20),
                                         child: Row(
                                           children: <Widget>[
-                                            Container(
-                                              width: 8,
-                                              height: 133,
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.only(
-                                                    topLeft: Radius.circular(4),
-                                                    bottomLeft:
-                                                        Radius.circular(4)),
-                                                color: initRecordData[index]
-                                                        .selected
-                                                    ? Colors.red
-                                                    : Colors.green,
-                                              ),
-                                            ),
+
                                             Container(
                                               padding: EdgeInsets.only(
                                                   left: 8, top: 5),
                                               child: Column(
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                                 children: <Widget>[
                                                   new Text(
                                                     "${index + 1}.  ${initRecordData[index].eName}",
                                                     style: new TextStyle(
                                                         fontSize: 18.0,
                                                         fontWeight:
-                                                            FontWeight.w500),
+                                                        FontWeight.w500),
                                                   ),
                                                   Padding(
-                                                    padding:
-                                                        EdgeInsets.only(top: 5),
+                                                    padding: EdgeInsets.only(
+                                                        top: 5),
                                                   ),
                                                   Row(
                                                     children: <Widget>[
                                                       Padding(
                                                         padding:
-                                                            EdgeInsets.only(
-                                                                left: 10),
+                                                        EdgeInsets.only(
+                                                            left: 10),
                                                       ),
                                                       Text(
-                                                        "教室名称及编号:${initRecordData[index].rNumber} (${initRecordData[index].rMaxPer})",
+                                                        "教师:${initRecordData[index].tName} ",
                                                         style: TextStyle(
-                                                            color: Colors.grey,
+                                                            color:
+                                                            Colors.grey,
+                                                            fontSize: 12),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 5),
+                                                  ),
+                                                  Row(
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding:
+                                                        EdgeInsets.only(
+                                                            left: 10),
+                                                      ),
+                                                      Text(
+                                                        "教室名称及编号:${initRecordData[index].rNumber} (人数<最多/已选>：${initRecordData[index].rMaxPer}/${initRecordData[index].rNowPer})",
+                                                        style: TextStyle(
+                                                            color:
+                                                            Colors.grey,
                                                             fontSize: 12),
                                                       ),
                                                     ],
@@ -276,27 +284,26 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                                                     children: <Widget>[
                                                       Container(
                                                         padding:
-                                                            EdgeInsets.only(
-                                                                left: 10),
+                                                        EdgeInsets.only(
+                                                            left: 10),
                                                         width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width -
+                                                            context)
+                                                            .size
+                                                            .width -
                                                             50,
                                                         child: Text(
                                                           "节次：${initRecordData[index].section}",
                                                           style: TextStyle(
                                                               color:
-                                                                  Colors.grey,
+                                                              Colors.grey,
                                                               fontSize: 12),
                                                         ),
                                                       ),
                                                       new Icon(
                                                         Icons
                                                             .keyboard_arrow_right,
-                                                        color:
-                                                            GetConfig.getColor(
-                                                                theme),
+                                                        color: GetConfig
+                                                            .getColor(theme),
                                                         size: 28,
                                                       ),
                                                     ],
@@ -305,44 +312,21 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                                                     children: <Widget>[
                                                       Padding(
                                                         padding:
-                                                            EdgeInsets.only(
-                                                                left: 10),
+                                                        EdgeInsets.only(
+                                                            left: 10),
                                                       ),
                                                       Text(
-                                                        "当前状态:",
+                                                        "实验开始时间:",
                                                         style: TextStyle(
-                                                            color: Colors.grey,
+                                                            color:
+                                                            Colors.grey,
                                                             fontSize: 12),
                                                       ),
                                                       Text(
-                                                        "${initRecordData[index].status}",
+                                                        "${DateFormat("yyyy年MM月dd日(EEEE)","zh").format(DateTime.parse(initRecordData[index].sDate))}",
                                                         style: TextStyle(
-                                                            color: Colors.green,
-                                                            fontSize: 12),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsets.only(top: 5),
-                                                  ),
-                                                  Row(
-                                                    children: <Widget>[
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 10),
-                                                      ),
-                                                      Text(
-                                                        "时间:",
-                                                        style: TextStyle(
-                                                            color: Colors.grey,
-                                                            fontSize: 12),
-                                                      ),
-                                                      Text(
-                                                        "${initRecordData[index].eDate} ~ ${initRecordData[index].attriText01}",
-                                                        style: TextStyle(
-                                                            color: Colors.grey,
+                                                            color:
+                                                            Colors.grey,
                                                             fontSize: 12),
                                                       ),
                                                     ],

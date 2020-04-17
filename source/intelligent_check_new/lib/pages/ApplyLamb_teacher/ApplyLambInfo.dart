@@ -428,6 +428,7 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
                   onPressed: () {
                     setState(() {
                       remark.text = "";
+                      lambName.text="";
                     });
                   },
                 ),

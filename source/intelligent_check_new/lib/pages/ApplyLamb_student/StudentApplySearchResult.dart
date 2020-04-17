@@ -181,9 +181,9 @@ class _ApplySearchResultPage extends State<StudentApplySearchResultPage>{
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context){
-                    return StudentApplyLambDetail(initRecordData[index]);
-                  }));
+//                  Navigator.push(context, MaterialPageRoute(builder: (context){
+//                    return StudentApplyLambDetail(initRecordData[index]);
+//                  }));
                 },
                 child: Container(
                   child: Card(

@@ -1,27 +1,34 @@
 import 'dart:convert' show json;
 import 'package:flutter/material.dart';
+import 'package:intelligent_check_new/model/Lamb/ApplyLam/ExperimentModel.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/StuApplyLamModel.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/TeacherApplyRecord.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
+import 'package:intelligent_check_new/pages/navigation_keep_alive.dart';
 import 'package:intelligent_check_new/services/StudentServices/StudentOperate.dart';
+import 'package:intelligent_check_new/services/TeacherServices/TechServices.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StudentApplyLambDetail extends StatefulWidget {
-  final TeacherApplyRecord recordInfo;
+  final ExpModel recordInfo;
 
   StudentApplyLambDetail(this.recordInfo);
 
   @override
-  _ApplyLambDetail createState() => new _ApplyLambDetail();
+  _ApplyLambDetail createState() => new _ApplyLambDetail(recordInfo);
 }
 
 class _ApplyLambDetail extends State<StudentApplyLambDetail> {
+  ExpModel expModel;
+  _ApplyLambDetail( this.expModel);
   bool isAnimating = false;
   bool canOperate = true;
   String theme = "red";
   bool hasApplyed=false;
   UserModel userInfo;
+
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
   @override
@@ -53,24 +60,41 @@ class _ApplyLambDetail extends State<StudentApplyLambDetail> {
 
      }
    }
+
+   await GetExpModdel(this.widget.recordInfo.reqNumber).then((data){
+     var list=new List();
+     if(data.success && data.dataList!=null && data.dataList.length>0){
+       setState(() {
+         for(var str in data.dataList){
+           list.add(ExpModel.fromJson((str)));
+         }
+         if(list.length>0){
+           expModel=list[0];
+           expModel.eDate=list[list.length-1].eDate;
+         }
+       });
+     }
+   });
+
   }
 
   void CheckResult() async {
     var jsonStr = {
-      "eEndtime": this.widget.recordInfo.attriText01,
-      "eName": this.widget.recordInfo.eName,
-      "eStarttime": this.widget.recordInfo.eDate,
-      "eTName": this.widget.recordInfo.tName,
-      "remark": this.widget.recordInfo.remark,
+      "eEndtime":DateTime.parse(expModel.eDate).toString(),
+      "eName": expModel.eName,
+      "eStarttime":DateTime.parse(expModel.sDate).toString(),
+      "eTName": expModel.tName,
+      "remark": expModel.remark,
       "sMajor": userInfo.major,
       "sName": userInfo.userName,
-      "sNumber": userInfo.account
+      "sNumber": userInfo.account,
+      "attriText01":expModel.reqNumber
     };
 
     var res = await StuSaveApplyInfo(jsonStr);
     if (res.success) {
       GetConfig.popUpMsg(res.message ?? "申请成功");
-      Navigator.pop(context);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>NavigationKeepAlive()),(route)=>route==null);
     } else {
       GetConfig.popUpMsg(res.message ?? "申请失败");
     }
@@ -129,35 +153,13 @@ class _ApplyLambDetail extends State<StudentApplyLambDetail> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.recordInfo.tName}(${this.widget.recordInfo.tNumber})",
+                          "${expModel.tName}(${expModel.tNumber})",
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       )
                     ],
                   ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          padding:
-                              EdgeInsets.only(left: 10, top: 10, bottom: 10),
-//height: 50,
-                          child: Text(
-                            "申请单号",
-                            style: TextStyle(color: Colors.black, fontSize: 18),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 7,
-                        child: Text(
-                          "${this.widget.recordInfo.reqNumber}",
-                          style: TextStyle(color: Colors.black, fontSize: 18),
-                        ),
-                      )
-                    ],
-                  ),
+
                   Container(
                     color: Color.fromRGBO(242, 246, 249, 1),
                     height: 10,
@@ -179,7 +181,7 @@ class _ApplyLambDetail extends State<StudentApplyLambDetail> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.recordInfo.rNumber}",
+                          "${expModel.rNumber}",
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       )
@@ -201,7 +203,30 @@ class _ApplyLambDetail extends State<StudentApplyLambDetail> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.recordInfo.rMaxPer}",
+                          "${expModel.rMaxPer}",
+                          style: TextStyle(
+                              color: GetConfig.getColor(theme), fontSize: 18),
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          padding:
+                          EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                          child: Text(
+                            "已选人数",
+                            style: TextStyle(color: Colors.black, fontSize: 18),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 7,
+                        child: Text(
+                          "${expModel.rNowPer}",
                           style: TextStyle(
                               color: GetConfig.getColor(theme), fontSize: 18),
                         ),
@@ -228,7 +253,7 @@ class _ApplyLambDetail extends State<StudentApplyLambDetail> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.recordInfo.eDate}",
+                          "${DateFormat("yyyy年MM月dd日（EEEE）","zh").format(DateTime.parse(expModel.sDate))}",
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       )
@@ -250,7 +275,7 @@ class _ApplyLambDetail extends State<StudentApplyLambDetail> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.recordInfo.attriText01}",
+                          "${DateFormat("yyyy年MM月dd日（EEEE）","zh").format(DateTime.parse(expModel.eDate))}",
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       )
@@ -273,7 +298,7 @@ class _ApplyLambDetail extends State<StudentApplyLambDetail> {
                       Expanded(
                         flex: 7,
                         child: Text(
-                          "${this.widget.recordInfo.section}",
+                          "${expModel.section}",
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       )
@@ -303,7 +328,7 @@ class _ApplyLambDetail extends State<StudentApplyLambDetail> {
                           padding:
                               EdgeInsets.only(top: 5, bottom: 5, right: 10),
                           child: Text(
-                            "${this.widget.recordInfo.eName}",
+                            "${expModel.eName}",
                             style: TextStyle(
                                 color: GetConfig.getColor(theme), fontSize: 18),
                           ),
@@ -340,7 +365,7 @@ class _ApplyLambDetail extends State<StudentApplyLambDetail> {
                             autofocus: false,
                             style: TextStyle(fontSize: 18),
                             controller: TextEditingController(
-                                text: this.widget.recordInfo.remark),
+                                text: expModel.remark),
                             maxLines: null,
                             keyboardType: TextInputType.multiline,
                             enabled: false,

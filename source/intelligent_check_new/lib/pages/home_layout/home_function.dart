@@ -971,6 +971,7 @@ class _HomeFunctionState extends State<HomeFunction> {
     });
     var data = await getAllMessage(userInfo.account);
     if (data.success && data.dataList != null && data.dataList.length > 0) {
+      if(!mounted)return;
       setState(() {
         _unReadCount = 1;
       });

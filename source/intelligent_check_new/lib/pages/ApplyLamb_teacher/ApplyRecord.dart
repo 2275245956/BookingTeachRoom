@@ -79,6 +79,9 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
           initRecordData.add(new ExpModel.fromJson(str));
         });
       }
+      setState(() {
+        hasNext=initRecordData.length>=10;
+      });
     }else{
     GetConfig.popUpMsg(data.message?? "查询失败");
       setState(() {
@@ -102,21 +105,21 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
             brightness: Brightness.light,
             backgroundColor: Colors.white,
             actions: <Widget>[
-              GestureDetector(
-                child: Container(
-                  child: Image.asset(
-                    "assets/images/search_red.png",
-                    width: 22,
-                  ),
-                  padding: EdgeInsets.only(right: 20),
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      new MaterialPageRoute(builder: (context) {
-                    return ApplySearchPage(false);
-                  }));
-                },
-              )
+//              GestureDetector(
+//                child: Container(
+//                  child: Image.asset(
+//                    "assets/images/search_red.png",
+//                    width: 22,
+//                  ),
+//                  padding: EdgeInsets.only(right: 20),
+//                ),
+//                onTap: () {
+//                  Navigator.push(context,
+//                      new MaterialPageRoute(builder: (context) {
+//                    return ApplySearchPage(false);
+//                  }));
+//                },
+//              )
             ],
             leading: new Container(
               child: GestureDetector(
@@ -140,21 +143,21 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
           brightness: Brightness.light,
           backgroundColor: Colors.white,
           actions: <Widget>[
-            GestureDetector(
-              child: Container(
-                child: Image.asset(
-                  "assets/images/search_red.png",
-                  width: 22,
-                ),
-                padding: EdgeInsets.only(right: 20),
-              ),
-              onTap: () {
-                Navigator.push(context,
-                    new MaterialPageRoute(builder: (context) {
-                  return ApplySearchPage(false);
-                }));
-              },
-            )
+//            GestureDetector(
+//              child: Container(
+//                child: Image.asset(
+//                  "assets/images/search_red.png",
+//                  width: 22,
+//                ),
+//                padding: EdgeInsets.only(right: 20),
+//              ),
+//              onTap: () {
+//                Navigator.push(context,
+//                    new MaterialPageRoute(builder: (context) {
+//                  return ApplySearchPage(false);
+//                }));
+//              },
+//            )
           ],
           leading: new Container(
             child: GestureDetector(
