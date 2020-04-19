@@ -1,5 +1,4 @@
 import 'dart:convert' show json;
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/ExperimentModel.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
@@ -60,10 +59,10 @@ class _ApplyLambDetail extends State<ApplyLambDetail> {
   void CancelLamInfo() async{
          var data=await CancelApplyLamb(this.widget.recordInfo.reqNumber);
          if(data.success){
-           GetConfig.popUpMsg(data.message??"审核成功");
+           GetConfig.popUpMsg(data.message??"操作成功");
            Navigator.pop(context);
          }else{
-           GetConfig.popUpMsg(data.message??"审核失败");
+           GetConfig.popUpMsg(data.message??"操作失败");
          }
   }
 

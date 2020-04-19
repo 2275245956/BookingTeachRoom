@@ -88,7 +88,6 @@ class _RecordListScreenState extends State<MyMessagePage>
             leading: new Container(
               child: GestureDetector(
                 onTap: (){
-
                   Navigator.pop(context,true);
                 },
                 child: Icon(Icons.keyboard_arrow_left,
@@ -98,7 +97,7 @@ class _RecordListScreenState extends State<MyMessagePage>
           ),
           body: Container());
     }
-    return Scaffold(
+    return WillPopScope(child:  Scaffold(
         backgroundColor: Color.fromRGBO(242, 246, 249, 1),
         appBar: AppBar(
           title: Text(
@@ -127,15 +126,15 @@ class _RecordListScreenState extends State<MyMessagePage>
           ),
         ),
         floatingActionButton: FloatingActionButton.extended(
-       label: Text("一键已读"),
-
+          label: Text("一键已读"),
           onPressed: () {
             for (MessageModel m in MessageList) {
               setState(() {
                 if (!m.readed) m.readed = true;
+                readAll(m.id,false);
               });
             }
-            readAll(0,true);
+
           },
         ),
         body: ModalProgressHUD(
@@ -158,7 +157,7 @@ class _RecordListScreenState extends State<MyMessagePage>
                         margin: EdgeInsets.only(top: 5, left: 3, right: 3),
                         child: new Container(
                             margin:
-                                EdgeInsets.only(left: 10, right: 10, top: 5),
+                            EdgeInsets.only(left: 10, right: 10, top: 5),
                             height: 120.0,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,19 +184,20 @@ class _RecordListScreenState extends State<MyMessagePage>
                                       child: GestureDetector(
                                         child: MessageList[index].readed
                                             ? Text(
-                                                "已读",
-                                                style: TextStyle(
-                                                    color: Colors.grey),
-                                                textAlign: TextAlign.right,
-                                              )
+                                          "已读",
+                                          style: TextStyle(
+                                              color: Colors.grey),
+                                          textAlign: TextAlign.right,
+                                        )
                                             : Text("标记已读",
-                                                style: TextStyle(
-                                                    color: GetConfig.getColor(
-                                                        theme)),
-                                                textAlign: TextAlign.right),
+                                            style: TextStyle(
+                                                color: GetConfig.getColor(
+                                                    theme)),
+                                            textAlign: TextAlign.right),
                                         onTap: () {
                                           setState(() {
                                             MessageList[index].readed = true;
+                                            readAll(MessageList[index].id,false);
                                           });
                                         },
                                       ),
@@ -214,7 +214,7 @@ class _RecordListScreenState extends State<MyMessagePage>
                                     Expanded(
                                       flex: 9,
                                       child:
-                                          Text("${MessageList[index].message}"),
+                                      Text("${MessageList[index].message}"),
                                     ),
                                   ],
                                 ),
@@ -242,6 +242,17 @@ class _RecordListScreenState extends State<MyMessagePage>
           inAsyncCall: isAnimating,
           opacity: 0.7,
           progressIndicator: CircularProgressIndicator(),
-        ));
+        ))
+    ,onWillPop:(){
+        var hasReadAll=true;
+        for(MessageModel m in MessageList){
+          if(!m.readed){
+            hasReadAll=false;
+            break;
+          }
+        }
+        Navigator.pop(context,hasReadAll);
+      },
+    );
   }
 }

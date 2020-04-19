@@ -6,6 +6,7 @@ import 'package:intelligent_check_new/model/Lamb/ApplyLam/StuApplyLamModel.dart'
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/TeacherApplyRecord.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_student/StudentApplyLambDetail.dart';
+import 'package:intelligent_check_new/pages/ApplyLamb_student/StudentApplyLambDetailForCandcel.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_student/StudentApplySearchPage.dart';
 import 'package:intelligent_check_new/services/StudentServices/StudentOperate.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
@@ -161,7 +162,7 @@ class _RecordListScreenState extends State<StudentSelfApplyRecord>
                                   itemBuilder: (BuildContext context, int index) {
                                     return GestureDetector(
                                         onTap: () {
-
+Navigator.push(context,new MaterialPageRoute(builder: (context)=>StudentApplyLambDetailForCancel(initRecordData[index])));
                                         },
                                         child: Container(
                                           child: Card(

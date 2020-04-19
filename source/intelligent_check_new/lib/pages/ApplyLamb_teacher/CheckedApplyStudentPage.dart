@@ -91,7 +91,6 @@ class _RecordListScreenState extends State<CheckedApplyStudent>
     }
     setState(() {
       isAnimating=false;
-
     });
   }
 
@@ -108,8 +107,6 @@ class _RecordListScreenState extends State<CheckedApplyStudent>
     }else{
       GetConfig.popUpMsg(data.message??"操作失败");
     }
-
-
     setState(() {
       isAnimating=false;
     });
@@ -345,47 +342,47 @@ class _RecordListScreenState extends State<CheckedApplyStudent>
                                                 });
                                           },
                                         ),
-                                        IconSlideAction(
-                                          caption: '通过',
-                                          color: Colors.green,
-                                          icon: Icons.spellcheck,
-                                          onTap: () {
-                                            showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) {
-                                                  return CupertinoAlertDialog(
-                                                    title: Text("提示"),
-                                                    content: Column(
-                                                      children: <Widget>[
-                                                        SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        Align(
-                                                          child: Text("确定执行该操作？"),
-                                                          alignment: Alignment(0, 0),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    actions: <Widget>[
-                                                      CupertinoDialogAction(
-                                                        child: Text("取消"),
-                                                        onPressed: () {
-                                                          Navigator.pop(context);
-                                                        },
-                                                      ),
-                                                      CupertinoDialogAction(
-                                                        child: Text("确定"),
-                                                        onPressed: (){
-                                                          CheckStudentApplyWithStatus(initRecordData[index],7);
-                                                          Navigator.pop(context);
-                                                        },
-                                                      ),
-                                                    ],
-                                                  );
-                                                });
-
-                                          },
-                                        ),
+//                                        IconSlideAction(
+//                                          caption: '通过',
+//                                          color: Colors.green,
+//                                          icon: Icons.spellcheck,
+//                                          onTap: () {
+//                                            showDialog(
+//                                                context: context,
+//                                                builder: (BuildContext context) {
+//                                                  return CupertinoAlertDialog(
+//                                                    title: Text("提示"),
+//                                                    content: Column(
+//                                                      children: <Widget>[
+//                                                        SizedBox(
+//                                                          height: 10,
+//                                                        ),
+//                                                        Align(
+//                                                          child: Text("确定执行该操作？"),
+//                                                          alignment: Alignment(0, 0),
+//                                                        ),
+//                                                      ],
+//                                                    ),
+//                                                    actions: <Widget>[
+//                                                      CupertinoDialogAction(
+//                                                        child: Text("取消"),
+//                                                        onPressed: () {
+//                                                          Navigator.pop(context);
+//                                                        },
+//                                                      ),
+//                                                      CupertinoDialogAction(
+//                                                        child: Text("确定"),
+//                                                        onPressed: (){
+//                                                          CheckStudentApplyWithStatus(initRecordData[index],7);
+//                                                          Navigator.pop(context);
+//                                                        },
+//                                                      ),
+//                                                    ],
+//                                                  );
+//                                                });
+//
+//                                          },
+//                                        ),
                                       ],
                                     );
                                   },

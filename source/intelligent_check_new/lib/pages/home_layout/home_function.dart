@@ -973,7 +973,10 @@ class _HomeFunctionState extends State<HomeFunction> {
     if (data.success && data.dataList != null && data.dataList.length > 0) {
       if(!mounted)return;
       setState(() {
-        _unReadCount = 1;
+        for(var str in data.dataList)
+          if(str["readed"]==false){
+            _unReadCount = 1;
+          }
       });
     }
   }

@@ -4,7 +4,6 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/ExperimentModel.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
 import 'package:intelligent_check_new/pages/ApplyLamb_student/StudentApplyLambDetail.dart';
-import 'package:intelligent_check_new/pages/ApplyLamb_student/StudentApplySearchPage.dart';
 import 'package:intelligent_check_new/services/StudentServices/StudentOperate.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:intl/intl.dart';
@@ -45,7 +44,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
 
   String status = "0";
   String tNumber = "";
-  String selectNumber = "";
+  List<String> selectNumber = new List();
 
   @override
   void initState() {
@@ -62,16 +61,15 @@ class _RecordListScreenState extends State<StudentApplyRecord>
     });
     await StuApplyRecord(userInfo.account).then((data) {
       setState(() {
-        if(data.success && data.dataList!=null){
-          selectNumber = data.dataList[0]["reqNumber"];
+        if (data.success && data.dataList != null) {
+          for (var str in data.dataList) {
+            selectNumber.add(str["attriText01"]);
+          }
         }
-
       });
-    }).then((_){
+    }).then((_) {
       loadData();
     });
-
-
   }
 
   void loadData() async {
@@ -84,7 +82,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
       for (var str in data.dataList) {
         setState(() {
           var model = new ExpModel.fromJson(str);
-          model.selected = model.reqNumber == selectNumber;
+          model.selected =selectNumber.contains(model.reqNumber);
           initRecordData.add(model);
         });
       }
@@ -216,7 +214,8 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                                   }));
                                 },
                                 child: Container(
-                                  child:Card(
+                                  child: Card(
+                                    color: initRecordData[index].selected?Colors.lightGreen:Colors.white,
                                     elevation: 2,
                                     margin: EdgeInsets.only(
                                         top: 5, left: 3, right: 3),
@@ -225,57 +224,56 @@ class _RecordListScreenState extends State<StudentApplyRecord>
 //                                          margin: EdgeInsets.only(top: 5,left: 20,right: 20),
                                         child: Row(
                                           children: <Widget>[
-
                                             Container(
                                               padding: EdgeInsets.only(
                                                   left: 8, top: 5),
                                               child: Column(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: <Widget>[
                                                   new Text(
                                                     "${index + 1}.  ${initRecordData[index].eName}",
                                                     style: new TextStyle(
                                                         fontSize: 18.0,
+                                                        color: initRecordData[index].selected?Colors.red:Colors.black,
                                                         fontWeight:
-                                                        FontWeight.w500),
+                                                            FontWeight.w500),
                                                   ),
                                                   Padding(
-                                                    padding: EdgeInsets.only(
-                                                        top: 5),
+                                                    padding:
+                                                        EdgeInsets.only(top: 5),
                                                   ),
                                                   Row(
                                                     children: <Widget>[
                                                       Padding(
                                                         padding:
-                                                        EdgeInsets.only(
-                                                            left: 10),
+                                                            EdgeInsets.only(
+                                                                left: 10),
                                                       ),
                                                       Text(
                                                         "教师:${initRecordData[index].tName} ",
                                                         style: TextStyle(
-                                                            color:
-                                                            Colors.grey,
+                                                            color:initRecordData[index].selected?Colors.red:Colors.black,
+
                                                             fontSize: 12),
                                                       ),
                                                     ],
                                                   ),
                                                   Padding(
-                                                    padding: EdgeInsets.only(
-                                                        top: 5),
+                                                    padding:
+                                                        EdgeInsets.only(top: 5),
                                                   ),
                                                   Row(
                                                     children: <Widget>[
                                                       Padding(
                                                         padding:
-                                                        EdgeInsets.only(
-                                                            left: 10),
+                                                            EdgeInsets.only(
+                                                                left: 10),
                                                       ),
                                                       Text(
                                                         "教室名称及编号:${initRecordData[index].rNumber} (人数<最多/已选>：${initRecordData[index].rMaxPer}/${initRecordData[index].rNowPer})",
                                                         style: TextStyle(
-                                                            color:
-                                                            Colors.grey,
+                                                            color:initRecordData[index].selected?Colors.red:Colors.black,
                                                             fontSize: 12),
                                                       ),
                                                     ],
@@ -284,26 +282,26 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                                                     children: <Widget>[
                                                       Container(
                                                         padding:
-                                                        EdgeInsets.only(
-                                                            left: 10),
+                                                            EdgeInsets.only(
+                                                                left: 10),
                                                         width: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .width -
+                                                                    context)
+                                                                .size
+                                                                .width -
                                                             50,
                                                         child: Text(
                                                           "节次：${initRecordData[index].section}",
                                                           style: TextStyle(
-                                                              color:
-                                                              Colors.grey,
+                                                              color:initRecordData[index].selected?Colors.red:Colors.black,
                                                               fontSize: 12),
                                                         ),
                                                       ),
                                                       new Icon(
                                                         Icons
                                                             .keyboard_arrow_right,
-                                                        color: GetConfig
-                                                            .getColor(theme),
+                                                        color:
+                                                            GetConfig.getColor(
+                                                                theme),
                                                         size: 28,
                                                       ),
                                                     ],
@@ -312,21 +310,19 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                                                     children: <Widget>[
                                                       Padding(
                                                         padding:
-                                                        EdgeInsets.only(
-                                                            left: 10),
+                                                            EdgeInsets.only(
+                                                                left: 10),
                                                       ),
                                                       Text(
                                                         "实验开始时间:",
                                                         style: TextStyle(
-                                                            color:
-                                                            Colors.grey,
+                                                            color:initRecordData[index].selected?Colors.red:Colors.black,
                                                             fontSize: 12),
                                                       ),
                                                       Text(
-                                                        "${DateFormat("yyyy年MM月dd日(EEEE)","zh").format(DateTime.parse(initRecordData[index].sDate))}",
+                                                        "${DateFormat("yyyy年MM月dd日(EEEE)", "zh").format(DateTime.parse(initRecordData[index].sDate))}",
                                                         style: TextStyle(
-                                                            color:
-                                                            Colors.grey,
+                                                            color:initRecordData[index].selected?Colors.red:Colors.black,
                                                             fontSize: 12),
                                                       ),
                                                     ],
