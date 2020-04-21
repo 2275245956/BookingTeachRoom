@@ -11,6 +11,7 @@ import 'package:intelligent_check_new/pages/ApplyLamb_teacher/SelectSection.dart
 import 'package:intelligent_check_new/pages/ExpPage/ExpCheckStudentApply.dart';
 import 'package:intelligent_check_new/pages/ExpPage/TeachApplyCheck.dart';
 import 'package:intelligent_check_new/pages/SystemSettings/ScheduleSettingPage.dart';
+import 'package:intelligent_check_new/pages/SystemSettings/StudentsManagePage.dart';
 import 'package:intelligent_check_new/pages/SystemSettings/UpLoadFileData.dart';
 import 'package:intelligent_check_new/pages/my/my_message.dart';
 import 'package:intelligent_check_new/services/SystemService/SystemConfigService.dart';
@@ -563,7 +564,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                                   color: Color.fromRGBO(153, 153, 153, 1)),
                               color: Colors.white,
                             ),
-                            onTap: () {},
+                            onTap: () {        Navigator.push(context, new MaterialPageRoute(builder: (context)=>StudentManagePage("teacher")));},
                           )),
                       Container(
                           height: 82,
@@ -588,7 +589,9 @@ class _HomeFunctionState extends State<HomeFunction> {
                                   color: Color.fromRGBO(153, 153, 153, 1)),
                               color: Colors.white,
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(context, new MaterialPageRoute(builder: (context)=>StudentManagePage("student")));
+                            },
                           )),
                       Container(
                           height: 82,
@@ -613,7 +616,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                                   color: Color.fromRGBO(153, 153, 153, 1)),
                               color: Colors.white,
                             ),
-                            onTap: () {},
+                            onTap: () {      Navigator.push(context, new MaterialPageRoute(builder: (context)=>StudentManagePage("expAdmin")));},
                           ))
                     ],
                     shrinkWrap: true,

@@ -67,6 +67,7 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
   }
 
   void loadData() async {
+    var recordNum=1;
     var data =
         await GetAllRecordByStatus(userInfo.account, status, pageNum, pageSize);
     if (data.success && data.dataList != "") {
@@ -76,11 +77,12 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
       for (var str in data.dataList) {
 
         setState(() {
+          recordNum+=1;
           initRecordData.add(new ExpModel.fromJson(str));
         });
       }
       setState(() {
-        hasNext=initRecordData.length>=10;
+        hasNext=recordNum>=10;
       });
     }else{
     GetConfig.popUpMsg(data.message?? "查询失败");

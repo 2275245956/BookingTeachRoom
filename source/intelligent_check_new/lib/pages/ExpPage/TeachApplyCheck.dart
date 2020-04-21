@@ -63,11 +63,18 @@ class _RecordListScreenState extends State<TeachApplyCheck>
   }
 
   void loadData() async {
+    int recordNUm=0;
     var data = await getAllTeachApplyLam(pageNum);
     if (data.success && data.dataList != null) {
       for (var str in data.dataList) {
         setState(() {
+          recordNUm+=1;
           initRecordData.add(new ExpModel.fromJson(str));
+        });
+      }
+      if(recordNUm<10){
+        setState(() {
+          hasNext=false;
         });
       }
     } else {

@@ -87,6 +87,7 @@ class _RecordListScreenState extends State<CheckApplyStudent>
 
 
   void loadData() async {
+    var recordNum=0;
     setState(() {
       isAnimating=true;
     });
@@ -97,10 +98,11 @@ class _RecordListScreenState extends State<CheckApplyStudent>
       });
       for (var str in data.dataList) {
         setState(() {
+          recordNum+=1;
           initRecordData.add(new StuApplyModel.fromJson(str));
         });
       }
-      if(initRecordData.length<10){
+      if(recordNum<10){
         setState(() {
           hasNext = false;
         });
@@ -482,7 +484,6 @@ class _RecordListScreenState extends State<CheckApplyStudent>
                               if (hasNext) {
                                 setState(() {
                                   pageNum = pageNum + 1;
-                                  initRecordData=[];
                                 });
                                 loadData();
                               }

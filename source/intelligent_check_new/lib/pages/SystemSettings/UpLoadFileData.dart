@@ -36,7 +36,7 @@ class _ScheduleSettingPage extends State<FileUpLoad> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            "文件上传",
+            "人员信息批量增加",
             style: TextStyle(
               color: Colors.black,
               fontSize: 19,

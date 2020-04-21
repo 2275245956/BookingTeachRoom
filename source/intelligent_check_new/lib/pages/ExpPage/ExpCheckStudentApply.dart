@@ -68,6 +68,7 @@ class _RecordListScreenState extends State<ExpCheckStudentApply>
 
 
   void loadData() async {
+    var recordNum=0;
     setState(() {
       isAnimating=true;
     });
@@ -78,7 +79,13 @@ class _RecordListScreenState extends State<ExpCheckStudentApply>
       });
       for (var str in data.dataList) {
         setState(() {
+          recordNum+=1;
           initRecordData.add(new StuApplyModel.fromJson(str));
+        });
+      }
+      if(recordNum<10){
+        setState(() {
+          hasNext=false;
         });
       }
     } else {
@@ -404,7 +411,7 @@ class _RecordListScreenState extends State<ExpCheckStudentApply>
                                         if (hasNext) {
                                           setState(() {
                                             pageNum = pageNum + 1;
-                                            initRecordData=[];
+
                                           });
                                           loadData();
                                         }
