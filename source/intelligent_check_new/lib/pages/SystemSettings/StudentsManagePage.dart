@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
@@ -77,19 +78,19 @@ class _RecordListScreenState extends State<StudentManagePage>
     });
   }
 
-  void DeleteUser (String account)async{
+  void DeleteUser (UserModel model)async{
     setState(() {
       isAnimating=true;
     });
-    var data=await DELETEUSERS(account);
+    var data=await DELETEUSERS(model.account);
     if(data.success){
+      initData.remove(model);
       GetConfig.popUpMsg("操作成功");
     }else{
       GetConfig.popUpMsg("操作失败");
     }
     setState(() {
       isAnimating=false;
-
     });
 
   }
@@ -107,7 +108,9 @@ class _RecordListScreenState extends State<StudentManagePage>
             elevation: 0.2,
             brightness: Brightness.light,
             backgroundColor: Colors.white,
-            actions: <Widget>[],
+            actions: <Widget>[
+
+            ],
             leading: new Container(
               child: GestureDetector(
                 onTap: () => Navigator.pop(context),
@@ -138,6 +141,15 @@ class _RecordListScreenState extends State<StudentManagePage>
             ),
           ),
         ),
+        floatingActionButton: FloatingActionButton.extended(
+          icon: Icon(Icons.add),
+          elevation: 5,
+          label: Text("新增"),
+          onPressed: () {
+
+          },
+        ),
+        floatingActionButtonLocation:FloatingActionButtonLocation.centerDocked,
         body: ModalProgressHUD(
           child:new Padding(
               padding: new EdgeInsets.only(top: 0.0),
@@ -174,31 +186,14 @@ class _RecordListScreenState extends State<StudentManagePage>
                                       child: Container(
                                         color: Colors.white,
                                         child: Card(
-                                          color: Color.fromRGBO(252, 249, 244, 1),
-                                          elevation:0,
-                                          margin: EdgeInsets.only(
-                                              top: 5, left: 3, right: 3),
+                                          elevation: 4.5,
                                           child: new Container(
-                                              height: 100.0,
+                                              height: 110.0,
                                               child: Row(
                                                 children: <Widget>[
                                                   Container(
-                                                    width: 8,
-                                                    height: 100,
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.red,
-                                                        borderRadius:
-                                                        BorderRadius.only(
-                                                            topLeft: Radius
-                                                                .circular(4),
-                                                            bottomLeft:
-                                                            Radius.circular(
-                                                                4)),
-                                                    ),
-                                                  ),
-                                                  Container(
                                                     padding: EdgeInsets.only(
-                                                        left: 8, top: 5),
+                                                      top: 5),
                                                     child: Column(
                                                       crossAxisAlignment:
                                                       CrossAxisAlignment.start,
@@ -227,7 +222,7 @@ class _RecordListScreenState extends State<StudentManagePage>
                                                                   left: 10),
                                                             ),
                                                             Text(
-                                                              "姓名：${initData[index].userName??"--"}",
+                                                              "学号/工号：${initData[index].employeeNumber??"--"}",
                                                               style: TextStyle(
                                                                   color: Colors.grey,
                                                                   fontSize: 12),
@@ -312,47 +307,55 @@ class _RecordListScreenState extends State<StudentManagePage>
                                         ),
                                       ),
                                       secondaryActions: <Widget>[
-                                        IconSlideAction(
-                                          caption: '删除',
-                                          color: GetConfig.getColor(theme),
-                                          icon: Icons.delete_forever,
-                                          onTap: () {
-                                            showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) {
-                                                  return CupertinoAlertDialog(
-                                                    title: Text("删除提示"),
-                                                    content: Column(
-                                                      children: <Widget>[
-                                                        SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        Align(
-                                                          child: Text("确定删除？此操作无法撤回！"),
-                                                          alignment: Alignment(0, 0),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    actions: <Widget>[
-                                                      CupertinoDialogAction(
-                                                        child: Text("取消"),
-                                                        onPressed: () {
-                                                          Navigator.pop(context);
-                                                        },
-                                                      ),
-                                                      CupertinoDialogAction(
-                                                        child: Text("确定"),
-                                                        onPressed: (){
-                                                          DeleteUser(initData[index].account);
-                                                          Navigator.pop(context);
-                                                        },
-                                                      ),
-                                                    ],
-                                                  );
-                                                });
-                                          },
+                                        Container(
+                                          color: Colors.white,
+                                          child: Card(
+                                            elevation: 4.5,
+                                            child: new Container(
+                                              margin: EdgeInsets.only(left: 0),
+                                              height: 110.0,
+                                              child: IconSlideAction(
+                                                caption: '删除',
+                                                color: GetConfig.getColor(theme),
+                                                icon: Icons.delete_forever,
+                                                onTap: () {
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (BuildContext context) {
+                                                        return CupertinoAlertDialog(
+                                                          title: Text("删除提示"),
+                                                          content: Column(
+                                                            children: <Widget>[
+                                                              SizedBox(
+                                                                height: 10,
+                                                              ),
+                                                              Align(
+                                                                child: Text("确定删除？此操作无法撤回！"),
+                                                                alignment: Alignment(0, 0),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          actions: <Widget>[
+                                                            CupertinoDialogAction(
+                                                              child: Text("取消"),
+                                                              onPressed: () {
+                                                                Navigator.pop(context);
+                                                              },
+                                                            ),
+                                                            CupertinoDialogAction(
+                                                              child: Text("确定"),
+                                                              onPressed: (){
+                                                                DeleteUser(initData[index]);
+                                                                Navigator.pop(context);
+                                                              },
+                                                            ),
+                                                          ],
+                                                        );
+                                                      });
+                                                },
+                                              ),),
+                                          ),
                                         ),
-
                                       ],
                                     );
                                   },
