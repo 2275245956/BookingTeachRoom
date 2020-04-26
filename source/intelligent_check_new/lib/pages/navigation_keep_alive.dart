@@ -109,8 +109,6 @@ class _NavigationKeepAliveState extends State<NavigationKeepAlive>
                       height: 60,
                       padding: EdgeInsets.all(0),
                       icon: _selectedIndex == 2
-
-                          
                           ? Image.asset(
                               'assets/images/home/home_my_red.png',
                               height: 30,

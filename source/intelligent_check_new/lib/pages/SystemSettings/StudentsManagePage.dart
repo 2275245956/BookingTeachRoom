@@ -8,6 +8,8 @@ import 'package:intelligent_check_new/services/SystemService/SystemConfigService
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
+import 'UserAdd&EditPage.dart';
+
 class  StudentManagePage extends StatefulWidget {
   final String userRole;
   StudentManagePage(this.userRole);
@@ -146,10 +148,17 @@ class _RecordListScreenState extends State<StudentManagePage>
           elevation: 5,
           label: Text("新增"),
           onPressed: () {
+            Navigator.push(context, new MaterialPageRoute(builder: (context)=>UserEditAddPage("add",null,this.widget.userRole))).then((_){
+              setState(() {
+                initData=[];
+                pageNum=1;
+                loadData();
+              });
 
+            });
           },
         ),
-        floatingActionButtonLocation:FloatingActionButtonLocation.centerDocked,
+        floatingActionButtonLocation:FloatingActionButtonLocation.endFloat,
         body: ModalProgressHUD(
           child:new Padding(
               padding: new EdgeInsets.only(top: 0.0),
@@ -352,6 +361,29 @@ class _RecordListScreenState extends State<StudentManagePage>
                                                           ],
                                                         );
                                                       });
+                                                },
+                                              ),),
+                                          ),
+                                        ),
+                                        Container(
+                                          color: Colors.white,
+                                          child: Card(
+                                            elevation: 4.5,
+                                            child: new Container(
+                                              margin: EdgeInsets.only(left: 0),
+                                              height: 110.0,
+                                              child: IconSlideAction(
+                                                caption: '编辑',
+                                                color: Colors.green,
+                                                icon: Icons.border_color,
+                                                onTap: () {
+                                                  Navigator.push(context, new MaterialPageRoute(builder: (context)=>UserEditAddPage("edit",initData[index],this.widget.userRole))).then((_){
+                                                    setState(() {
+                                                      initData=[];
+                                                      pageNum=1;
+                                                      loadData();
+                                                    });
+                                                  });
                                                 },
                                               ),),
                                           ),

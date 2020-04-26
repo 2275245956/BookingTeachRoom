@@ -171,22 +171,22 @@ class _MyScreenState extends State<MyScreen>
                       color: Color(0XFFd9d9d9),
                     ),
                   ),
-                  //通讯录
-                  ImItem(
-                    iconPath: "assets/images/my/contact_red.png",
-                    title: '通讯录',
-                    righticonPath: "assets/images/icons/righticon.png",
-                    subtext: '',
-                    theme: theme,
-                  ),
-                  //分割线
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-                    child: Divider(
-                      height: 0.5,
-                      color: Color(0XFFd9d9d9),
-                    ),
-                  ),
+//                  //通讯录
+//                  ImItem(
+//                    iconPath: "assets/images/my/contact_red.png",
+//                    title: '通讯录',
+//                    righticonPath: "assets/images/icons/righticon.png",
+//                    subtext: '',
+//                    theme: theme,
+//                  ),
+//                  //分割线
+//                  Padding(
+//                    padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+//                    child: Divider(
+//                      height: 0.5,
+//                      color: Color(0XFFd9d9d9),
+//                    ),
+//                  ),
                   //消息订阅
                   ImItem(
                     iconPath: "assets/images/my/message_red.png",
