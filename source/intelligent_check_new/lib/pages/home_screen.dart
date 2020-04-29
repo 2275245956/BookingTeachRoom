@@ -49,9 +49,6 @@ class _HomeScreenState extends State<HomeScreen>
   // 推送相关-极光
   Future<void> initPlatformState() async {
     String platformVersion;
-    jpush.getRegistrationID().then((rid) {
-      print("推送测试getRegistrationID>>>>>" + rid);
-    });
 
     jpush.setup(
       appKey: "3500f6a1262613c11690ea94",
@@ -61,6 +58,9 @@ class _HomeScreenState extends State<HomeScreen>
     );
     jpush.applyPushAuthority(
         new NotificationSettingsIOS(sound: true, alert: true, badge: true));
+      jpush.getRegistrationID().then((rid) {
+      print("推送测试getRegistrationID>>>>>" + rid);
+    });
 
     try {
 

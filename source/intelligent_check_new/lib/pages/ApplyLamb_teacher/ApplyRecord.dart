@@ -258,7 +258,13 @@ class _RecordListScreenState extends State<ApplyRecordListScreen>
                                   onTap: () {
                                     Navigator.push(context, MaterialPageRoute(builder: (context){
                                       return ApplyLambDetail(initRecordData[index]);
-                                    }));
+                                    })).then((_){
+                                      setState(() {
+                                        initRecordData=[];
+                                        pageNum=1;
+                                        loadData();
+                                      });
+                                    });
                                   },
                                   child: Container(
                                     child: Card(

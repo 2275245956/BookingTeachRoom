@@ -440,7 +440,7 @@ class _ApplyLambDetail extends State<ApplyLambDetail> {
                   child:
                   new Text('取消申请', style: TextStyle(fontSize: 24)),
                   onPressed: () {
-                    if(expModel.status!="申请取消(教师)" || expModel.status!="申请通过(管理员)"){
+                    if(expModel.status=="申请取消(教师)" || expModel.status=="申请通过(管理员)"){
                       GetConfig.popUpMsg("当前实验状态：《${expModel.status}》  无法取消！");
                       return ;
                     }

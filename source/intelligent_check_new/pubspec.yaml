@@ -100,9 +100,9 @@ dependencies:
   flutter_local_notifications: ^0.5.2
 
   #  scoped_model:
-  flutter_downloader: ^1.1.6
+  flutter_downloader: 1.1.6
 
-  open_file: ^2.0.1+1
+  open_file: 2.0.1+1
 
   flukit: ^1.0.0
 
