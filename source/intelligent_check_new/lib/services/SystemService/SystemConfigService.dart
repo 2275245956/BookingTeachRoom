@@ -27,16 +27,16 @@ Future<APIResponse> getConfigValueByKey(String key) async{
 }
 
 Future<APIResponse> UpLoadFile(File file) async{
-  try {
+
+    if(file==null)return APIResponse.error("未选择文件");
+
     String filename = file.path.substring(file.path.lastIndexOf("/") + 1);
     // 开始上传
     FormData formData = new FormData.from(
         {"file": new UploadFileInfo(file, filename)});
     var data = await new HttpUtil().post(ApiAddress.UPFILE, data: formData);
     return APIResponse.fromJson(data);
-  } catch (e) {
-    throw e;
-  }
+
 }
 
 Future<APIResponse> getAllMessage(String  account) async{
@@ -57,4 +57,38 @@ Future<APIResponse> readAllMessage(int  id) async{
   }
 }
 
+Future<APIResponse> getAllUser(String keywords,String  pageNum) async{
+  try {
+    var data = await new HttpUtil().get(ApiAddress.GETALLUSER+"?keywords=$keywords&pageNum=$pageNum");
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}
 
+Future<APIResponse> DELETEUSERS(String  account) async{
+  try {
+    var data = await new HttpUtil().post(ApiAddress.DELETEUSER+"?account=$account");
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}
+
+Future<APIResponse> EditUSER(dynamic jsonData) async{
+  try {
+    var data = await new HttpUtil().post(ApiAddress.UPDATEUSER,data: json.encode(jsonData));
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}
+
+Future<APIResponse> ADDUSER(dynamic jsonData) async{
+  try {
+    var data = await new HttpUtil().post(ApiAddress.ADDUSER,data: json.encode(jsonData));
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}

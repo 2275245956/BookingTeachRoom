@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
+import 'package:intelligent_check_new/pages/my/my_message.dart';
 import 'package:intelligent_check_new/pages/my/pswdchange_page.dart';
 import 'package:intelligent_check_new/widget/completedialog.dart';
 import 'package:intelligent_check_new/widget/loadingdialoge.dart';
@@ -64,11 +65,10 @@ class ImItem extends StatelessWidget {
             break;
           case '消息订阅':
             //路由到消息订阅界面
-            //Navigator.pushNamed(context, '');
-//            Navigator.push(
-//              context,
-//              new MaterialPageRoute(builder: (context) => new SubscribePage()),
-//            );
+            Navigator.push(
+              context,
+              new MaterialPageRoute(builder: (context) => new MyMessagePage()),
+            );
             break;
        
           case '清除缓存':

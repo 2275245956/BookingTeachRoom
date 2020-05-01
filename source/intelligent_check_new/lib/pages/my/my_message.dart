@@ -128,13 +128,7 @@ class _RecordListScreenState extends State<MyMessagePage>
         floatingActionButton: FloatingActionButton.extended(
           label: Text("一键已读"),
           onPressed: () {
-            for (MessageModel m in MessageList) {
-              setState(() {
-                if (!m.readed) m.readed = true;
-                readAll(m.id,false);
-              });
-            }
-
+                readAll(0,true);
           },
         ),
         body: ModalProgressHUD(
@@ -147,6 +141,7 @@ class _RecordListScreenState extends State<MyMessagePage>
                 return GestureDetector(
                     onTap: () {
                       setState(() {
+                        if(MessageList[index].readed)return;
                         MessageList[index].readed = true;
                         readAll(MessageList[index].id,false);
                       });
@@ -196,6 +191,7 @@ class _RecordListScreenState extends State<MyMessagePage>
                                             textAlign: TextAlign.right),
                                         onTap: () {
                                           setState(() {
+                                            if(MessageList[index].readed)return;
                                             MessageList[index].readed = true;
                                             readAll(MessageList[index].id,false);
                                           });

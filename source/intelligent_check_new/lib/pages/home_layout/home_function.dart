@@ -11,6 +11,7 @@ import 'package:intelligent_check_new/pages/ApplyLamb_teacher/SelectSection.dart
 import 'package:intelligent_check_new/pages/ExpPage/ExpCheckStudentApply.dart';
 import 'package:intelligent_check_new/pages/ExpPage/TeachApplyCheck.dart';
 import 'package:intelligent_check_new/pages/SystemSettings/ScheduleSettingPage.dart';
+import 'package:intelligent_check_new/pages/SystemSettings/StudentsManagePage.dart';
 import 'package:intelligent_check_new/pages/SystemSettings/UpLoadFileData.dart';
 import 'package:intelligent_check_new/pages/my/my_message.dart';
 import 'package:intelligent_check_new/services/SystemService/SystemConfigService.dart';
@@ -563,7 +564,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                                   color: Color.fromRGBO(153, 153, 153, 1)),
                               color: Colors.white,
                             ),
-                            onTap: () {},
+                            onTap: () {        Navigator.push(context, new MaterialPageRoute(builder: (context)=>StudentManagePage("teacher")));},
                           )),
                       Container(
                           height: 82,
@@ -588,7 +589,9 @@ class _HomeFunctionState extends State<HomeFunction> {
                                   color: Color.fromRGBO(153, 153, 153, 1)),
                               color: Colors.white,
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(context, new MaterialPageRoute(builder: (context)=>StudentManagePage("student")));
+                            },
                           )),
                       Container(
                           height: 82,
@@ -613,8 +616,36 @@ class _HomeFunctionState extends State<HomeFunction> {
                                   color: Color.fromRGBO(153, 153, 153, 1)),
                               color: Colors.white,
                             ),
-                            onTap: () {},
-                          ))
+                            onTap: () {      Navigator.push(context, new MaterialPageRoute(builder: (context)=>StudentManagePage("expAdmin")));},
+                          )),
+                      Container(
+                          height: 82,
+                          width: 82,
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.only(
+                                bottomLeft: Radius.circular(5)),
+                            color: Colors.white,
+                            border: new Border.all(
+                                width: 0.5, color: Colors.grey[100]),
+                          ),
+                          child: GestureDetector(
+                            child: EachTab(
+                              width: 80,
+                              height: 40,
+                              padding: EdgeInsets.all(0),
+                              icon: Icon(Icons.supervised_user_circle,
+                                  size: 32, color: GetConfig.getColor(theme)),
+                              text: "批量新增用户",
+                              textStyle: TextStyle(
+                                  fontSize: 12,
+                                  color: Color.fromRGBO(153, 153, 153, 1)),
+                              color: Colors.white,
+                            ),
+                            onTap: () => Navigator.push(context,
+                                new MaterialPageRoute(builder: (context) {
+                                  return FileUpLoad();
+                                })),
+                          )),
                     ],
                     shrinkWrap: true,
                   ),
@@ -789,34 +820,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                                   return ScheduleSettingPage();
                                 })),
                           )),
-                      Container(
-                          height: 82,
-                          width: 82,
-                          decoration: new BoxDecoration(
-                            borderRadius: new BorderRadius.only(
-                                bottomLeft: Radius.circular(5)),
-                            color: Colors.white,
-                            border: new Border.all(
-                                width: 0.5, color: Colors.grey[100]),
-                          ),
-                          child: GestureDetector(
-                            child: EachTab(
-                              width: 80,
-                              height: 40,
-                              padding: EdgeInsets.all(0),
-                              icon: Icon(Icons.file_upload,
-                                  size: 32, color: GetConfig.getColor(theme)),
-                              text: "file",
-                              textStyle: TextStyle(
-                                  fontSize: 13,
-                                  color: Color.fromRGBO(153, 153, 153, 1)),
-                              color: Colors.white,
-                            ),
-                            onTap: () => Navigator.push(context,
-                                    new MaterialPageRoute(builder: (context) {
-                                  return FileUpLoad();
-                                })),
-                          )),
+
                     ],
                     shrinkWrap: true,
                   ),

@@ -43,7 +43,7 @@ class _TimeLinePageState extends State<TimeLinePage> {
       child: ListView(
         children: <Widget>[
           Calendar(
-            initialCalendarDateOverride:DateTime(2000,1,1),
+            initialCalendarDateOverride:DateTime.now(),
             onSelectedRangeChange: (range) =>
                 print("Range is ${range.item1}, ${range.item2}"),
             onDateSelected: (date) => handleNewDate(date),
@@ -62,7 +62,9 @@ class _TimeLinePageState extends State<TimeLinePage> {
   }
 
   /// handle new date selected event
-  void handleNewDate(date) {}
+  void handleNewDate(date) {
+    print(date);
+  }
 
   Widget _buildTimeLine(String message) {
     return Stack(
