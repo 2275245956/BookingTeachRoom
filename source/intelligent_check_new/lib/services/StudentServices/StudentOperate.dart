@@ -44,3 +44,12 @@ Future<APIResponse> StuApplyRecord(String sNumber) async {
     throw e;
   }
 }
+
+Future<APIResponse> StuCalcelApply(String reqNumber) async {
+  try {
+    var data = await HttpUtil().post(ApiAddress.STUCANCELAPPLY+"?reqNumber=$reqNumber");
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}

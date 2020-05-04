@@ -15,7 +15,7 @@ class _NavigationKeepAliveState extends State<NavigationKeepAlive>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
   int _selectedIndex = 0;
-  var titles = ['首页', '时间轴', '我的'];
+  var titles = ['首页', 'TimeLine', '我的'];
 
   bool isAnimating = false;
   String theme = "red";

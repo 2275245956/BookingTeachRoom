@@ -63,7 +63,9 @@ class _RecordListScreenState extends State<StudentApplyRecord>
       setState(() {
         if (data.success && data.dataList != null) {
           for (var str in data.dataList) {
-            selectNumber.add(str["attriText01"]);
+            if(str["status"]!="申请取消(学生)"){
+              selectNumber.add(str["attriText01"]);
+            }
           }
         }
       });
@@ -113,21 +115,6 @@ class _RecordListScreenState extends State<StudentApplyRecord>
             brightness: Brightness.light,
             backgroundColor: Colors.white,
             actions: <Widget>[
-//              GestureDetector(
-//                child: Container(
-//                  child: Image.asset(
-//                    "assets/images/search_red.png",
-//                    width: 22,
-//                  ),
-//                  padding: EdgeInsets.only(right: 20),
-//                ),
-//                onTap: () {
-//                  Navigator.push(context,
-//                      new MaterialPageRoute(builder: (context) {
-//                    return StudentApplySearchPage(false);
-//                  }));
-//                },
-//              )
             ],
             leading: new Container(
               child: GestureDetector(
@@ -151,21 +138,6 @@ class _RecordListScreenState extends State<StudentApplyRecord>
           brightness: Brightness.light,
           backgroundColor: Colors.white,
           actions: <Widget>[
-//            GestureDetector(
-//              child: Container(
-//                child: Image.asset(
-//                  "assets/images/search_red.png",
-//                  width: 22,
-//                ),
-//                padding: EdgeInsets.only(right: 20),
-//              ),
-//              onTap: () {
-//                Navigator.push(context,
-//                    new MaterialPageRoute(builder: (context) {
-//                  return StudentApplySearchPage(false);
-//                }));
-//              },
-//            )
           ],
           leading: new Container(
             child: GestureDetector(
@@ -211,7 +183,13 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                                       MaterialPageRoute(builder: (context) {
                                     return StudentApplyLambDetail(
                                         initRecordData[index]);
-                                  }));
+                                  })).then((_){
+                                    setState(() {
+                                      pageNum=1;
+                                      initRecordData=[];
+                                      _InitData();
+                                    });
+                                  });
                                 },
                                 child: Container(
                                   child: Card(
@@ -220,7 +198,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                                     margin: EdgeInsets.only(
                                         top: 5, left: 3, right: 3),
                                     child: new Container(
-                                        height: 133.0,
+                                        height: 110.0,
 //                                          margin: EdgeInsets.only(top: 5,left: 20,right: 20),
                                         child: Row(
                                           children: <Widget>[
@@ -259,10 +237,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                                                       ),
                                                     ],
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsets.only(top: 5),
-                                                  ),
+
                                                   Row(
                                                     children: <Widget>[
                                                       Padding(
@@ -296,14 +271,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                                                               fontSize: 12),
                                                         ),
                                                       ),
-                                                      new Icon(
-                                                        Icons
-                                                            .keyboard_arrow_right,
-                                                        color:
-                                                            GetConfig.getColor(
-                                                                theme),
-                                                        size: 28,
-                                                      ),
+
                                                     ],
                                                   ),
                                                   Row(
@@ -311,7 +279,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                                                       Padding(
                                                         padding:
                                                             EdgeInsets.only(
-                                                                left: 10),
+                                                                left: 10,top:10),
                                                       ),
                                                       Text(
                                                         "实验开始时间:",

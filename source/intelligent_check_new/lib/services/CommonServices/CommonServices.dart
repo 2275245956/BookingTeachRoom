@@ -1,3 +1,4 @@
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intelligent_check_new/model/APIResponse.dart';
 import 'package:intelligent_check_new/services/api_address.dart';
 import 'package:intelligent_check_new/tools/HttpUtil.dart';
@@ -14,4 +15,9 @@ Future<APIResponse> ChangePwq(String newPass,String oldPass,String repeatNewPass
   } catch (e) {
     throw e;
   }
+}
+
+Future<APIResponse> GetTodaysTask(String account,String date,String role) async{
+ var data=await HttpUtil().get(ApiAddress.GetTodaysTask+"?account=$account&date=$date&role=$role");
+ return APIResponse.fromJson(data);
 }

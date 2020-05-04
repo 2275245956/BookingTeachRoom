@@ -40,6 +40,8 @@ class ApiAddress {
   static const String GETAllPassedLamInfoByTNumber="/common/likeQueryExpApplyT";
   static const String UPFILE="/import";
   static const String GetExpModel="/common/getExpDetailByT";
+  static const String GetTodaysTask="/common/getExpInfo";
+
   ///消息接口
   static  const String GetAllMessage="/push/findPushInfoByAccount";
  static const  String ReadMessage="/push/updateReaded";

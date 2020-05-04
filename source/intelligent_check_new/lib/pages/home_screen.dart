@@ -64,8 +64,6 @@ class _HomeScreenState extends State<HomeScreen>
 
     try {
 
-      List<String> tags = List();
-
       jpush.addEventHandler(
         onReceiveNotification: (Map<String, dynamic> message) async {
           print("flutter onReceiveNotification: $message");

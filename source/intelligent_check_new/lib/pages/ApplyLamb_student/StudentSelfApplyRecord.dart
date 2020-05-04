@@ -1,14 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:dropdown_menu/dropdown_menu.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/StuApplyLamModel.dart';
-import 'package:intelligent_check_new/model/Lamb/ApplyLam/TeacherApplyRecord.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
-import 'package:intelligent_check_new/pages/ApplyLamb_student/StudentApplyLambDetail.dart';
-
-//import 'package:intelligent_check_new/pages/ApplyLamb_student/StudentApplyLambDetailForCandcel.dart';
-import 'package:intelligent_check_new/pages/ApplyLamb_student/StudentApplySearchPage.dart';
 import 'package:intelligent_check_new/services/StudentServices/StudentOperate.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -37,9 +31,7 @@ class _RecordListScreenState extends State<StudentSelfApplyRecord>
   String theme = "red";
   UserModel userInfo;
 
-  String status = "0";
-  String tNumber = "";
-
+  var reqNumber="0";
   @override
   void initState() {
     super.initState();
@@ -66,6 +58,15 @@ class _RecordListScreenState extends State<StudentSelfApplyRecord>
           initRecordData.add(new StuApplyModel.fromJson(str));
         });
       }
+    }
+  }
+  void CancelApply() async {
+    var data = await StuCalcelApply(reqNumber);
+    if (data.success) {
+      GetConfig.popUpMsg(data.message ?? "操作成功！");
+      Navigator.pop(context);
+    } else {
+      GetConfig.popUpMsg(data.message ?? "操作失败");
     }
   }
 
@@ -121,140 +122,168 @@ class _RecordListScreenState extends State<StudentSelfApplyRecord>
             //ListView的Item
             itemCount: initRecordData.length,
             itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                  onTap: () {
-                    //Navigator.push(context,new MaterialPageRoute(builder: (context)=>StudentApplyLambDetailForCancel(initRecordData[index])));
-                  },
-                  child: Container(
-                    child: Card(
-                      elevation: 2,
-                      margin: EdgeInsets.only(
-                          top: 5, left: 3, right: 3),
-                      child: new Container(
-                          height: 120.0,
-//                                          margin: EdgeInsets.only(top: 5,left: 20,right: 20),
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                width: 8,
-                                height: 120,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(4),
-                                      bottomLeft:
-                                      Radius.circular(4)),
-                                  color: getPointColor(
-                                      initRecordData[index]
-                                          .status),
-                                ),
+
+              return Slidable(
+                actionPane: SlidableDrawerActionPane(),
+                actionExtentRatio: 0.25,
+                child: Container(
+                  child: Card(
+                    elevation: 2,
+                    margin: EdgeInsets.only(
+                        top: 5, left: 3, right: 3),
+                    child: new Container(
+                        height: 110.0,
+                        child: Row(
+                          children: <Widget>[
+                            Container(
+                              width: 8,
+                              height: 110,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(4),
+                                    bottomLeft:
+                                    Radius.circular(4)),
+                                color: getPointColor(
+                                    initRecordData[index]
+                                        .status),
                               ),
-                              Container(
-                                padding: EdgeInsets.only(
-                                    left: 8, top: 5),
-                                child: Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    new Text(
-                                      "${index + 1}.  ${initRecordData[index].eName}",
-                                      style: new TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight:
-                                          FontWeight.w500),
-                                    ),
-                                    Padding(
-                                      padding:
-                                      EdgeInsets.only(top: 5),
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        Padding(
-                                          padding:
-                                          EdgeInsets.only(
-                                              left: 10),
-                                        ),
-                                        Text(
-                                          "教师:${initRecordData[index].eTName}",
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(
+                                  left: 8, top: 5),
+                              child: Column(
+                                crossAxisAlignment:
+                                CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  new Text(
+                                    "${index + 1}.  ${initRecordData[index].eName}",
+                                    style: new TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight:
+                                        FontWeight.w500),
+                                  ),
+                                  Padding(
+                                    padding:
+                                    EdgeInsets.only(top: 5),
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding:
+                                        EdgeInsets.only(
+                                            left: 10),
+                                      ),
+                                      Text(
+                                        "教师:${initRecordData[index].eTName}",
+                                        style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Container(
+                                        padding:
+                                        EdgeInsets.only(
+                                            left: 10),
+                                        width: MediaQuery.of(
+                                            context)
+                                            .size
+                                            .width -
+                                            50,
+                                        child: Text(
+                                          "学生：${initRecordData[index].sName}(${initRecordData[index].sNumber})",
                                           style: TextStyle(
-                                              color: Colors.grey,
+                                              color:
+                                              Colors.grey,
                                               fontSize: 12),
                                         ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        Container(
-                                          padding:
-                                          EdgeInsets.only(
-                                              left: 10),
-                                          width: MediaQuery.of(
-                                              context)
-                                              .size
-                                              .width -
-                                              50,
-                                          child: Text(
-                                            "学生：${initRecordData[index].sName}(${initRecordData[index].sNumber})",
-                                            style: TextStyle(
-                                                color:
-                                                Colors.grey,
-                                                fontSize: 12),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        Padding(
-                                          padding:
-                                          EdgeInsets.only(
-                                              left: 10),
-                                        ),
-                                        Text(
-                                          "当前状态:",
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 12),
-                                        ),
-                                        Text(
-                                          "${initRecordData[index].status}",
-                                          style: TextStyle(
-                                              color: getPointColor(
-                                                  initRecordData[
-                                                  index]
-                                                      .status),
-                                              fontSize: 12),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        Padding(
-                                          padding:
-                                          EdgeInsets.only(
-                                              left: 10),
-                                        ),
-                                        Text(
-                                          "时间:",
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 12),
-                                        ),
-                                        Text(
-                                          "${initRecordData[index].eStarttime} ~ ${initRecordData[index].eEndtime}",
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 12),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          )),
-                    ),
-//                                          margin: EdgeInsets.only(left: 10,right: 10),
-                  ));
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding:
+                                        EdgeInsets.only(
+                                            left: 10),
+                                      ),
+                                      Text(
+                                        "当前状态:",
+                                        style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 12),
+                                      ),
+                                      Text(
+                                        "${initRecordData[index].status}",
+                                        style: TextStyle(
+                                            color: getPointColor(
+                                                initRecordData[
+                                                index]
+                                                    .status),
+                                            fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding:
+                                        EdgeInsets.only(
+                                            left: 10),
+                                      ),
+                                      Text(
+                                        "时间:",
+                                        style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 12),
+                                      ),
+                                      Text(
+                                        "${initRecordData[index].eStarttime} ~ ${initRecordData[index].eEndtime}",
+                                        style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        )),
+                  ),
+                ),
+                secondaryActions: <Widget>[
+                  Card(
+                    elevation: 2,
+                    margin: EdgeInsets.only(
+                        top: 5, right: 3),
+                    child: new Container(
+                        height: 110.0,
+                        child:  IconSlideAction(
+                          caption: '取消申请',
+                          color: GetConfig.getColor(theme),
+                          icon: Icons.delete_forever,
+                          onTap: () {
+                           if (initRecordData[index].status == "申请通过(教师)" ||
+                                initRecordData[index].status == "申请通过(管理员)") {
+                              GetConfig.IOSPopMsg(
+                                  "提示", Text("该实验已经通过审核，请联系管理员或者教师！"), context);
+                              return false;
+                            }else if(initRecordData[index].status=="申请提交(学生)"){
+                              setState(() {
+                                reqNumber=initRecordData[index].reqNumber;
+                              });
+                              GetConfig.IOSPopMsg(
+                                  "取消提示", Text("确认取消该实验？"), context,confirmFun: CancelApply);
+                            }
+                          },
+                        ),),
+                  ),
+                ],
+              );
+
             },
           ),),
           inAsyncCall: isAnimating,

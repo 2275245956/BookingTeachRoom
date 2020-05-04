@@ -203,6 +203,30 @@ class _ApplyLambDetail extends State<CheckApplyLambDetail> {
                       )
                     ],
                   ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          padding:
+                          EdgeInsets.only(left: 10, top: 10, bottom: 10),
+//height: 50,
+                          child: Text(
+                            "已选人数",
+                            style: TextStyle(color: Colors.black, fontSize: 18),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 7,
+                        child: Text(
+                          "${expModel.rNowPer}",
+                          style: TextStyle(
+                              color: GetConfig.getColor(theme), fontSize: 18),
+                        ),
+                      )
+                    ],
+                  ),
                   Container(
                     color: Color.fromRGBO(242, 246, 249, 1),
                     height: 10,

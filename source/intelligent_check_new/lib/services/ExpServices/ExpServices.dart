@@ -39,3 +39,14 @@ Future<APIResponse> CheckStuApply(String reqNumber,int status) async {
     throw e;
   }
 }
+
+
+Future<APIResponse>GetAllTeachlambInfoByStatus(String  status) async{
+  try {
+    var data = await new HttpUtil().get(ApiAddress.GETAllPassedLamInfoByTNumber+"?status=$status");
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}
+
