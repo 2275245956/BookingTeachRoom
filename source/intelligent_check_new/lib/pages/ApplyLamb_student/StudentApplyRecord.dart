@@ -193,7 +193,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                                 },
                                 child: Container(
                                   child: Card(
-                                    color: initRecordData[index].selected?Colors.lightGreen:Colors.white,
+                                    color: Colors.white,
                                     elevation: 2,
                                     margin: EdgeInsets.only(
                                         top: 5, left: 3, right: 3),
@@ -202,6 +202,17 @@ class _RecordListScreenState extends State<StudentApplyRecord>
 //                                          margin: EdgeInsets.only(top: 5,left: 20,right: 20),
                                         child: Row(
                                           children: <Widget>[
+                                            Container(
+                                              width: 8,
+                                              height: 120,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                    topLeft: Radius.circular(4),
+                                                    bottomLeft:
+                                                    Radius.circular(4)),
+                                                color:initRecordData[index].selected?Colors.green:Colors.orange,
+                                              ),
+                                            ),
                                             Container(
                                               padding: EdgeInsets.only(
                                                   left: 8, top: 5),
@@ -213,7 +224,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                                                     "${index + 1}.  ${initRecordData[index].eName}",
                                                     style: new TextStyle(
                                                         fontSize: 18.0,
-                                                        color: initRecordData[index].selected?Colors.red:Colors.black,
+                                                        color: GetConfig.getColor(theme),
                                                         fontWeight:
                                                             FontWeight.w500),
                                                   ),
@@ -231,7 +242,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                                                       Text(
                                                         "教师:${initRecordData[index].tName} ",
                                                         style: TextStyle(
-                                                            color:initRecordData[index].selected?Colors.red:Colors.black,
+                                                            color:Colors.black,
 
                                                             fontSize: 12),
                                                       ),
@@ -248,7 +259,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                                                       Text(
                                                         "教室名称及编号:${initRecordData[index].rNumber} (人数<最多/已选>：${initRecordData[index].rMaxPer}/${initRecordData[index].rNowPer})",
                                                         style: TextStyle(
-                                                            color:initRecordData[index].selected?Colors.red:Colors.black,
+                                                            color:Colors.black,
                                                             fontSize: 12),
                                                       ),
                                                     ],
@@ -267,7 +278,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                                                         child: Text(
                                                           "节次：${initRecordData[index].section}",
                                                           style: TextStyle(
-                                                              color:initRecordData[index].selected?Colors.red:Colors.black,
+                                                              color:Colors.black,
                                                               fontSize: 12),
                                                         ),
                                                       ),
@@ -284,13 +295,13 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                                                       Text(
                                                         "实验开始时间:",
                                                         style: TextStyle(
-                                                            color:initRecordData[index].selected?Colors.red:Colors.black,
+                                                            color:Colors.black,
                                                             fontSize: 12),
                                                       ),
                                                       Text(
                                                         "${DateFormat("yyyy年MM月dd日(EEEE)", "zh").format(DateTime.parse(initRecordData[index].sDate))}",
                                                         style: TextStyle(
-                                                            color:initRecordData[index].selected?Colors.red:Colors.black,
+                                                            color:Colors.black,
                                                             fontSize: 12),
                                                       ),
                                                     ],
@@ -299,7 +310,9 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                                               ),
                                             )
                                           ],
-                                        )),
+                                        )
+
+                                    ),
                                   ),
 //                                          margin: EdgeInsets.only(left: 10,right: 10),
                                 ));

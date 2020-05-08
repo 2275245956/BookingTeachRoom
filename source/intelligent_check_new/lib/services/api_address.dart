@@ -41,6 +41,8 @@ class ApiAddress {
   static const String UPFILE="/import";
   static const String GetExpModel="/common/getExpDetailByT";
   static const String GetTodaysTask="/common/getExpInfo";
+  static const String GetAllCheckStuByStatus="/common/likeQueryExpApplyS";
+
 
   ///消息接口
   static  const String GetAllMessage="/push/findPushInfoByAccount";

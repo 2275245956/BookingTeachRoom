@@ -46,6 +46,7 @@ class _RecordListScreenState extends State<ExpCheckStudentApply>
   String eName = "";
   int checkStatus=0;
   String reqNumber="";
+  String statusDesc="申请通过(教师)";
 
   @override
   void initState() {
@@ -72,7 +73,7 @@ class _RecordListScreenState extends State<ExpCheckStudentApply>
     setState(() {
       isAnimating=true;
     });
-    var data = await getAllStudentApplyLam(pageNum);
+    var data = await GetAllCheckStuByStatus(pageNum,statusDesc);
     if (data.success && data.dataList != "") {
       setState(() {
         hasNext = true;
@@ -163,264 +164,7 @@ class _RecordListScreenState extends State<ExpCheckStudentApply>
           ),
         ),
         body: ModalProgressHUD(
-          child:new Padding(
-              padding: new EdgeInsets.only(top: 0.0),
-              child: new Column(
-                children: <Widget>[
-                  new Expanded(
-                      child: new Stack(
-                        children: <Widget>[
-                          Center(
-
-                              child: EasyRefresh(
-                                key: _easyRefreshKey,
-                                behavior: ScrollOverBehavior(),
-                                refreshHeader: ClassicsHeader(
-                                  key: _headerKey,
-                                  bgColor: Colors.transparent,
-                                  textColor: Colors.black87,
-                                  moreInfoColor: Colors.black54,
-                                  showMore: true,
-                                ),
-                                refreshFooter: ClassicsFooter(
-                                  key: _footerKey,
-                                  bgColor: Colors.transparent,
-                                  textColor: Colors.black87,
-                                  moreInfoColor: Colors.black54,
-                                  showMore: true,
-                                ),
-                                child: ListView.builder(
-                                  itemCount: initRecordData.length,
-                                  itemBuilder: (BuildContext context, int index) {
-                                    return Slidable(
-                                      actionPane: SlidableDrawerActionPane(),
-                                      actionExtentRatio: 0.25,
-                                      child: Container(
-                                        color: Colors.white,
-                                        child: Card(
-                                          color: Color.fromRGBO(252, 249, 244, 1),
-                                          elevation:0,
-                                          margin: EdgeInsets.only(
-                                              top: 5, left: 3, right: 3),
-                                          child: new Container(
-                                              height: 100.0,
-                                              child: Row(
-                                                children: <Widget>[
-                                                  Container(
-                                                    width: 8,
-                                                    height: 100,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                        BorderRadius.only(
-                                                            topLeft: Radius
-                                                                .circular(4),
-                                                            bottomLeft:
-                                                            Radius.circular(
-                                                                4)),
-                                                        color:getPointColor(initRecordData[index].status)),
-                                                  ),
-                                                  Container(
-                                                    padding: EdgeInsets.only(
-                                                        left: 8, top: 5),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                      children: <Widget>[
-                                                        new Text(
-                                                          "${(index + 1)}.  ${initRecordData[index].eName}",
-                                                          style: new TextStyle(
-                                                              fontSize: 18.0,
-                                                              fontWeight:
-                                                              FontWeight.w500),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                          EdgeInsets.only(top: 5),
-                                                        ),
-                                                        Row(
-                                                          children: <Widget>[
-                                                            Padding(
-                                                              padding:
-                                                              EdgeInsets.only(
-                                                                  left: 10),
-                                                            ),
-                                                            Text(
-                                                              "学生姓名：${initRecordData[index].sName}",
-                                                              style: TextStyle(
-                                                                  color: Colors.grey,
-                                                                  fontSize: 12),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Row(
-                                                          children: <Widget>[
-                                                            Container(
-                                                              padding:
-                                                              EdgeInsets.only(
-                                                                  left: 10),
-                                                              width: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .width -
-                                                                  50,
-                                                              child: Text(
-                                                                "专业：${initRecordData[index].sMajor}",
-                                                                style: TextStyle(
-                                                                    color:
-                                                                    Colors.grey,
-                                                                    fontSize: 12),
-                                                              ),
-                                                            ),
-
-                                                          ],
-                                                        ),
-                                                        Row(
-                                                          children: <Widget>[
-                                                            Padding(
-                                                              padding:
-                                                              EdgeInsets.only(
-                                                                  left: 10),
-                                                            ),
-                                                            Text(
-                                                              "当前状态:",
-                                                              style: TextStyle(
-                                                                  color: Colors.grey,
-                                                                  fontSize: 12),
-                                                            ),
-                                                            Text(
-                                                              "${initRecordData[index].status}",
-                                                              style: TextStyle(
-                                                                  color:getPointColor(initRecordData[index].status),
-                                                                  fontSize: 12),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                          EdgeInsets.only(top: 5),
-                                                        ),
-
-                                                      ],
-                                                    ),
-                                                  )
-                                                ],
-                                              )),
-                                        ),
-                                      ),
-                                      secondaryActions: <Widget>[
-                                        IconSlideAction(
-                                          caption: '驳回',
-                                          color: GetConfig.getColor(theme),
-                                          icon: Icons.delete_forever,
-                                          onTap: () {
-                                            showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) {
-                                                  return CupertinoAlertDialog(
-                                                    title: Text("驳回提示"),
-                                                    content: Column(
-                                                      children: <Widget>[
-                                                        SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        Align(
-                                                          child: Text("确定驳回“${initRecordData[index].sName}”的实验申请？此操作无法撤回！"),
-                                                          alignment: Alignment(0, 0),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    actions: <Widget>[
-                                                      CupertinoDialogAction(
-                                                        child: Text("取消"),
-                                                        onPressed: () {
-                                                          Navigator.pop(context);
-                                                        },
-                                                      ),
-                                                      CupertinoDialogAction(
-                                                        child: Text("确定"),
-                                                        onPressed: (){
-                                                          CheckStuApply(initRecordData[index],10);
-                                                          Navigator.pop(context);
-                                                        },
-                                                      ),
-                                                    ],
-                                                  );
-                                                });
-                                          },
-                                        ),
-                                        IconSlideAction(
-                                          caption: '通过',
-                                          color: Colors.green,
-                                          icon: Icons.spellcheck,
-                                          onTap: () {
-                                            showDialog(
-                                                context: context,
-                                                builder: (BuildContext context) {
-                                                  return CupertinoAlertDialog(
-                                                    title: Text("提示"),
-                                                    content: Column(
-                                                      children: <Widget>[
-                                                        SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        Align(
-                                                          child: Text("确定执行该操作？"),
-                                                          alignment: Alignment(0, 0),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    actions: <Widget>[
-                                                      CupertinoDialogAction(
-                                                        child: Text("取消"),
-                                                        onPressed: () {
-                                                          Navigator.pop(context);
-                                                        },
-                                                      ),
-                                                      CupertinoDialogAction(
-                                                        child: Text("确定"),
-                                                        onPressed: (){
-                                                          CheckStuApply(initRecordData[index],9);
-                                                          Navigator.pop(context);
-                                                        },
-                                                      ),
-                                                    ],
-                                                  );
-                                                });
-
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                ),
-                                onRefresh: () async {
-                                  await new Future.delayed(const Duration(seconds: 1),
-                                          () {
-                                        setState(() {
-                                          pageNum = 1;
-                                          initRecordData = new List();
-                                        });
-                                        loadData();
-                                      });
-                                },
-                                loadMore: () async {
-                                  await new Future.delayed(const Duration(seconds: 1),
-                                          () {
-                                        if (hasNext) {
-                                          setState(() {
-                                            pageNum = pageNum + 1;
-
-                                          });
-                                          loadData();
-                                        }
-                                      });
-                                },
-                              )),
-
-                        ],
-                      ))
-                ],
-              )),
+          child:_getWidget(),
           inAsyncCall: isAnimating,
           opacity: 0.7,
           progressIndicator: CircularProgressIndicator(),
@@ -430,12 +174,9 @@ class _RecordListScreenState extends State<ExpCheckStudentApply>
 
   Color getPointColor(String status) {
     switch (status) {
-      case "申请提交(学生)":
-        return Colors.orange;
+
       case "申请通过(教师)":
-        return Colors.green;
-      case "申请退回(教师)":
-        return Colors.red;
+        return Colors.orange;
       case "申请通过(管理员)":
         return Colors.green;
       case "申请退回(管理员)":
@@ -443,6 +184,393 @@ class _RecordListScreenState extends State<ExpCheckStudentApply>
       default:
         return Colors.grey;
     }
+  }
+
+
+  Widget _getWidget() {
+    return buildInnerListHeaderDropdownMenu();
+  }
+
+  ScrollController scrollController = new ScrollController();
+  GlobalKey globalKey2 = new GlobalKey();
+
+  Widget buildInnerListHeaderDropdownMenu() {
+    return new DefaultDropdownMenuController(
+        onSelected: ({int menuIndex, int index, int subIndex, dynamic data}) {
+          if (menuIndex == 0) {
+            setState(() {
+              var id=data["id"].toString();
+              switch(id){
+                case "0":
+                  statusDesc="申请通过(教师)";
+                  break;
+                case "1":
+                  statusDesc="申请通过(教师)";
+                  break;
+                case "2":
+                  statusDesc="申请通过(管理员)";
+                  break;
+                case "3":
+                  statusDesc="申请退回(管理员)";
+                  break;
+              }
+
+              initRecordData = [];
+              loadData();
+            });
+          }
+        },
+        child: new Stack(
+          children: <Widget>[
+            new CustomScrollView(
+                controller: scrollController,
+                slivers: <Widget>[
+                  new SliverList(
+                      key: globalKey2,
+                      delegate: new SliverChildBuilderDelegate(
+                              (BuildContext context, int index) {
+                            return new Container(
+                              color: Colors.black26,
+                            );
+                          }, childCount: 1)),
+                  new SliverPersistentHeader(
+                    delegate: new DropdownSliverChildBuilderDelegate(
+                        builder: (BuildContext context) {
+                          return new Container(
+                              color: Colors.white,
+                              child: buildDropdownHeader(onTap: this._onTapHead));
+                        }),
+                    pinned: true,
+                    floating: true,
+                  ),
+                  new SliverList(
+                      delegate: new SliverChildBuilderDelegate(
+                              (BuildContext context, int index) {},
+                          childCount: 10)),
+                ]),
+            new Padding(
+                padding: new EdgeInsets.only(top: 46.0),
+                child: new Column(
+                  children: <Widget>[
+                    new Expanded(
+                        child: new Stack(
+                          children: <Widget>[
+                            Center(
+
+                                child: EasyRefresh(
+                                  key: _easyRefreshKey,
+                                  behavior: ScrollOverBehavior(),
+                                  refreshHeader: ClassicsHeader(
+                                    key: _headerKey,
+                                    bgColor: Colors.transparent,
+                                    textColor: Colors.black87,
+                                    moreInfoColor: Colors.black54,
+                                    showMore: true,
+                                  ),
+                                  refreshFooter: ClassicsFooter(
+                                    key: _footerKey,
+                                    bgColor: Colors.transparent,
+                                    textColor: Colors.black87,
+                                    moreInfoColor: Colors.black54,
+                                    showMore: true,
+                                  ),
+                                  child: ListView.builder(
+                                    itemCount: initRecordData.length,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      return Slidable(
+                                        actionPane: SlidableDrawerActionPane(),
+                                        actionExtentRatio: 0.25,
+                                        child: Container(
+                                          color: Colors.white,
+                                          child: Card(
+                                            color: Color.fromRGBO(252, 249, 244, 1),
+                                            elevation:0,
+                                            margin: EdgeInsets.only(
+                                                top: 5, left: 3, right: 3),
+                                            child: new Container(
+                                                height: 100.0,
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Container(
+                                                      width: 8,
+                                                      height: 100,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                          BorderRadius.only(
+                                                              topLeft: Radius
+                                                                  .circular(4),
+                                                              bottomLeft:
+                                                              Radius.circular(
+                                                                  4)),
+                                                          color:getPointColor(initRecordData[index].status)),
+                                                    ),
+                                                    Container(
+                                                      padding: EdgeInsets.only(
+                                                          left: 8, top: 5),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                        children: <Widget>[
+                                                          new Text(
+                                                            "${(index + 1)}.  ${initRecordData[index].eName}",
+                                                            style: new TextStyle(
+                                                                fontSize: 18.0,
+                                                                fontWeight:
+                                                                FontWeight.w500),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                            EdgeInsets.only(top: 5),
+                                                          ),
+                                                          Row(
+                                                            children: <Widget>[
+                                                              Padding(
+                                                                padding:
+                                                                EdgeInsets.only(
+                                                                    left: 10),
+                                                              ),
+                                                              Text(
+                                                                "学生姓名：${initRecordData[index].sName}",
+                                                                style: TextStyle(
+                                                                    color: Colors.grey,
+                                                                    fontSize: 12),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: <Widget>[
+                                                              Container(
+                                                                padding:
+                                                                EdgeInsets.only(
+                                                                    left: 10),
+                                                                width: MediaQuery.of(
+                                                                    context)
+                                                                    .size
+                                                                    .width -
+                                                                    50,
+                                                                child: Text(
+                                                                  "专业：${initRecordData[index].sMajor}",
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                      Colors.grey,
+                                                                      fontSize: 12),
+                                                                ),
+                                                              ),
+
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: <Widget>[
+                                                              Padding(
+                                                                padding:
+                                                                EdgeInsets.only(
+                                                                    left: 10),
+                                                              ),
+                                                              Text(
+                                                                "当前状态:",
+                                                                style: TextStyle(
+                                                                    color: Colors.grey,
+                                                                    fontSize: 12),
+                                                              ),
+                                                              Text(
+                                                                "${initRecordData[index].status}",
+                                                                style: TextStyle(
+                                                                    color:getPointColor(initRecordData[index].status),
+                                                                    fontSize: 12),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                            EdgeInsets.only(top: 5),
+                                                          ),
+
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                )),
+                                          ),
+                                        ),
+                                        secondaryActions: <Widget>[
+                                          IconSlideAction(
+                                            caption: '驳回',
+                                            color: GetConfig.getColor(theme),
+                                            icon: Icons.delete_forever,
+                                            onTap: () {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext context) {
+                                                    return CupertinoAlertDialog(
+                                                      title: Text("驳回提示"),
+                                                      content: Column(
+                                                        children: <Widget>[
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Align(
+                                                            child: Text("确定驳回“${initRecordData[index].sName}”的实验申请？此操作无法撤回！"),
+                                                            alignment: Alignment(0, 0),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      actions: <Widget>[
+                                                        CupertinoDialogAction(
+                                                          child: Text("取消"),
+                                                          onPressed: () {
+                                                            Navigator.pop(context);
+                                                          },
+                                                        ),
+                                                        CupertinoDialogAction(
+                                                          child: Text("确定"),
+                                                          onPressed: (){
+                                                            CheckStuApply(initRecordData[index],10);
+                                                            Navigator.pop(context);
+                                                          },
+                                                        ),
+                                                      ],
+                                                    );
+                                                  });
+                                            },
+                                          ),
+                                          IconSlideAction(
+                                            caption: '通过',
+                                            color: Colors.green,
+                                            icon: Icons.spellcheck,
+                                            onTap: () {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext context) {
+                                                    return CupertinoAlertDialog(
+                                                      title: Text("提示"),
+                                                      content: Column(
+                                                        children: <Widget>[
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Align(
+                                                            child: Text("确定执行该操作？"),
+                                                            alignment: Alignment(0, 0),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      actions: <Widget>[
+                                                        CupertinoDialogAction(
+                                                          child: Text("取消"),
+                                                          onPressed: () {
+                                                            Navigator.pop(context);
+                                                          },
+                                                        ),
+                                                        CupertinoDialogAction(
+                                                          child: Text("确定"),
+                                                          onPressed: (){
+                                                            CheckStuApply(initRecordData[index],9);
+                                                            Navigator.pop(context);
+                                                          },
+                                                        ),
+                                                      ],
+                                                    );
+                                                  });
+
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                  onRefresh: () async {
+                                    await new Future.delayed(const Duration(seconds: 1),
+                                            () {
+                                          setState(() {
+                                            pageNum = 1;
+                                            initRecordData = new List();
+                                          });
+                                          loadData();
+                                        });
+                                  },
+                                  loadMore: () async {
+                                    await new Future.delayed(const Duration(seconds: 1),
+                                            () {
+                                          if (hasNext) {
+                                            setState(() {
+                                              pageNum = pageNum + 1;
+
+                                            });
+                                            loadData();
+                                          }
+                                        });
+                                  },
+                                )),
+                            buildDropdownMenu(),
+                          ],
+                        ))
+                  ],
+                ))
+          ],
+        ));
+  }
+
+  void _onTapHead(int index) {
+    RenderObject renderObject = globalKey2.currentContext.findRenderObject();
+    DropdownMenuController controller =
+    DefaultDropdownMenuController.of(globalKey2.currentContext);
+    scrollController
+        .animateTo(scrollController.offset + renderObject.semanticBounds.height,
+        duration: new Duration(milliseconds: 150), curve: Curves.ease)
+        .whenComplete(() {
+      controller.show(index);
+    });
+  }
+
+  String titleAll = '待审核';
+
+  DropdownHeader buildDropdownHeader({DropdownMenuHeadTapCallback onTap}) {
+    return new DropdownHeader(
+      onTap: onTap,
+      titles: [titleAll],
+    );
+  }
+
+  static const int TYPE_INDEX = 0;
+  static const List<Map<String, dynamic>> TITLE_ALL_CONTENT = [
+    {"title": "待审核", "id": 1},
+    {"title": "审核通过", "id": 2},
+    {"title": "审核驳回", "id": 3},
+  ];
+
+  DropdownMenu buildDropdownMenu() {
+    return new DropdownMenu(
+        maxMenuHeight: kDropdownMenuItemHeight * 10,
+        menus: [
+          new DropdownMenuBuilder(
+              builder: (BuildContext context) {
+                return new DropdownListMenu(
+                  selectedIndex: TYPE_INDEX,
+                  data: TITLE_ALL_CONTENT,
+                  itemBuilder:
+                      (BuildContext context, dynamic data, bool selected) {
+                    return new Padding(
+                        padding: new EdgeInsets.all(3.0),
+                        child: new Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Text(
+                              defaultGetItemLabel(data),
+                              style: selected
+                                  ? new TextStyle(
+                                  fontSize: 14.0,
+                                  color: Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.w400)
+                                  : new TextStyle(fontSize: 14.0),
+                            ),
+                          ],
+                        ));
+                  },
+                );
+              },
+              height: kDropdownMenuItemHeight * TITLE_ALL_CONTENT.length),
+        ]);
   }
 
 }

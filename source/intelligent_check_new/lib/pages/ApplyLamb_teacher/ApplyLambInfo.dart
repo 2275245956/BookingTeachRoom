@@ -74,7 +74,6 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
   }
 
   void SaveInfo() async {
-    List<postFilter> list = new List();
     var data=[];
     for (var str in this.widget.selDateMa) {
       var jsonStr = {
@@ -90,7 +89,6 @@ class _ApplyLambInfo extends State<ApplyLambInfo> {
         "eName": lambName.text,
         "remark": remark.text
       };
-
       data.add(jsonStr);
     }
     await SaveApplyIfo(data).then((data) {

@@ -137,7 +137,7 @@ class _RecordListScreenState extends State<StudentSelfApplyRecord>
                           children: <Widget>[
                             Container(
                               width: 8,
-                              height: 110,
+                              height: 120,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(4),
@@ -260,7 +260,7 @@ class _RecordListScreenState extends State<StudentSelfApplyRecord>
                     margin: EdgeInsets.only(
                         top: 5, right: 3),
                     child: new Container(
-                        height: 110.0,
+                        height: 120.0,
                         child:  IconSlideAction(
                           caption: '取消申请',
                           color: GetConfig.getColor(theme),

@@ -30,7 +30,14 @@ Future<APIResponse> getAllStudentApplyLam(int pageNumber) async {
     throw e;
   }
 }
-
+Future<APIResponse> GetAllCheckStuByStatus(int pageNumber,String status) async {
+  try {
+    var data = await HttpUtil().get(ApiAddress.GetAllCheckStuByStatus + "?keywords=$status&pageNum=$pageNumber");
+    return APIResponse.fromJson(data);
+  } catch (e) {
+    throw e;
+  }
+}
 Future<APIResponse> CheckStuApplyExpAdmin(String reqNumber,int status) async {
   try {
     var data = await HttpUtil().post(ApiAddress.CHECKSTUAPPLY + "?reqNumber=$reqNumber&status=$status");
