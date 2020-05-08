@@ -63,7 +63,13 @@ class _RecordListScreenState extends State<MyMessagePage>
        for(MessageModel m in MessageList){
          if(m.readed)continue;
          var res= await readAllMessage(m.id);
-         if(!res.success)print("失败====================================");
+         if(!res.success){
+           print("失败====================================");
+         }else{
+           setState(() {
+             m.readed=true;
+           });
+         }
        }
      }else{
        var res=await readAllMessage(id);

@@ -198,7 +198,7 @@ class _RecordListScreenState extends State<StudentApplyRecord>
                                     margin: EdgeInsets.only(
                                         top: 5, left: 3, right: 3),
                                     child: new Container(
-                                        height: 110.0,
+                                        height: 120.0,
 //                                          margin: EdgeInsets.only(top: 5,left: 20,right: 20),
                                         child: Row(
                                           children: <Widget>[

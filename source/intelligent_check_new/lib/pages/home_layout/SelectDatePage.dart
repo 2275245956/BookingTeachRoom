@@ -36,11 +36,14 @@ class _TimePage extends State<SelectDatePage> {
       });
     });
     var data=await GetTodaysTask(userInfo.account,selDate,userInfo.role);
+    setState(() {
+      list=[];
+    });
     if(data.success){
 
       if(!mounted){return;}
       setState(() {
-        list=[];
+
         for (var str in data.dataList) {
           var model=  ExpModel.fromJson((str));
           list.add(model);
@@ -51,10 +54,12 @@ class _TimePage extends State<SelectDatePage> {
   void searchNewData(date) async{
     selDate=DateFormat("yyyy/MM/dd").format(date).toString();
     var data=await GetTodaysTask(userInfo.account,selDate,userInfo.role);
+    setState(() {
+      list=[];
+    });
     if(data.success){
       if(!mounted){return;}
       setState(() {
-        list=[];
         for (var str in data.dataList) {
         var model=  ExpModel.fromJson((str));
         list.add(model);

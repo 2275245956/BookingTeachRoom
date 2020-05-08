@@ -98,7 +98,7 @@ class _RecordListScreenState extends State<CheckedApplyStudent>
     setState(() {
       isAnimating=true;
     });
-    var data= await CheckStuApply(tempModel.reqNumber,status);
+    var data= await CheckStudentApplyTeacher(tempModel.reqNumber,status);
     if(data.success){
       GetConfig.popUpMsg(data.message??"操作成功");
       setState(() {

@@ -132,7 +132,7 @@ class _RecordListScreenState extends State<StudentSelfApplyRecord>
                     margin: EdgeInsets.only(
                         top: 5, left: 3, right: 3),
                     child: new Container(
-                        height: 110.0,
+                        height: 120.0,
                         child: Row(
                           children: <Widget>[
                             Container(

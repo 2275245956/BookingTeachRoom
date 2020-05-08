@@ -31,7 +31,7 @@ Future<APIResponse> getAllStudentApplyLam(int pageNumber) async {
   }
 }
 
-Future<APIResponse> CheckStuApply(String reqNumber,int status) async {
+Future<APIResponse> CheckStuApplyExpAdmin(String reqNumber,int status) async {
   try {
     var data = await HttpUtil().post(ApiAddress.CHECKSTUAPPLY + "?reqNumber=$reqNumber&status=$status");
     return APIResponse.fromJson(data);

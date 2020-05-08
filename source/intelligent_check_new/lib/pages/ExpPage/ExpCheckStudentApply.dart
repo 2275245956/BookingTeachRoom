@@ -104,7 +104,7 @@ class _RecordListScreenState extends State<ExpCheckStudentApply>
     setState(() {
       isAnimating=true;
     });
-    var data= await CheckStudentApplyTeacher(tempModel.reqNumber,status);
+    var data= await CheckStuApplyExpAdmin(tempModel.reqNumber,status);
     if(data.success){
       GetConfig.popUpMsg(data.message??"操作成功");
       setState(() {
@@ -113,8 +113,6 @@ class _RecordListScreenState extends State<ExpCheckStudentApply>
     }else{
       GetConfig.popUpMsg(data.message??"操作失败");
     }
-
-
     setState(() {
       isAnimating=false;
     });
