@@ -637,7 +637,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                                   size: 32, color: GetConfig.getColor(theme)),
                               text: "批量新增用户",
                               textStyle: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 11,
                                   color: Color.fromRGBO(153, 153, 153, 1)),
                               color: Colors.white,
                             ),
@@ -811,7 +811,7 @@ class _HomeFunctionState extends State<HomeFunction> {
                                   size: 32, color: GetConfig.getColor(theme)),
                               text: "作息时间配置",
                               textStyle: TextStyle(
-                                  fontSize: 13,
+                                  fontSize:11,
                                   color: Color.fromRGBO(153, 153, 153, 1)),
                               color: Colors.white,
                             ),
