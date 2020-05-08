@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
+import 'package:intelligent_check_new/pages/ImageViewPage.dart';
 import 'package:intelligent_check_new/pages/navigation_keep_alive.dart';
 import 'package:intelligent_check_new/services/SystemService/SystemConfigService.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
@@ -21,7 +22,7 @@ class _ScheduleSettingPage extends State<FileUpLoad> {
   bool canOperate = true;
   List<UserModel> upUserList = new List();
   String theme = "red";
-
+  List<String> imageList=new List();
   void getFile() async {
     setState(() {
       upUserList=new List();
@@ -104,6 +105,20 @@ class _ScheduleSettingPage extends State<FileUpLoad> {
                       style: TextStyle(
                           color: GetConfig.getColor(theme), fontSize: 12),
                     ),
+                  ),
+                  GestureDetector(
+                    child: Container(
+                    padding: EdgeInsets.all(10),
+                    alignment: Alignment.centerLeft,
+                    child:Image(image: AssetImage('assets/images/template.jpg')),
+                  ),
+                    onTap: (){
+                      imageList.add("assets/images/template.jpg");
+                      Navigator.push(context,
+                          new MaterialPageRoute(builder: (context) {
+                            return PhotoViewPage(imageList,true);
+                          }));
+                    },
                   ),
                   Divider(),
                   upUserList!=null &&upUserList.length>0?Container(
