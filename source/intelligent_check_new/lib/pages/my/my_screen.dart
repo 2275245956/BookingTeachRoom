@@ -126,7 +126,7 @@ class _MyScreenState extends State<MyScreen>
                               color: Color(0Xff353535),
                             ),
                           ),
-                          Text("${userInfo.deptName}" ,
+                          Text("${userInfo.deptName ??''}" ,
                             style: TextStyle(
                               fontSize: 14.0,
                               color: Color(0Xffa9a9a9),

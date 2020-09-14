@@ -10,6 +10,7 @@ import 'package:intelligent_check_new/pages/ApplyLamb_teacher/CheckedApplyStuden
 import 'package:intelligent_check_new/pages/ApplyLamb_teacher/SelectSection.dart';
 import 'package:intelligent_check_new/pages/ExpPage/ExpCheckStudentApply.dart';
 import 'package:intelligent_check_new/pages/ExpPage/TeachApplyCheck.dart';
+import 'package:intelligent_check_new/pages/LambsManage/Lambs_list.dart';
 import 'package:intelligent_check_new/pages/SystemSettings/ScheduleSettingPage.dart';
 import 'package:intelligent_check_new/pages/SystemSettings/StudentsManagePage.dart';
 import 'package:intelligent_check_new/pages/SystemSettings/UpLoadFileData.dart';
@@ -709,31 +710,6 @@ class _HomeFunctionState extends State<HomeFunction> {
                               width: 80,
                               height: 40,
                               padding: EdgeInsets.all(0),
-                              icon: Icon(Icons.class_,
-                                  size: 32, color: GetConfig.getColor(theme)),
-                              text: "实验室分配",
-                              textStyle: TextStyle(
-                                  fontSize: 13,
-                                  color: Color.fromRGBO(153, 153, 153, 1)),
-                              color: Colors.white,
-                            ),
-                            onTap: () {},
-                          )),
-                      Container(
-                          height: 82,
-                          width: 82,
-                          decoration: new BoxDecoration(
-                            borderRadius: new BorderRadius.only(
-                                bottomLeft: Radius.circular(5)),
-                            color: Colors.white,
-                            border: new Border.all(
-                                width: 0.5, color: Colors.grey[100]),
-                          ),
-                          child: GestureDetector(
-                            child: EachTab(
-                              width: 80,
-                              height: 40,
-                              padding: EdgeInsets.all(0),
                               icon: Icon(Icons.assignment,
                                   size: 32, color: GetConfig.getColor(theme)),
                               text: "实验室管理",
@@ -742,7 +718,9 @@ class _HomeFunctionState extends State<HomeFunction> {
                                   color: Color.fromRGBO(153, 153, 153, 1)),
                               color: Colors.white,
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(context, new MaterialPageRoute(builder: (context){return new LambsManage();}));
+                            },
                           )),
                     ],
                     shrinkWrap: true,

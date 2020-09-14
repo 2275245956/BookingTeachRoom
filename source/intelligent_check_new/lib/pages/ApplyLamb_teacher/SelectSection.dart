@@ -149,7 +149,7 @@ class _SelectSection extends State<SelectSection>
     DatePicker.showDatePicker(
       context,
       minDateTime: DateTime.now(),
-      maxDateTime: DateTime.now().add(Duration(days: 365)),
+      maxDateTime: DateTime.now().add(Duration(days: 150)),
       initialDateTime: initDateTime,
       dateFormat: _format,
       locale: DateTimePickerLocale.zh_cn,
