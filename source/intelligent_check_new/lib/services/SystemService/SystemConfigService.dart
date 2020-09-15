@@ -92,3 +92,12 @@ Future<APIResponse> ADDUSER(dynamic jsonData) async{
     throw e;
   }
 }
+
+Future<APIResponse> GETALLLAMBS() async{
+  try{
+    var data=await new HttpUtil().get(ApiAddress.ALLLAMS);
+    return APIResponse.fromJson(data);
+  }catch(e){
+    throw e;
+  }
+}

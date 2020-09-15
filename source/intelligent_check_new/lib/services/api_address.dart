@@ -12,6 +12,10 @@ class ApiAddress {
   static const String DELETEUSER="/sysAdmin/delSysUser";
   static const String UPDATEUSER="/sysAdmin/upSysUser";
   static const String ADDUSER="/sysAdmin/addSysUser";
+  static const String ADDLAMB="/sysAdmin/addRoomInfo";
+  static const String ALLLAMS="/sysAdmin/selectAllRoomInfo";
+  static const String UPDATELMABINFO="/sysAdmin/upRoomInfo";
+  static const String DELETELAMB=" /sysAdmin/delRoomInfo";
 
   ///实验室申请=======================================教师
   static const String GET_EMPTYLAM="/tea/findEmptyRoom";
