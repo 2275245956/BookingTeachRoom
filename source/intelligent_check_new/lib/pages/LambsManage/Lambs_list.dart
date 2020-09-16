@@ -5,8 +5,10 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intelligent_check_new/model/Lamb/ApplyLam/RoomModel.dart';
 import 'package:intelligent_check_new/model/UserLoginModel/UserModel.dart';
+import 'package:intelligent_check_new/pages/LambsManage/Lambs_Add.dart';
 import 'package:intelligent_check_new/services/SystemService/SystemConfigService.dart';
 import 'package:intelligent_check_new/tools/GetConfig.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 
@@ -121,7 +123,7 @@ class _LambsManage extends State<LambsManage>
           elevation: 5,
           label: Text("新增"),
           onPressed: () {
-
+            Navigator.push(context,new MaterialPageRoute(builder: (context){return new LambsAdd_EditPage("add",null);}));
           },
         ),
         floatingActionButtonLocation:FloatingActionButtonLocation.endFloat,
@@ -216,7 +218,8 @@ class _LambsManage extends State<LambsManage>
                                             .width -
                                             50,
                                         child: Text(
-                                          "创建时间：${initData[index].createDate ??"--"}",
+
+                                          "创建时间：${DateFormat('yyyy年MM月dd日(EEEE)','zh').format(DateTime.parse(initData[index].createDate))}",
                                           style: TextStyle(
                                               color:
                                               Colors.grey,
@@ -227,6 +230,29 @@ class _LambsManage extends State<LambsManage>
                                     ],
                                   ),
 
+                                  Padding(padding:EdgeInsets.only(top:1),),
+                                  Row(
+                                    children: <Widget>[
+                                      Container(
+                                        padding:
+                                        EdgeInsets.only(
+                                            left: 10),
+                                        width: MediaQuery.of(
+                                            context)
+                                            .size
+                                            .width -
+                                            50,
+                                        child: Text(
+                                          "最近更新：${DateFormat('yyyy年MM月dd日(EEEE)','zh').format(DateTime.parse(initData[index].updateDate))}",
+                                          style: TextStyle(
+                                              color:
+                                              Colors.grey,
+                                              fontSize: 12),
+                                        ),
+                                      ),
+
+                                    ],
+                                  ),
                                 ],
                               ),
                             )
@@ -296,7 +322,7 @@ class _LambsManage extends State<LambsManage>
                           color: Colors.green,
                           icon: Icons.border_color,
                           onTap: () {
-
+                                Navigator.push(context,new MaterialPageRoute(builder: (context){return new LambsAdd_EditPage("edit",this.initData[index]);}));
                           },
                         ),),
                     ),

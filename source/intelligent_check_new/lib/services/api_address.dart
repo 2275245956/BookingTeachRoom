@@ -15,7 +15,7 @@ class ApiAddress {
   static const String ADDLAMB="/sysAdmin/addRoomInfo";
   static const String ALLLAMS="/sysAdmin/selectAllRoomInfo";
   static const String UPDATELMABINFO="/sysAdmin/upRoomInfo";
-  static const String DELETELAMB=" /sysAdmin/delRoomInfo";
+  static const String DELETELAMB="/sysAdmin/delRoomInfo";
 
   ///实验室申请=======================================教师
   static const String GET_EMPTYLAM="/tea/findEmptyRoom";
