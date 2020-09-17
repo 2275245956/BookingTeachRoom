@@ -51,20 +51,19 @@ class _LambsManage extends State<LambsManage>
     }
     setState(() {
       isAnimating=false;
-
     });
   }
 
-  void DeleteUser (UserModel model)async{
+  void DeleteRoom (RoomModel model)async{
     setState(() {
       isAnimating=true;
     });
-    var data=await DELETEUSERS(model.account);
+    var data=await DeleteLamb(model.id);
     if(data.success){
       initData.remove(model);
       GetConfig.popUpMsg("操作成功");
     }else{
-      GetConfig.popUpMsg("操作失败");
+      GetConfig.popUpMsg(data.message??"操作失败");
     }
     setState(() {
       isAnimating=false;
@@ -123,7 +122,14 @@ class _LambsManage extends State<LambsManage>
           elevation: 5,
           label: Text("新增"),
           onPressed: () {
-            Navigator.push(context,new MaterialPageRoute(builder: (context){return new LambsAdd_EditPage("add",null);}));
+            Navigator.push(context,new MaterialPageRoute(builder: (context){return new LambsAdd_EditPage("add",null);})).then((res){
+              if(res!=null && res){
+                setState(() {
+                  this.initData=[];
+                  loadData();
+                });
+              }
+            });
           },
         ),
         floatingActionButtonLocation:FloatingActionButtonLocation.endFloat,
@@ -299,7 +305,7 @@ class _LambsManage extends State<LambsManage>
                                       CupertinoDialogAction(
                                         child: Text("确定"),
                                         onPressed: (){
-
+                                          DeleteRoom(this.initData[index]);
                                           Navigator.pop(context);
                                         },
                                       ),
@@ -322,7 +328,14 @@ class _LambsManage extends State<LambsManage>
                           color: Colors.green,
                           icon: Icons.border_color,
                           onTap: () {
-                                Navigator.push(context,new MaterialPageRoute(builder: (context){return new LambsAdd_EditPage("edit",this.initData[index]);}));
+                                Navigator.push(context,new MaterialPageRoute(builder: (context){return new LambsAdd_EditPage("edit",this.initData[index]);})).then((res){
+                                              if(res!=null && res){
+                                                 setState(() {
+                                                   this.initData=[];
+                                                   loadData();
+                                                 });
+                                              }
+                                });
                           },
                         ),),
                     ),

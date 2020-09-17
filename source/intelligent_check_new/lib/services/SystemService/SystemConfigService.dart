@@ -101,3 +101,31 @@ Future<APIResponse> GETALLLAMBS() async{
     throw e;
   }
 }
+
+Future<APIResponse> AddLamb(dynamic jsonData) async{
+  try{
+    var data=await new HttpUtil().post(ApiAddress.ADDLAMB,data: json.encode(jsonData));
+    return APIResponse.fromJson(data);
+  }catch(e){
+    throw e;
+  }
+
+}
+
+Future<APIResponse> UpLambInfo(dynamic jsonData) async{
+  try{
+    var data=await new HttpUtil().post(ApiAddress.UPDATELMABINFO,data: json.encode(jsonData));
+    return APIResponse.fromJson(data);
+  }catch(e){
+    throw e;
+  }
+}
+
+Future<APIResponse> DeleteLamb(int id) async{
+  try{
+    var data=await new HttpUtil().post(ApiAddress.DELETELAMB+"?id=$id");
+    return APIResponse.fromJson(data);
+  }catch(e){
+    throw e;
+  }
+}

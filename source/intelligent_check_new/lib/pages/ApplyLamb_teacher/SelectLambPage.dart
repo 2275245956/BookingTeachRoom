@@ -211,7 +211,7 @@ class _SelLambScreen extends State<SelLambScreen>
                                 flex: 4,
                                 child: Container(
                                   alignment: Alignment.centerLeft,
-                                  child: Text(room.attriText01,
+                                  child: Text(room.attriText02,
                                       style: TextStyle(fontSize: 14)),
                                 ),
                               ),
